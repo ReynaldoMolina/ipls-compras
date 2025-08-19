@@ -43,3 +43,6 @@ next-env.d.ts
 #project config
 .vscode/
 !.vscode/settings.json
+
+#other files
+/other-files

@@ -23,7 +23,7 @@ export function LoginEmail({ label, name, placeHolder }: LoginInputProps) {
       </label>
       <div className="flex items-center relative">
         <input
-          className="w-full h-10 px-5 text-sm rounded-md border border-input-border dark:border-input-border-dark"
+          className="w-full h-10 px-3 text-sm rounded-md border border-input-border dark:border-input-border-dark"
           name={name}
           type="email"
           placeholder={placeHolder}
@@ -51,7 +51,7 @@ export function LoginPassword({ label, name, placeHolder }: LoginInputProps) {
       </label>
       <div className="flex items-center relative">
         <input
-          className="w-full h-10 px-5 text-sm rounded-md border border-input-border dark:border-input-border-dark"
+          className="w-full h-10 px-3 text-sm rounded-md border border-input-border dark:border-input-border-dark"
           name={name}
           type={isVisible ? 'text' : 'password'}
           placeholder={placeHolder}

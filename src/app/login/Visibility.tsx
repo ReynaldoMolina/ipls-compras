@@ -15,9 +15,6 @@ export default function Visibility({
     setIsVisible((state) => !state);
   }
 
-  const iconStyle: string =
-    'size-5 text-input-border dark:hover:text-white hover:text-brand-text';
-
   return (
     <button
       type="button"
@@ -25,9 +22,9 @@ export default function Visibility({
       onClick={handleClick}
     >
       {isVisible ? (
-        <VisibilityOffIcon className={iconStyle} />
+        <VisibilityOffIcon className="size-5 dark:hover:text-white hover:text-brand-text" />
       ) : (
-        <VisibilityIcon className={iconStyle} />
+        <VisibilityIcon className="size-5 text-input-border dark:hover:text-white hover:text-brand-text" />
       )}
     </button>
   );

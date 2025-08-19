@@ -2,19 +2,19 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <div className="flex flex-col gap-10 p-15 w-full md:w-100 justify-center items-center bg-brand-blue">
+    <div className="flex flex-col gap-10 p-10 w-full md:w-90 justify-center items-center bg-brand-blue">
       <Image
         src="/images/logo-blanco.png"
         width={90}
         height={50}
-        className="w-33"
+        className="w-25 text-white text-xs text-center"
         alt="Logo"
       />
       <Image
         src="/images/login.png"
         width={500}
         height={269}
-        className="w-full max-w-70 text-white text-xs"
+        className="w-full max-w-70 text-white text-xs text-center"
         alt="Persona revisando inventario y pagando en línea"
       />
       <div className="flex flex-col gap-1 items-center justify-center">
