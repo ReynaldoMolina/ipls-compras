@@ -6,6 +6,11 @@
   /* --foreground: #454545; */
 }
 
+[data-theme='dark'] {
+  --background: #1f1f21;
+  --foreground: #bfc1c4;
+}
+
 @theme inline {
   /* default */
   --color-background: var(--background);

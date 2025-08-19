@@ -17,7 +17,7 @@ export default function Header({ pageTitle }: { pageTitle: string }) {
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className="size-full rounded-full p-0.5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+          className="size-full rounded-full p-0.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
           onClick={() => router.back()}
         >
           <ArrowBack />

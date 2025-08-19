@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useTheme } from 'next-themes';
+import { useEffect, useRef, useState } from 'react';
 import PersonIcon from '@/icons/person.svg';
 import ContrastIcon from '@/icons/contrast.svg';
 import LogoutIcon from '@/icons/logout.svg';
@@ -12,11 +15,32 @@ interface Props {
 
 export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, systemTheme } = useTheme();
 
   useMenuClose(menuRef, buttonRef, setIsMenuOpen);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const menuItemClass =
     'flex items-center gap-4 px-5 py-2.5 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700';
+
+  function cycleTheme() {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
+  }
+
+  const themeLabel =
+    theme === 'system'
+      ? `Sistema (${systemTheme === 'dark' ? 'Oscuro' : 'Claro'})`
+      : theme === 'dark'
+        ? 'Oscuro'
+        : 'Claro';
 
   return (
     // menu container
@@ -46,9 +70,11 @@ export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
             <PersonIcon />
             Perfil
           </Link>
-          <button type="button" className={menuItemClass}>
+
+          {/* theme toggle */}
+          <button type="button" onClick={cycleTheme} className={menuItemClass}>
             <ContrastIcon className="h-4" />
-            Tema
+            Tema: {themeLabel}
           </button>
           <div className={menuItemClass}>
             <LogoutIcon />
