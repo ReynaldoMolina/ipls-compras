@@ -12,11 +12,11 @@ export default function LoginForm() {
   return (
     <form
       action=""
-      className="flex flex-col gap-6 items-center justify-center p-10 md:py-14 w-full md:w-90 md:border border-neutral-200 dark:border-neutral-800 md:rounded-r-4xl"
+      className="flex flex-col gap-6 items-center justify-center p-10 md:py-14 w-full md:w-90 md:border border-brand-border dark:border-brand-border-dark md:rounded-r-4xl"
     >
       {/* title */}
       <div className="flex flex-col gap-3">
-        <h1 className="text-title font-bold text-center">¡Bienvenido!</h1>
+        <h1 className="text-login-title font-bold text-center">¡Bienvenido!</h1>
         <p className="text-sm text-brand-gray text-center">
           Por favor ingresa tu información
         </p>

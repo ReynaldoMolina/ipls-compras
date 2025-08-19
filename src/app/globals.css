@@ -3,14 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #292a2e;
+  /* --foreground: #454545; */
 }
 
 @theme inline {
+  /* default */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --text-title: 1.3rem;
+  --text-login-title: 1.3rem;
+  --text-title: 1rem;
+  /* brand */
   --color-brand-text: #292a2e;
   --color-brand-blue: #1b2c65;
   --color-brand-blue-dark: #87a2ff;
@@ -18,16 +22,20 @@
   --color-brand-yellow: #ffb152;
   --color-brand-yellow-light: #fec887;
   --color-brand-gray: #6c6c6c;
+  /* borders */
   --color-input-border: #bcbcbc;
   --color-input-border-dark: #6c6c6c;
+  --color-brand-border: #dddedd;
+  --color-brand-border-dark: #37373a;
+  /* buttons */
   --color-new-green: #91f5b6;
   --color-new-green-hover: #3bff83;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1f1f21;
+    --foreground: #bfc1c4;
   }
 }
 

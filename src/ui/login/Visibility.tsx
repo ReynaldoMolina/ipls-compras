@@ -1,5 +1,5 @@
 import VisibilityIcon from '@/icons/visibility.svg';
-import VisibilityOffIcon from '@/icons/visibility-off.svg';
+import VisibilityOffIcon from '@/icons/visibility_off.svg';
 import { Dispatch, SetStateAction } from 'react';
 
 interface VisibilityProps {

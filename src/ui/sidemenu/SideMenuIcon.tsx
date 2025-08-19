@@ -1,8 +1,8 @@
-import ResumenIcon from '@/ui/sidemenu/icons/bar-chart.svg';
+import ResumenIcon from '@/ui/sidemenu/icons/bar_chart.svg';
 import ListIcon from '@/ui/sidemenu/icons/list.svg';
-import CartIcon from '@/ui/sidemenu/icons/shopping-cart.svg';
+import CartIcon from '@/ui/sidemenu/icons/shopping_cart.svg';
 import GroupsIcon from '@/ui/sidemenu/icons/groups.svg';
-import UserListIcon from '@/ui/sidemenu/icons/user-list.svg';
+import UserListIcon from '@/ui/sidemenu/icons/user_list.svg';
 import SettingsIcon from '@/ui/sidemenu/icons/settings.svg';
 
 const iconStyle = 'text-white dark:text-white';

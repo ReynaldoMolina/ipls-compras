@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex min-h-screen bg-red-950">
+    <main className="flex min-h-screen">
       <SideMenu />
       {children}
     </main>

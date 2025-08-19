@@ -19,7 +19,7 @@ export default function Hero() {
       />
       <div className="flex flex-col gap-1 items-center justify-center">
         <p className="text-xs text-white text-center">Sistema de gestión de</p>
-        <h1 className="text-white text-title font-bold">Compras</h1>
+        <h1 className="text-white text-login-title font-bold">Compras</h1>
       </div>
     </div>
   );
