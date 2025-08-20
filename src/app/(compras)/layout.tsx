@@ -6,9 +6,9 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex min-h-screen">
+    <main className="flex min-h-screen max-h-screen max-w-screen">
       <SideMenu />
-      {children}
+      <section className="flex flex-col gap-4 grow min-w-0">{children}</section>
     </main>
   );
 }

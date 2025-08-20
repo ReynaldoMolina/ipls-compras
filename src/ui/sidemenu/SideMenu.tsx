@@ -6,7 +6,7 @@ import { MenuItem } from './MenuItem';
 
 export default function SideMenu() {
   return (
-    <menu className="flex flex-col items-center gap-4 p-4 bg-brand-blue">
+    <menu className="flex flex-col items-center gap-4 p-4 bg-brand-blue min-w-fit">
       <Image
         src="/images/logo-blanco.png"
         width={90}

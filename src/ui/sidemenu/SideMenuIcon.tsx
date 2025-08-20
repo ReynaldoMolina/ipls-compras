@@ -4,10 +4,11 @@ import CartIcon from '@/ui/sidemenu/icons/shopping_cart.svg';
 import GroupsIcon from '@/ui/sidemenu/icons/groups.svg';
 import UserListIcon from '@/ui/sidemenu/icons/user_list.svg';
 import SettingsIcon from '@/ui/sidemenu/icons/settings.svg';
+import { PageId } from '@/types/types';
 
 const iconStyle = 'text-white dark:text-white';
 
-const icons = {
+const pageIcons = {
   resumen: <ResumenIcon className={iconStyle} />,
   solicitudes: <ListIcon className={iconStyle} />,
   ordenes: <CartIcon className={iconStyle} />,
@@ -16,8 +17,6 @@ const icons = {
   ajustes: <SettingsIcon className={iconStyle} />,
 };
 
-export type IconName = keyof typeof icons;
-
-export default function SideMenuIcon({ type }: { type: IconName }) {
-  return <>{icons[type]}</>;
+export default function SideMenuIcon({ pageId }: { pageId: PageId }) {
+  return <>{pageIcons[pageId]}</>;
 }

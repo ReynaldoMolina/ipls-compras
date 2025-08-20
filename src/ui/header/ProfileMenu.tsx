@@ -1,56 +1,34 @@
-'use client';
-
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
-import { useEffect, useRef, useState } from 'react';
-import PersonIcon from '@/icons/person.svg';
-import ContrastIcon from '@/icons/contrast.svg';
-import LogoutIcon from '@/icons/logout.svg';
+import { useRef } from 'react';
 import { useMenuClose } from './useMenuClose';
+import ChangeTheme from './ChangeTheme';
+import PersonIcon from '@/icons/person.svg';
+import LogoutIcon from '@/icons/logout.svg';
 
 interface Props {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   buttonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
+export const menuItemClass =
+  'flex items-center gap-4 px-5 py-2.5 text-sm hover:bg-button-hover cursor-pointer';
+
 export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, systemTheme } = useTheme();
-
   useMenuClose(menuRef, buttonRef, setIsMenuOpen);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  const menuItemClass =
-    'flex items-center gap-4 px-5 py-2.5 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700';
-
-  function cycleTheme() {
-    if (theme === 'light') setTheme('dark');
-    else if (theme === 'dark') setTheme('system');
-    else setTheme('light');
-  }
-
-  const themeLabel =
-    theme === 'system'
-      ? `Sistema (${systemTheme === 'dark' ? 'Oscuro' : 'Claro'})`
-      : theme === 'dark'
-        ? 'Oscuro'
-        : 'Claro';
 
   return (
     // menu container
-    <div ref={menuRef} className="flex absolute pr-3 top-10 right-0">
+    <div
+      ref={menuRef}
+      className="flex absolute pr-3 top-11 right-0 z-10 overscroll-contain"
+    >
       {/* menu */}
-      <div className="flex flex-col rounded-md shadow-md border border-brand-border dark:border-brand-border-dark overflow-hidden">
+      <div className="flex flex-col rounded-md shadow-md border border-brand-border overflow-hidden bg-menu-container">
         {/* user info container */}
-        <div className="flex p-1.5 dark:bg-[#2b2c2f]">
+        <div className="flex p-1.5">
           {/* user info */}
-          <div className="flex items-center p-3 gap-3 bg-[#f8f8f8] dark:bg-[#18191a] rounded-sm">
+          <div className="flex items-center p-3 gap-3 bg-user-info rounded-sm">
             {/* profile picture */}
             <div className="flex justify-center items-center w-12 aspect-square rounded-full bg-neutral-300 text-brand-gray cursor-default">
               A
@@ -65,17 +43,12 @@ export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
           </div>
         </div>
         {/* menu options */}
-        <div className="flex flex-col justify-center pb-1 dark:bg-[#2b2c2f]">
+        <div className="flex flex-col justify-center pb-1">
           <Link href="#" className={menuItemClass}>
             <PersonIcon />
             Perfil
           </Link>
-
-          {/* theme toggle */}
-          <button type="button" onClick={cycleTheme} className={menuItemClass}>
-            <ContrastIcon className="h-4" />
-            Tema: {themeLabel}
-          </button>
+          <ChangeTheme />
           <div className={menuItemClass}>
             <LogoutIcon />
             Cerrar sesión

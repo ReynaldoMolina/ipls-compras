@@ -22,9 +22,9 @@ export default function Visibility({
       onClick={handleClick}
     >
       {isVisible ? (
-        <VisibilityOffIcon className="size-5 dark:hover:text-white hover:text-brand-text" />
+        <VisibilityOffIcon className="size-5 hover:text-foreground" />
       ) : (
-        <VisibilityIcon className="size-5 text-input-border dark:hover:text-white hover:text-brand-text" />
+        <VisibilityIcon className="size-5 text-input-border hover:text-foreground" />
       )}
     </button>
   );

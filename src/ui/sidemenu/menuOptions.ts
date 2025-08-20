@@ -1,47 +1,40 @@
-import { IconName } from './SideMenuIcon';
+import { PageId } from '@/types/types';
 
 export interface MenuOption {
-  id: number;
+  id: PageId;
   name: string;
-  type: IconName;
   url: string;
 }
 
 export const menuOptions: MenuOption[] = [
   {
-    id: 0,
+    id: 'resumen',
     name: 'Resumen',
-    type: 'resumen',
     url: '/',
   },
   {
-    id: 1,
+    id: 'solicitudes',
     name: 'Solicitudes de compra',
-    type: 'solicitudes',
     url: '/solicitudes',
   },
   {
-    id: 2,
+    id: 'ordenes',
     name: 'Órdenes de compra',
-    type: 'ordenes',
     url: '/ordenes',
   },
   {
-    id: 3,
+    id: 'proveedores',
     name: 'Proveedores',
-    type: 'proveedores',
     url: '/proveedores',
   },
   {
-    id: 4,
+    id: 'usuarios',
     name: 'Usuarios',
-    type: 'usuarios',
     url: '/usuarios',
   },
   {
-    id: 5,
+    id: 'ajustes',
     name: 'Ajustes',
-    type: 'ajustes',
     url: '/ajustes',
   },
 ];

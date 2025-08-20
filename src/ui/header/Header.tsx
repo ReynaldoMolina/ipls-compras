@@ -12,12 +12,12 @@ export default function Header({ pageTitle }: { pageTitle: string }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <header className="flex relative h-10 w-full items-center justify-between gap-5 px-3 py-1 border-b border-b-brand-border dark:border-b-brand-border-dark">
+    <header className="flex relative h-11 min-h-11 w-full items-center justify-between gap-5 px-3 py-1 border-b border-b-brand-border">
       {/* page title */}
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className="size-full rounded-full p-0.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
+          className="size-full rounded-full p-0.5 hover:bg-button-hover cursor-pointer transition"
           onClick={() => router.back()}
         >
           <ArrowBack />
@@ -29,10 +29,12 @@ export default function Header({ pageTitle }: { pageTitle: string }) {
       <button
         ref={buttonRef}
         type="button"
-        className={`flex h-full items-center p-1 gap-0.5 rounded-md cursor-pointer ${isMenuOpen ? 'bg-neutral-200 dark:bg-neutral-700' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
+        className={`flex h-full items-center p-1 gap-0.5 rounded-md cursor-pointer transition ${isMenuOpen ? 'outline outline-button-active bg-button-active/10' : 'hover:bg-button-hover'}`}
         onClick={() => setIsMenuOpen((state) => !state)}
       >
-        <ArrowDropDown className={isMenuOpen ? 'rotate-180' : ''} />
+        <ArrowDropDown
+          className={`${isMenuOpen ? 'text-button-active' : ''}`}
+        />
         <div className="flex justify-center items-center h-full aspect-square rounded-full bg-neutral-300 text-brand-gray cursor-pointer">
           A
         </div>

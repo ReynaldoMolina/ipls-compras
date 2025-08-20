@@ -13,7 +13,7 @@ export default function PrimaryButton({ label, type, color }: FormButton) {
   return (
     <button
       type={type}
-      className={`text-brand-text font-semibold text-sm rounded-md ${colors[color]} w-full h-10 cursor-pointer`}
+      className={`font-semibold text-sm rounded-md text-brand-text ${colors[color]} w-full h-10 cursor-pointer`}
     >
       {label}
     </button>

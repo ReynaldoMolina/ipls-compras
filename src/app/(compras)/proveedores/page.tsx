@@ -1,15 +1,23 @@
 import Header from '@/ui/header/Header';
+import ActionBar from '@/ui/actions/ActionBar';
+import { PageId } from '@/types/types';
+import { getPageInfo } from '@/lib/getPageInfo';
+import TableProviders from '@/ui/tables/Table';
+import { providers } from '@/ui/tables/testData';
 
-const pageTitle: string = 'Proveedores';
+const pageId: PageId = 'proveedores';
+const pageInfo = getPageInfo(pageId);
 
 export const metadata = {
-  title: pageTitle,
+  title: pageInfo.name,
 };
 
 export default function Page() {
   return (
-    <section className="flex grow">
-      <Header pageTitle={pageTitle} />
-    </section>
+    <>
+      <Header pageTitle={pageInfo.name} />
+      <ActionBar pageInfo={pageInfo} />
+      <TableProviders data={providers} />
+    </>
   );
 }

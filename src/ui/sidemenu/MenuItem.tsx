@@ -15,7 +15,7 @@ export function MenuItem({ option }: { option: MenuOption }) {
         isActive && 'bg-white/20'
       }`}
     >
-      <SideMenuIcon type={option.type} />
+      <SideMenuIcon pageId={option.id} />
       {option.name}
     </Link>
   );

@@ -12,7 +12,7 @@ export default function LoginForm() {
   return (
     <form
       action=""
-      className="flex flex-col gap-6 items-center justify-center p-10 md:py-14 w-full md:w-90 md:border border-brand-border dark:border-brand-border-dark md:rounded-r-4xl"
+      className="flex flex-col gap-6 items-center justify-center p-10 md:py-14 w-full md:w-90 md:border border-brand-border md:rounded-r-4xl bg-background"
     >
       {/* title */}
       <div className="flex flex-col gap-3">
@@ -36,7 +36,7 @@ export default function LoginForm() {
 
       <Link
         href="#"
-        className="text-sm text-center text-brand-blue dark:text-brand-blue-dark hover:underline"
+        className="text-sm text-center text-brand-blue-text hover:underline"
       >
         ¿Olvidaste tu contraseña?
       </Link>

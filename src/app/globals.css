@@ -3,12 +3,36 @@
 :root {
   --background: #ffffff;
   --foreground: #292a2e;
-  /* --foreground: #454545; */
+  --brand-text: #292a2e;
+  --brand-blue: #1b2c65;
+  --brand-blue-text: #1b2c65;
+  --brand-gray: #6c6c6c;
+  /* --brand-yellow: #e4b221; original */
+  --brand-yellow: #ffb152;
+  --brand-yellow-light: #fec887;
+  --brand-border: #dddedd;
+  --input-border: #bcbcbc;
+  --brand-green: #91f5b6;
+  --brand-green-hover: #3bff83;
+  --menu-container: #fff;
+  --user-info: #f8f8f8;
+  --brand-active: #1868db;
+  --table-header: #f8f8f8;
+  --table-hover: #f0f1f2;
 }
 
-[data-theme='dark'] {
+.dark {
   --background: #1f1f21;
   --foreground: #bfc1c4;
+  --brand-blue-text: #87a2ff;
+  --brand-gray: #6c6c6c;
+  --input-border: #6c6c6c;
+  --brand-border: #37373a;
+  --menu-container: #2b2c2f;
+  --user-info: #18191a;
+  --brand-active: #669df1;
+  --table-header: #18191a;
+  --table-hover: #242528;
 }
 
 @theme inline {
@@ -20,28 +44,25 @@
   --text-login-title: 1.3rem;
   --text-title: 1rem;
   /* brand */
-  --color-brand-text: #292a2e;
-  --color-brand-blue: #1b2c65;
-  --color-brand-blue-dark: #87a2ff;
-  /* --color-brand-yellow: #e4b221; original */
-  --color-brand-yellow: #ffb152;
-  --color-brand-yellow-light: #fec887;
-  --color-brand-gray: #6c6c6c;
+  --color-brand-text: var(--brand-text);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-text: var(--brand-blue-text);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-light: var(--brand-yellow-light);
+  --color-brand-gray: var(--brand-gray);
   /* borders */
-  --color-input-border: #bcbcbc;
-  --color-input-border-dark: #6c6c6c;
-  --color-brand-border: #dddedd;
-  --color-brand-border-dark: #37373a;
+  --color-input-border: var(--input-border);
+  --color-brand-border: var(--brand-border);
   /* buttons */
-  --color-new-green: #91f5b6;
-  --color-new-green-hover: #3bff83;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1f1f21;
-    --foreground: #bfc1c4;
-  }
+  --color-button-new: var(--brand-green);
+  --color-button-new-hover: var(--brand-green-hover);
+  --color-button-hover: var(--brand-border);
+  --color-button-active: var(--brand-active);
+  --color-menu-container: var(--menu-container);
+  --color-user-info: var(--user-info);
+  /* tables */
+  --color-table-header: var(--table-header);
+  --color-table-hover: var(--table-hover);
 }
 
 body {
