@@ -29,11 +29,11 @@ export default function Header({ pageTitle }: { pageTitle: string }) {
       <button
         ref={buttonRef}
         type="button"
-        className={`flex h-full items-center p-1 gap-0.5 rounded-md cursor-pointer transition ${isMenuOpen ? 'outline outline-button-active bg-button-active/10' : 'hover:bg-button-hover'}`}
+        className={`flex h-full items-center p-1 gap-0.5 rounded-md cursor-pointer transition outline ${isMenuOpen ? 'outline-button-active bg-button-active/10' : 'hover:bg-button-hover outline-transparent'}`}
         onClick={() => setIsMenuOpen((state) => !state)}
       >
         <ArrowDropDown
-          className={`${isMenuOpen ? 'text-button-active' : ''}`}
+          className={`transition ${isMenuOpen ? 'text-button-active' : ''}`}
         />
         <div className="flex justify-center items-center h-full aspect-square rounded-full bg-neutral-300 text-brand-gray cursor-pointer">
           A
