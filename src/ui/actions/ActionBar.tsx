@@ -5,7 +5,7 @@ import { MenuOption } from '../sidemenu/menuOptions';
 
 export default function ActionBar({ pageInfo }: { pageInfo: MenuOption }) {
   return (
-    <div className="flex items-center justify-between px-3">
+    <div className="flex items-center justify-between px-3 gap-2">
       <SearchInput />
       <div className="flex gap-2">
         <FilterButton pageInfo={pageInfo} />

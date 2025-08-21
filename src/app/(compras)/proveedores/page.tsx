@@ -17,7 +17,7 @@ export default function Page() {
     <>
       <Header pageTitle={pageInfo.name} />
       <ActionBar pageInfo={pageInfo} />
-      <TableProviders data={providers} />
+      <TableProviders data={providers} pageId={pageInfo.id} />
     </>
   );
 }

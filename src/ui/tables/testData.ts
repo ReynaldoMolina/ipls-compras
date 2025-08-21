@@ -12,7 +12,7 @@ export interface Provider {
 export const providers: Provider[] = [
   {
     id: 1,
-    solvencia: '2026-09-29',
+    solvencia: '2025-06-29',
     nombreComercial: 'Expósito-Raya',
     razonSocial: 'Gárate-Verdú S.A.C.',
     ruc: '94864737724',
@@ -22,7 +22,7 @@ export const providers: Provider[] = [
   },
   {
     id: 2,
-    solvencia: '2027-08-19',
+    solvencia: '2025-08-21',
     nombreComercial: 'Cardona, Zorrilla and Hernandez',
     razonSocial: 'Becerra, Quevedo and Domingo S.A.C.',
     ruc: '20211042016',

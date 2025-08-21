@@ -1,14 +1,27 @@
+import DateLink from './DateLink';
+import {
+  Table,
+  TableHead,
+  TableTR,
+  TableTH,
+  TableBody,
+  TableTD,
+  TableHeadTR,
+} from './TableElements';
 import { Provider } from './testData';
 
-interface TableProps {
-  children: React.ReactNode;
-}
-
-export default function TableProviders({ data }: { data: Provider[] }) {
+export default function TableProviders({
+  data,
+  pageId,
+}: {
+  data: Provider[];
+  pageId: string;
+}) {
   return (
     <Table>
       <TableHead>
-        <TableTR allowHover={false}>
+        <TableHeadTR>
+          <TableTH label="Id" />
           <TableTH label="Solvencia" />
           <TableTH label="Nombre comercial" />
           <TableTH label="Razón social" />
@@ -16,73 +29,24 @@ export default function TableProviders({ data }: { data: Provider[] }) {
           <TableTH label="Departamento" />
           <TableTH label="Teléfono" />
           <TableTH label="Correo" fullWidth={true} />
-        </TableTR>
+        </TableHeadTR>
       </TableHead>
       <TableBody>
         {data.map((element) => (
-          <TableTR key={element.id}>
-            <TableTD value={element.solvencia} />
-            <TableTD value={element.nombreComercial} />
-            <TableTD value={element.razonSocial} />
-            <TableTD value={element.ruc} />
-            <TableTD value={element.departamento} />
-            <TableTD value={element.telefono} />
-            <TableTD value={element.correo} />
+          <TableTR key={element.id} id={element.id} pageId={pageId}>
+            <TableTD align="center">{element.id}</TableTD>
+            <TableTD>
+              <DateLink expirationDate={element.solvencia} id={element.id} />
+            </TableTD>
+            <TableTD>{element.nombreComercial}</TableTD>
+            <TableTD>{element.razonSocial}</TableTD>
+            <TableTD>{element.ruc}</TableTD>
+            <TableTD>{element.departamento}</TableTD>
+            <TableTD>{element.telefono}</TableTD>
+            <TableTD>{element.correo}</TableTD>
           </TableTR>
         ))}
       </TableBody>
     </Table>
-  );
-}
-
-function Table({ children }: TableProps) {
-  return (
-    <section className="w-full overflow-x-auto px-3 mb-3">
-      <table className="table-auto">{children}</table>
-    </section>
-  );
-}
-
-function TableHead({ children }: TableProps) {
-  return <thead className="bg-table-header sticky top-0">{children}</thead>;
-}
-
-function TableTH({
-  label,
-  fullWidth = false,
-}: {
-  label: string;
-  fullWidth?: boolean;
-}) {
-  return (
-    <th
-      className={`text-xs font-semibold text-left h-10 px-1.5 border border-brand-border whitespace-nowrap cursor-default hover:bg-table-hover ${fullWidth ? 'w-full' : ''}`}
-    >
-      {label}
-    </th>
-  );
-}
-
-function TableBody({ children }: TableProps) {
-  return <tbody>{children}</tbody>;
-}
-
-interface TableTrProps extends TableProps {
-  allowHover?: boolean;
-}
-
-function TableTR({ children, allowHover = true }: TableTrProps) {
-  return (
-    <tr className={`${allowHover ? 'hover:bg-table-hover' : ''}`}>
-      {children}
-    </tr>
-  );
-}
-
-function TableTD({ value }: { value: string | number }) {
-  return (
-    <td className="text-xs text-left h-10 px-1.5 border border-brand-border whitespace-nowrap cursor-pointer">
-      {value}
-    </td>
   );
 }
