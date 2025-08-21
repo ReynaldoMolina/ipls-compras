@@ -16,7 +16,7 @@ export function Table({ children }: TableProps) {
 }
 
 export function TableHead({ children }: TableProps) {
-  return <thead className="bg-table-header sticky top-0">{children}</thead>;
+  return <thead className="sticky top-0 bg-table-header">{children}</thead>;
 }
 
 export function TableHeadTR({ children }: TableProps) {
@@ -32,7 +32,7 @@ export function TableTH({
 }) {
   return (
     <th
-      className={`text-xs font-semibold text-left h-10 px-1.5 border border-brand-border whitespace-nowrap cursor-default hover:bg-table-hover ${fullWidth ? 'w-full' : ''}`}
+      className={`border border-brand-border text-xs font-semibold text-left h-10 px-1.5 whitespace-nowrap cursor-default hover:bg-table-hover ${fullWidth ? 'w-full' : ''}`}
     >
       <div className="flex justify-between items-center gap-2">
         {label}
@@ -82,7 +82,7 @@ export function TableTD({ children, align = 'left' }: TableTdProps) {
 
   return (
     <td
-      className={`text-xs ${textAlign[align]} h-10 px-1.5 border border-brand-border whitespace-nowrap cursor-pointer`}
+      className={`border border-brand-border text-xs ${textAlign[align]} h-10 px-1.5 whitespace-nowrap cursor-pointer`}
     >
       {children}
     </td>

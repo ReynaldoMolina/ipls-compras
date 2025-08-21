@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <main className="flex min-h-screen max-h-screen max-w-screen">
       <SideMenu />
-      <section className="flex flex-col gap-4 grow min-w-0">{children}</section>
+      <section className="flex flex-col gap-3 grow min-w-0">{children}</section>
     </main>
   );
 }
