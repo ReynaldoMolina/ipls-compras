@@ -8,7 +8,7 @@ import {
   TableTD,
   TableHeadTR,
 } from './TableElements';
-import { Provider } from '../../lib/testData';
+import { Provider } from '@/types/types';
 
 export default function TableProviders({
   data,
@@ -22,7 +22,7 @@ export default function TableProviders({
       <TableHead>
         <TableHeadTR>
           <TableTH label="Id" />
-          <TableTH label="Solvencia" />
+          {/* <TableTH label="Solvencia" /> */}
           <TableTH label="Nombre comercial" />
           <TableTH label="Razón social" />
           <TableTH label="RUC" />
@@ -35,11 +35,11 @@ export default function TableProviders({
         {data.map((element) => (
           <TableTR key={element.id} id={element.id} pageId={pageId}>
             <TableTD align="center">{element.id}</TableTD>
-            <TableTD>
+            {/* <TableTD>
               <DateLink expirationDate={element.solvencia} id={element.id} />
-            </TableTD>
-            <TableTD>{element.nombreComercial}</TableTD>
-            <TableTD>{element.razonSocial}</TableTD>
+            </TableTD> */}
+            <TableTD>{element.nombre_comercial}</TableTD>
+            <TableTD>{element.razon_social}</TableTD>
             <TableTD>{element.ruc}</TableTD>
             <TableTD>{element.departamento}</TableTD>
             <TableTD>{element.telefono}</TableTD>
