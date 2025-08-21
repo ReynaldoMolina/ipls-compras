@@ -3,7 +3,7 @@ import ActionBar from '@/ui/actions/ActionBar';
 import { PageId } from '@/types/types';
 import { getPageInfo } from '@/lib/getPageInfo';
 import TableProviders from '@/ui/tables/Table';
-import { providers } from '@/ui/tables/testData';
+import { providers } from '@/lib/testData';
 
 const pageId: PageId = 'proveedores';
 const pageInfo = getPageInfo(pageId);
@@ -12,7 +12,7 @@ export const metadata = {
   title: pageInfo.name,
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <Header pageTitle={pageInfo.name} />

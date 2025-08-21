@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // import { useActionState } from 'react';
 import { LoginEmail, LoginPassword } from '@/ui/login/LoginInput';
-import PrimaryButton from '@/ui/buttons/PrimaryButton';
+import LoginButton from './LoginButton';
 import GoogleButton from './GoogleButton';
 
 export default function LoginForm() {
@@ -41,7 +41,7 @@ export default function LoginForm() {
         ¿Olvidaste tu contraseña?
       </Link>
 
-      <PrimaryButton label="Iniciar sesión" type="submit" color="orange" />
+      <LoginButton />
       <GoogleButton />
     </form>
   );

@@ -24,7 +24,7 @@ export default function Visibility({
       {isVisible ? (
         <VisibilityOffIcon className="size-5 hover:text-foreground" />
       ) : (
-        <VisibilityIcon className="size-5 text-input-border hover:text-foreground" />
+        <VisibilityIcon className="size-5 text-input-border hover:text-foreground transition" />
       )}
     </button>
   );

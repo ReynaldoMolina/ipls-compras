@@ -8,7 +8,7 @@ import {
   TableTD,
   TableHeadTR,
 } from './TableElements';
-import { Provider } from './testData';
+import { Provider } from '../../lib/testData';
 
 export default function TableProviders({
   data,
