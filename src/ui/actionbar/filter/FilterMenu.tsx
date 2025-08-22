@@ -22,7 +22,7 @@ export default function FilterMenu({ buttonRef, setIsFilterMenuOpen }) {
   return (
     <menu
       ref={menuRef}
-      className="flex absolute top-9 right-0 flex-col rounded shadow border border-brand-border bg-menu-container overflow-y-scroll max-w-100 max-h-70 z-10"
+      className="flex absolute top-9 right-0 flex-col rounded shadow border border-brand-border bg-menu-container overflow-y-scroll min-w-70 max-w-100 max-h-70 z-10"
     >
       <span className="flex sticky top-0 px-3 py-2 text-xs font-semibold border-b border-b-brand-border bg-menu-container">
         FILTROS
@@ -33,13 +33,20 @@ export default function FilterMenu({ buttonRef, setIsFilterMenuOpen }) {
 }
 
 function ProvidersFilters() {
-  const solvencias = ['Activa', 'Por vencer', 'Vencida'];
-  const departamentos = ['Leon', 'Chinandega'];
-
   return (
     <>
-      <FilterState label="Solvencia" states={solvencias} />
-      <FilterState label="Departamentos" states={departamentos} />
+      <FilterState
+        label="Solvencia"
+        states={['Activa', 'Por vencer', 'Vencida']}
+        paramKey="solvencia"
+        pageKey="proveedores"
+      />
+      <FilterState
+        label="Departamentos"
+        states={['Leon', 'Chinandega']}
+        paramKey="departamento"
+        pageKey="proveedores"
+      />
     </>
   );
 }
