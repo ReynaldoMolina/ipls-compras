@@ -4,6 +4,7 @@ import { useMenuClose } from './useMenuClose';
 import ChangeTheme from './ChangeTheme';
 import PersonIcon from '@/icons/person.svg';
 import LogoutIcon from '@/icons/logout.svg';
+import { useClickOutside } from '@/lib/hooks/useClickOutside';
 
 interface Props {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,7 @@ export const menuItemClass =
 
 export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  useMenuClose(menuRef, buttonRef, setIsMenuOpen);
+  useClickOutside(menuRef, () => setIsMenuOpen(false), buttonRef);
 
   return (
     // menu container

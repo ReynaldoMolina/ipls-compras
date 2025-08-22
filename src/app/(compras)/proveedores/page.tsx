@@ -7,12 +7,13 @@ export const metadata = {
   title: 'Proveedores',
 };
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page(props) {
+  const params = await props.searchParams;
   return (
     <>
       <Header title="Proveedores" />
       <ActionBar />
-      <TableProviders params={searchParams} />
+      <TableProviders params={params} />
     </>
   );
 }

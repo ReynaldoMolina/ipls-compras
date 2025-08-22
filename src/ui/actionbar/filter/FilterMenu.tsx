@@ -1,8 +1,13 @@
 import { usePathname } from 'next/navigation';
 import { FilterState } from './FilterState';
+import { useRef } from 'react';
+import { useClickOutside } from '@/lib/hooks/useClickOutside';
 
-export default function FilterMenu() {
+export default function FilterMenu({ buttonRef, setIsFilterMenuOpen }) {
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(menuRef, () => setIsFilterMenuOpen(false), buttonRef);
 
   let filterMenu;
   switch (pathname) {
@@ -15,7 +20,10 @@ export default function FilterMenu() {
   }
 
   return (
-    <menu className="flex absolute top-9 right-0 flex-col rounded shadow border border-brand-border bg-menu-container overflow-y-scroll max-w-100 max-h-70 z-10">
+    <menu
+      ref={menuRef}
+      className="flex absolute top-9 right-0 flex-col rounded shadow border border-brand-border bg-menu-container overflow-y-scroll max-w-100 max-h-70 z-10"
+    >
       <span className="flex sticky top-0 px-3 py-2 text-xs font-semibold border-b border-b-brand-border bg-menu-container">
         FILTROS
       </span>
