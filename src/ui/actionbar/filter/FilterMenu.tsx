@@ -1,11 +1,13 @@
-import { MenuOption } from '@/ui/sidemenu/menuOptions';
+import { usePathname } from 'next/navigation';
 import { FilterState } from './FilterState';
 
-export default function FilterMenu({ pageInfo }: { pageInfo: MenuOption }) {
-  let pageFilter;
-  switch (pageInfo.id) {
-    case 'proveedores':
-      pageFilter = <ProvidersFilters />;
+export default function FilterMenu() {
+  const pathname = usePathname();
+
+  let filterMenu;
+  switch (pathname) {
+    case '/proveedores':
+      filterMenu = <ProvidersFilters />;
       break;
 
     default:
@@ -17,7 +19,7 @@ export default function FilterMenu({ pageInfo }: { pageInfo: MenuOption }) {
       <span className="flex sticky top-0 px-3 py-2 text-xs font-semibold border-b border-b-brand-border bg-menu-container">
         FILTROS
       </span>
-      <div className="flex flex-col p-3 gap-7">{pageFilter}</div>
+      <div className="flex flex-col p-3 gap-7">{filterMenu}</div>
     </menu>
   );
 }

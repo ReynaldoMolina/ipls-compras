@@ -6,7 +6,7 @@ import ArrowBack from '@/icons/arrow_back.svg';
 import ArrowDropDown from '@/icons/arrow_drop_down.svg';
 import ProfileMenu from './ProfileMenu';
 
-export default function Header({ pageTitle }: { pageTitle: string }) {
+export default function Header({ title }: { title: string }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -22,7 +22,7 @@ export default function Header({ pageTitle }: { pageTitle: string }) {
         >
           <ArrowBack />
         </button>
-        <h1 className="text-title font-semibold">{pageTitle}</h1>
+        <h1 className="text-title font-semibold">{title}</h1>
       </div>
 
       {/* profile menu toggle */}

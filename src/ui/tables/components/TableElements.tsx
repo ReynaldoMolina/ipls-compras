@@ -1,7 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import MoreVertIcon from '@/icons/more_vert.svg';
+import SortButton from './SortButton';
+import { headerLabels, LabelType } from './headerLabels';
+import { useSortParams } from '../hooks/useSetSort';
 
 interface TableProps {
   children: React.ReactNode;
@@ -24,24 +26,28 @@ export function TableHeadTR({ children }: TableProps) {
 }
 
 export function TableTH({
-  label,
+  name,
   fullWidth = false,
 }: {
-  label: string;
+  name: LabelType;
   fullWidth?: boolean;
 }) {
+  const { orderBy, direction, setSort } = useSortParams();
+
   return (
     <th
-      className={`border border-brand-border text-xs font-semibold text-left h-10 px-1.5 whitespace-nowrap cursor-default hover:bg-table-hover ${fullWidth ? 'w-full' : ''}`}
+      className={`border border-brand-border text-xs font-semibold text-left h-10 px-1.5 whitespace-nowrap cursor-default hover:bg-table-hover ${
+        fullWidth ? 'w-full' : ''
+      }`}
     >
       <div className="flex justify-between items-center gap-2">
-        {label}
-        <button
-          type="button"
-          className="rounded hover:bg-button-hover cursor-pointer"
-        >
-          <MoreVertIcon />
-        </button>
+        {headerLabels[name]}
+        <SortButton
+          column={name}
+          active={orderBy === name}
+          direction={direction}
+          onClick={setSort}
+        />
       </div>
     </th>
   );
@@ -52,18 +58,14 @@ export function TableBody({ children }: TableProps) {
 }
 
 interface TableTrProps extends TableProps {
-  id: number;
-  pageId: string;
+  path: string;
 }
 
-export function TableTR({ children, id, pageId }: TableTrProps) {
+export function TableTR({ children, path }: TableTrProps) {
   const router = useRouter();
 
   return (
-    <tr
-      className="hover:bg-table-hover"
-      onClick={() => router.push(`/${pageId}/${id}`)}
-    >
+    <tr className="hover:bg-table-hover" onClick={() => router.push(path)}>
       {children}
     </tr>
   );

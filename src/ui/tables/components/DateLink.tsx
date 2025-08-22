@@ -1,11 +1,10 @@
 'use client';
 
+import Link from 'next/link';
+import { DateStatus } from '@/types/types';
 import CheckCircle from '@/icons/check_circle.svg';
 import Schedule from '@/icons/schedule.svg';
 import Warning from '@/icons/warning.svg';
-import Link from 'next/link';
-
-type DateStatus = 'active' | 'due' | 'expired';
 
 interface Props {
   expirationDate: string;

@@ -1,11 +1,10 @@
 'use client';
 
-import ArrowDropDown from '@/icons/arrow_drop_down.svg';
 import { useState } from 'react';
-import { MenuOption } from '../sidemenu/menuOptions';
+import ArrowDropDown from '@/icons/arrow_drop_down.svg';
 import FilterMenu from './filter/FilterMenu';
 
-export default function FilterButton({ pageInfo }: { pageInfo: MenuOption }) {
+export default function FilterButton() {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
   return (
@@ -18,7 +17,7 @@ export default function FilterButton({ pageInfo }: { pageInfo: MenuOption }) {
         Filtrar
         <ArrowDropDown />
       </button>
-      {isFilterMenuOpen && <FilterMenu pageInfo={pageInfo} />}
+      {isFilterMenuOpen && <FilterMenu />}
     </div>
   );
 }

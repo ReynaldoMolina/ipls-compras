@@ -1,17 +1,15 @@
-import ProviderForm from '@/ui/forms/ProviderForm';
 import Header from '@/ui/header/Header';
-
-const pageTitle = 'Nuevo proveedor';
+import ProviderForm from '@/ui/forms/ProviderForm';
 
 export const metadata = {
-  title: pageTitle,
+  title: 'Nuevo proveedor',
 };
 
 export default function Page() {
   return (
     <>
-      <Header pageTitle={pageTitle} />
-      <ProviderForm type="new" />
+      <Header title="Nuevo proveedor" />
+      <ProviderForm action="create" />
     </>
   );
 }

@@ -8,7 +8,7 @@ import BackSpaceIcon from '@/icons/backspace.svg';
 
 export default function SearchInput() {
   const searchParams = useSearchParams();
-  const searchTextParam = searchParams.get('buscar')?.toString();
+  const searchTextParam = searchParams.get('search')?.toString();
   const [searchText, setSearchText] = useState(searchTextParam || '');
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -17,9 +17,9 @@ export default function SearchInput() {
     const params = new URLSearchParams(searchParams);
     // params.set('page', '1');
     if (term) {
-      params.set('buscar', term);
+      params.set('search', term);
     } else {
-      params.delete('buscar');
+      params.delete('search');
     }
     replace(`${pathname}?${params.toString()}`);
   }, 400);

@@ -14,6 +14,7 @@
   --input-border: #bcbcbc;
   --brand-green: #91f5b6;
   --brand-green-hover: #64eb95;
+  --brand-red: #c60d00;
   --menu-container: #fff;
   --user-info: #f8f8f8;
   --brand-active: #1868db;
@@ -31,6 +32,7 @@
   --brand-gray: #6c6c6c;
   --input-border: #6c6c6c;
   --brand-border: #37373a;
+  --brand-red: #ff8178;
   --menu-container: #2b2c2f;
   --user-info: #18191a;
   --brand-active: #669df1;
@@ -60,6 +62,7 @@
   --color-input-border: var(--input-border);
   --color-brand-border: var(--brand-border);
   /* buttons */
+  --color-brand-red: var(--brand-red);
   --color-button-new: var(--brand-green);
   --color-button-new-hover: var(--brand-green-hover);
   --color-button-hover: var(--brand-border);

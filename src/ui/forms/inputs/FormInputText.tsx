@@ -25,7 +25,7 @@ export default function FormTextInput({
     <div className="flex flex-col gap-0.5 w-full">
       <label htmlFor={name} className="text-xs">
         {label}{' '}
-        <span className="text-red-400">{required && '(requerido)'}</span>
+        <span className="text-brand-red">{required && '(requerido)'}</span>
       </label>
       <input
         className="w-full text-xs h-8 border border-input-border rounded-md px-2"

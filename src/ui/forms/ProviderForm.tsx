@@ -1,38 +1,43 @@
 'use client';
 
-import FormButtons from './inputs/FormButtons';
-import FormTextInput from './inputs/FormInputText';
+import { useActionState } from 'react';
+import { Provider } from '@/types/types';
+import { createProvider, updateProvider } from '@/lib/actions/providers';
 import { FormSection } from './inputs/FormSection';
+import FormButtons from './inputs/FormButtons';
 import InputGroup from './inputs/InputGroup';
-import { Provider } from '@/lib/testData';
+import FormTextInput from './inputs/FormInputText';
 
 interface FormProps {
+  action: 'create' | 'edit';
   data?: Provider;
-  type: 'new' | 'edit';
+  id?: number;
 }
 
-export default function ProviderForm({ data, type }: FormProps) {
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  // }
+export default function ProviderForm({ action, data, id }: FormProps) {
+  const newAction =
+    action === 'create' ? createProvider : updateProvider.bind(null, id);
+  const [state, formAction, isPending] = useActionState(newAction, {
+    message: '',
+  });
 
   return (
-    <form action="" className="flex flex-col gap-8 max-w-4xl">
+    <form action={formAction} className="flex flex-col gap-8 max-w-4xl">
       <div className="flex flex-col gap-8 px-4">
         <FormSection name="info">
           <FormTextInput
             label="Nombre comercial"
-            name="nombreComercial"
+            name="nombre_comercial"
             placeHolder="Nombre"
-            value={data?.nombreComercial || ''}
+            value={data?.nombre_comercial || ''}
             required={true}
           />
           <InputGroup>
             <FormTextInput
               label="Razón social"
-              name="razonSocial"
+              name="razon_social"
               placeHolder="Razón social"
-              value={data?.razonSocial || ''}
+              value={data?.razon_social || ''}
               required={true}
             />
             <FormTextInput
@@ -48,9 +53,9 @@ export default function ProviderForm({ data, type }: FormProps) {
           <InputGroup>
             <FormTextInput
               label="Contacto principal"
-              name="contactoPrincipal"
+              name="nombre_contacto"
               placeHolder="Nombre"
-              value={data?.contacto || ''}
+              value={data?.contacto_principal || ''}
             />
             <FormTextInput
               label="Teléfono"
@@ -68,7 +73,7 @@ export default function ProviderForm({ data, type }: FormProps) {
             />
             <FormTextInput
               label="Departamento"
-              name="dept"
+              name="departamento"
               placeHolder="Departamento"
               value={data?.departamento || ''}
             />
@@ -97,7 +102,7 @@ export default function ProviderForm({ data, type }: FormProps) {
           </InputGroup>
         </FormSection>
       </div>
-      <FormButtons />
+      <FormButtons isNew={action === 'create'} isPending={isPending} />
     </form>
   );
 }

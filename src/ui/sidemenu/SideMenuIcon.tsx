@@ -15,6 +15,7 @@ const pageIcons = {
   proveedores: <GroupsIcon className={iconStyle} />,
   usuarios: <UserListIcon className={iconStyle} />,
   ajustes: <SettingsIcon className={iconStyle} />,
+  empty: <></>, // fallback icon
 };
 
 export default function SideMenuIcon({ pageId }: { pageId: PageId }) {

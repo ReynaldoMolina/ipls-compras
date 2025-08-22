@@ -1,6 +1,6 @@
 import Header from '@/ui/header/Header';
-import { providers } from '@/lib/testData';
 import ProviderForm from '@/ui/forms/ProviderForm';
+import { getProviderById } from '@/lib/data/providers';
 
 type PageProps = {
   params: {
@@ -18,13 +18,13 @@ export async function generateMetadata(props: PageProps) {
 
 export default async function Page(props: PageProps) {
   const params = props.params;
-  const id = params.id;
-  // const data = await getClientById(id);
+  const id = Number(params.id);
+  const data = await getProviderById(id);
 
   return (
     <>
-      <Header pageTitle={`Proveedor ${id}`} />
-      <ProviderForm type="edit" data={providers[Number(id) - 1]} />
+      <Header title={`Proveedor ${id}`} />
+      <ProviderForm action="edit" data={data} id={id} />
     </>
   );
 }
