@@ -1,8 +1,8 @@
 import PageTitle from '@/ui/pagetitle/PageTitle';
 import ActionBar from '@/ui/actionbar/ActionBar';
-import TableProviders from '@/ui/tables/TableProviders';
+import TableSolicitudes from '@/ui/tables/TableSolicitudes';
 
-const title = 'Proveedores';
+const title = 'Usuarios';
 
 export const metadata = {
   title: title,
@@ -14,7 +14,7 @@ export default async function Page(props) {
     <>
       <PageTitle title={title} />
       <ActionBar />
-      <TableProviders params={params} />
+      <TableSolicitudes params={params} />
     </>
   );
 }

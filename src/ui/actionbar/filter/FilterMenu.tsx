@@ -14,6 +14,9 @@ export default function FilterMenu({ buttonRef, setIsFilterMenuOpen }) {
     case '/proveedores':
       filterMenu = <ProvidersFilters />;
       break;
+    case '/resumen':
+      filterMenu = <ResumenFilters />;
+      break;
 
     default:
       break;
@@ -46,6 +49,19 @@ function ProvidersFilters() {
         states={['León', 'Managua']}
         paramKey="departamento"
         pageKey="proveedores"
+      />
+    </>
+  );
+}
+
+function ResumenFilters() {
+  return (
+    <>
+      <FilterState
+        label="Año"
+        states={['2020', '2021', '2022', '2023']}
+        paramKey="year"
+        pageKey="resumen"
       />
     </>
   );

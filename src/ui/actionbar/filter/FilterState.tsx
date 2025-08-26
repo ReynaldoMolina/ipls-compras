@@ -39,7 +39,7 @@ export function FilterState({
               onClick={() => toggle(state)}
             >
               {isActive ? <CheckBox /> : <CheckBoxBlank />}
-              <span className="text-xs px-1 font-semibold">{state}</span>
+              <span className="text-xs px-1">{state}</span>
             </button>
           );
         })}

@@ -10,7 +10,7 @@ export const menuOptions: MenuOption[] = [
   {
     id: 'resumen',
     name: 'Resumen',
-    url: '/',
+    url: '/resumen',
   },
   {
     id: 'solicitudes',
