@@ -1,7 +1,6 @@
 import Header from '@/ui/header/Header';
 import ActionBar from '@/ui/actionbar/ActionBar';
 import TableProviders from '@/ui/tables/TableProviders';
-import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Proveedores',

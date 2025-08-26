@@ -8,9 +8,7 @@ export type PageId =
   | 'empty';
 
 export type PageProps = {
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
+  searchParams?: Record<string, string | string[] | undefined>;
 };
 
 export type SortOrder = 'asc' | 'desc';
@@ -19,9 +17,23 @@ export type SearchParamsProps = {
   search?: string;
   orderBy?: string;
   direction?: SortOrder;
+  departamento?: string;
+  solvencia?: string;
 };
 
-export type DateStatus = 'active' | 'due' | 'expired';
+export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
+
+export type EditPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export interface FormProps {
+  action: 'create' | 'edit';
+  data?: Provider;
+  id?: number;
+}
 
 export interface Provider {
   id?: number;
@@ -39,6 +51,7 @@ export interface Provider {
 
 export interface ProviderTable {
   id: number;
+  solvencia: string;
   nombre_comercial: string;
   razon_social: string;
   ruc: string;

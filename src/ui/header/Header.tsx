@@ -29,12 +29,9 @@ export default function Header({ title }: { title: string }) {
       <button
         ref={buttonRef}
         type="button"
-        className={`flex h-full items-center p-1 gap-0.5 rounded-md cursor-pointer transition outline ${isMenuOpen ? 'outline-button-active bg-button-active/10' : 'hover:bg-button-hover outline-transparent'}`}
+        className={`flex h-full items-center p-0.5 gap-0.5 rounded-full cursor-pointer transition outline ${isMenuOpen ? 'outline-button-active bg-button-active/10' : 'hover:bg-button-hover outline-transparent'}`}
         onClick={() => setIsMenuOpen((state) => !state)}
       >
-        <ArrowDropDown
-          className={`transition ${isMenuOpen ? 'text-button-active' : ''}`}
-        />
         <div className="flex justify-center items-center h-full aspect-square rounded-full bg-neutral-300 text-brand-gray cursor-pointer">
           A
         </div>

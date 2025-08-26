@@ -1,18 +1,12 @@
 'use client';
 
 import { useActionState } from 'react';
-import { Provider } from '@/types/types';
+import { FormProps } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
 import { FormSection } from './inputs/FormSection';
 import FormButtons from './inputs/FormButtons';
 import InputGroup from './inputs/InputGroup';
 import FormTextInput from './inputs/FormInputText';
-
-interface FormProps {
-  action: 'create' | 'edit';
-  data?: Provider;
-  id?: number;
-}
 
 export default function ProviderForm({ action, data, id }: FormProps) {
   const newAction =

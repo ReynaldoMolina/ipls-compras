@@ -1,7 +1,8 @@
 'use server';
 
-import { sql } from '../db';
+import { db } from '@/db/db';
 import { Provider } from '@/types/types';
+import { Table } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -10,49 +11,46 @@ export async function goBackTo(path: string) {
   redirect(path);
 }
 
-interface CreateProps {
-  tableName: string;
-  data: Provider;
+interface CreateProps<T extends Table> {
+  table: T;
+  data: any;
 }
 
-export async function createRecord({ tableName, data }: CreateProps) {
-  const columns = Object.keys(data) as (keyof Provider)[];
+// export async function createRecord<T extends Table>({
+//   table,
+//   data,
+// }: CreateProps<T>) {
+//   try {
+//     const result = await db.insert(table).values(data);
+//     return result;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error(
+//       'No se pudo actualizar el registro, por favor intenta de nuevo.'
+//     );
+//   }
+// }
 
-  try {
-    const result = await sql`
-      insert into ${sql(tableName)}
-      ${sql(data, columns)}
-      returning "id"
-    `;
-    return result[0].id;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudo crear el registro, por favor intenta de nuevo.'
-    );
-  }
-}
+// interface UpdateProps extends CreateProps {
+//   id: number;
+// }
 
-interface UpdateProps extends CreateProps {
-  id: number;
-}
+// export async function updateRecord({ table, data, id }: UpdateProps) {
+//   const columns = Object.keys(data) as (keyof Provider)[];
 
-export async function updateRecord({ tableName, data, id }: UpdateProps) {
-  const columns = Object.keys(data) as (keyof Provider)[];
-
-  try {
-    await sql`
-      update ${sql(tableName)}
-      set ${sql(data, columns)}
-      where "id" = ${id}
-    `;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudo actualizar el registro, por favor intenta de nuevo.'
-    );
-  }
-}
+//   try {
+//     await sql`
+//       update ${sql(table)}
+//       set ${sql(data, columns)}
+//       where "id" = ${id}
+//     `;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error(
+//       'No se pudo actualizar el registro, por favor intenta de nuevo.'
+//     );
+//   }
+// }
 
 // export async function createRecordDetail({
 //   tableName,

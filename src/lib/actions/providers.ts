@@ -1,14 +1,22 @@
+'use server';
+
+import { db } from '@/db/db';
 import { PrevState } from '@/types/types';
 import { getProviderFormData } from '../formdata/providers';
-import { createRecord, goBackTo, updateRecord } from './actionsUtils';
+import { goBackTo } from './actionsUtils';
+import { proveedores } from '@/db/schema/proveedores';
+import { eq } from 'drizzle-orm';
 
-export async function createProvider(prevState: PrevState, formData: FormData) {
+export async function createProvider(
+  prevState: PrevState | undefined,
+  formData: FormData
+) {
   try {
     const data = getProviderFormData(formData);
-    await createRecord({ tableName: 'proveedores', data });
+    await db.insert(proveedores).values(data);
   } catch (error) {
     console.error(error);
-    return error;
+    return { ...prevState, message: 'Error creating provider' };
   }
   await goBackTo('/proveedores');
 }
@@ -20,7 +28,7 @@ export async function updateProvider(
 ) {
   try {
     const data = getProviderFormData(formData);
-    await updateRecord({ tableName: 'proveedores', data, id });
+    await db.update(proveedores).set(data).where(eq(proveedores.id, id));
   } catch (error) {
     console.error(error);
     return error;

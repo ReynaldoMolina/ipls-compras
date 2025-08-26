@@ -37,13 +37,13 @@ function ProvidersFilters() {
     <>
       <FilterState
         label="Solvencia"
-        states={['Activa', 'Por vencer', 'Vencida']}
+        states={['Activa', 'Por vencer', 'Vencida', 'Sin solvencia']}
         paramKey="solvencia"
         pageKey="proveedores"
       />
       <FilterState
         label="Departamentos"
-        states={['Leon', 'Chinandega']}
+        states={['León', 'Managua']}
         paramKey="departamento"
         pageKey="proveedores"
       />

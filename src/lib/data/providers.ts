@@ -1,41 +1,42 @@
-import { sql } from '../db';
-import { ProviderTable, SearchParamsProps, SortOrder } from '@/types/types';
-import { getSearchFragment, getUrlParams } from './utils';
-
-interface ProvidersFilters {
-  solvencia?: string;
-  departamento?: string;
-}
+import { db } from '@/db/db';
+import { proveedores } from '@/db/schema/proveedores';
+import { solvencias } from '@/db/schema/solvencias';
+import { SearchParamsProps } from '@/types/types';
+import { eq, max, and } from 'drizzle-orm';
+import { buildSearchFilter } from './buildSearchFilter';
+import { buildOrderFragment } from './buildOrderFragment';
+import { buildFiltersProviders } from './buildFilterFragment';
 
 export async function getProviders(params: SearchParamsProps) {
-  const { search, orderFragment } = getUrlParams(params);
+  const selectFields = {
+    id: proveedores.id,
+    solvencia: max(solvencias.vence),
+    nombre_comercial: proveedores.nombre_comercial,
+    razon_social: proveedores.razon_social,
+    ruc: proveedores.ruc,
+    telefono: proveedores.telefono,
+    departamento: proveedores.departamento,
+    correo: proveedores.correo,
+  };
 
-  const searchColumns = [
-    'nombre_comercial',
-    'razon_social',
-    'ruc',
-    'telefono',
-    'departamento',
-    'correo',
-  ];
+  const searchFilter = buildSearchFilter(params, [
+    proveedores.nombre_comercial,
+    proveedores.razon_social,
+    proveedores.ruc,
+  ]);
 
-  const searchFragment = getSearchFragment(searchColumns);
+  const { departamentoFilter, solvenciaFilter } = buildFiltersProviders(params);
+  const orderFragment = buildOrderFragment(params, selectFields);
 
   try {
-    const data = await sql<ProviderTable[]>`
-      select
-        id,
-        nombre_comercial,
-        razon_social,
-        ruc,
-        telefono,
-        departamento,
-        correo
-      from
-        proveedores
-      where ${searchFragment} ilike ${`%${search}%`}
-      order by ${orderFragment}
-    `;
+    const data = await db
+      .select(selectFields)
+      .from(proveedores)
+      .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
+      .where(and(searchFilter, departamentoFilter))
+      .groupBy(proveedores.id)
+      .having(solvenciaFilter)
+      .orderBy(orderFragment);
     return data;
   } catch (error) {
     console.error(error);
@@ -47,10 +48,10 @@ export async function getProviders(params: SearchParamsProps) {
 
 export async function getProviderById(id: number) {
   try {
-    const data = await sql`
-      select * from "proveedores"
-      where "id" = ${id}
-    `;
+    const data = await db
+      .select()
+      .from(proveedores)
+      .where(eq(proveedores.id, id));
     return data[0];
   } catch (error) {
     console.error(error);

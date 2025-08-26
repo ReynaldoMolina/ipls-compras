@@ -1,5 +1,5 @@
 import { getProviders } from '@/lib/data/providers';
-import DateLink from './components/DateLink';
+import Solvency from './components/Solvency';
 import {
   Table,
   TableHead,
@@ -16,8 +16,8 @@ export default async function TableProviders({
 }: {
   params: SearchParamsProps;
 }) {
-  const pathname = 'proveedores';
   const data = await getProviders(params);
+  const pathname = 'proveedores';
 
   return (
     <Table>
@@ -38,7 +38,10 @@ export default async function TableProviders({
           <TableTR key={element.id} path={`${pathname}/${element.id}/editar`}>
             <TableTD align="center">{element.id}</TableTD>
             <TableTD>
-              <DateLink expirationDate={'2025-08-22'} id={element.id} />
+              <Solvency
+                expirationDate={element.solvencia || ''}
+                id={element.id}
+              />
             </TableTD>
             <TableTD>{element.nombre_comercial}</TableTD>
             <TableTD>{element.razon_social}</TableTD>
