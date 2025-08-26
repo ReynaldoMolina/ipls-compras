@@ -33,11 +33,11 @@ export default function SearchInput() {
     <search className="flex relative items-center max-w-60 w-full">
       <SearchIcon className="flex absolute left-2" />
       <input
-        className="flex items-center border border-brand-border text-sm rounded px-8.5 h-8 bg-brand-border/30 w-full focus:outline-2 focus:outline-button-active"
+        className="flex items-center border border-brand-border text-sm rounded px-8.5 h-8 bg-brand-border/30 w-full focus:outline-0 focus:border-button-active transition"
         id="search"
         name="search"
         type="search"
-        placeholder="Buscar"
+        placeholder="Buscar lista"
         autoComplete="off"
         value={searchText}
         onChange={(event) => handleChange(event.target.value)}

@@ -16,7 +16,7 @@ const icons = {
 
 type FormSectionName = keyof typeof titles;
 
-export function FormSection({
+export function FormFieldSet({
   children,
   name,
 }: {
@@ -24,14 +24,14 @@ export function FormSection({
   name: FormSectionName;
 }) {
   return (
-    <section className="flex flex-col gap-4">
+    <fieldset className="flex flex-col gap-4">
       {/* title */}
       <div className="flex items-center gap-3 font-semibold text-sm">
         {icons[name]}
-        {titles[name]}
+        <legend>{titles[name]}</legend>
       </div>
       {/* <p>Solvencia</p> */}
-      {children}
-    </section>
+      <div className="flex flex-col gap-5">{children}</div>
+    </fieldset>
   );
 }

@@ -1,4 +1,4 @@
-import Header from '@/ui/header/Header';
+import PageTitle from '@/ui/pagetitle/PageTitle';
 import ActionBar from '@/ui/actionbar/ActionBar';
 import TableProviders from '@/ui/tables/TableProviders';
 
@@ -10,7 +10,7 @@ export default async function Page(props) {
   const params = await props.searchParams;
   return (
     <>
-      <Header title="Proveedores" />
+      <PageTitle title="Proveedores" />
       <ActionBar />
       <TableProviders params={params} />
     </>

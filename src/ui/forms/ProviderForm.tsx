@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { FormProps } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
-import { FormSection } from './inputs/FormSection';
+import { FormFieldSet } from './inputs/FormFieldSet';
 import FormButtons from './inputs/FormButtons';
 import InputGroup from './inputs/InputGroup';
 import FormTextInput from './inputs/FormInputText';
@@ -16,9 +16,9 @@ export default function ProviderForm({ action, data, id }: FormProps) {
   });
 
   return (
-    <form action={formAction} className="flex flex-col gap-8 max-w-4xl">
-      <div className="flex flex-col gap-8 px-4">
-        <FormSection name="info">
+    <form action={formAction} className="flex flex-col gap-10 max-w-4xl px-1">
+      <div className="flex flex-col gap-10">
+        <FormFieldSet name="info">
           <FormTextInput
             label="Nombre comercial"
             name="nombre_comercial"
@@ -42,8 +42,8 @@ export default function ProviderForm({ action, data, id }: FormProps) {
               required={true}
             />
           </InputGroup>
-        </FormSection>
-        <FormSection name="contact">
+        </FormFieldSet>
+        <FormFieldSet name="contact">
           <InputGroup>
             <FormTextInput
               label="Contacto principal"
@@ -78,8 +78,8 @@ export default function ProviderForm({ action, data, id }: FormProps) {
             placeHolder="Dirección"
             value={data?.direccion || ''}
           />
-        </FormSection>
-        <FormSection name="category">
+        </FormFieldSet>
+        <FormFieldSet name="category">
           <InputGroup>
             <FormTextInput
               label="Sector"
@@ -94,7 +94,7 @@ export default function ProviderForm({ action, data, id }: FormProps) {
               value={data?.subsector || ''}
             />
           </InputGroup>
-        </FormSection>
+        </FormFieldSet>
       </div>
       <FormButtons isNew={action === 'create'} isPending={isPending} />
     </form>

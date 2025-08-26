@@ -6,15 +6,13 @@ import UserListIcon from '@/ui/sidemenu/icons/user_list.svg';
 import SettingsIcon from '@/ui/sidemenu/icons/settings.svg';
 import { PageId } from '@/types/types';
 
-const iconStyle = 'text-white dark:text-white';
-
 const pageIcons = {
-  resumen: <ResumenIcon className={iconStyle} />,
-  solicitudes: <ListIcon className={iconStyle} />,
-  ordenes: <CartIcon className={iconStyle} />,
-  proveedores: <GroupsIcon className={iconStyle} />,
-  usuarios: <UserListIcon className={iconStyle} />,
-  ajustes: <SettingsIcon className={iconStyle} />,
+  resumen: <ResumenIcon />,
+  solicitudes: <ListIcon />,
+  ordenes: <CartIcon />,
+  proveedores: <GroupsIcon />,
+  usuarios: <UserListIcon />,
+  ajustes: <SettingsIcon />,
   empty: <></>, // fallback icon
 };
 

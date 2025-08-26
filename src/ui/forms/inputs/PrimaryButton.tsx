@@ -28,7 +28,7 @@ export default function PrimaryButton({
     <button
       type="submit"
       disabled={isPending}
-      className={`${colors[action]} ${fullWidth ? 'w-full' : 'w-40'} ${isPending ? 'cursor-not-allowed' : 'cursor-pointer'} font-semibold text-xs rounded-md text-brand-text h-9 transition`}
+      className={`${colors[action]} ${fullWidth ? 'w-full' : 'w-full md:w-40'} ${isPending ? 'cursor-not-allowed' : 'cursor-pointer'} font-semibold text-xs rounded-md text-brand-text h-9 transition`}
     >
       {isPending ? <Loading /> : labels[action]}
     </button>

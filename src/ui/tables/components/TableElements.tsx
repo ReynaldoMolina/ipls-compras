@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import SortButton from './SortButton';
+import OrderButton from './OrderButton';
 import { headerLabels, LabelType } from './headerLabels';
 import { useSortParams } from '../hooks/useSetSort';
 
@@ -11,7 +11,7 @@ interface TableProps {
 
 export function Table({ children }: TableProps) {
   return (
-    <section className="w-full overflow-x-auto px-3 mb-3">
+    <section className="w-full overflow-x-auto mb-3">
       <table className="table-auto">{children}</table>
     </section>
   );
@@ -42,7 +42,7 @@ export function TableTH({
     >
       <div className="flex justify-between items-center gap-2">
         {headerLabels[name]}
-        <SortButton
+        <OrderButton
           column={name}
           active={orderBy === name}
           direction={direction}

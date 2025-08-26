@@ -1,22 +1,21 @@
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useMenuClose } from './useMenuClose';
 import ChangeTheme from './ChangeTheme';
 import PersonIcon from '@/icons/person.svg';
 import LogoutIcon from '@/icons/logout.svg';
 import { useClickOutside } from '@/lib/hooks/useClickOutside';
 
 interface Props {
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleProfileMenu: React.Dispatch<React.SetStateAction<boolean>>;
   buttonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 export const menuItemClass =
   'flex items-center gap-4 px-5 py-2.5 text-sm hover:bg-button-hover cursor-pointer';
 
-export default function ProfileMenu({ setIsMenuOpen, buttonRef }: Props) {
+export default function ProfileMenu({ toggleProfileMenu, buttonRef }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  useClickOutside(menuRef, () => setIsMenuOpen(false), buttonRef);
+  useClickOutside(menuRef, toggleProfileMenu, buttonRef);
 
   return (
     // menu container

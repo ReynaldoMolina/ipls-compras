@@ -1,19 +1,16 @@
 'use client';
 
-import Image from 'next/image';
 import { menuOptions } from './menuOptions';
 import { MenuItem } from './MenuItem';
+import { useMenusContext } from '../header/MenusContext';
 
 export default function SideMenu() {
+  const { sideMenuOpen } = useMenusContext();
+
+  if (!sideMenuOpen) return;
+
   return (
-    <menu className="hidden md:flex flex-col items-center gap-4 p-4 bg-brand-blue min-w-fit">
-      <Image
-        src="/images/logo-blanco.png"
-        width={90}
-        height={50}
-        className="w-20 text-white text-xs text-center"
-        alt="Logo"
-      />
+    <menu className="flex z-20 fixed md:static flex-col gap-4 p-3 min-w-55 max-w-55 bg-background grow border-r border-brand-border shadow-2xl md:shadow-none">
       <nav className="flex flex-col gap-1">
         {menuOptions.map((option) => (
           <MenuItem key={option.id} option={option} />

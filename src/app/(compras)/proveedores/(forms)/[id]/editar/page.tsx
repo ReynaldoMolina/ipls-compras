@@ -1,7 +1,7 @@
-import Header from '@/ui/header/Header';
 import ProviderForm from '@/ui/forms/ProviderForm';
 import { getProviderById } from '@/lib/data/providers';
 import { EditPageProps } from '@/types/types';
+import PageTitle from '@/ui/pagetitle/PageTitle';
 
 export async function generateMetadata(props: EditPageProps) {
   const { id } = props.params;
@@ -16,7 +16,7 @@ export default async function Page(props: EditPageProps) {
 
   return (
     <>
-      <Header title={`Proveedor ${id}`} />
+      <PageTitle title={`Proveedor ${id}`} showBackIcon={true} />
       <ProviderForm action="edit" data={data} id={id} />
     </>
   );

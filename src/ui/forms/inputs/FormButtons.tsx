@@ -8,7 +8,7 @@ interface ButtonsProps {
 
 export default function FormButtons({ isNew, isPending }: ButtonsProps) {
   return (
-    <div className="flex justify-end gap-2 px-3 py-2">
+    <div className="flex justify-center md:justify-end gap-2 py-2 bg-background">
       <SecondaryButton />
       <PrimaryButton action="submit" isPending={isPending} isNew={isNew} />
     </div>

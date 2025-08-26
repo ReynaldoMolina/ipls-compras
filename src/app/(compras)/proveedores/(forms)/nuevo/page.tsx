@@ -1,5 +1,5 @@
-import Header from '@/ui/header/Header';
 import ProviderForm from '@/ui/forms/ProviderForm';
+import PageTitle from '@/ui/pagetitle/PageTitle';
 
 export const metadata = {
   title: 'Nuevo proveedor',
@@ -8,7 +8,7 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <Header title="Nuevo proveedor" />
+      <PageTitle title="Nuevo proveedor" showBackIcon={true} />
       <ProviderForm action="create" />
     </>
   );

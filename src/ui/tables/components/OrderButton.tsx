@@ -8,7 +8,7 @@ type Props = {
   onClick: (col: LabelType) => void;
 };
 
-export default function SortButton({
+export default function OrderButton({
   column,
   active,
   direction,

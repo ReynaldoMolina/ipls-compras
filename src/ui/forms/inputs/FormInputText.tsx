@@ -28,7 +28,7 @@ export default function FormTextInput({
         <span className="text-brand-red">{required && '(requerido)'}</span>
       </label>
       <input
-        className="w-full text-xs h-8 border border-input-border rounded-md px-2"
+        className="w-full text-xs h-8 border border-brand-border rounded-md px-2"
         type="text"
         placeholder={placeHolder}
         name={name}
