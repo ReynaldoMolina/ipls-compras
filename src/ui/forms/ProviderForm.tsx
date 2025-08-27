@@ -16,7 +16,10 @@ export default function ProviderForm({ action, data, id }: FormProps) {
   });
 
   return (
-    <form action={formAction} className="flex flex-col gap-10 max-w-4xl px-1">
+    <form
+      action={formAction}
+      className="flex flex-col gap-10 max-w-4xl px-1 mx-auto w-full"
+    >
       <div className="flex flex-col gap-10">
         <FormFieldSet name="info">
           <FormTextInput
