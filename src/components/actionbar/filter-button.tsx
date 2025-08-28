@@ -28,7 +28,7 @@ export default function FilterButton() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <ListFilter />
           <span className="hidden md:flex text-xs">Filtrar</span>
