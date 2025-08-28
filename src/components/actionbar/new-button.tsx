@@ -1,20 +1,17 @@
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import { Button } from '../ui/button';
 
-export default function NewButton() {
-  const pathname = usePathname();
-  const label = pathname === 'ordenes' ? 'Añadir bien o servicio' : 'Nuevo';
+export default function NewButton({
+  variant = 'default',
+}: {
+  variant?: 'default' | 'ordenes';
+}) {
+  const label = variant === 'ordenes' ? 'Añadir bien o servicio' : 'Nuevo';
 
   return (
-    <Button asChild>
-      <Link href={`${pathname}/nuevo`}>
-        <Plus />
-        <span className="hidden md:flex">{label}</span>
-      </Link>
+    <Button>
+      <Plus />
+      <span className="hidden md:flex text-xs">{label}</span>
     </Button>
   );
 }

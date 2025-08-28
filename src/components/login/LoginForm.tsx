@@ -1,6 +1,6 @@
 import Link from 'next/link';
 // import { useActionState } from 'react';
-import { LoginEmail, LoginPassword } from '@/ui/login/LoginInput';
+import { LoginEmail, LoginPassword } from '@/components/login/LoginInput';
 import LoginButton from './LoginButton';
 import GoogleButton from './GoogleButton';
 

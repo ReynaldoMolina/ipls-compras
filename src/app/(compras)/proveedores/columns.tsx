@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import SortButton from '@/ui/tables/components/SortButton';
+import Solvency from '@/components/tables/solvency';
+import SortButton from '@/components/tables/sort-button';
+import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
 
 export interface Providers {
   id: number;
@@ -23,11 +23,7 @@ export const columns: ColumnDef<Providers>[] = [
       return <SortButton fieldName={column.id} label="Id" />;
     },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs text-center whitespace-nowrap">
-          {row.original.id}
-        </div>
-      );
+      return <TableCell textAlign="center">{row.original.id}</TableCell>;
     },
   },
   {
@@ -37,70 +33,67 @@ export const columns: ColumnDef<Providers>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="text-xs whitespace-nowrap">
-          {row.original.solvencia}
-        </div>
+        <TableCell>
+          <Solvency
+            expirationDate={row.original.solvencia}
+            id={row.original.id}
+          />
+        </TableCell>
       );
     },
   },
   {
     accessorKey: 'nombre_comercial',
-    header: () => <div className="text-xs">Nombre comercial</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Nombre comercial" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">
-          {row.original.nombre_comercial}
-        </div>
-      );
+      return <TableCell>{row.original.nombre_comercial}</TableCell>;
     },
   },
   {
     accessorKey: 'razon_social',
-    header: () => <div className="text-xs">Razón social</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Razón social" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">
-          {row.original.razon_social}
-        </div>
-      );
+      return <TableCell>{row.original.razon_social}</TableCell>;
     },
   },
   {
     accessorKey: 'ruc',
-    header: () => <div className="text-xs">RUC</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="RUC" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">{row.original.ruc}</div>
-      );
+      return <TableCell>{row.original.ruc}</TableCell>;
     },
   },
   {
     accessorKey: 'telefono',
-    header: () => <div className="text-xs">Teléfono</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Teléfono" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">{row.original.telefono}</div>
-      );
+      return <TableCell>{row.original.telefono}</TableCell>;
     },
   },
   {
     accessorKey: 'departamento',
-    header: () => <div className="text-xs">Departamento</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Departamento" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">
-          {row.original.departamento}
-        </div>
-      );
+      return <TableCell>{row.original.departamento}</TableCell>;
     },
   },
   {
     accessorKey: 'correo',
-    header: () => <div className="text-xs">Correo</div>,
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Correo" />;
+    },
     cell: ({ row }) => {
-      return (
-        <div className="text-xs whitespace-nowrap">{row.original.correo}</div>
-      );
+      return <TableCell>{row.original.correo}</TableCell>;
     },
   },
 ];

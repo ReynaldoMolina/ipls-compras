@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import ChangeTheme from './header/change-theme';
+import ChangeTheme from './change-theme';
 import { User, Contrast, LogOut } from 'lucide-react';
 
 const user = {
@@ -26,7 +26,7 @@ const user = {
 
 export default function Header({ title }: { title: string }) {
   return (
-    <header className="flex h-11 min-h-11 w-full items-center gap-3 px-3 py-1 border-b border-b-brand-border">
+    <header className="flex h-11 min-h-11 w-full items-center gap-3 px-3 py-1 border-b border-b-border">
       <SidebarTrigger />
       <h1 className="text-title font-semibold">{title}</h1>
 

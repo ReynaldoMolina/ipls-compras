@@ -1,4 +1,4 @@
-import ProviderForm from '@/ui/forms/ProviderForm';
+import ProviderForm from '@/components/forms/ProviderForm';
 
 export const metadata = {
   title: 'Nuevo proveedor',

@@ -1,4 +1,4 @@
-import Loading from '@/ui/loading/Loading';
+import Loading from '@/components/loading/Loading';
 
 interface ButtonProps {
   action: 'submit' | 'resend';

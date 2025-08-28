@@ -1,21 +1,19 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { LabelType } from '../components/headerLabels';
 import { SortOrder } from '@/types/types';
 
 export function useSortParams() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const orderBy = (searchParams.get('orderBy') as LabelType) ?? 'id';
+  const orderBy = searchParams.get('orderBy') ?? 'id';
   const direction = (searchParams.get('direction') as SortOrder) ?? 'asc';
 
-  function setSort(column: LabelType) {
+  function setSort(column: string) {
     let newDirection: SortOrder = 'asc';
 
     if (orderBy === column) {
-      // toggle direction
       newDirection = direction === 'asc' ? 'desc' : 'asc';
     }
 

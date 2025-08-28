@@ -2,17 +2,15 @@
 
 import Link from 'next/link';
 import { DateStatus } from '@/types/types';
-import CheckCircle from '@/icons/check_circle.svg';
-import Schedule from '@/icons/schedule.svg';
-import Warning from '@/icons/warning.svg';
+import { CircleCheck, ClockAlert, OctagonAlert } from 'lucide-react';
 
 interface Props {
-  expirationDate: string;
+  expirationDate: string | null;
   id: number;
 }
 
 export default function Solvency({ expirationDate, id }: Props) {
-  function getDateStatus(expirationDate: string): DateStatus {
+  function getDateStatus(expirationDate: string | null): DateStatus {
     if (!expirationDate) return 'empty';
 
     const [year, month, day] = expirationDate.split('-').map(Number);
@@ -31,9 +29,9 @@ export default function Solvency({ expirationDate, id }: Props) {
   const dateStatus = getDateStatus(expirationDate);
 
   const icons = {
-    active: <CheckCircle className="size-4" />,
-    due: <Schedule className="size-4" />,
-    expired: <Warning className="size-4" />,
+    active: <CircleCheck className="size-4" />,
+    due: <ClockAlert className="size-4" />,
+    expired: <OctagonAlert className="size-4" />,
     empty: <></>,
   };
 

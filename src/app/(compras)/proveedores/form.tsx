@@ -1,3 +1,4 @@
+import NewButton from '@/components/actionbar/new-button';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,17 +12,13 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus } from 'lucide-react';
 
 export function DialogNewProvider() {
   return (
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button>
-            <Plus />
-            <span className="hidden md:flex text-sm">Nuevo</span>
-          </Button>
+          <NewButton />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

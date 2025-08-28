@@ -1,8 +1,8 @@
 import ActionBar from '@/components/actionbar/action-bar';
-import Header from '@/components/header';
+import Header from '@/components//header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
-import { DataTable } from './data-table';
+import { DataTable } from '../../../components/tables/data-table';
 import { getProviders } from '@/lib/data/providers';
 
 const title = 'Proveedores';

@@ -36,9 +36,9 @@ export default function SearchInput() {
       <Input
         type="search"
         placeholder="Buscar"
-        className="px-8 text-sm"
-        onChange={(event) => handleChange(event.target.value)}
+        className="px-8 text-xs md:text-xs"
         value={searchText}
+        onChange={(event) => handleChange(event.target.value)}
       />
       {searchText.length > 0 && (
         <Delete

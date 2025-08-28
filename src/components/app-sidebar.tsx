@@ -64,12 +64,13 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <SidebarMenuButton asChild>
-          <Link href="/">
-            <Logo />
-            <span className="font-semibold">IPLS Compras</span>
-          </Link>
-        </SidebarMenuButton>
+        <Link
+          href="/"
+          className="flex gap-2 items-center rounded-md hover:bg-sidebar-accent p-2"
+        >
+          <Logo className="size-7" />
+          <span className="font-semibold">IPLS Compras</span>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 import {
   DropdownMenu,
@@ -7,21 +8,34 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { ListFilter } from 'lucide-react';
-import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
-import { Separator } from '../ui/separator';
+import { ProvidersFilters, ResumenFilters } from './filter/FilterMenu';
 
 export default function FilterButton() {
+  const pathname = usePathname();
+
+  let filterMenu;
+  switch (pathname) {
+    case '/proveedores':
+      filterMenu = <ProvidersFilters />;
+      break;
+    case '/resumen':
+      filterMenu = <ResumenFilters />;
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outline">
           <ListFilter />
-          <span className="hidden md:flex">Filtrar</span>
+          <span className="hidden md:flex text-xs">Filtrar</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel className="text-sm">Filtros</DropdownMenuLabel>
-        <Separator />
+      <DropdownMenuContent className="flex flex-col gap-3 min-w-50">
+        {filterMenu}
       </DropdownMenuContent>
     </DropdownMenu>
   );

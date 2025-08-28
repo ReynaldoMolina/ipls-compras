@@ -1,4 +1,4 @@
-import ProviderForm from '@/ui/forms/ProviderForm';
+import ProviderForm from '@/components/forms/ProviderForm';
 import { getProviderById } from '@/lib/data/providers';
 import { EditPageProps } from '@/types/types';
 

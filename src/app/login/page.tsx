@@ -1,5 +1,5 @@
-import Hero from '@/ui/login/Hero';
-import LoginForm from '@/ui/login/LoginForm';
+import Hero from '@/components/login/Hero';
+import LoginForm from '@/components/login/LoginForm';
 
 export const metadata = {
   title: 'Iniciar sesión',
