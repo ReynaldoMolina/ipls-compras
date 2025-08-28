@@ -33,14 +33,14 @@ export default function Header({ title }: { title: string }) {
       <div className="flex items-center ml-auto">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar>
+            <Avatar className="size-7">
               <AvatarImage src={user.avatar} />
               <AvatarFallback>RM</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-w-70">
             <div className="flex gap-2 px-1 py-2">
-              <Avatar className="h-10 w-10 rounded-full grayscale">
+              <Avatar className="size-10 rounded-full">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">RM</AvatarFallback>
               </Avatar>
