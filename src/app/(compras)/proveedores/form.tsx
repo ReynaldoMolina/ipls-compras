@@ -20,7 +20,7 @@ export function DialogNewProvider() {
         <DialogTrigger asChild>
           <NewButton />
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>Nuevo proveedor</DialogTitle>
             <DialogDescription>
@@ -30,7 +30,7 @@ export function DialogNewProvider() {
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="nombre_comercial">Nombre</Label>
+              <Label htmlFor="nombre_comercial">Nombre comercial</Label>
               <Input
                 id="nombre_comercial"
                 name="nombre_comercial"
