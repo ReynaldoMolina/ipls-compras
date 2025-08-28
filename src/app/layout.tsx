@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { inter } from '@/ui/fonts';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@/components/theme-provider';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -19,8 +21,18 @@ export default function RootLayout({
   return (
     <html lang="es-ES" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="flex flex-col flex-1 overflow-hidden">
+              {children}
+            </main>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,9 @@
-import PageTitle from '@/ui/pagetitle/PageTitle';
-import ActionBar from '@/ui/actionbar/ActionBar';
-import TableProviders from '@/ui/tables/TableProviders';
+import ActionBar from '@/components/actionbar/action-bar';
+import Header from '@/components/header';
+import PageWrapper from '@/components/page-wrapper';
+import { columns } from './columns';
+import { DataTable } from './data-table';
+import { getProviders } from '@/lib/data/providers';
 
 const title = 'Proveedores';
 
@@ -10,11 +13,14 @@ export const metadata = {
 
 export default async function Page(props) {
   const params = await props.searchParams;
+  const data = await getProviders(params);
   return (
     <>
-      <PageTitle title={title} />
-      <ActionBar />
-      <TableProviders params={params} />
+      <Header title={title} />
+      <PageWrapper>
+        <ActionBar />
+        <DataTable columns={columns} data={data} />
+      </PageWrapper>
     </>
   );
 }

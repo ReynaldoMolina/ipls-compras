@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import OrderButton from './OrderButton';
+import OrderButton from './SortButton';
 import { headerLabels, LabelType } from './headerLabels';
 import { useSortParams } from '../hooks/useSetSort';
 

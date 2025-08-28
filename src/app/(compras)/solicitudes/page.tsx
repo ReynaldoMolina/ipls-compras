@@ -1,6 +1,4 @@
-import PageTitle from '@/ui/pagetitle/PageTitle';
-import ActionBar from '@/ui/actionbar/ActionBar';
-import TableSolicitudes from '@/ui/tables/TableSolicitudes';
+import ActionBar from '@/components/actionbar/action-bar';
 
 const title = 'Solicitudes de compra';
 
@@ -12,9 +10,7 @@ export default async function Page(props) {
   const params = await props.searchParams;
   return (
     <>
-      <PageTitle title={title} />
       <ActionBar />
-      <TableSolicitudes params={params} />
     </>
   );
 }
