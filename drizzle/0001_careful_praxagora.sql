@@ -1,0 +1,1 @@
+ALTER TABLE "departamentos" RENAME COLUMN "nombre" TO "departamento";

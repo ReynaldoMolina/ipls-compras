@@ -4,6 +4,8 @@ export default function PageWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col flex-1 p-3 gap-3">{children}</section>
+    <section className="flex flex-col flex-1 p-3 gap-3 overflow-y-auto">
+      {children}
+    </section>
   );
 }

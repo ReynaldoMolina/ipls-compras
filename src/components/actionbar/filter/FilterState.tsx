@@ -13,7 +13,7 @@ export function FilterState({
   pageKey,
 }: {
   label: string;
-  states: string[];
+  states: (string | null)[];
   paramKey: string;
   pageKey: string;
 }) {
@@ -32,18 +32,20 @@ export function FilterState({
     <DropdownMenuGroup>
       <DropdownMenuLabel className="text-xs">{label}</DropdownMenuLabel>
       <Separator className="mb-1" />
-      {states.map((state) => {
-        const isActive = activeStates.includes(state);
-        return (
-          <DropdownMenuCheckboxItem
-            key={state}
-            checked={isActive}
-            onCheckedChange={() => toggle(state)}
-          >
-            <span className="text-xs">{state}</span>
-          </DropdownMenuCheckboxItem>
-        );
-      })}
+      {states
+        .filter((s): s is string => s !== null)
+        .map((state) => {
+          const isActive = activeStates.includes(state);
+          return (
+            <DropdownMenuCheckboxItem
+              key={state}
+              checked={isActive}
+              onCheckedChange={() => toggle(state)}
+            >
+              <span className="text-xs">{state}</span>
+            </DropdownMenuCheckboxItem>
+          );
+        })}
     </DropdownMenuGroup>
   );
 }

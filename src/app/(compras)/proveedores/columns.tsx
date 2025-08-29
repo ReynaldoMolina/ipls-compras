@@ -4,6 +4,7 @@ import Solvency from '@/components/tables/solvency';
 import SortButton from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 export interface Providers {
   id: number;
@@ -48,7 +49,16 @@ export const columns: ColumnDef<Providers>[] = [
       return <SortButton fieldName={column.id} label="Nombre comercial" />;
     },
     cell: ({ row }) => {
-      return <TableCell>{row.original.nombre_comercial}</TableCell>;
+      return (
+        <TableCell>
+          <Link
+            href={`/proveedores/${row.original.id}/editar`}
+            className="w-full hover:underline py-1"
+          >
+            {row.original.nombre_comercial}
+          </Link>
+        </TableCell>
+      );
     },
   },
   {

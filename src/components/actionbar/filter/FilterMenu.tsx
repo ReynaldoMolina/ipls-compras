@@ -1,6 +1,7 @@
+import { FilterData } from '@/types/types';
 import { FilterState } from './FilterState';
 
-export function ProvidersFilters() {
+export function ProvidersFilters({ filterData }: FilterData) {
   return (
     <>
       <FilterState
@@ -11,7 +12,7 @@ export function ProvidersFilters() {
       />
       <FilterState
         label="Departamentos"
-        states={['León', 'Managua']}
+        states={filterData.departamentos}
         paramKey="departamento"
         pageKey="proveedores"
       />
@@ -19,7 +20,7 @@ export function ProvidersFilters() {
   );
 }
 
-export function ResumenFilters() {
+export function ResumenFilters({ filterData }: FilterData) {
   return (
     <>
       <FilterState

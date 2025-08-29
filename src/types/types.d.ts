@@ -63,3 +63,11 @@ export interface ProviderTable {
 export type PrevState = {
   message: string;
 };
+
+export type FilterData = {
+  filterData: {
+    departamentos: (string | null)[];
+  };
+};
+
+export type ComboBoxData = { value: string; label: string }[];

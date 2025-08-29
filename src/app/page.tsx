@@ -5,10 +5,10 @@ export const metadata = {
 export default async function Page() {
   return (
     <main className="flex gap-5 justify-center items-center min-h-screen">
-      <a className="bg-button-hover px-7 py-3 rounded-full" href="/login">
+      <a className="bg-secondary px-7 py-3 rounded-full" href="/login">
         Login
       </a>
-      <a className="bg-button-hover px-7 py-3 rounded-full" href="/resumen">
+      <a className="bg-secondary px-7 py-3 rounded-full" href="/proveedores">
         Test
       </a>
     </main>

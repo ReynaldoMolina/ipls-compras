@@ -1,13 +1,14 @@
-import { DialogNewProvider } from '@/app/(compras)/proveedores/form';
-import FilterButton from './filter-button';
 import SearchInput from './search-input';
+import NewButton from './new-button';
 
 interface ActionBarProps {
+  children: React.ReactNode;
   allowSearch?: boolean;
   allowNew?: boolean;
 }
 
 export default function ActionBar({
+  children,
   allowSearch = true,
   allowNew = true,
 }: ActionBarProps) {
@@ -17,8 +18,8 @@ export default function ActionBar({
     >
       {allowSearch && <SearchInput />}
       <div className="flex gap-2">
-        <FilterButton />
-        {allowNew && <DialogNewProvider />}
+        {children}
+        {allowNew && <NewButton />}
       </div>
     </div>
   );

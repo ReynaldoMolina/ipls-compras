@@ -2,7 +2,7 @@ import { db } from '@/db/db';
 import { proveedores } from '@/db/schema/proveedores';
 import { solvencias } from '@/db/schema/solvencias';
 import { SearchParamsProps } from '@/types/types';
-import { eq, max, and } from 'drizzle-orm';
+import { eq, max, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './buildSearchFilter';
 import { buildOrderFragment } from './buildOrderFragment';
 import { buildFiltersProviders } from './buildFilterFragment';
@@ -57,6 +57,22 @@ export async function getProviderById(id: number) {
     console.error(error);
     throw new Error(
       'No se pudo obtener el proveedor, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getProvidersDepartamentos() {
+  try {
+    const data = await db
+      .selectDistinct({ departamento: proveedores.departamento })
+      .from(proveedores)
+      .orderBy(asc(proveedores.departamento));
+    const departamentos = data.map((row) => row.departamento);
+    return departamentos;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los departamentos, por favor intenta de nuevo'
     );
   }
 }

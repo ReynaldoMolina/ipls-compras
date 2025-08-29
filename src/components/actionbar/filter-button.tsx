@@ -9,17 +9,18 @@ import {
 } from '../ui/dropdown-menu';
 import { ListFilter } from 'lucide-react';
 import { ProvidersFilters, ResumenFilters } from './filter/FilterMenu';
+import { FilterData } from '@/types/types';
 
-export default function FilterButton() {
+export default function FilterButton({ filterData }: FilterData) {
   const pathname = usePathname();
 
   let filterMenu;
   switch (pathname) {
     case '/proveedores':
-      filterMenu = <ProvidersFilters />;
+      filterMenu = <ProvidersFilters filterData={filterData} />;
       break;
     case '/resumen':
-      filterMenu = <ResumenFilters />;
+      filterMenu = <ResumenFilters filterData={filterData} />;
       break;
 
     default:
