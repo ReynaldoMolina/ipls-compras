@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1756489479905,
-      "tag": "0000_brown_sister_grimm",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1756498452756,
-      "tag": "0001_careful_praxagora",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1756500601531,
-      "tag": "0002_dry_titania",
+      "when": 1756745428237,
+      "tag": "0000_absent_spacker_dave",
       "breakpoints": true
     }
   ]

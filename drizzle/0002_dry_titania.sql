@@ -1,2 +1,0 @@
-ALTER TABLE "subsectores" ADD COLUMN "id_sector" integer NOT NULL;--> statement-breakpoint
-ALTER TABLE "subsectores" ADD CONSTRAINT "subsectores_id_sector_sectores_id_fk" FOREIGN KEY ("id_sector") REFERENCES "public"."sectores"("id") ON DELETE no action ON UPDATE no action;

@@ -1,6 +1,6 @@
-import { pgTable, text } from 'drizzle-orm/pg-core';
+import { integer, pgTable, text } from 'drizzle-orm/pg-core';
 
 export const departamentos = pgTable('departamentos', {
-  id: text().primaryKey(),
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
   departamento: text().notNull(),
 });

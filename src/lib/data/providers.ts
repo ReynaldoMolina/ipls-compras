@@ -1,8 +1,9 @@
 import { db } from '@/db/db';
 import { proveedores } from '@/db/schema/proveedores';
 import { solvencias } from '@/db/schema/solvencias';
-import { SearchParamsProps } from '@/types/types';
-import { eq, max, and, asc } from 'drizzle-orm';
+import { departamentos } from '@/db/schema/departamentos';
+import { Provider, SearchParamsProps } from '@/types/types';
+import { eq, max, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './buildSearchFilter';
 import { buildOrderFragment } from './buildOrderFragment';
 import { buildFiltersProviders } from './buildFilterFragment';
@@ -15,7 +16,7 @@ export async function getProviders(params: SearchParamsProps) {
     razon_social: proveedores.razon_social,
     ruc: proveedores.ruc,
     telefono: proveedores.telefono,
-    departamento: proveedores.departamento,
+    departamento: departamentos.departamento,
     correo: proveedores.correo,
   };
 
@@ -33,8 +34,12 @@ export async function getProviders(params: SearchParamsProps) {
       .select(selectFields)
       .from(proveedores)
       .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
+      .leftJoin(
+        departamentos,
+        eq(proveedores.id_departamento, departamentos.id)
+      )
       .where(and(searchFilter, departamentoFilter))
-      .groupBy(proveedores.id)
+      .groupBy(proveedores.id, departamentos.departamento)
       .having(solvenciaFilter)
       .orderBy(orderFragment);
     return data;
@@ -46,7 +51,7 @@ export async function getProviders(params: SearchParamsProps) {
   }
 }
 
-export async function getProviderById(id: number) {
+export async function getProviderById(id: number): Promise<Provider> {
   try {
     const data = await db
       .select()
@@ -64,11 +69,17 @@ export async function getProviderById(id: number) {
 export async function getProvidersDepartamentos() {
   try {
     const data = await db
-      .selectDistinct({ departamento: proveedores.departamento })
+      .selectDistinct({
+        value: departamentos.id,
+        label: departamentos.departamento,
+      })
       .from(proveedores)
-      .orderBy(asc(proveedores.departamento));
-    const departamentos = data.map((row) => row.departamento);
-    return departamentos;
+      .innerJoin(
+        departamentos,
+        eq(proveedores.id_departamento, departamentos.id)
+      )
+      .orderBy(asc(departamentos.departamento));
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error(

@@ -28,7 +28,7 @@ type ProviderFormValues = z.infer<typeof providerSchema>;
 
 interface ComboBoxProps {
   field: ControllerRenderProps<ProviderFormValues, keyof ProviderFormValues>;
-  data: { value: string; label: string }[];
+  data: { value: number; label: string }[];
   form: UseFormReturn<z.infer<typeof providerSchema>>;
   updateParams?: boolean;
 }
@@ -53,7 +53,8 @@ export function ComboBox({
             )}
           >
             {field.value
-              ? data.find((element) => element.value === field.value)?.label
+              ? data.find((element) => element.value === Number(field.value))
+                  ?.label
               : 'Selecciona una opción'}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -71,8 +72,9 @@ export function ComboBox({
                   key={element.value}
                   className="text-xs"
                   onSelect={() => {
-                    form.setValue(field.name, element.value);
-                    if (updateParams) setUrlParam('sector', element.value);
+                    form.setValue(field.name, Number(element.value));
+                    if (updateParams)
+                      setUrlParam('sector', String(element.value));
                   }}
                 >
                   {element.label}

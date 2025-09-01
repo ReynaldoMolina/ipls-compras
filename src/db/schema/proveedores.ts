@@ -11,14 +11,10 @@ export const proveedores = pgTable('proveedores', {
   contacto_principal: text(),
   telefono: text(),
   correo: text(),
-  id_departamento: text()
+  id_departamento: integer()
     .notNull()
     .references(() => departamentos.id),
   direccion: text(),
-  id_sector: integer()
-    .notNull()
-    .references(() => sectores.id),
-  id_subsector: integer()
-    .notNull()
-    .references(() => subsectores.id),
+  id_sector: integer().references(() => sectores.id),
+  id_subsector: integer().references(() => subsectores.id),
 });

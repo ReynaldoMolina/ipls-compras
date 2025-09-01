@@ -1,5 +1,5 @@
 {
-  "id": "3b4e3980-ccf8-418d-9443-ca8166c10185",
+  "id": "f11eb2a0-ab3e-4cab-b046-06765a7eab79",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,12 +10,23 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "departamentos_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
-        "nombre": {
-          "name": "nombre",
+        "departamento": {
+          "name": "departamento",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -88,7 +99,7 @@
         },
         "id_departamento": {
           "name": "id_departamento",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -102,13 +113,13 @@
           "name": "id_sector",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "id_subsector": {
           "name": "id_subsector",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         }
       },
       "indexes": {},
@@ -301,10 +312,30 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "id_sector": {
+          "name": "id_sector",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "subsectores_id_sector_sectores_id_fk": {
+          "name": "subsectores_id_sector_sectores_id_fk",
+          "tableFrom": "subsectores",
+          "tableTo": "sectores",
+          "columnsFrom": [
+            "id_sector"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

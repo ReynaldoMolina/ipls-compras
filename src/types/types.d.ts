@@ -38,15 +38,15 @@ export interface FormProps {
 export interface Provider {
   id?: number;
   nombre_comercial: string;
-  razon_social: string;
-  ruc: string;
-  contacto_principal: string;
-  telefono: string;
-  correo: string;
-  departamento: string;
-  direccion: string;
-  sector: string;
-  subsector: string;
+  razon_social?: string | undefined;
+  ruc?: string | undefined;
+  contacto_principal?: string | undefined;
+  telefono?: string | undefined;
+  correo?: string | undefined;
+  id_departamento: number;
+  direccion?: string | undefined;
+  id_sector: number;
+  id_subsector: number;
 }
 
 export interface ProviderTable {
@@ -56,18 +56,18 @@ export interface ProviderTable {
   razon_social: string;
   ruc: string;
   telefono: string;
-  departamento: string;
+  id_departamento: number;
   correo: string;
 }
 
 export type PrevState = {
-  message: string;
+  message: string | undefined;
 };
 
 export type FilterData = {
   filterData: {
-    departamentos: (string | null)[];
+    departamentos: { value: number; label: string }[];
   };
 };
 
-export type ComboBoxData = { value: string; label: string }[];
+export type ComboBoxData = { value: number; label: string }[];

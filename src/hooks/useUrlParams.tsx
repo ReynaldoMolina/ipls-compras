@@ -6,14 +6,14 @@ export function useUrlParams(pageKey: string) {
   const searchParams = useSearchParams();
 
   // Load saved filters from localStorage when no params are present
-  useEffect(() => {
-    if (searchParams.toString()) return;
+  // useEffect(() => {
+  //   if (searchParams.toString()) return;
 
-    const saved = localStorage.getItem(`filters:${pageKey}`);
-    if (saved) {
-      router.replace(`?${saved}`, { scroll: false });
-    }
-  }, [searchParams, router, pageKey]);
+  //   const saved = localStorage.getItem(`filters:${pageKey}`);
+  //   if (saved) {
+  //     router.replace(`?${saved}`, { scroll: false });
+  //   }
+  // }, [searchParams, router, pageKey]);
 
   function setParam(key: string, value: string | string[] | null) {
     const params = new URLSearchParams(searchParams.toString());
@@ -30,7 +30,7 @@ export function useUrlParams(pageKey: string) {
     router.push(`?${query}`, { scroll: false });
 
     // Persist to localStorage
-    localStorage.setItem(`filters:${pageKey}`, query);
+    // localStorage.setItem(`filters:${pageKey}`, query);
   }
 
   function getParam(key: string): string[] {

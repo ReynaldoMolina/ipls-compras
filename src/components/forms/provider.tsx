@@ -17,14 +17,20 @@ import { ComboBox } from '../combo-box';
 import FormContainer from './elements/form-container';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
-import FormButtons from './elements/form-butons';
-import { ComboBoxData } from '@/types/types';
+import FormButtons from './elements/form-buttons';
+import { ComboBoxData, Provider } from '@/types/types';
+import { createProvider, updateProvider } from '@/lib/actions/providers';
+import FormTitle from './elements/form-title';
 
-export function NewProviderForm({
+export function ProviderForm({
+  action,
+  provider,
   departamentos,
   sectores,
   subsectores,
 }: {
+  action: 'create' | 'edit';
+  provider?: Provider;
   departamentos: ComboBoxData;
   sectores: ComboBoxData;
   subsectores: ComboBoxData;
@@ -32,29 +38,31 @@ export function NewProviderForm({
   // 1. Define your form.
   const form = useForm<z.infer<typeof providerSchema>>({
     resolver: zodResolver(providerSchema),
-    defaultValues: {
+    defaultValues: provider ?? {
       nombre_comercial: '',
       razon_social: '',
       ruc: '',
       contacto_principal: '',
       telefono: '',
       correo: '',
-      departamento: undefined,
+      id_departamento: 0,
       direccion: '',
-      sector: undefined,
-      subsector: undefined,
+      id_sector: 0,
+      id_subsector: 0,
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof providerSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    if (action === 'create') {
+      createProvider(undefined, values);
+    } else if (action === 'edit' && provider) {
+      updateProvider(provider.id, { message: undefined }, values);
+    }
   }
 
   return (
     <Form {...form}>
+      <FormTitle title="Información del proveedor" />
       <FormContainer onSubmit={form.handleSubmit(onSubmit)}>
         <FormFieldSet name="info">
           <FormField
@@ -146,7 +154,7 @@ export function NewProviderForm({
             />
             <FormField
               control={form.control}
-              name="departamento"
+              name="id_departamento"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Departamento</FormLabel>
@@ -175,7 +183,7 @@ export function NewProviderForm({
           <FormInputGroup>
             <FormField
               control={form.control}
-              name="sector"
+              name="id_sector"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sector</FormLabel>
@@ -191,7 +199,7 @@ export function NewProviderForm({
             />
             <FormField
               control={form.control}
-              name="subsector"
+              name="id_subsector"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Subsector</FormLabel>
@@ -202,7 +210,7 @@ export function NewProviderForm({
             />
           </FormInputGroup>
         </FormFieldSet>
-        <FormButtons />
+        <FormButtons action={action} />
       </FormContainer>
     </Form>
   );

@@ -5,20 +5,21 @@ import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
 
 export function buildFiltersProviders(params: SearchParamsProps) {
   //departamentos
-  const departamentos = params.departamento?.split(',').filter(Boolean) ?? [];
+  const departamentos =
+    params.departamento?.split(',').filter(Boolean).map(Number) ?? [];
   const departamentoFilter =
     departamentos.length > 0
-      ? inArray(proveedores.departamento, departamentos)
+      ? inArray(proveedores.id_departamento, departamentos)
       : undefined;
 
   // solvencia
   const solvenciaValues = params.solvencia?.split(',').filter(Boolean) ?? [];
 
   const solvenciaMap: Record<string, SQL | undefined> = {
-    Activa: gt(max(solvencias.vence), sql`CURRENT_DATE`),
-    Vencida: lt(max(solvencias.vence), sql`CURRENT_DATE`),
-    'Por vencer': eq(max(solvencias.vence), sql`CURRENT_DATE`),
-    'Sin solvencia': isNull(max(solvencias.vence)),
+    1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
+    2: lt(max(solvencias.vence), sql`CURRENT_DATE`),
+    3: eq(max(solvencias.vence), sql`CURRENT_DATE`),
+    4: isNull(max(solvencias.vence)),
   };
 
   const solvenciaConditions = solvenciaValues

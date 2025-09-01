@@ -26,7 +26,7 @@ export async function getSectores() {
   try {
     const data = await db
       .select({
-        value: sql<string>`sectores.id::text`,
+        value: sectores.id,
         label: sectores.sector,
       })
       .from(sectores)
@@ -42,11 +42,11 @@ export async function getSectores() {
 
 export async function getSubsectoresBySector(sectorId: number | undefined) {
   if (!sectorId) {
-    return [{ value: '', label: 'Selecciona un sector' }];
+    return [{ value: 0, label: 'Selecciona un sector' }];
   }
   return db
     .select({
-      value: sql<string>`subsectores.id::text`,
+      value: subsectores.id,
       label: subsectores.subsector,
     })
     .from(subsectores)
