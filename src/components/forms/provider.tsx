@@ -20,7 +20,6 @@ import { FormFieldSet } from './elements/form-fieldset';
 import FormButtons from './elements/form-buttons';
 import { ComboBoxData, Provider } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
-import FormTitle from './elements/form-title';
 
 export function ProviderForm({
   action,
@@ -62,7 +61,6 @@ export function ProviderForm({
 
   return (
     <Form {...form}>
-      <FormTitle title="Información del proveedor" />
       <FormContainer onSubmit={form.handleSubmit(onSubmit)}>
         <FormFieldSet name="info">
           <FormField

@@ -17,8 +17,8 @@ export function buildFiltersProviders(params: SearchParamsProps) {
 
   const solvenciaMap: Record<string, SQL | undefined> = {
     1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
-    2: lt(max(solvencias.vence), sql`CURRENT_DATE`),
-    3: eq(max(solvencias.vence), sql`CURRENT_DATE`),
+    2: eq(max(solvencias.vence), sql`CURRENT_DATE`),
+    3: lt(max(solvencias.vence), sql`CURRENT_DATE`),
     4: isNull(max(solvencias.vence)),
   };
 

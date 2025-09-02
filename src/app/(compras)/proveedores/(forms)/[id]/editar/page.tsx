@@ -1,3 +1,5 @@
+import FormBackButton from '@/components/forms/elements/form-back-button';
+import { FormTabItem, FormTabList } from '@/components/forms/elements/form-tab';
 import { ProviderForm } from '@/components/forms/provider';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
@@ -43,6 +45,11 @@ export default async function Page(props: Props) {
     <>
       <Header title={`Proveedor ${id}`} />
       <PageWrapper>
+        <FormBackButton />
+        <FormTabList>
+          <FormTabItem href="editar" label="Información" />
+          <FormTabItem href="solvencias" label="Solvencias" />
+        </FormTabList>
         <ProviderForm
           action="edit"
           provider={provider}

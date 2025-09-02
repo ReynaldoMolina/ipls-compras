@@ -1,3 +1,4 @@
+import FormBackButton from '@/components/forms/elements/form-back-button';
 import { ProviderForm } from '@/components/forms/provider';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
@@ -32,6 +33,7 @@ export default async function Page(props: Props) {
     <>
       <Header title={title} />
       <PageWrapper>
+        <FormBackButton />
         <ProviderForm
           action="create"
           departamentos={departamentos}

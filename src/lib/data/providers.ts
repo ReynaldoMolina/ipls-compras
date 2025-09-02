@@ -2,8 +2,8 @@ import { db } from '@/db/db';
 import { proveedores } from '@/db/schema/proveedores';
 import { solvencias } from '@/db/schema/solvencias';
 import { departamentos } from '@/db/schema/departamentos';
-import { Provider, SearchParamsProps } from '@/types/types';
-import { eq, max, and, asc, sql } from 'drizzle-orm';
+import { Provider, Solvencia, SearchParamsProps } from '@/types/types';
+import { eq, max, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './buildSearchFilter';
 import { buildOrderFragment } from './buildOrderFragment';
 import { buildFiltersProviders } from './buildFilterFragment';
@@ -84,6 +84,21 @@ export async function getProvidersDepartamentos() {
     console.error(error);
     throw new Error(
       'No se pudieron obtener los departamentos, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getSolvenciasById(id: number): Promise<Solvencia> {
+  try {
+    const data = await db
+      .select()
+      .from(solvencias)
+      .where(eq(solvencias.id_proveedor, id));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el proveedor, por favor intenta de nuevo'
     );
   }
 }
