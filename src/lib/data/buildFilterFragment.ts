@@ -31,3 +31,24 @@ export function buildFiltersProviders(params: SearchParamsProps) {
 
   return { departamentoFilter, solvenciaFilter };
 }
+
+export function buildFiltersSolvencias(params: SearchParamsProps) {
+  // solvencia
+  const solvenciaValues = params.solvencia?.split(',').filter(Boolean) ?? [];
+
+  const solvenciaMap: Record<string, SQL | undefined> = {
+    1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
+    2: eq(max(solvencias.vence), sql`CURRENT_DATE`),
+    3: lt(max(solvencias.vence), sql`CURRENT_DATE`),
+    4: isNull(max(solvencias.vence)),
+  };
+
+  const solvenciaConditions = solvenciaValues
+    .map((s) => solvenciaMap[s])
+    .filter((cond): cond is SQL => cond !== undefined);
+
+  const solvenciaFilter =
+    solvenciaConditions.length > 0 ? or(...solvenciaConditions) : undefined;
+
+  return { solvenciaFilter };
+}

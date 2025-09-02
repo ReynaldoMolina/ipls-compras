@@ -12,3 +12,13 @@ export const providerSchema = z.object({
   id_sector: z.number().min(1, 'Requerido'),
   id_subsector: z.number().min(1, 'Requerido'),
 });
+
+export const solvenciaSchema = z.object({
+  id_proveedor: z.number().min(1, 'Requerido'),
+  emitida: z.date('Requerido'),
+  vence: z.date('Requerido'),
+  verificado: z.date().optional(),
+  recibido: z.date().optional(),
+  url: z.string().optional(),
+  id_usuario: z.number().optional(),
+});

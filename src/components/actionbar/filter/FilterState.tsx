@@ -8,12 +8,12 @@ import { useUrlParams } from '@/hooks/useUrlParams';
 
 export function FilterState({
   label,
-  states,
+  states = [],
   paramKey,
   pageKey,
 }: {
   label: string;
-  states: { value: number; label: string }[];
+  states?: { value: number; label: string }[];
   paramKey: string;
   pageKey: string;
 }) {

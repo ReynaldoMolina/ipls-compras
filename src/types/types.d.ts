@@ -18,7 +18,7 @@ export type SearchParamsProps = {
   orderBy?: string;
   direction?: SortOrder;
   departamento?: string;
-  solvencia?: string;
+  solvencia?: string | undefined;
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
@@ -49,24 +49,13 @@ export interface Provider {
   id_subsector: number;
 }
 
-// export interface ProviderTable {
-//   id: number;
-//   solvencia: string;
-//   nombre_comercial: string;
-//   razon_social: string;
-//   ruc: string;
-//   telefono: string;
-//   id_departamento: number;
-//   correo: string;
-// }
-
 export interface Solvencia {
   id?: number;
   id_proveedor: number;
-  emitida: string;
-  vence: string;
-  verificado?: string | undefined;
-  recibido?: string | undefined;
+  emitida: Date;
+  vence: Date;
+  verificado?: Date | undefined;
+  recibido?: Date | undefined;
   url?: string | undefined;
 }
 
@@ -75,8 +64,9 @@ export type PrevState = {
 };
 
 export type FilterData = {
-  filterData: {
-    departamentos: { value: number; label: string }[];
+  filterData?: {
+    departamentos?: { value: number; label: string }[];
+    years?: { value: number; label: string }[];
   };
 };
 
