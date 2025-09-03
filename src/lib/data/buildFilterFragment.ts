@@ -1,5 +1,6 @@
 import { proveedores } from '@/db/schema/proveedores';
 import { solvencias } from '@/db/schema/solvencias';
+import { usuarios } from '@/db/schema/usuarios';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
 
@@ -51,4 +52,13 @@ export function buildFiltersSolvencias(params: SearchParamsProps) {
     solvenciaConditions.length > 0 ? or(...solvenciaConditions) : undefined;
 
   return { solvenciaFilter };
+}
+
+export function buildFiltersUsuarios(params: SearchParamsProps) {
+  // rol
+  const roles = params.rol?.split(',').filter(Boolean) ?? [];
+  const rolesFilter =
+    roles.length > 0 ? inArray(usuarios.rol, roles) : undefined;
+
+  return { rolesFilter };
 }

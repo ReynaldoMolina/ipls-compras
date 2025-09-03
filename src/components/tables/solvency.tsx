@@ -3,17 +3,18 @@
 import Link from 'next/link';
 import { DateStatus } from '@/types/types';
 import { Calendar, CircleCheck, ClockAlert, OctagonAlert } from 'lucide-react';
+import { formatDate } from '@/lib/format-date';
 
 interface Props {
-  expirationDate: string | null;
+  date: string | null;
   id?: number;
 }
 
-export default function Solvency({ expirationDate, id }: Props) {
-  function getDateStatus(expirationDate: string | null): DateStatus {
-    if (!expirationDate) return 'empty';
+export default function Solvency({ date, id }: Props) {
+  function getDateStatus(date: string | null): DateStatus {
+    if (!date) return 'empty';
 
-    const [year, month, day] = expirationDate.split('-').map(Number);
+    const [year, month, day] = date.split('-').map(Number);
     const expiration = new Date(year, month - 1, day);
     const today = new Date();
 
@@ -26,7 +27,7 @@ export default function Solvency({ expirationDate, id }: Props) {
     else return 'expired';
   }
 
-  const dateStatus = getDateStatus(expirationDate);
+  const dateStatus = getDateStatus(date);
 
   const iconStyle = 'size-4 opacity-70';
   const icons = {
@@ -43,13 +44,15 @@ export default function Solvency({ expirationDate, id }: Props) {
     empty: 'border border-border text-muted-foreground',
   };
 
+  const label = formatDate(date);
+
   if (!id) {
     return (
       <div
         className={`flex items-center justify-start gap-1 p-1 rounded ${bgColors[dateStatus]}`}
       >
         {icons[dateStatus]}
-        {expirationDate ? expirationDate : 'Sin fecha'}
+        {label}
       </div>
     );
   }
@@ -61,7 +64,7 @@ export default function Solvency({ expirationDate, id }: Props) {
       className={`flex items-center justify-start gap-1 p-1 rounded ${bgColors[dateStatus]}`}
     >
       {icons[dateStatus]}
-      {expirationDate ? expirationDate : 'Sin fecha'}
+      {label}
     </Link>
   );
 }

@@ -1,9 +1,10 @@
-import { Info, CircleUser, Factory } from 'lucide-react';
+import { Info, CircleUser, Factory, CalendarCheck } from 'lucide-react';
 
 const titles = {
   info: 'Información básica',
   contact: 'Contacto',
   sector: 'Sector',
+  verification: 'Verificación',
 };
 
 const iconStyles = 'size-4.5';
@@ -12,6 +13,7 @@ const icons = {
   info: <Info className={iconStyles} />,
   contact: <CircleUser className={iconStyles} />,
   sector: <Factory className={iconStyles} />,
+  verification: <CalendarCheck className={iconStyles} />,
 };
 
 type FormSectionName = keyof typeof titles;

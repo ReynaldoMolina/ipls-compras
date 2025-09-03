@@ -2,7 +2,7 @@ import SearchInput from './search-input';
 import NewButton from './new-button';
 
 interface ActionBarProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   allowSearch?: boolean;
   allowNew?: boolean;
 }

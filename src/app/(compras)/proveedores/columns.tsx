@@ -1,10 +1,10 @@
 'use client';
 
+import { TableLink } from '@/components/tables/table-link';
 import Solvency from '@/components/tables/solvency';
 import SortButton from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
-import Link from 'next/link';
 
 export interface Providers {
   id: number;
@@ -18,6 +18,15 @@ export interface Providers {
 }
 
 export const columns: ColumnDef<Providers>[] = [
+  {
+    id: 'actions',
+    header: () => {
+      return <span className="text-xs">Editar</span>;
+    },
+    cell: ({ row }) => {
+      return <TableLink href={`/proveedores/${row.original.id}/editar`} />;
+    },
+  },
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -35,10 +44,7 @@ export const columns: ColumnDef<Providers>[] = [
     cell: ({ row }) => {
       return (
         <TableCell>
-          <Solvency
-            expirationDate={row.original.solvencia}
-            id={row.original.id}
-          />
+          <Solvency date={row.original.solvencia} id={row.original.id} />
         </TableCell>
       );
     },
@@ -49,16 +55,7 @@ export const columns: ColumnDef<Providers>[] = [
       return <SortButton fieldName={column.id} label="Nombre comercial" />;
     },
     cell: ({ row }) => {
-      return (
-        <TableCell>
-          <Link
-            href={`/proveedores/${row.original.id}/editar`}
-            className="w-full hover:underline py-1"
-          >
-            {row.original.nombre_comercial}
-          </Link>
-        </TableCell>
-      );
+      return <TableCell>{row.original.nombre_comercial}</TableCell>;
     },
   },
   {

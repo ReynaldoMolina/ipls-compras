@@ -7,7 +7,10 @@ import { buildOrderFragment } from './buildOrderFragment';
 import { buildFiltersSolvencias } from './buildFilterFragment';
 import { usuarios } from '@/db/schema/usuarios';
 
-export async function getSolvenciasById(id: number, params: SearchParamsProps) {
+export async function getSolvenciasByProviderId(
+  id: number,
+  searchParams: SearchParamsProps
+) {
   const selectFields = {
     id: solvencias.id,
     id_proveedor: solvencias.id_proveedor,
@@ -19,9 +22,9 @@ export async function getSolvenciasById(id: number, params: SearchParamsProps) {
     usuario: usuarios.nombre,
   };
 
-  const searchFilter = buildSearchFilter(params, [usuarios.nombre]);
-  const { solvenciaFilter } = buildFiltersSolvencias(params);
-  const orderFragment = buildOrderFragment(params, selectFields);
+  const searchFilter = buildSearchFilter(searchParams, [usuarios.nombre]);
+  const { solvenciaFilter } = buildFiltersSolvencias(searchParams);
+  const orderFragment = buildOrderFragment(searchParams, selectFields);
 
   try {
     const data = await db
@@ -37,6 +40,21 @@ export async function getSolvenciasById(id: number, params: SearchParamsProps) {
     console.error(error);
     throw new Error(
       'No se pudieron obtener las solvencias, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getSolvenciasById(id: number) {
+  try {
+    const data = await db
+      .select()
+      .from(solvencias)
+      .where(eq(solvencias.id, id));
+    return data[0];
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener la solvencia, por favor intenta de nuevo.'
     );
   }
 }

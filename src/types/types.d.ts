@@ -18,7 +18,8 @@ export type SearchParamsProps = {
   orderBy?: string;
   direction?: SortOrder;
   departamento?: string;
-  solvencia?: string | undefined;
+  solvencia?: string;
+  rol?: string;
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
@@ -26,6 +27,7 @@ export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
 export type EditPageProps = {
   params: {
     id: string;
+    idsol?: string;
   };
 };
 
@@ -38,25 +40,26 @@ export interface FormProps {
 export interface Provider {
   id?: number;
   nombre_comercial: string;
-  razon_social?: string | undefined;
-  ruc?: string | undefined;
-  contacto_principal?: string | undefined;
-  telefono?: string | undefined;
-  correo?: string | undefined;
+  razon_social?: string | null;
+  ruc?: string | null;
+  contacto_principal?: string | null;
+  telefono?: string | null;
+  correo?: string | null;
   id_departamento: number;
-  direccion?: string | undefined;
-  id_sector: number;
-  id_subsector: number;
+  direccion?: string | null;
+  id_sector: number | null;
+  id_subsector: number | null;
 }
 
 export interface Solvencia {
   id?: number;
   id_proveedor: number;
-  emitida: Date;
-  vence: Date;
-  verificado?: Date | undefined;
-  recibido?: Date | undefined;
-  url?: string | undefined;
+  emitida?: string | null;
+  vence?: string | null;
+  verificado: string | null;
+  recibido?: string | null;
+  url?: string | null;
+  id_usuario: number | null;
 }
 
 export type PrevState = {

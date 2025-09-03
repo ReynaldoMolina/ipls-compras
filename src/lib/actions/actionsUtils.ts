@@ -1,8 +1,5 @@
 'use server';
 
-import { db } from '@/db/db';
-import { Provider } from '@/types/types';
-import { Table } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -10,47 +7,6 @@ export async function goBackTo(path: string) {
   revalidatePath(path);
   redirect(path);
 }
-
-interface CreateProps<T extends Table> {
-  table: T;
-  data: any;
-}
-
-// export async function createRecord<T extends Table>({
-//   table,
-//   data,
-// }: CreateProps<T>) {
-//   try {
-//     const result = await db.insert(table).values(data);
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error(
-//       'No se pudo actualizar el registro, por favor intenta de nuevo.'
-//     );
-//   }
-// }
-
-// interface UpdateProps extends CreateProps {
-//   id: number;
-// }
-
-// export async function updateRecord({ table, data, id }: UpdateProps) {
-//   const columns = Object.keys(data) as (keyof Provider)[];
-
-//   try {
-//     await sql`
-//       update ${sql(table)}
-//       set ${sql(data, columns)}
-//       where "id" = ${id}
-//     `;
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error(
-//       'No se pudo actualizar el registro, por favor intenta de nuevo.'
-//     );
-//   }
-// }
 
 // export async function createRecordDetail({
 //   tableName,

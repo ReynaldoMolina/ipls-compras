@@ -10,7 +10,7 @@ export default function FormButtons({
 }) {
   const router = useRouter();
   return (
-    <div className="flex flex-col md:flex-row gap-3 justify-end">
+    <div className="flex gap-3 justify-end">
       {allowCancel && (
         <Button
           type="button"

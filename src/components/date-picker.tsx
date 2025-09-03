@@ -13,6 +13,8 @@ import { FormControl } from './ui/form';
 import { solvenciaSchema } from '@/validation-schemas';
 import { ControllerRenderProps } from 'react-hook-form';
 import { cn } from '@/lib/utils';
+import { format, parse } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
@@ -21,6 +23,15 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ field }: DatePickerProps) {
+  const selectedDate =
+    typeof field.value === 'string' && field.value
+      ? parse(field.value, 'yyyy-MM-dd', new Date())
+      : undefined;
+
+  function handleSelect(date: Date | undefined) {
+    field.onChange(date ? format(date, 'yyyy-MM-dd') : null);
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -32,11 +43,11 @@ export function DatePicker({ field }: DatePickerProps) {
               !field.value && 'text-muted-foreground'
             )}
           >
-            {field.value ? (
-              <span className="text-xs">{field.value.toLocaleString()}</span>
-            ) : (
-              <span className="text-xs">Selecciona una fecha</span>
-            )}
+            <span className="text-xs">
+              {selectedDate
+                ? format(selectedDate, 'dd/MMM/yyyy', { locale: es })
+                : 'Selecciona una fecha'}
+            </span>
             <CalendarIcon className="ml-auto size-4 opacity-50" />
           </Button>
         </FormControl>
@@ -44,8 +55,8 @@ export function DatePicker({ field }: DatePickerProps) {
       <PopoverContent className="w-fit p-0">
         <Calendar
           mode="single"
-          selected={field.value}
-          onSelect={field.onChange}
+          selected={selectedDate}
+          onSelect={handleSelect}
           captionLayout="dropdown"
         />
       </PopoverContent>

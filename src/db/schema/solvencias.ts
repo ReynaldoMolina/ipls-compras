@@ -7,9 +7,9 @@ export const solvencias = pgTable('solvencias', {
   id_proveedor: integer()
     .notNull()
     .references(() => proveedores.id),
-  emitida: date().notNull(),
-  vence: date().notNull(),
-  verificado: date(),
+  emitida: date(),
+  vence: date(),
+  verificado: date().notNull(),
   recibido: date(),
   url: text(),
   id_usuario: integer()

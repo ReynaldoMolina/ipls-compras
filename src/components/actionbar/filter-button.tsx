@@ -17,7 +17,6 @@ import { FilterData } from '@/types/types';
 
 export default function FilterButton({ filterData }: FilterData) {
   const pathname = usePathname();
-  console.log(pathname);
 
   let filterMenu;
   switch (pathname) {
