@@ -1,13 +1,13 @@
 import { boolean, date, integer, pgTable } from 'drizzle-orm/pg-core';
-import { cursos_carreras_areas } from './cursos-carreras-areas';
+import { entidades_academicas } from './entidades-academicas';
 import { usuarios } from './usuarios';
 
 export const solicitudes = pgTable('solicitudes', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  fecha: date(),
-  id_curso_carrera_area: integer()
+  fecha: date().notNull(),
+  id_entidad_academica: integer()
     .notNull()
-    .references(() => cursos_carreras_areas.id),
+    .references(() => entidades_academicas.id),
   id_usuario: integer()
     .notNull()
     .references(() => usuarios.id),

@@ -1,7 +1,6 @@
 import { integer, pgTable, text } from 'drizzle-orm/pg-core';
 
-export const cursos_carreras_areas = pgTable('cursos_carreras_areas', {
+export const categoria_productos = pgTable('categoria_productos', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  nombre: text(),
-  tipo: text(),
+  categoria: text().notNull(),
 });
