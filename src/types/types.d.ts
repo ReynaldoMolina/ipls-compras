@@ -62,6 +62,15 @@ export interface Solvencia {
   id_usuario: number | null;
 }
 
+export interface Usuario {
+  id?: number;
+  nombre: string | null;
+  apellido: string | null;
+  correo: string | null;
+  rol: string | null;
+  activo: boolean | null;
+}
+
 export type PrevState = {
   message: string | undefined;
 };

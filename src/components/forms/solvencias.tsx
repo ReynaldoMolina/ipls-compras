@@ -21,6 +21,14 @@ import { Input } from '../ui/input';
 import FormInputGroup from './elements/form-input-group';
 import FormContainer from './elements/form-container';
 import { FormFieldSet } from './elements/form-fieldset';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 
 export function SolvenciaForm({
   action,
@@ -69,97 +77,112 @@ export function SolvenciaForm({
 
   return (
     <Form {...form}>
-      <FormContainer onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="id_proveedor"
-          render={({ field }) => (
-            <FormItem className="hidden">
-              <Input placeholder="Id proveedor" {...field} disabled />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormFieldSet name="verification">
-          <FormInputGroup>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card className="max-w-2xl">
+          <CardHeader>
+            <CardTitle>
+              {action === 'create' ? 'Nueva' : 'Editar'} solvencia
+            </CardTitle>
+            <CardDescription>
+              {action === 'create' ? 'Ingresa' : 'Edita'} la información de la
+              solvencia
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <FormField
               control={form.control}
-              name="verificado"
+              name="id_proveedor"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Verificado el</FormLabel>
-                  <DatePicker field={field} />
+                <FormItem className="hidden">
+                  <Input placeholder="Id proveedor" {...field} disabled />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="recibido"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Recibido el</FormLabel>
-                  <DatePicker field={field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </FormInputGroup>
-          <FormField
-            control={form.control}
-            name="id_usuario"
-            render={({ field }) => (
-              <FormItem className="hidden">
-                <FormLabel>Verificado por</FormLabel>
-                <FormControl>
-                  <Input placeholder="Nombre" type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </FormFieldSet>
-        <FormFieldSet name="info">
-          <FormInputGroup>
-            <FormField
-              control={form.control}
-              name="emitida"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Emitida el</FormLabel>
-                  <DatePicker field={field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="vence"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Vence el</FormLabel>
-                  <DatePicker field={field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </FormInputGroup>
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Url</FormLabel>
-                <FormControl>
-                  <Input placeholder="Url" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </FormFieldSet>
-        <FormButtons action={action} />
-      </FormContainer>
+            <FormFieldSet name="verification">
+              <FormInputGroup>
+                <FormField
+                  control={form.control}
+                  name="verificado"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Verificado el</FormLabel>
+                      <DatePicker field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="recibido"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Recibido el</FormLabel>
+                      <DatePicker field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </FormInputGroup>
+              <FormField
+                control={form.control}
+                name="id_usuario"
+                render={({ field }) => (
+                  <FormItem className="hidden">
+                    <FormLabel>Verificado por</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Nombre" type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </FormFieldSet>
+            <FormFieldSet name="info">
+              <FormInputGroup>
+                <FormField
+                  control={form.control}
+                  name="emitida"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Emitida el</FormLabel>
+                      <DatePicker field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="vence"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Vence el</FormLabel>
+                      <DatePicker field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </FormInputGroup>
+              <FormField
+                control={form.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Url</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Url" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </FormFieldSet>
+          </CardContent>
+          <CardFooter>
+            <FormButtons action={action} />
+          </CardFooter>
+        </Card>
+      </form>
     </Form>
   );
 }

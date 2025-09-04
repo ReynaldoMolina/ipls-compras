@@ -1,7 +1,6 @@
 'use client';
 
 import { TableLink } from '@/components/tables/table-link';
-import Solvency from '@/components/tables/solvency';
 import SortButton from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';

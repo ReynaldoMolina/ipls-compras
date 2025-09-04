@@ -1,6 +1,6 @@
 import { db } from '@/db/db';
 import { usuarios } from '@/db/schema/usuarios';
-import { SearchParamsProps } from '@/types/types';
+import { SearchParamsProps, Usuario } from '@/types/types';
 import { eq, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './buildSearchFilter';
 import { buildOrderFragment } from './buildOrderFragment';
@@ -39,20 +39,17 @@ export async function getUsers(params: SearchParamsProps) {
   }
 }
 
-// export async function getProviderById(id: number): Promise<Provider> {
-//   try {
-//     const data = await db
-//       .select()
-//       .from(proveedores)
-//       .where(eq(proveedores.id, id));
-//     return data[0];
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error(
-//       'No se pudo obtener el proveedor, por favor intenta de nuevo'
-//     );
-//   }
-// }
+export async function getUserById(id: number): Promise<Usuario> {
+  try {
+    const data = await db.select().from(usuarios).where(eq(usuarios.id, id));
+    return data[0];
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el usuario, por favor intenta de nuevo'
+    );
+  }
+}
 
 // export async function getProvidersDepartamentos() {
 //   try {

@@ -1,10 +1,11 @@
-import { Info, CircleUser, Factory, CalendarCheck } from 'lucide-react';
+import { Info, CircleUser, Factory, CalendarCheck, Shield } from 'lucide-react';
 
 const titles = {
-  info: 'Información básica',
+  info: 'Información',
   contact: 'Contacto',
   sector: 'Sector',
   verification: 'Verificación',
+  permissions: 'Permisos y estado',
 };
 
 const iconStyles = 'size-4.5';
@@ -14,6 +15,7 @@ const icons = {
   contact: <CircleUser className={iconStyles} />,
   sector: <Factory className={iconStyles} />,
   verification: <CalendarCheck className={iconStyles} />,
+  permissions: <Shield className={iconStyles} />,
 };
 
 type FormSectionName = keyof typeof titles;
@@ -26,11 +28,13 @@ export function FormFieldSet({
   name: FormSectionName;
 }) {
   return (
-    <fieldset className="flex flex-col gap-4">
-      <div className="flex items-center gap-2 font-semibold text-sm">
+    <fieldset className="flex flex-col gap-5">
+      {/* title */}
+      <span className="flex items-center gap-2 font-semibold text-xs border-b pb-2">
         {icons[name]}
         <legend>{titles[name]}</legend>
-      </div>
+      </span>
+      {/* content */}
       <div className="flex flex-col gap-5">{children}</div>
     </fieldset>
   );
