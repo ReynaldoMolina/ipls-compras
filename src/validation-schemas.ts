@@ -30,3 +30,8 @@ export const usuarioSchema = z.object({
   rol: z.string('Requerido'),
   activo: z.boolean('Requerido'),
 });
+
+export const loginSchema = z.object({
+  correo: z.email('Ingresa un correo válido'),
+  password: z.string().min(1, 'Ingresa una contraseña'),
+});

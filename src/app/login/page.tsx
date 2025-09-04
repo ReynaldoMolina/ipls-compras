@@ -1,5 +1,4 @@
-import Hero from '@/components/login/Hero';
-import LoginForm from '@/components/login/LoginForm';
+import { LoginForm } from '@/components/login/login';
 
 export const metadata = {
   title: 'Iniciar sesión',
@@ -7,11 +6,10 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <main className="flex items-center justify-center min-h-screen w-full">
-      <section className="flex flex-col w-full md:w-auto md:flex-row md:rounded-4xl overflow-hidden inset shadow-xl">
-        <Hero />
+    <main className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-xs md:max-w-2xl">
         <LoginForm />
-      </section>
+      </div>
     </main>
   );
 }
