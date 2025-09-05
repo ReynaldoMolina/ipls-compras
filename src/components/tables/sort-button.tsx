@@ -14,7 +14,7 @@ export default function SortButton({
   return (
     <button
       type="button"
-      className="flex gap-2 items-center hover:bg-popover cursor-pointer w-fit rounded p-1"
+      className="flex gap-2 justify-between items-center cursor-pointer w-full rounded p-1"
       onClick={() => setSort(fieldName)}
     >
       <span className="text-xs whitespace-nowrap">{label}</span>
