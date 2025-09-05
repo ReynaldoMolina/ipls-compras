@@ -1,16 +1,20 @@
 'use client';
 
 import { TableLink } from '@/components/tables/table-link';
-import SortButton from '@/components/tables/sort-button';
+import { SortButton } from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
 import TableDate from '@/components/tables/table-date';
+import TableNumber from '@/components/tables/table-number';
 
 export interface Solicitud {
   id: number;
   fecha: string | null;
   tipo: string | null;
   entidad_academica: string | null;
+  presupuestado: number | null;
+  asignado: number | null;
+  restante: number | null;
 }
 
 export const columns: ColumnDef<Solicitud>[] = [
@@ -35,7 +39,7 @@ export const columns: ColumnDef<Solicitud>[] = [
   {
     accessorKey: 'fecha',
     header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Fecha" />;
+      return <SortButton fieldName={column.id} label="Fecha solicitud" />;
     },
     cell: ({ row }) => {
       return (
@@ -43,15 +47,6 @@ export const columns: ColumnDef<Solicitud>[] = [
           <TableDate date={row.original.fecha} />
         </TableCell>
       );
-    },
-  },
-  {
-    accessorKey: 'tipo',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Tipo" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.tipo}</TableCell>;
     },
   },
   {
@@ -66,30 +61,44 @@ export const columns: ColumnDef<Solicitud>[] = [
     },
   },
   {
-    id: 'presupuestado',
-    header: () => {
-      return <span className="text-xs">Presupuestado</span>;
+    accessorKey: 'presupuestado',
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Presupuestado" />;
     },
     cell: ({ row }) => {
-      return <TableCell textAlign="right">{'1,000,000.00'}</TableCell>;
+      return (
+        <TableCell textAlign="right">
+          {' '}
+          <TableNumber value={row.original.presupuestado} />
+        </TableCell>
+      );
     },
   },
   {
-    id: 'asignado',
-    header: () => {
-      return <span className="text-xs">Asignado</span>;
+    accessorKey: 'asignado',
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Asignado" />;
     },
     cell: ({ row }) => {
-      return <TableCell textAlign="right">{'1,000,000.00'}</TableCell>;
+      return (
+        <TableCell textAlign="right">
+          {' '}
+          <TableNumber value={row.original.asignado} />
+        </TableCell>
+      );
     },
   },
   {
-    id: 'restante',
-    header: () => {
-      return <span className="text-xs">Restante</span>;
+    accessorKey: 'restante',
+    header: ({ column }) => {
+      return <SortButton fieldName={column.id} label="Restante" />;
     },
     cell: ({ row }) => {
-      return <TableCell textAlign="right">{'500,000.00'}</TableCell>;
+      return (
+        <TableCell textAlign="right">
+          <TableNumber value={row.original.restante} />
+        </TableCell>
+      );
     },
   },
 ];

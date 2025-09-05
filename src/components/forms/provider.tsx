@@ -28,6 +28,8 @@ import {
   CardTitle,
 } from '../ui/card';
 
+type ProviderFormValues = z.infer<typeof providerSchema>;
+
 export function ProviderForm({
   action,
   provider,
@@ -44,18 +46,31 @@ export function ProviderForm({
   // 1. Define your form.
   const form = useForm<z.infer<typeof providerSchema>>({
     resolver: zodResolver(providerSchema),
-    defaultValues: provider ?? {
-      nombre_comercial: '',
-      razon_social: '',
-      ruc: '',
-      contacto_principal: '',
-      telefono: '',
-      correo: '',
-      id_departamento: 0,
-      direccion: '',
-      id_sector: 0,
-      id_subsector: 0,
-    },
+    defaultValues: provider
+      ? {
+          nombre_comercial: provider.nombre_comercial ?? '',
+          razon_social: provider.razon_social ?? '',
+          ruc: provider.ruc ?? '',
+          contacto_principal: provider.contacto_principal ?? '',
+          telefono: provider.telefono ?? '',
+          correo: provider.correo ?? '',
+          id_departamento: provider.id_departamento ?? 0,
+          direccion: provider.direccion ?? '',
+          id_sector: provider.id_sector ?? 0,
+          id_subsector: provider.id_subsector ?? 0,
+        }
+      : {
+          nombre_comercial: '',
+          razon_social: '',
+          ruc: '',
+          contacto_principal: '',
+          telefono: '',
+          correo: '',
+          id_departamento: 0,
+          direccion: '',
+          id_sector: 0,
+          id_subsector: 0,
+        },
   });
 
   function onSubmit(values: z.infer<typeof providerSchema>) {
@@ -168,7 +183,7 @@ export function ProviderForm({
                     </FormItem>
                   )}
                 />
-                <FormField
+                <FormField<ProviderFormValues>
                   control={form.control}
                   name="id_departamento"
                   render={({ field }) => (
@@ -201,7 +216,7 @@ export function ProviderForm({
 
             <FormFieldSet name="sector">
               <FormInputGroup>
-                <FormField
+                <FormField<ProviderFormValues>
                   control={form.control}
                   name="id_sector"
                   render={({ field }) => (
@@ -217,7 +232,7 @@ export function ProviderForm({
                     </FormItem>
                   )}
                 />
-                <FormField
+                <FormField<ProviderFormValues>
                   control={form.control}
                   name="id_subsector"
                   render={({ field }) => (

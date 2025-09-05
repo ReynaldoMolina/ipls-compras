@@ -1,4 +1,3 @@
-import FormBackButton from '@/components/forms/elements/form-back-button';
 import { FormTabList, FormTabItem } from '@/components/forms/elements/form-tab';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
@@ -15,10 +14,9 @@ export default async function Layout({
 
   return (
     <>
-      <Header title={`Proveedor ${id}`} />
+      <Header title="Proveedores" />
       <PageWrapper>
         <div className="flex items-center gap-3">
-          <FormBackButton />
           <FormTabList>
             <FormTabItem href={`/proveedores/${id}/editar`} label="Editar" />
             <FormTabItem

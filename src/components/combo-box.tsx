@@ -19,26 +19,29 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { FormControl } from './ui/form';
-import { ControllerRenderProps, UseFormReturn } from 'react-hook-form';
+import {
+  ControllerRenderProps,
+  FieldValues,
+  Path,
+  UseFormReturn,
+} from 'react-hook-form';
 import z from 'zod';
 import { providerSchema } from '@/validation-schemas';
 import { useUpdateUrlParams } from './forms/elements/update-params';
 
-type ProviderFormValues = z.infer<typeof providerSchema>;
-
-interface ComboBoxProps {
-  field: ControllerRenderProps<ProviderFormValues, keyof ProviderFormValues>;
+interface ComboBoxProps<T extends FieldValues> {
+  field: ControllerRenderProps<T, Path<T>>;
   data: { value: number; label: string }[];
   form: UseFormReturn<z.infer<typeof providerSchema>>;
   updateParams?: boolean;
 }
 
-export function ComboBox({
+export function ComboBox<T extends FieldValues>({
   field,
   data,
   form,
   updateParams = false,
-}: ComboBoxProps) {
+}: ComboBoxProps<T>) {
   const setUrlParam = useUpdateUrlParams();
   return (
     <Popover>

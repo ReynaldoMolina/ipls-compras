@@ -10,19 +10,18 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { FormControl } from './ui/form';
-import { solvenciaSchema } from '@/validation-schemas';
-import { ControllerRenderProps } from 'react-hook-form';
+import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
-
-interface DatePickerProps {
-  field: ControllerRenderProps<SolvenciaFormValues, keyof SolvenciaFormValues>;
+interface DatePickerProps<T extends FieldValues> {
+  field: ControllerRenderProps<T, Path<T>>;
 }
 
-export function DatePicker({ field }: DatePickerProps) {
+export function DatePicker<T extends FieldValues>({
+  field,
+}: DatePickerProps<T>) {
   const selectedDate =
     typeof field.value === 'string' && field.value
       ? parse(field.value, 'yyyy-MM-dd', new Date())

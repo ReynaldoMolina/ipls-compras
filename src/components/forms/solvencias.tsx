@@ -19,7 +19,6 @@ import { createSolvencia, updateSolvencia } from '@/lib/actions/solvencias';
 import { DatePicker } from '../date-picker';
 import { Input } from '../ui/input';
 import FormInputGroup from './elements/form-input-group';
-import FormContainer from './elements/form-container';
 import { FormFieldSet } from './elements/form-fieldset';
 import {
   Card,
@@ -29,6 +28,8 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+
+type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
 export function SolvenciaForm({
   action,
@@ -107,7 +108,7 @@ export function SolvenciaForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Verificado el</FormLabel>
-                      <DatePicker field={field} />
+                      <DatePicker<SolvenciaFormValues> field={field} />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -118,7 +119,7 @@ export function SolvenciaForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Recibido el</FormLabel>
-                      <DatePicker field={field} />
+                      <DatePicker<SolvenciaFormValues> field={field} />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -146,7 +147,7 @@ export function SolvenciaForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Emitida el</FormLabel>
-                      <DatePicker field={field} />
+                      <DatePicker<SolvenciaFormValues> field={field} />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -157,7 +158,7 @@ export function SolvenciaForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Vence el</FormLabel>
-                      <DatePicker field={field} />
+                      <DatePicker<SolvenciaFormValues> field={field} />
                       <FormMessage />
                     </FormItem>
                   )}

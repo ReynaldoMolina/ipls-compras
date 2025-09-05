@@ -71,6 +71,33 @@ export interface Usuario {
   activo: boolean | null;
 }
 
+export interface Solicitud {
+  id?: number;
+  fecha: string | null;
+  id_entidad_academica: number | null;
+  id_usuario: number | null;
+  revisado_bodega: boolean | null;
+}
+
+export interface SolicitudDetalle {
+  id?: number;
+  id_solicitud: number;
+  producto_servicio: string;
+  cantidad: number;
+  id_unidad_medida: number;
+  precio: number;
+  observaciones?: string | null;
+  prioridad?: string | null;
+  id_estado?: number | null;
+  comprado?: number | null;
+  recibido?: number | null;
+  precio_compra?: number | null;
+  entrega_bodega?: number | null;
+  precio_bodega?: number | null;
+  id_ubicacion?: number | null;
+  id_categoria?: number | null;
+}
+
 export type PrevState = {
   message: string | undefined;
 };

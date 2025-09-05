@@ -1,5 +1,6 @@
 import { db } from '@/db/db';
 import { departamentos } from '@/db/schema/departamentos';
+import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { sectores } from '@/db/schema/sectores';
 import { subsectores } from '@/db/schema/subsectores';
 import { asc, eq, sql } from 'drizzle-orm';
@@ -51,4 +52,22 @@ export async function getSubsectoresBySector(sectorId: number | null) {
     })
     .from(subsectores)
     .where(eq(subsectores.id_sector, sectorId));
+}
+
+export async function getEntidadesAcademicas() {
+  try {
+    const data = await db
+      .select({
+        value: entidades_academicas.id,
+        label: entidades_academicas.nombre,
+      })
+      .from(entidades_academicas)
+      .orderBy(asc(entidades_academicas.nombre));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener las entidades, por favor intenta de nuevo'
+    );
+  }
 }

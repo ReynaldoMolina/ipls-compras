@@ -3,7 +3,7 @@
 import { TableLink } from '@/components/tables/table-link';
 import TableDate from '@/components/tables/table-date';
 import Solvency from '@/components/tables/solvency';
-import SortButton from '@/components/tables/sort-button';
+import { SortButton } from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
 

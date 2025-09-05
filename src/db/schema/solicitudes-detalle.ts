@@ -12,7 +12,7 @@ export const solicitudes_detalle = pgTable('solicitudes_detalle', {
     .references(() => solicitudes.id),
   producto_servicio: text().notNull(),
   cantidad: real().notNull(),
-  unidad_medida: integer()
+  id_unidad_medida: integer()
     .notNull()
     .references(() => unidades_medida.id),
   precio: real().notNull(),

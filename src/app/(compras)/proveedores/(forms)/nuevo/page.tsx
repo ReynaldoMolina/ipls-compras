@@ -1,4 +1,3 @@
-import FormBackButton from '@/components/forms/elements/form-back-button';
 import { ProviderForm } from '@/components/forms/provider';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
@@ -8,10 +7,8 @@ import {
   getSubsectoresBySector,
 } from '@/lib/data/forms';
 
-const title = 'Nuevo proveedor';
-
 export const metadata = {
-  title: title,
+  title: 'Nuevo proveedor',
 };
 
 type Props = {
@@ -31,9 +28,8 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <Header title={title} />
+      <Header title="Proveedores" />
       <PageWrapper>
-        <FormBackButton />
         <ProviderForm
           action="create"
           departamentos={departamentos}

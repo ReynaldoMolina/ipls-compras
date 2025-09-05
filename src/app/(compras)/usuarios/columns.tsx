@@ -1,7 +1,7 @@
 'use client';
 
 import { TableLink } from '@/components/tables/table-link';
-import SortButton from '@/components/tables/sort-button';
+import { SortButton } from '@/components/tables/sort-button';
 import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
 import TableBool from '@/components/tables/table-bool';

@@ -1,7 +1,12 @@
 import { useSortParams } from '../../hooks/use-setSort';
 import { ArrowUp } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Column } from '@tanstack/react-table';
 
-export default function SortButton({
+const buttonStyle =
+  'cursor-pointer w-full has-[>svg]:px-0 hover:bg-transparent dark:hover:bg-transparent';
+
+export function SortButton({
   fieldName,
   label,
 }: {
@@ -12,15 +17,38 @@ export default function SortButton({
   const active = orderBy === fieldName;
 
   return (
-    <button
-      type="button"
-      className="flex gap-2 justify-between items-center cursor-pointer w-full rounded p-1"
+    <Button
+      variant="ghost"
+      className={buttonStyle}
       onClick={() => setSort(fieldName)}
     >
-      <span className="text-xs whitespace-nowrap">{label}</span>
+      {label}
       <ArrowUp
-        className={`${active ? '' : 'opacity-30'} ${active && direction === 'desc' ? '' : 'rotate-180'} size-3.5`}
+        className={`${active ? '' : 'opacity-30'} ${active && direction === 'desc' ? '' : 'rotate-180'} ml-auto`}
       />
-    </button>
+    </Button>
+  );
+}
+
+interface SortButtonClientProps<TData, TValue> {
+  column: Column<TData, TValue>;
+  label: string;
+}
+
+export function SortButtonClient<TData, TValue>({
+  column,
+  label,
+}: SortButtonClientProps<TData, TValue>) {
+  return (
+    <Button
+      variant="ghost"
+      className={buttonStyle}
+      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+    >
+      {label}
+      <ArrowUp
+        className={`ml-auto ${column.getIsSorted() === 'desc' ? '' : 'rotate-180'}`}
+      />
+    </Button>
   );
 }

@@ -20,6 +20,7 @@ type Props = {
 export default async function Page(props: Props) {
   const params = await props.searchParams;
   const data = await getSolicitudes(params);
+
   // const departamentos = await getProvidersDepartamentos();
 
   // const filterData = {
