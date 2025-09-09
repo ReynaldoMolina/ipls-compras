@@ -6,7 +6,7 @@ export default function TableId<TData, TValue>({
   const value = getValue();
 
   return (
-    <span className="whitespace-nowrap block w-full text-center">
+    <span className="whitespace-nowrap block w-full text-center cursor-default">
       {value !== null && value !== undefined ? String(value) : ''}
     </span>
   );

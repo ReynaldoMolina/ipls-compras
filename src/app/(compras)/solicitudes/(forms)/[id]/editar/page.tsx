@@ -1,13 +1,18 @@
 import { SolicitudForm } from '@/components/forms/solicitudes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getEntidadesAcademicas } from '@/lib/data/forms';
-import { columns } from '../../columns';
 import { EditPageProps } from '@/types/types';
-import { DataTableDetalle } from '@/components/tables/data-table-detalle';
 import {
   getSolicitudById,
   getSolicitudDetalleById,
 } from '@/lib/data/solicitudes';
+import SolicitudesDetalleTable from '@/components/tables/solicitudes-detalle-table';
+import {
+  getDetalleCategorias,
+  getDetalleEstados,
+  getDetalleUbicaciones,
+  getUnidadesMedida,
+} from '@/lib/data/solicitudes-table';
 
 export async function generateMetadata(props: EditPageProps) {
   const urlparams = await props.params;
@@ -32,6 +37,10 @@ export default async function Page(props: Props) {
   const solicitud = await getSolicitudById(id);
   const solicitud_detalle = await getSolicitudDetalleById(id);
   const entidadesAcademicas = await getEntidadesAcademicas();
+  const unidadesMedida = await getUnidadesMedida();
+  const estados = await getDetalleEstados();
+  const ubicaciones = await getDetalleUbicaciones();
+  const categorias = await getDetalleCategorias();
 
   return (
     <>
@@ -49,9 +58,12 @@ export default async function Page(props: Props) {
         </TabsContent>
         <TabsContent value="detail">
           <div className="flex flex-col gap-3">
-            <DataTableDetalle
-              columns={columns}
-              initialData={solicitud_detalle}
+            <SolicitudesDetalleTable
+              data={solicitud_detalle}
+              unidadesMedida={unidadesMedida}
+              estados={estados}
+              ubicaciones={ubicaciones}
+              categorias={categorias}
             />
           </div>
         </TabsContent>

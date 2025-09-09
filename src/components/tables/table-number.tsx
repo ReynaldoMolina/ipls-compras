@@ -1,6 +1,6 @@
 import { CellContext } from '@tanstack/react-table';
 
-const formatter = new Intl.NumberFormat('es-NI', {
+export const formatter = new Intl.NumberFormat('es-NI', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
@@ -28,7 +28,7 @@ export function TableNumberSum({ value }: { value: number }) {
 
   return (
     <span
-      className={`${newValue < 0 && 'text-destructive'} block w-full text-right`}
+      className={`${newValue < 0 && 'text-destructive'} block w-full text-right px-1`}
     >
       {formatter.format(newValue)}
     </span>

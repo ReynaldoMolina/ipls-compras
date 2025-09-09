@@ -6,7 +6,14 @@ declare module '@tanstack/react-table' {
   }
 
   interface ColumnMeta<TData extends RowData, TValue> {
-    type?: 'text' | 'number' | 'select' | 'boolean' | 'date';
+    type?:
+      | 'text'
+      | 'number:integer'
+      | 'number:float'
+      | 'select'
+      | 'boolean'
+      | 'date'
+      | 'combobox';
     options?: { label: string; value: string | number | boolean }[];
   }
 }

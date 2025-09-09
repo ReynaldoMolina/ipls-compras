@@ -3,13 +3,13 @@
 import {
   ColumnDef,
   ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  SortingState,
   useReactTable,
+  VisibilityState,
 } from '@tanstack/react-table';
 
 import {
@@ -30,8 +30,9 @@ import {
 
 import { useState } from 'react';
 import { Input } from '../ui/input';
-import { Delete, Search } from 'lucide-react';
+import { Delete, Plus, Search } from 'lucide-react';
 import { Button } from '../ui/button';
+import { SolicitudDetalle } from '@/types/types';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -42,7 +43,7 @@ export function DataTableDetalle<TData, TValue>({
   columns,
   initialData,
 }: DataTableProps<TData, TValue>) {
-  const [data, setData] = useState(() => [...initialData]);
+  const [data, setData] = useState<SolicitudDetalle[]>(() => [...initialData]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -85,7 +86,7 @@ export function DataTableDetalle<TData, TValue>({
   const searchText = (column?.getFilterValue() as string) ?? '';
 
   return (
-    <div className="">
+    <div>
       <div className="flex items-center py-4">
         <div className="flex items-center relative w-full max-w-xs">
           <Search className="absolute left-2 size-4 text-muted-foreground" />
@@ -142,7 +143,7 @@ export function DataTableDetalle<TData, TValue>({
       </div>
 
       <div className="flex-1 overflow-hidden rounded-md border">
-        <Table>
+        <Table className="max-h-100">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -169,7 +170,7 @@ export function DataTableDetalle<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="p-1">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -190,8 +191,39 @@ export function DataTableDetalle<TData, TValue>({
             )}
           </TableBody>
         </Table>
+        <div className="w-full">
+          <Button
+            variant="ghost"
+            className="w-full rounded-none justify-start font-normal"
+            onClick={() =>
+              setData([
+                ...data,
+                {
+                  id_solicitud: 1,
+                  producto_servicio: '',
+                  cantidad: 0,
+                  id_unidad_medida: 0,
+                  precio: 0,
+                  observaciones: null,
+                  prioridad: null,
+                  id_estado: null,
+                  comprado: 0,
+                  recibido: 0,
+                  precio_compra: 0,
+                  entrega_bodega: 0,
+                  precio_bodega: null,
+                  id_ubicacion: null,
+                  id_categoria: null,
+                },
+              ])
+            }
+          >
+            <Plus className="size-4" />
+            Agregar
+          </Button>
+        </div>
+        {/* <pre className="text-[10px]">{JSON.stringify(data[0], null, '\t')}</pre> */}
       </div>
-      <pre className="text-xs">{JSON.stringify(data[0], null, '\t')}</pre>
     </div>
   );
 }

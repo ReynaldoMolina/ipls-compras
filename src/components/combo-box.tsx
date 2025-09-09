@@ -65,15 +65,14 @@ export function ComboBox<T extends FieldValues>({
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Buscar..." className="h-9 text-xs" />
+          <CommandInput placeholder="Buscar..." className="h-9" />
           <CommandList>
             <CommandEmpty>No hay resultados</CommandEmpty>
             <CommandGroup>
               {data.map((element) => (
                 <CommandItem
-                  value={element.label}
                   key={element.value}
-                  className="text-xs"
+                  value={element.label}
                   onSelect={() => {
                     form.setValue(field.name, Number(element.value));
                     if (updateParams)

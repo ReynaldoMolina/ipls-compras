@@ -123,4 +123,9 @@ export type FilterData = {
   };
 };
 
-export type ComboBoxData = { value: number; label: string }[];
+export type SelectOptions = {
+  value: string | number | boolean;
+  label: string;
+};
+
+export type ComboBoxData = SelectOptions[];
