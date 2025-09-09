@@ -35,13 +35,14 @@ import { Button } from '../ui/button';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  initialData: TData[];
 }
 
 export function DataTableDetalle<TData, TValue>({
   columns,
-  data,
+  initialData,
 }: DataTableProps<TData, TValue>) {
+  const [data, setData] = useState(() => [...initialData]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -57,6 +58,21 @@ export function DataTableDetalle<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    meta: {
+      updateData: (rowIndex: number, columnId: string, value: unknown) => {
+        setData((old) =>
+          old.map((row, index) => {
+            if (index === rowIndex) {
+              return {
+                ...old[rowIndex],
+                [columnId]: value,
+              };
+            }
+            return row;
+          })
+        );
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -175,6 +191,7 @@ export function DataTableDetalle<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+      <pre className="text-xs">{JSON.stringify(data[0], null, '\t')}</pre>
     </div>
   );
 }

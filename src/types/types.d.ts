@@ -7,10 +7,6 @@ export type PageId =
   | 'ajustes'
   | 'empty';
 
-export type PageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
 export type SortOrder = 'asc' | 'desc';
 
 export type SearchParamsProps = {
@@ -31,34 +27,41 @@ export type EditPageProps = {
   };
 };
 
-export interface FormProps {
-  action: 'create' | 'edit';
-  data?: Provider;
-  id?: number;
-}
-
-export interface Provider {
+interface Proveedor {
   id?: number;
   nombre_comercial: string;
   razon_social?: string | null;
   ruc?: string | null;
-  contacto_principal?: string | null;
   telefono?: string | null;
   correo?: string | null;
+}
+
+export interface Proveedores extends Proveedor {
+  solvencia: string | null;
+  departamento?: string | null;
+}
+export interface ProveedorForm extends Proveedor {
+  contacto_principal?: string | null;
   id_departamento: number;
   direccion?: string | null;
-  id_sector: number | null;
-  id_subsector: number | null;
+  id_sector?: number | null;
+  id_subsector?: number | null;
+}
+
+export interface FormProps {
+  action: 'create' | 'edit';
+  data?: ProveedorForm;
+  id?: number;
 }
 
 export interface Solvencia {
   id?: number;
   id_proveedor: number;
-  emitida?: string | null;
-  vence?: string | null;
+  emitida: string | null;
+  vence: string | null;
   verificado: string | null;
-  recibido?: string | null;
-  url?: string | null;
+  recibido: string | null;
+  url: string | null;
   id_usuario: number | null;
 }
 
@@ -74,6 +77,17 @@ export interface Usuario {
 export interface Solicitud {
   id?: number;
   fecha: string | null;
+}
+
+export interface Solicitudes extends Solicitud {
+  tipo: string | null;
+  entidad_academica: string | null;
+  presupuestado: number | null;
+  asignado: number | null;
+  restante: number | null;
+}
+
+export interface SolicitudForm extends Solicitud {
   id_entidad_academica: number | null;
   id_usuario: number | null;
   revisado_bodega: boolean | null;

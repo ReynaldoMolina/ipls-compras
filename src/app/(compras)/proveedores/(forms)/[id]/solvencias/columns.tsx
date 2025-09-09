@@ -1,110 +1,59 @@
 'use client';
 
-import { TableLink } from '@/components/tables/table-link';
+import { TableEdit } from '@/components/tables/table-edit';
 import TableDate from '@/components/tables/table-date';
-import Solvency from '@/components/tables/solvency';
+import Solvency from '@/components/tables/solvencia-state';
 import { SortButton } from '@/components/tables/sort-button';
-import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
+import DefaultCell from '@/components/tables/default-cell';
+import { Solvencia } from '@/types/types';
+import TableId from '@/components/tables/table-id';
 
-export interface Solvencias {
-  id: number;
-  id_proveedor: number;
-  emitida: string | null;
-  vence: string | null;
-  verificado: string | null;
-  recibido: string | null;
-  url: string | null;
-  usuario: string | null;
-}
-
-export const columns: ColumnDef<Solvencias>[] = [
+export const columns: ColumnDef<Solvencia>[] = [
   {
     id: 'actions',
-    header: () => {
-      return <span className="text-xs">Editar</span>;
-    },
-    cell: ({ row }) => {
-      return <TableLink href={`solvencias/${row.original.id}/editar`} />;
-    },
+    header: 'Editar',
+    cell: ({ row }) => (
+      <TableEdit href={`solvencias/${row.original.id}/editar`} />
+    ),
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Id" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.id}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Id" />,
+    cell: TableId,
   },
   {
     accessorKey: 'verificado',
     header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Verificado" />;
+      return <SortButton column={column} label="Verificado" />;
     },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <TableDate date={row.original.verificado} />
-        </TableCell>
-      );
-    },
+    cell: TableDate,
   },
   {
     accessorKey: 'recibido',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Recibido" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <TableDate date={row.original.recibido} />
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButton column={column} label="Recibido" />,
+    cell: TableDate,
   },
   {
     accessorKey: 'emitida',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Emitida" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <TableDate date={row.original.emitida} />
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButton column={column} label="Emitida" />,
+    cell: TableDate,
   },
   {
     accessorKey: 'vence',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Vence" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <Solvency date={row.original.vence} />
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButton column={column} label="Vence" />,
+    cell: ({ row }) => <Solvency date={row.original.vence} />,
   },
   {
     accessorKey: 'url',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Archivo" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.url}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Archivo" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'usuario',
     header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Verificado por" />;
+      return <SortButton column={column} label="Verificado por" />;
     },
-    cell: ({ row }) => {
-      return <TableCell fullWidth={true}>{row.original.usuario}</TableCell>;
-    },
+    cell: DefaultCell,
   },
 ];

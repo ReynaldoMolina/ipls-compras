@@ -1,86 +1,49 @@
 'use client';
 
-import { TableLink } from '@/components/tables/table-link';
+import { TableEdit } from '@/components/tables/table-edit';
 import { SortButton } from '@/components/tables/sort-button';
-import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
 import TableBool from '@/components/tables/table-bool';
+import DefaultCell from '@/components/tables/default-cell';
+import { Usuario } from '@/types/types';
+import TableId from '@/components/tables/table-id';
 
-export interface Users {
-  id: number;
-  nombre: string | null;
-  apellido: string | null;
-  correo: string | null;
-  rol: string | null;
-  activo: boolean | null;
-}
-
-export const columns: ColumnDef<Users>[] = [
+export const columns: ColumnDef<Usuario>[] = [
   {
     id: 'actions',
-    header: () => {
-      return <span className="text-xs">Editar</span>;
-    },
-    cell: ({ row }) => {
-      return <TableLink href={`/usuarios/${row.original.id}/editar`} />;
-    },
+    header: 'Editar',
+    cell: ({ row }) => (
+      <TableEdit href={`/usuarios/${row.original.id}/editar`} />
+    ),
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Id" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.id}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Id" />,
+    cell: TableId,
   },
   {
     accessorKey: 'nombre',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Nombre" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.nombre}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Nombre" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'apellido',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Apellido" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.apellido}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Apellido" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'correo',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Correo" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.correo}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Correo" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'rol',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Rol" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.rol}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Rol" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'activo',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Estado" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <TableBool value={row.original.activo} />
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButton column={column} label="Estado" />,
+    cell: ({ cell }) => <TableBool value={cell.getValue() as boolean | null} />,
   },
 ];

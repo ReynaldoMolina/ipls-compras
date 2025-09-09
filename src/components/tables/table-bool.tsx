@@ -1,19 +1,23 @@
 import { Check, XIcon } from 'lucide-react';
 
 export default function TableBool({ value }: { value: boolean | null }) {
-  console.log(value);
+  if (value === null) {
+    return (
+      <span className="flex items-center gap-1 p-1 rounded bg-gray-200 text-gray-600">
+        <XIcon className="size-4" />
+        N/A
+      </span>
+    );
+  }
 
-  const newValue = value === true ? 'Activo' : 'Inactivo';
-  const icons = {
-    Activo: <Check className="size-4" />,
-    Inactivo: <XIcon className="size-4" />,
-  };
   return (
-    <div
-      className={`flex items-center justify-start gap-1 p-1 rounded ${value === true ? 'bg-date-active' : 'bg-date-warning'}`}
+    <span
+      className={`inline-flex gap-1 p-1 rounded ${
+        value ? 'bg-date-active' : 'bg-date-warning'
+      }`}
     >
-      {icons[newValue]}
-      {newValue}
-    </div>
+      {value ? <Check className="size-4" /> : <XIcon className="size-4" />}
+      {value ? 'Activo' : 'Inactivo'}
+    </span>
   );
 }

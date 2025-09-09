@@ -6,7 +6,6 @@ import { SortOrder } from '@/types/types';
 export function useSortParams() {
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const orderBy = searchParams.get('orderBy') ?? 'id';
   const direction = (searchParams.get('direction') as SortOrder) ?? 'asc';
 

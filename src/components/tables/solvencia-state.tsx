@@ -10,7 +10,7 @@ interface Props {
   id?: number;
 }
 
-export default function Solvency({ date, id }: Props) {
+export default function SolvenciaState({ date, id }: Props) {
   function getDateStatus(date: string | null): DateStatus {
     if (!date) return 'empty';
 
@@ -48,12 +48,12 @@ export default function Solvency({ date, id }: Props) {
 
   if (!id) {
     return (
-      <div
-        className={`flex items-center justify-start gap-1 p-1 rounded ${bgColors[dateStatus]}`}
+      <span
+        className={`flex items-center text-xs justify-start gap-1 p-1 rounded ${bgColors[dateStatus]} w-fit whitespace-nowrap`}
       >
         {icons[dateStatus]}
         {label}
-      </div>
+      </span>
     );
   }
 
@@ -61,7 +61,7 @@ export default function Solvency({ date, id }: Props) {
     <Link
       href={`/proveedores/${id}/solvencias`}
       onClick={(e) => e.stopPropagation()}
-      className={`flex items-center justify-start gap-1 p-1 rounded ${bgColors[dateStatus]}`}
+      className={`flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap ${bgColors[dateStatus]}`}
     >
       {icons[dateStatus]}
       {label}

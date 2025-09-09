@@ -1,10 +1,12 @@
 'use client';
 
-import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
 import { SolicitudDetalle } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import { Checkbox } from '@/components/ui/checkbox';
+import TableEditableCell from '@/components/tables/table-editable-cell';
+import DefaultCell from '@/components/tables/default-cell';
+import { TableNumber, TableNumberSum } from '@/components/tables/table-number';
 
 export const columns: ColumnDef<SolicitudDetalle>[] = [
   {
@@ -31,144 +33,114 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
   },
   {
     accessorKey: 'producto_servicio',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Producto / Servicio" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.producto_servicio}</TableCell>;
+    enableResizing: true,
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Producto / Servicio" />
+    ),
+    cell: TableEditableCell,
+    meta: {
+      type: 'text',
     },
   },
   {
     accessorKey: 'cantidad',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Cantidad" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.cantidad}</TableCell>;
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Cantidad" />
+    ),
+    cell: TableEditableCell,
+    meta: {
+      type: 'number',
     },
   },
   {
     accessorKey: 'id_unidad_medida',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="U/M" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">
-          {row.original.id_unidad_medida}
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButtonClient column={column} label="U/M" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'precio',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Precio" />;
-    },
+    header: ({ column }) => <SortButtonClient column={column} label="Precio" />,
+    cell: TableNumber,
+  },
+  {
+    id: 'subtotal',
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Subtotal" />
+    ),
     cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.precio}</TableCell>;
+      console.log('cant', row.original.cantidad);
+      console.log('precio', row.original.precio);
+      return (
+        <TableNumberSum value={row.original.cantidad * row.original.precio} />
+      );
     },
   },
   {
     accessorKey: 'observaciones',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Observaciones" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.observaciones}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Observaciones" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'prioridad',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Prioridad" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.prioridad}</TableCell>;
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Prioridad" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'id_estado',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Estado" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.id_estado}</TableCell>;
-    },
+    header: ({ column }) => <SortButtonClient column={column} label="Estado" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'comprado',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Comprado" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.comprado}</TableCell>;
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Comprado" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'recibido',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Recibido" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.recibido}</TableCell>;
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Recibido" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'precio_compra',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Precio compra" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.precio_compra}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Precio compra" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'entrega_bodega',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Entrega bodega" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.entrega_bodega}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Entrega bodega" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'precio_bodega',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Precio bodega" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.precio_bodega}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Precio bodega" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'id_ubicacion',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Ubicación" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.id_ubicacion}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Ubicación" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'id_categoria',
-    header: ({ column }) => {
-      return <SortButtonClient column={column} label="Categoría" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell textAlign="center">{row.original.id_categoria}</TableCell>
-      );
-    },
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Categoría" />
+    ),
+    cell: DefaultCell,
   },
 ];

@@ -17,7 +17,7 @@ import { ComboBox } from '../combo-box';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
 import FormButtons from './elements/form-buttons';
-import { ComboBoxData, Provider } from '@/types/types';
+import { ComboBoxData, ProveedorForm } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
 import {
   Card,
@@ -38,7 +38,7 @@ export function ProviderForm({
   subsectores,
 }: {
   action: 'create' | 'edit';
-  provider?: Provider;
+  provider?: ProveedorForm;
   departamentos: ComboBoxData;
   sectores: ComboBoxData;
   subsectores: ComboBoxData;

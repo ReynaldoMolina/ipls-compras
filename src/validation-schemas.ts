@@ -19,7 +19,7 @@ export const solvenciaSchema = z.object({
   vence: z.string().nullable(),
   verificado: z.string('Requerido'),
   recibido: z.string().nullable(),
-  url: z.string().optional(),
+  url: z.string().nullable(),
   id_usuario: z.number(),
 });
 

@@ -1,23 +1,20 @@
 import { formatDate } from '@/lib/format-date';
+import { CellContext } from '@tanstack/react-table';
 import { Calendar } from 'lucide-react';
 
-interface Props {
-  date: string | null;
-}
-
-export default function TableDate({ date }: Props) {
-  const label = formatDate(date);
+export default function TableDate<TData, TValue>({
+  getValue,
+}: CellContext<TData, TValue>) {
+  const value = getValue();
+  const dateString = value ? String(value) : '';
+  const label = dateString ? formatDate(dateString) : 'Sin fecha';
 
   return (
-    <div className="flex items-center justify-start gap-1 p-1 rounded border border-border">
+    <span className="flex items-center gap-1 p-1 rounded border border-border w-fit whitespace-nowrap">
       <Calendar
-        className={`${date ? '' : 'text-muted-foreground'}  size-3.5`}
+        className={`${dateString ? '' : 'text-muted-foreground'} size-3.5`}
       />
-      {date ? (
-        <span>{label}</span>
-      ) : (
-        <span className="text-muted-foreground">Sin fecha</span>
-      )}
-    </div>
+      <span className={dateString ? '' : 'text-muted-foreground'}>{label}</span>
+    </span>
   );
 }

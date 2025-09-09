@@ -41,7 +41,7 @@ export async function getSectores() {
   }
 }
 
-export async function getSubsectoresBySector(sectorId: number | null) {
+export async function getSubsectoresBySector(sectorId: number | undefined) {
   if (!sectorId) {
     return [{ value: 0, label: 'Selecciona un sector' }];
   }

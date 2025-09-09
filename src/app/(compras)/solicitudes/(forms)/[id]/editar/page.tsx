@@ -49,7 +49,10 @@ export default async function Page(props: Props) {
         </TabsContent>
         <TabsContent value="detail">
           <div className="flex flex-col gap-3">
-            <DataTableDetalle columns={columns} data={solicitud_detalle} />
+            <DataTableDetalle
+              columns={columns}
+              initialData={solicitud_detalle}
+            />
           </div>
         </TabsContent>
       </Tabs>

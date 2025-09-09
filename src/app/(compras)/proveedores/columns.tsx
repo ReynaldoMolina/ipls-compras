@@ -1,106 +1,63 @@
 'use client';
 
-import { TableLink } from '@/components/tables/table-link';
-import Solvency from '@/components/tables/solvency';
+import { TableEdit } from '@/components/tables/table-edit';
+import SolvenciaState from '@/components/tables/solvencia-state';
 import { SortButton } from '@/components/tables/sort-button';
-import TableCell from '@/components/tables/table-cell';
 import { ColumnDef } from '@tanstack/react-table';
+import DefaultCell from '@/components/tables/default-cell';
+import { Proveedores } from '@/types/types';
+import TableId from '@/components/tables/table-id';
 
-export interface Providers {
-  id: number;
-  solvencia: string | null;
-  nombre_comercial: string;
-  razon_social: string;
-  ruc: string | null;
-  telefono: string | null;
-  departamento: string | null;
-  correo: string | null;
-}
-
-export const columns: ColumnDef<Providers>[] = [
+export const columns: ColumnDef<Proveedores>[] = [
   {
-    id: 'actions',
-    header: () => {
-      return <span className="text-xs">Editar</span>;
-    },
-    cell: ({ row }) => {
-      return <TableLink href={`/proveedores/${row.original.id}/editar`} />;
-    },
+    id: 'edit',
+    header: 'Editar',
+    cell: ({ row }) => (
+      <TableEdit href={`/proveedores/${row.original.id}/editar`} />
+    ),
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Id" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell textAlign="center">{row.original.id}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Id" />,
+    cell: TableId,
   },
   {
     accessorKey: 'solvencia',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Solvencia" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <TableCell>
-          <Solvency date={row.original.solvencia} id={row.original.id} />
-        </TableCell>
-      );
-    },
+    header: ({ column }) => <SortButton column={column} label="Solvencia" />,
+    cell: ({ row }) => (
+      <SolvenciaState date={row.original.solvencia} id={row.original.id} />
+    ),
   },
   {
     accessorKey: 'nombre_comercial',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Nombre comercial" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.nombre_comercial}</TableCell>;
-    },
+    header: ({ column }) => (
+      <SortButton column={column} label="Nombre comercial" />
+    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'razon_social',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Razón social" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.razon_social}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Razón social" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'ruc',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="RUC" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.ruc}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="RUC" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'telefono',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Teléfono" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.telefono}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Teléfono" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'departamento',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Departamento" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.departamento}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Departamento" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'correo',
-    header: ({ column }) => {
-      return <SortButton fieldName={column.id} label="Correo" />;
-    },
-    cell: ({ row }) => {
-      return <TableCell>{row.original.correo}</TableCell>;
-    },
+    header: ({ column }) => <SortButton column={column} label="Correo" />,
+    cell: DefaultCell,
   },
 ];
