@@ -20,17 +20,28 @@ export function TableNumber<TData, TValue>({
   );
 }
 
-export function TableNumberSum({ value }: { value: number }) {
+export function TableNumberSum({
+  value,
+  type = 'float',
+}: {
+  value: number;
+  type?: 'integer' | 'float';
+}) {
   let newValue = value ?? 0;
   if (isNaN(newValue)) {
     newValue = 0;
   }
 
+  const alignments = {
+    float: 'text-right',
+    integer: 'text-center',
+  };
+
   return (
     <span
-      className={`${newValue < 0 && 'text-destructive'} block w-full text-right px-1`}
+      className={`${newValue < 0 && 'text-destructive'} ${alignments[type]} block w-full px-1 text-muted-foreground`}
     >
-      {formatter.format(newValue)}
+      {type === 'float' ? formatter.format(newValue) : newValue}
     </span>
   );
 }

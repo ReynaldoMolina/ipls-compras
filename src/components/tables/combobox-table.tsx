@@ -22,7 +22,7 @@ export default function ComboBoxTable({
   value: string | number;
   onChange: (val: string | number) => void;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const selectedOption = data.find((el) => el.value === value);
 
   return (
@@ -32,10 +32,11 @@ export default function ComboBoxTable({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal h-6 px-1 rounded-md text-muted-foreground"
+          className={`${selectedOption ? '' : 'text-muted-foreground'} w-full font-normal rounded`}
+          size="table"
         >
-          {selectedOption ? selectedOption.label : 'Selecciona una opción'}
-          <ChevronsUpDown className="opacity-50" />
+          {selectedOption ? selectedOption.label : ''}
+          <ChevronsUpDown className="opacity-50 ml-auto" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0">

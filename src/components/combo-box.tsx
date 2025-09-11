@@ -64,7 +64,7 @@ export function ComboBox<T extends FieldValues>({
         </FormControl>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command>
+        <Command className="max-h-50">
           <CommandInput placeholder="Buscar..." className="h-9" />
           <CommandList>
             <CommandEmpty>No hay resultados</CommandEmpty>

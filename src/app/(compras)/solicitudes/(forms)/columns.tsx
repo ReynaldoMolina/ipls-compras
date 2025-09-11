@@ -3,9 +3,7 @@ import { SolicitudDetalle, SelectOptions } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { EditableCell } from '@/components/tables/table-editable-cell';
-import DefaultCell from '@/components/tables/default-cell';
 import { TableNumberSum } from '@/components/tables/table-number';
-import InlineEdit from '@/components/tables/inline-edit';
 
 export function getSolicitudesDetalleColumns(
   unidadesMedida: SelectOptions[],
@@ -47,6 +45,7 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'text',
       },
+      footer: 'Totales',
     },
     {
       accessorKey: 'cantidad',
@@ -83,12 +82,17 @@ export function getSolicitudesDetalleColumns(
       header: ({ column }) => (
         <SortButtonClient column={column} label="Subtotal" />
       ),
-      cell: ({ row }) => {
-        console.log('cant', row.original.cantidad);
-        console.log('precio', row.original.precio);
-        return (
-          <TableNumberSum value={row.original.cantidad * row.original.precio} />
-        );
+      cell: ({ row }) => (
+        <TableNumberSum value={row.original.cantidad * row.original.precio} />
+      ),
+      footer: ({ table }) => {
+        const total = table.getFilteredRowModel().rows.reduce((sum, row) => {
+          const cantidad = Number(row.getValue('cantidad')) || 0;
+          const precio = Number(row.getValue('precio')) || 0;
+          return sum + cantidad * precio;
+        }, 0);
+
+        return <TableNumberSum value={total} />;
       },
     },
     {
@@ -161,6 +165,16 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'number:float',
       },
+      footer: ({ table }) => {
+        const total = table
+          .getFilteredRowModel()
+          .rows.reduce(
+            (sum, row) =>
+              sum + ((row.getValue('precio_compra') as number) || 0),
+            0
+          );
+        return <TableNumberSum value={total} />;
+      },
     },
     {
       accessorKey: 'entrega_bodega',
@@ -180,6 +194,16 @@ export function getSolicitudesDetalleColumns(
       cell: EditableCell,
       meta: {
         type: 'number:float',
+      },
+      footer: ({ table }) => {
+        const total = table
+          .getFilteredRowModel()
+          .rows.reduce(
+            (sum, row) =>
+              sum + ((row.getValue('precio_bodega') as number) || 0),
+            0
+          );
+        return <TableNumberSum value={total} />;
       },
     },
     {

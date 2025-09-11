@@ -8,8 +8,8 @@ export default async function Page() {
       <a className="bg-secondary px-7 py-3 rounded-full" href="/login">
         Login
       </a>
-      <a className="bg-secondary px-7 py-3 rounded-full" href="/proveedores">
-        Test
+      <a className="bg-secondary px-7 py-3 rounded-full" href="/solicitudes">
+        Test solicitudes
       </a>
     </main>
   );

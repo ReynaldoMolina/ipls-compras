@@ -43,31 +43,30 @@ export default async function Page(props: Props) {
   const categorias = await getDetalleCategorias();
 
   return (
-    <>
-      <Tabs defaultValue="detail">
-        <TabsList>
-          <TabsTrigger value="info">Información</TabsTrigger>
-          <TabsTrigger value="detail">Detalle</TabsTrigger>
-        </TabsList>
-        <TabsContent value="info">
-          <SolicitudForm
-            action="edit"
-            solicitud={solicitud}
-            entidadesAcademicas={entidadesAcademicas}
-          />
-        </TabsContent>
-        <TabsContent value="detail">
-          <div className="flex flex-col gap-3">
-            <SolicitudesDetalleTable
-              data={solicitud_detalle}
-              unidadesMedida={unidadesMedida}
-              estados={estados}
-              ubicaciones={ubicaciones}
-              categorias={categorias}
-            />
-          </div>
-        </TabsContent>
-      </Tabs>
-    </>
+    <Tabs defaultValue="detail" className="flex flex-col overflow-y-auto">
+      <TabsList className="min-h-9">
+        <TabsTrigger value="info">Información</TabsTrigger>
+        <TabsTrigger value="detail">Detalle</TabsTrigger>
+      </TabsList>
+      <TabsContent value="info">
+        <SolicitudForm
+          action="edit"
+          solicitud={solicitud}
+          entidadesAcademicas={entidadesAcademicas}
+        />
+      </TabsContent>
+      <TabsContent
+        value="detail"
+        className="flex flex-col gap-3 overflow-y-auto"
+      >
+        <SolicitudesDetalleTable
+          data={solicitud_detalle}
+          unidadesMedida={unidadesMedida}
+          estados={estados}
+          ubicaciones={ubicaciones}
+          categorias={categorias}
+        />
+      </TabsContent>
+    </Tabs>
   );
 }

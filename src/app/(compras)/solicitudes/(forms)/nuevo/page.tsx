@@ -3,7 +3,7 @@ import { SolicitudForm } from '@/components/forms/solicitudes';
 import { DataTable } from '@/components/tables/data-table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getEntidadesAcademicas } from '@/lib/data/forms';
-import { columns } from '../columns';
+// import { columns } from '../columns';
 
 const title = 'Nueva solicitud';
 
@@ -32,7 +32,7 @@ export default async function Page() {
             <ActionBar>
               {/* <FilterButton filterData={filterData} /> */}
             </ActionBar>
-            <DataTable columns={columns} data={[]} />
+            {/* <DataTable columns={columns} data={[]} /> */}
           </div>
         </TabsContent>
       </Tabs>

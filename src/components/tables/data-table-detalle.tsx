@@ -23,6 +23,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -30,7 +31,7 @@ import {
 
 import { useState } from 'react';
 import { Input } from '../ui/input';
-import { Delete, Plus, Search } from 'lucide-react';
+import { Delete, Plus, Search, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { SolicitudDetalle } from '@/types/types';
 
@@ -73,6 +74,34 @@ export function DataTableDetalle<TData, TValue>({
           })
         );
       },
+      addRow: () => {
+        const newRow: SolicitudDetalle = {
+          id_solicitud: 1,
+          producto_servicio: 'Doble click para editar',
+          cantidad: 0,
+          id_unidad_medida: 0,
+          precio: 0,
+          observaciones: '',
+          prioridad: '',
+          id_estado: null,
+          comprado: 0,
+          recibido: 0,
+          precio_compra: 0,
+          entrega_bodega: 0,
+          precio_bodega: 0,
+          id_ubicacion: null,
+          id_categoria: null,
+        };
+        const setFunc = (old: SolicitudDetalle[]) => [...old, newRow];
+        setData(setFunc);
+      },
+      removeRow: (rowIndex: number) => {
+        const setFilterFunc = (old: SolicitudDetalle[]) =>
+          old.filter(
+            (_row: SolicitudDetalle, index: number) => index !== rowIndex
+          );
+        setData(setFilterFunc);
+      },
     },
     state: {
       sorting,
@@ -86,8 +115,8 @@ export function DataTableDetalle<TData, TValue>({
   const searchText = (column?.getFilterValue() as string) ?? '';
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <>
+      <div className="flex gap-3 justify-between items-center">
         <div className="flex items-center relative w-full max-w-xs">
           <Search className="absolute left-2 size-4 text-muted-foreground" />
           <Input
@@ -116,9 +145,7 @@ export function DataTableDetalle<TData, TValue>({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columnas
-            </Button>
+            <Button variant="outline">Columnas</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {table
@@ -142,88 +169,83 @@ export function DataTableDetalle<TData, TValue>({
         </DropdownMenu>
       </div>
 
-      <div className="flex-1 overflow-hidden rounded-md border">
-        <Table className="max-h-100">
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && 'selected'}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id} className="p-1">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="p-1">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
+            ))
+          ) : (
+            <TableRow className="hover:bg-transparent">
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No hay resultados
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+        <TableFooter>
+          {table.getFooterGroups().map((footerGroup) => (
+            <TableRow key={footerGroup.id} className="border-double border-t-3">
+              {footerGroup.headers.map((header) => (
+                <TableHead key={header.id} className="p-1">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.footer,
+                        header.getContext()
                       )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No hay resultados
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <div className="w-full">
-          <Button
-            variant="ghost"
-            className="w-full rounded-none justify-start font-normal"
-            onClick={() =>
-              setData([
-                ...data,
-                {
-                  id_solicitud: 1,
-                  producto_servicio: '',
-                  cantidad: 0,
-                  id_unidad_medida: 0,
-                  precio: 0,
-                  observaciones: null,
-                  prioridad: null,
-                  id_estado: null,
-                  comprado: 0,
-                  recibido: 0,
-                  precio_compra: 0,
-                  entrega_bodega: 0,
-                  precio_bodega: null,
-                  id_ubicacion: null,
-                  id_categoria: null,
-                },
-              ])
-            }
-          >
-            <Plus className="size-4" />
-            Agregar
-          </Button>
-        </div>
-        {/* <pre className="text-[10px]">{JSON.stringify(data[0], null, '\t')}</pre> */}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableFooter>
+      </Table>
+      <div className="flex gap-1 border rounded-md p-0.5">
+        <Button
+          variant="ghost"
+          className="font-normal sticky bottom-0"
+          onClick={table.options.meta?.addRow}
+        >
+          <Plus className="size-4" />
+          Agregar
+        </Button>
+        <Button
+          variant="ghost"
+          className="font-normal sticky bottom-0"
+          onClick={() => table.options.meta?.removeRow?.(0)}
+        >
+          <Trash2 className="size-4" />
+          Eliminar
+        </Button>
       </div>
-    </div>
+      {/* <pre className="text-[10px]">{JSON.stringify(data[0], null, '\t')}</pre> */}
+    </>
   );
 }

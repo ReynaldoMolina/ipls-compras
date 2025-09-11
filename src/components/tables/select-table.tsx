@@ -20,8 +20,8 @@ export function SelectTable({
 }) {
   return (
     <Select value={value ? String(value) : undefined} onValueChange={onChange}>
-      <SelectTrigger className="w-full h-6">
-        <SelectValue placeholder="Selecciona una opción" />
+      <SelectTrigger className="w-full h-6 px-2 gap-1.5 rounded bg-background">
+        <SelectValue placeholder="" />
       </SelectTrigger>
       <SelectContent>
         {data.map((element) => (

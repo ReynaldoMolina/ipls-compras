@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { CellContext } from '@tanstack/react-table';
 import InlineEdit from './inline-edit';
-import InlineComboBox from './inline-combobox';
-import InlineSelectTable from './inline-select';
+import ComboBoxTable from './combobox-table';
+import { SelectTable } from './select-table';
 
 export function EditableCell<TData, TValue>({
   getValue,
@@ -24,8 +24,9 @@ export function EditableCell<TData, TValue>({
     setValue(initialValue);
   }, [initialValue]);
 
-  function onSave() {
-    tableMeta?.updateData?.(row.index, column.id, value);
+  function onSave(newValue: string | number) {
+    setValue(newValue);
+    tableMeta?.updateData?.(row.index, column.id, newValue);
   }
 
   function onSelectChange(newValue: string | number) {
@@ -44,7 +45,7 @@ export function EditableCell<TData, TValue>({
 
   if (type === 'combobox')
     return (
-      <InlineComboBox
+      <ComboBoxTable
         data={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
@@ -53,7 +54,7 @@ export function EditableCell<TData, TValue>({
 
   if (type === 'select')
     return (
-      <InlineSelectTable
+      <SelectTable
         data={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
