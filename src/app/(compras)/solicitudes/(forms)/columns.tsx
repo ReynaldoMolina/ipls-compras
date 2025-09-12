@@ -3,7 +3,6 @@ import { SolicitudDetalle, SelectOptions } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import { EditableCell } from '@/components/tables/editable-cell';
 import { TableNumberSum } from '@/components/tables/number-cell';
-import EditCell from '@/components/tables/edit-cell';
 import {
   TableCheckBox,
   TableCheckBoxHeader,
@@ -21,22 +20,13 @@ export function getSolicitudesDetalleColumns(
       header: TableCheckBoxHeader,
       cell: TableCheckBox,
       enableSorting: false,
-      enableHiding: false,
-    },
-    {
-      id: 'edit',
-      header: 'Editar',
-      cell: EditCell,
-      enableSorting: false,
-      enableHiding: false,
     },
     {
       id: 'item',
-      header: ({ column }) => <SortButtonClient column={column} label="Item" />,
+      header: ({ column }) => <SortButtonClient column={column} label="Nº" />,
       cell: ({ row }) => (
         <span className="block w-full text-center">{row.index + 1}</span>
       ),
-      enableHiding: false,
     },
     {
       accessorKey: 'producto_servicio',
@@ -46,7 +36,6 @@ export function getSolicitudesDetalleColumns(
       cell: EditableCell,
       meta: {
         type: 'text',
-        required: true,
       },
       footer: 'Totales',
     },
@@ -56,9 +45,7 @@ export function getSolicitudesDetalleColumns(
       cell: EditableCell,
       meta: {
         type: 'integer',
-        required: true,
       },
-      enableHiding: false,
     },
     {
       accessorKey: 'id_unidad_medida',
@@ -67,7 +54,6 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'combobox',
         options: unidadesMedida,
-        required: true,
       },
     },
     {
@@ -78,7 +64,6 @@ export function getSolicitudesDetalleColumns(
       cell: EditableCell,
       meta: {
         type: 'float',
-        required: true,
       },
     },
     {
@@ -230,7 +215,6 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'combobox',
         options: categorias,
-        required: true,
       },
     },
   ];

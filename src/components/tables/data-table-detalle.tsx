@@ -9,15 +9,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-  VisibilityState,
 } from '@tanstack/react-table';
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 
 import {
   Table,
@@ -31,27 +23,94 @@ import {
 
 import { useState } from 'react';
 import { Input } from '../ui/input';
-import { Delete, Search } from 'lucide-react';
+import { Delete, Save, Search } from 'lucide-react';
 import { Button } from '../ui/button';
-import { SolicitudDetalle } from '@/types/types';
 import { TableNewRow, TableOptions } from './actions';
+import { saveSolicitudesDetalle } from '@/lib/actions/solicitudes-detalle';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   initialData: TData[];
+  action: 'create' | 'edit';
 }
 
 export function DataTableDetalle<TData, TValue>({
   columns,
   initialData,
+  action,
 }: DataTableProps<TData, TValue>) {
-  const [data, setData] = useState(() => [...initialData]);
-  const [originalData, setOriginalData] = useState(() => [...initialData]);
-  const [editedRows, setEditedRows] = useState({});
+  // data
+  const [data, setData] = useState(initialData);
+  const [newRows, setNewRows] = useState<TData[]>([]);
+  const [editedRows, setEditedRows] = useState<TData[]>([]);
+  const [deletedRows, setDeletedRows] = useState<TData[]>([]);
+
+  // table actions
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+  const addRow = (newRow: TData) => {
+    setData((prev) => [...prev, newRow]);
+    setNewRows((prev) => [...prev, newRow]);
+  };
+
+  const updateRow = (
+    rowIndex: number,
+    columnId: keyof TData,
+    value: unknown
+  ) => {
+    setData((prev) =>
+      prev.map((row, idx) =>
+        idx === rowIndex ? { ...row, [columnId]: value } : row
+      )
+    );
+
+    const row = data[rowIndex];
+
+    if (row?.id) {
+      // existing row → mark as edited
+      setEditedRows((prev) => {
+        const already = prev.find((r) => r.id === row.id);
+        if (already) {
+          return prev.map((r) =>
+            r.id === row.id ? { ...r, [columnId]: value } : r
+          );
+        }
+        return [...prev, { ...row, [columnId]: value }];
+      });
+    } else {
+      // if it's new, it's already tracked in newRows
+      setNewRows((prev) =>
+        prev.map((r, idx) =>
+          data.indexOf(r) === rowIndex ? { ...r, [columnId]: value } : r
+        )
+      );
+    }
+  };
+
+  const deleteRows = (rows: TData[]) => {
+    setData((prev) => prev.filter((r) => !rows.includes(r)));
+
+    const toDeleteNew: TData[] = [];
+    const toDeleteExisting: TData[] = [];
+
+    for (const row of rows) {
+      if (!row.id) {
+        // it was new → remove from newRows
+        toDeleteNew.push(row);
+      } else {
+        // existing → track as deleted
+        toDeleteExisting.push(row);
+      }
+    }
+
+    setNewRows((prev) => prev.filter((r) => !toDeleteNew.includes(r)));
+    setDeletedRows((prev) => [...prev, ...toDeleteExisting]);
+    setEditedRows((prev) =>
+      prev.filter((r) => !toDeleteExisting.some((d) => d.id === r.id))
+    );
+  };
 
   const table = useReactTable({
     data,
@@ -61,59 +120,32 @@ export function DataTableDetalle<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     enableRowSelection: true,
     meta: {
+      newRows,
       editedRows,
+      deletedRows,
+      setNewRows,
       setEditedRows,
-      updateData: (rowIndex: number, columnId: string, value: unknown) => {
-        setData((old) =>
-          old.map((row, index) => {
-            if (index === rowIndex) {
-              return {
-                ...old[rowIndex],
-                [columnId]: value,
-              };
-            }
-            return row;
-          })
-        );
-      },
-      revertData: (rowIndex: number, revert: boolean) => {
-        if (revert) {
-          setData((old) =>
-            old.map((row, index) =>
-              index === rowIndex ? originalData[rowIndex] : row
-            )
-          );
-        } else {
-          setOriginalData((old) =>
-            old.map((row, index) =>
-              index === rowIndex ? (data[rowIndex] as TData) : row
-            )
-          );
-        }
-      },
-      addRow: (newRow: SolicitudDetalle) => {
-        const setFunc = (old: SolicitudDetalle[]) => [...old, newRow];
-        setData(setFunc);
-        setOriginalData(setFunc);
-      },
-      removeSelectedRows: (selectedRows: number[]) => {
-        const setFilterFunc = (old: SolicitudDetalle[]) =>
-          old.filter((_row, index) => !selectedRows.includes(index));
-        setData(setFilterFunc);
-        setOriginalData(setFilterFunc);
-      },
+      setDeletedRows,
+      addRow,
+      updateRow,
+      deleteRows,
     },
     state: {
       sorting,
       columnFilters,
-      columnVisibility,
       rowSelection,
     },
   });
+
+  function handleSave() {
+    saveSolicitudesDetalle({ newRows, editedRows, deletedRows });
+    console.log(newRows);
+    console.log(editedRows);
+    console.log(deletedRows);
+  }
 
   const column = table.getColumn('producto_servicio');
   const searchText = (column?.getFilterValue() as string) ?? '';
@@ -147,30 +179,10 @@ export function DataTableDetalle<TData, TValue>({
             />
           )}
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">Columnas</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button onClick={handleSave}>
+          <Save />
+          <span className="hidden sm:flex">Guardar</span>
+        </Button>
       </div>
 
       <Table>

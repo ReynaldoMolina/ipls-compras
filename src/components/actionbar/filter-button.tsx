@@ -39,7 +39,7 @@ export default function FilterButton({ filterData }: FilterData) {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <ListFilter />
-          <span className="hidden md:flex text-xs">Filtrar</span>
+          <span className="hidden md:flex">Filtrar</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="flex flex-col gap-3 min-w-50">

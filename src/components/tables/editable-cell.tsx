@@ -23,7 +23,6 @@ export function EditableCell<TData, TValue>({
   const columnMeta = column.columnDef.meta;
   const tableMeta = table.options.meta;
   const type = columnMeta?.type;
-  const isEditing = tableMeta?.editedRows?.[row.id];
   const [value, setValue] = useState<string | number>(
     initialValue as unknown as string | number
   );
@@ -34,24 +33,16 @@ export function EditableCell<TData, TValue>({
 
   function onSave(newValue: string | number) {
     setValue(newValue);
-    tableMeta?.updateData?.(row.index, column.id, newValue);
+    tableMeta?.updateRow?.(row.index, column.id, newValue);
   }
 
   function onSelectChange(newValue: string | number) {
     setValue(newValue);
-    tableMeta?.updateData?.(row.index, column.id, newValue);
+    tableMeta?.updateRow?.(row.index, column.id, newValue);
   }
 
   if (type === 'integer' || type === 'float')
-    return (
-      <InlineEdit
-        value={value}
-        onSave={onSave}
-        type={type}
-        isEditing={isEditing ? isEditing : false}
-        required={columnMeta?.required}
-      />
-    );
+    return <InlineEdit value={value} onSave={onSave} type={type} />;
 
   if (type === 'combobox')
     return (
@@ -59,7 +50,6 @@ export function EditableCell<TData, TValue>({
         data={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
-        isEditing={isEditing ? isEditing : false}
       />
     );
 
@@ -69,26 +59,16 @@ export function EditableCell<TData, TValue>({
         data={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
-        isEditing={isEditing ? isEditing : false}
       />
     );
 
-  return (
-    <InlineEdit
-      value={value}
-      onSave={onSave}
-      type="text"
-      isEditing={isEditing ? isEditing : false}
-      required={columnMeta?.required}
-    />
-  );
+  return <InlineEdit value={value} onSave={onSave} type="text" />;
 }
 
 interface InlineEditProps {
   value: string | number;
   onSave: (newValue: string | number) => void;
   type: 'text' | 'integer' | 'float';
-  isEditing: boolean;
   required?: boolean;
 }
 
@@ -96,33 +76,46 @@ function InlineEdit({
   value,
   onSave,
   type = 'text',
-  isEditing,
   required = false,
 }: InlineEditProps) {
   const [currentValue, setCurrentValue] = useState(value);
+  const [isEditing, setIsEditing] = useState(false);
 
   function handleBlur() {
     onSave(currentValue);
+    setIsEditing(false);
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       e.currentTarget.blur();
     } else if (e.key === 'Escape') {
-      setCurrentValue(value); // cancel changes
+      setCurrentValue(value);
+      setIsEditing(false);
+    }
+  }
+
+  function handleKeyDownEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter' || e.key.length === 1) {
+      setIsEditing(true);
     }
   }
 
   if (!isEditing)
     return (
-      <span className={`${alignment[type]} block w-full whitespace-nowrap`}>
+      <span
+        className={`${alignment[type]} ${currentValue === 0 && 'text-muted-foreground'} block w-full h-6 py-1 whitespace-nowrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] rounded`}
+        onClick={() => setIsEditing(true)}
+        tabIndex={0}
+        onKeyDown={handleKeyDownEnter}
+      >
         {type === 'float' &&
         typeof currentValue === 'number' &&
         currentValue !== 0
           ? formatter.format(currentValue ?? 0)
           : currentValue !== 0
             ? currentValue
-            : ''}
+            : '-'}
       </span>
     );
 
@@ -138,6 +131,7 @@ function InlineEdit({
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       className={`${alignment[type]} w-full h-6 px-1 rounded invalid:border-destructive/70 border`}
+      autoFocus
       required={required}
     />
   );

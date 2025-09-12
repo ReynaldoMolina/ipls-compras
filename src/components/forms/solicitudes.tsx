@@ -14,8 +14,8 @@ import {
 import { solicitudSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
 import FormButtons from './elements/form-buttons';
-import { ComboBoxData, Solicitud } from '@/types/types';
-import { createUser, updateUser } from '@/lib/actions/usuarios';
+import { ComboBoxData, SolicitudForm } from '@/types/types';
+import { createSolicitud, updateSolicitud } from '@/lib/actions/solicitudes';
 import { Switch } from '../ui/switch';
 import {
   Card,
@@ -37,7 +37,7 @@ export function SolicitudForm({
   entidadesAcademicas,
 }: {
   action: 'create' | 'edit';
-  solicitud?: Solicitud;
+  solicitud?: SolicitudForm;
   entidadesAcademicas: ComboBoxData;
 }) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
@@ -58,12 +58,11 @@ export function SolicitudForm({
   });
 
   function onSubmit(values: z.infer<typeof solicitudSchema>) {
-    // if (action === 'create') {
-    //   createUser(undefined, values);
-    // } else if (action === 'edit' && user) {
-    //   updateUser(user.id, { message: undefined }, values);
-    // }
-    console.log(values);
+    if (action === 'create') {
+      createSolicitud(undefined, values);
+    } else if (action === 'edit' && solicitud) {
+      updateSolicitud(solicitud?.id, { message: undefined }, values);
+    }
   }
 
   return (

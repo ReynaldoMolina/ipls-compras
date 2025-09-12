@@ -1,5 +1,9 @@
 import { db } from '@/db/db';
-import { SearchParamsProps, Solicitud, SolicitudDetalle } from '@/types/types';
+import {
+  SearchParamsProps,
+  SolicitudForm,
+  SolicitudDetalle,
+} from '@/types/types';
 import { eq, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './buildSearchFilter';
 import { buildOrderFragment } from './buildOrderFragment';
@@ -7,8 +11,6 @@ import { buildFiltersProviders } from './buildFilterFragment';
 import { solicitudes } from '@/db/schema/solicitudes';
 import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
-import { unidades_medida } from '@/db/schema/unidades-medida';
-import { solicitudes_estados } from '@/db/schema/solicitudes-estados';
 
 export async function getSolicitudes(params: SearchParamsProps) {
   const selectFields = {
@@ -61,7 +63,7 @@ export async function getSolicitudes(params: SearchParamsProps) {
   }
 }
 
-export async function getSolicitudById(id: number): Promise<Solicitud> {
+export async function getSolicitudById(id: number): Promise<SolicitudForm> {
   try {
     const data = await db
       .select()
@@ -83,7 +85,8 @@ export async function getSolicitudDetalleById(
     const data = await db
       .select()
       .from(solicitudes_detalle)
-      .where(eq(solicitudes_detalle.id_solicitud, id));
+      .where(eq(solicitudes_detalle.id_solicitud, id))
+      .orderBy(solicitudes_detalle.id);
     return data;
   } catch (error) {
     console.error(error);

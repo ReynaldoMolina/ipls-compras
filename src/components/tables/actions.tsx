@@ -1,4 +1,4 @@
-import { Plus, Trash2, X } from 'lucide-react';
+import { CornerDownLeft, Keyboard, Plus, Trash2, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Table } from '@tanstack/react-table';
 import { useState } from 'react';
@@ -8,38 +8,92 @@ interface TableActionsProps<TData> {
   table: Table<TData>;
 }
 
+const emptyRow = {
+  id_solicitud: 1,
+  producto_servicio: '',
+  cantidad: 1,
+  id_unidad_medida: 1,
+  precio: 0,
+  observaciones: '',
+  prioridad: '',
+  id_estado: null,
+  comprado: 0,
+  recibido: 0,
+  precio_compra: 0,
+  entrega_bodega: 0,
+  precio_bodega: 0,
+  id_ubicacion: null,
+  id_categoria: null,
+};
+
 export function TableNewRow<TData>({ table }: TableActionsProps<TData>) {
   const [isEditing, setIsEditing] = useState(false);
-  const [newRow, setNewRow] = useState({
-    id_solicitud: 1,
-    producto_servicio: '',
-    cantidad: 1,
-    id_unidad_medida: 1,
-    precio: 0,
-    observaciones: '',
-    prioridad: '',
-    id_estado: null,
-    comprado: 0,
-    recibido: 0,
-    precio_compra: 0,
-    entrega_bodega: 0,
-    precio_bodega: 0,
-    id_ubicacion: null,
-    id_categoria: 1,
-  });
+  const [newRow, setNewRow] = useState(emptyRow);
   const meta = table.options.meta;
+  const isProductEmpty = newRow.producto_servicio.length === 0;
+
+  function createRow() {
+    if (!isProductEmpty) {
+      meta?.addRow?.(newRow);
+    }
+  }
+
+  const resetRow = () => setNewRow({ ...newRow, producto_servicio: '' });
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      createRow();
+      resetRow();
+    } else if (e.key === 'Escape') {
+      setIsEditing(false);
+      resetRow();
+    }
+  }
 
   if (isEditing)
     return (
-      <div className="flex gap-2 rounded-md border">
+      <div className="relative flex gap-2 rounded-md items-center p-1">
+        <Keyboard className="size-4 absolute left-3" />
+
         <Input
+          id="crear-input"
+          autoFocus
+          aria-invalid={isProductEmpty}
+          placeholder="Escribe el producto o servicio"
           value={newRow.producto_servicio}
-          onChange={(event) =>
-            setNewRow({ ...newRow, producto_servicio: event?.target.value })
-          }
+          onBlur={(e) => {
+            if (!e.relatedTarget || e.relatedTarget.id !== 'crear-btn') {
+              setIsEditing(false);
+            }
+          }}
+          onChange={(e) => {
+            setNewRow({
+              ...newRow,
+              producto_servicio: e?.target.value,
+            });
+          }}
+          onKeyDown={handleKeyDown}
+          className="pl-9"
         />
-        <Button variant="outline" onClick={() => meta?.addRow?.(newRow)}>
+
+        <Button
+          id="crear-btn"
+          variant="outline"
+          size="table"
+          className="absolute right-2 font-normal"
+          disabled={isProductEmpty}
+          onClick={() => {
+            createRow();
+            resetRow();
+          }}
+          onBlur={(e) => {
+            if (!e.relatedTarget || e.relatedTarget.id !== 'crear-input') {
+              setIsEditing(false);
+            }
+          }}
+        >
           Crear
+          <CornerDownLeft className="size-3.5 rounded-xs h-4 w-5 bg-muted-foreground/20 px-1" />
         </Button>
       </div>
     );
@@ -48,7 +102,6 @@ export function TableNewRow<TData>({ table }: TableActionsProps<TData>) {
     <Button
       variant="outline"
       className="font-normal justify-start"
-      // onClick={() => meta?.addRow?.(1)}
       onClick={() => setIsEditing(true)}
     >
       <Plus className="size-4" />
@@ -59,17 +112,19 @@ export function TableNewRow<TData>({ table }: TableActionsProps<TData>) {
 
 export function TableOptions<TData>({ table }: TableActionsProps<TData>) {
   const meta = table.options.meta;
-  const selectedRows = table.getSelectedRowModel().rows.map((row) => row.index);
+  const selectedRows = table
+    .getSelectedRowModel()
+    .rows.map((row) => row.original);
 
   function removeRows() {
-    meta?.removeSelectedRows?.(selectedRows);
+    meta?.deleteRows?.(selectedRows);
     table.resetRowSelection();
   }
 
   if (selectedRows.length <= 0) return null;
 
   return (
-    <div className="flex bg-muted bottom-2 gap-2 w-fit rounded-md border p-1 mx-auto">
+    <div className="flex bg-muted/50 bottom-2 gap-2 w-fit rounded-md border p-1 mx-auto">
       <div className="inline-flex gap-2 items-center">
         <Button
           variant="ghost"

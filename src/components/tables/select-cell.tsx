@@ -13,18 +13,14 @@ export function SelectTable({
   data,
   value,
   onChange,
-  isEditing,
 }: {
   data: SelectOptions[];
   value: string | number;
   onChange: (val: string | number) => void;
-  isEditing: boolean;
 }) {
-  if (!isEditing) return <span className="whitespace-nowrap">{value}</span>;
-
   return (
     <Select value={value ? String(value) : undefined} onValueChange={onChange}>
-      <SelectTrigger className="w-full h-6 px-2 gap-1.5 rounded bg-background">
+      <SelectTrigger className="w-full h-6 px-2 gap-1.5 rounded">
         <SelectValue placeholder="" />
       </SelectTrigger>
       <SelectContent>
