@@ -61,7 +61,8 @@ export default function SolvenciaState({ date, id }: Props) {
     <Link
       href={`/proveedores/${id}/solvencias`}
       onClick={(e) => e.stopPropagation()}
-      className={`flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap ${bgColors[dateStatus]}`}
+      className={`${bgColors[dateStatus]} flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap hover:underline underline-offset-2`}
+      title="Ir a solvencias"
     >
       {icons[dateStatus]}
       {label}

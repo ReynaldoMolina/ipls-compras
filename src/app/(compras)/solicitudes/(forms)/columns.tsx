@@ -1,9 +1,13 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { SolicitudDetalle, SelectOptions } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { EditableCell } from '@/components/tables/table-editable-cell';
-import { TableNumberSum } from '@/components/tables/table-number';
+import { EditableCell } from '@/components/tables/editable-cell';
+import { TableNumberSum } from '@/components/tables/number-cell';
+import EditCell from '@/components/tables/edit-cell';
+import {
+  TableCheckBox,
+  TableCheckBoxHeader,
+} from '@/components/tables/checkbox-cell';
 
 export function getSolicitudesDetalleColumns(
   unidadesMedida: SelectOptions[],
@@ -14,26 +18,24 @@ export function getSolicitudesDetalleColumns(
   return [
     {
       id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <div className="w-full h-full inline-flex justify-center items-center">
-          <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-          />
-        </div>
-      ),
+      header: TableCheckBoxHeader,
+      cell: TableCheckBox,
       enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      id: 'edit',
+      header: 'Editar',
+      cell: EditCell,
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      id: 'item',
+      header: ({ column }) => <SortButtonClient column={column} label="Item" />,
+      cell: ({ row }) => (
+        <span className="block w-full text-center">{row.index + 1}</span>
+      ),
       enableHiding: false,
     },
     {
@@ -44,17 +46,17 @@ export function getSolicitudesDetalleColumns(
       cell: EditableCell,
       meta: {
         type: 'text',
+        required: true,
       },
       footer: 'Totales',
     },
     {
       accessorKey: 'cantidad',
-      header: ({ column }) => (
-        <SortButtonClient column={column} label="Cantidad" />
-      ),
+      header: ({ column }) => <SortButtonClient column={column} label="Cant" />,
       cell: EditableCell,
       meta: {
-        type: 'number:integer',
+        type: 'integer',
+        required: true,
       },
       enableHiding: false,
     },
@@ -65,6 +67,7 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'combobox',
         options: unidadesMedida,
+        required: true,
       },
     },
     {
@@ -74,7 +77,8 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:float',
+        type: 'float',
+        required: true,
       },
     },
     {
@@ -143,7 +147,7 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:integer',
+        type: 'integer',
       },
     },
     {
@@ -153,7 +157,7 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:integer',
+        type: 'integer',
       },
     },
     {
@@ -163,7 +167,7 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:float',
+        type: 'float',
       },
       footer: ({ table }) => {
         const total = table
@@ -183,7 +187,7 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:integer',
+        type: 'integer',
       },
     },
     {
@@ -193,7 +197,7 @@ export function getSolicitudesDetalleColumns(
       ),
       cell: EditableCell,
       meta: {
-        type: 'number:float',
+        type: 'float',
       },
       footer: ({ table }) => {
         const total = table
@@ -226,6 +230,7 @@ export function getSolicitudesDetalleColumns(
       meta: {
         type: 'combobox',
         options: categorias,
+        required: true,
       },
     },
   ];

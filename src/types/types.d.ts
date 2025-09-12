@@ -124,8 +124,10 @@ export type FilterData = {
 };
 
 export type SelectOptions = {
-  value: string | number | boolean;
+  value: string | number;
   label: string;
 };
 
 export type ComboBoxData = SelectOptions[];
+
+type EditedRows = Record<string, boolean>;

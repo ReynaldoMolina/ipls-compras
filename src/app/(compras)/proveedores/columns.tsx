@@ -1,25 +1,30 @@
 'use client';
 
-import { TableEdit } from '@/components/tables/table-edit';
-import SolvenciaState from '@/components/tables/solvencia-state';
+import { EditLink } from '@/components/tables/edit-link';
+import SolvenciaState from '@/components/tables/solvencia-state-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import DefaultCell from '@/components/tables/default-cell';
 import { Proveedores } from '@/types/types';
-import TableId from '@/components/tables/table-id';
+import TableId from '@/components/tables/id-cell';
 
 export const columns: ColumnDef<Proveedores>[] = [
-  {
-    id: 'edit',
-    header: 'Editar',
-    cell: ({ row }) => (
-      <TableEdit href={`/proveedores/${row.original.id}/editar`} />
-    ),
-  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: TableId,
+  },
+  {
+    accessorKey: 'nombre_comercial',
+    header: ({ column }) => (
+      <SortButton column={column} label="Nombre comercial" />
+    ),
+    cell: ({ row }) => (
+      <EditLink
+        href={`/proveedores/${row.original.id}/editar`}
+        label={row.original.nombre_comercial}
+      />
+    ),
   },
   {
     accessorKey: 'solvencia',
@@ -27,13 +32,6 @@ export const columns: ColumnDef<Proveedores>[] = [
     cell: ({ row }) => (
       <SolvenciaState date={row.original.solvencia} id={row.original.id} />
     ),
-  },
-  {
-    accessorKey: 'nombre_comercial',
-    header: ({ column }) => (
-      <SortButton column={column} label="Nombre comercial" />
-    ),
-    cell: DefaultCell,
   },
   {
     accessorKey: 'razon_social',

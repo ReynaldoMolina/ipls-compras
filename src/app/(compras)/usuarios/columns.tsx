@@ -1,35 +1,33 @@
 'use client';
 
-import { TableEdit } from '@/components/tables/table-edit';
+import { EditLink } from '@/components/tables/edit-link';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import TableBool from '@/components/tables/table-bool';
+import TableBool from '@/components/tables/bool-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { Usuario } from '@/types/types';
-import TableId from '@/components/tables/table-id';
+import TableId from '@/components/tables/id-cell';
 
 export const columns: ColumnDef<Usuario>[] = [
-  {
-    id: 'actions',
-    header: 'Editar',
-    cell: ({ row }) => (
-      <TableEdit href={`/usuarios/${row.original.id}/editar`} />
-    ),
-  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: TableId,
   },
   {
-    accessorKey: 'nombre',
+    id: 'nombre',
     header: ({ column }) => <SortButton column={column} label="Nombre" />,
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'apellido',
-    header: ({ column }) => <SortButton column={column} label="Apellido" />,
-    cell: DefaultCell,
+    accessorFn: (row) => `${row.nombre ?? ''} ${row.apellido ?? ''}`.trim(),
+    cell: ({ row }) => (
+      <EditLink
+        href={`/usuarios/${row.original.id}/editar`}
+        label={
+          `${row.original.nombre ?? ''} ${row.original.apellido ?? ''}`.trim() ||
+          'Sin nombre'
+        }
+      />
+    ),
+    sortingFn: 'alphanumeric',
   },
   {
     accessorKey: 'correo',

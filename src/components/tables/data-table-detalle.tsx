@@ -31,9 +31,10 @@ import {
 
 import { useState } from 'react';
 import { Input } from '../ui/input';
-import { Delete, Plus, Search, Trash2 } from 'lucide-react';
+import { Delete, Search } from 'lucide-react';
 import { Button } from '../ui/button';
 import { SolicitudDetalle } from '@/types/types';
+import { TableNewRow, TableOptions } from './actions';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -44,7 +45,9 @@ export function DataTableDetalle<TData, TValue>({
   columns,
   initialData,
 }: DataTableProps<TData, TValue>) {
-  const [data, setData] = useState<SolicitudDetalle[]>(() => [...initialData]);
+  const [data, setData] = useState(() => [...initialData]);
+  const [originalData, setOriginalData] = useState(() => [...initialData]);
+  const [editedRows, setEditedRows] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -60,7 +63,10 @@ export function DataTableDetalle<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
     meta: {
+      editedRows,
+      setEditedRows,
       updateData: (rowIndex: number, columnId: string, value: unknown) => {
         setData((old) =>
           old.map((row, index) => {
@@ -74,33 +80,31 @@ export function DataTableDetalle<TData, TValue>({
           })
         );
       },
-      addRow: () => {
-        const newRow: SolicitudDetalle = {
-          id_solicitud: 1,
-          producto_servicio: 'Doble click para editar',
-          cantidad: 0,
-          id_unidad_medida: 0,
-          precio: 0,
-          observaciones: '',
-          prioridad: '',
-          id_estado: null,
-          comprado: 0,
-          recibido: 0,
-          precio_compra: 0,
-          entrega_bodega: 0,
-          precio_bodega: 0,
-          id_ubicacion: null,
-          id_categoria: null,
-        };
+      revertData: (rowIndex: number, revert: boolean) => {
+        if (revert) {
+          setData((old) =>
+            old.map((row, index) =>
+              index === rowIndex ? originalData[rowIndex] : row
+            )
+          );
+        } else {
+          setOriginalData((old) =>
+            old.map((row, index) =>
+              index === rowIndex ? (data[rowIndex] as TData) : row
+            )
+          );
+        }
+      },
+      addRow: (newRow: SolicitudDetalle) => {
         const setFunc = (old: SolicitudDetalle[]) => [...old, newRow];
         setData(setFunc);
+        setOriginalData(setFunc);
       },
-      removeRow: (rowIndex: number) => {
+      removeSelectedRows: (selectedRows: number[]) => {
         const setFilterFunc = (old: SolicitudDetalle[]) =>
-          old.filter(
-            (_row: SolicitudDetalle, index: number) => index !== rowIndex
-          );
+          old.filter((_row, index) => !selectedRows.includes(index));
         setData(setFilterFunc);
+        setOriginalData(setFilterFunc);
       },
     },
     state: {
@@ -227,25 +231,10 @@ export function DataTableDetalle<TData, TValue>({
           ))}
         </TableFooter>
       </Table>
-      <div className="flex gap-1 border rounded-md p-0.5">
-        <Button
-          variant="ghost"
-          className="font-normal sticky bottom-0"
-          onClick={table.options.meta?.addRow}
-        >
-          <Plus className="size-4" />
-          Agregar
-        </Button>
-        <Button
-          variant="ghost"
-          className="font-normal sticky bottom-0"
-          onClick={() => table.options.meta?.removeRow?.(0)}
-        >
-          <Trash2 className="size-4" />
-          Eliminar
-        </Button>
-      </div>
-      {/* <pre className="text-[10px]">{JSON.stringify(data[0], null, '\t')}</pre> */}
+
+      <TableNewRow table={table} />
+      <TableOptions table={table} />
+      {/* <pre className="text-[10px]">{JSON.stringify(data[3], null, '\t')}</pre> */}
     </>
   );
 }

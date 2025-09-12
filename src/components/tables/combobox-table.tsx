@@ -17,13 +17,22 @@ export default function ComboBoxTable({
   data,
   value,
   onChange,
+  isEditing,
 }: {
   data: SelectOptions[];
   value: string | number;
   onChange: (val: string | number) => void;
+  isEditing: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const selectedOption = data.find((el) => el.value === value);
+
+  if (!isEditing)
+    return (
+      <span className="whitespace-nowrap">
+        {selectedOption ? String(selectedOption?.label) : ''}
+      </span>
+    );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

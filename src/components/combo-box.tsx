@@ -51,7 +51,7 @@ export function ComboBox<T extends FieldValues>({
             variant="outline"
             role="combobox"
             className={cn(
-              'w-full justify-between text-xs',
+              'w-full justify-between text-xs font-normal',
               !field.value && 'text-muted-foreground'
             )}
           >

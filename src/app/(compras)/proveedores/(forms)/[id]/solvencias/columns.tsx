@@ -1,20 +1,22 @@
 'use client';
 
-import { TableEdit } from '@/components/tables/table-edit';
-import TableDate from '@/components/tables/table-date';
-import Solvency from '@/components/tables/solvencia-state';
+import { EditLink } from '@/components/tables/edit-link';
+import TableDate from '@/components/tables/date-cell';
+import Solvency from '@/components/tables/solvencia-state-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import DefaultCell from '@/components/tables/default-cell';
 import { Solvencia } from '@/types/types';
-import TableId from '@/components/tables/table-id';
+import TableId from '@/components/tables/id-cell';
 
 export const columns: ColumnDef<Solvencia>[] = [
   {
-    id: 'actions',
+    id: 'edit',
     header: 'Editar',
     cell: ({ row }) => (
-      <TableEdit href={`solvencias/${row.original.id}/editar`} />
+      <EditLink
+        href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}/editar`}
+      />
     ),
   },
   {
