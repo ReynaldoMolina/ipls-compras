@@ -24,7 +24,7 @@ export function EditLink({ href, label }: EditLinkProps) {
   return (
     <Link
       href={href}
-      className="hover:underline underline-offset-2 whitespace-nowrap"
+      className="hover:underline underline-offset-2 whitespace-nowrap w-full block py-1"
       title="Editar"
     >
       {label}

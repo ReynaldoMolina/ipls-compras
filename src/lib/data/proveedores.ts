@@ -2,8 +2,8 @@ import { db } from '@/db/db';
 import { proveedores } from '@/db/schema/proveedores';
 import { solvencias } from '@/db/schema/solvencias';
 import { departamentos } from '@/db/schema/departamentos';
-import { ProveedorForm, SearchParamsProps } from '@/types/types';
-import { eq, max, and, asc } from 'drizzle-orm';
+import { ProveedorFormType, SearchParamsProps } from '@/types/types';
+import { eq, max, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
@@ -58,12 +58,29 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getProveedorById(id: number): Promise<ProveedorForm> {
+export async function getProveedorById(id: number): Promise<ProveedorFormType> {
+  const selectFields = {
+    id: proveedores.id,
+    solvencia: max(solvencias.vence),
+    nombre_comercial: proveedores.nombre_comercial,
+    razon_social: proveedores.razon_social,
+    ruc: proveedores.ruc,
+    contacto_principal: proveedores.contacto_principal,
+    telefono: proveedores.telefono,
+    correo: proveedores.correo,
+    id_departamento: proveedores.id_departamento,
+    direccion: proveedores.direccion,
+    id_sector: proveedores.id_sector,
+    id_subsector: proveedores.id_subsector,
+  };
+
   try {
     const data = await db
-      .select()
+      .select(selectFields)
       .from(proveedores)
-      .where(eq(proveedores.id, id));
+      .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
+      .where(eq(proveedores.id, id))
+      .groupBy(proveedores.id);
     return data[0];
   } catch (error) {
     console.error(error);
@@ -77,7 +94,7 @@ export async function getUniqueDepartamentosFromProveedores() {
   try {
     const data = await db
       .selectDistinct({
-        value: departamentos.id,
+        value: sql<string>`CAST(${departamentos.id} AS TEXT)`,
         label: departamentos.departamento,
       })
       .from(proveedores)

@@ -1,7 +1,5 @@
-import FormBackButton from '@/components/forms/elements/form-back-button';
+import FormTitle from '@/components/forms/elements/form-title';
 import { UserForm } from '@/components/forms/usuarios';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
 import { getUserById } from '@/lib/data/usuarios';
 import { EditPageProps } from '@/types/types';
 
@@ -31,11 +29,8 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <Header title={`Usuario ${id}`} />
-      <PageWrapper>
-        <FormBackButton />
-        <UserForm action="edit" user={user} />
-      </PageWrapper>
+      <FormTitle title={`Usuario ${id}`} />
+      <UserForm action="edit" user={user} />
     </>
   );
 }

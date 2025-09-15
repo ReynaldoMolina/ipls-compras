@@ -1,5 +1,6 @@
 import { EditPageProps } from '@/types/types';
 import { SolvenciaForm } from '@/components/forms/solvencias';
+import FormTitle from '@/components/forms/elements/form-title';
 
 export async function generateMetadata(props: EditPageProps) {
   const params = await props.params;
@@ -25,6 +26,7 @@ export default async function Page(props: Props) {
 
   return (
     <>
+      <FormTitle title={`Proveedor ${id_proveedor} - Nueva solvencia`} />
       <SolvenciaForm action="create" id_proveedor={id_proveedor} />
     </>
   );

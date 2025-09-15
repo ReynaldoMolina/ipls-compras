@@ -4,6 +4,7 @@ import { columns } from './columns';
 import { getSolvenciasByProviderId } from '@/lib/data/solvencias';
 import ActionBar from '@/components/actionbar/action-bar';
 import FilterButton from '@/components/actionbar/filter-button';
+import FormTitle from '@/components/forms/elements/form-title';
 
 export async function generateMetadata(props: EditPageProps) {
   const params = await props.params;
@@ -26,25 +27,22 @@ export default async function Page(props: Props) {
   const params = await props.params;
   const id_proveedor = Number(params?.id);
   const searchParams = await props.searchParams;
-  const data = await getSolvenciasByProviderId(id_proveedor, searchParams);
+  const tableData = await getSolvenciasByProviderId(id_proveedor, searchParams);
 
   const years = [
     {
-      value: 2025,
+      value: '2025',
       label: '2025',
     },
   ];
 
-  const filterData = {
-    years,
-  };
-
   return (
     <>
+      <FormTitle title={`Proveedor ${id_proveedor} - Solvencias`} />
       <ActionBar>
-        <FilterButton filterData={filterData} />
+        <FilterButton filterOptions={{ years }} />
       </ActionBar>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={tableData} />
     </>
   );
 }

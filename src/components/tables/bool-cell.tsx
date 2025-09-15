@@ -12,9 +12,9 @@ export default function TableBool({ value }: { value: boolean | null }) {
 
   return (
     <span
-      className={`inline-flex gap-1 p-1 rounded ${
+      className={`${
         value ? 'bg-date-active' : 'bg-date-warning'
-      }`}
+      } inline-flex gap-1 p-1 rounded cursor-default`}
     >
       {value ? <Check className="size-4" /> : <XIcon className="size-4" />}
       {value ? 'Activo' : 'Inactivo'}

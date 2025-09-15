@@ -1,6 +1,5 @@
+import FormTitle from '@/components/forms/elements/form-title';
 import { UserForm } from '@/components/forms/usuarios';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
 
 export const metadata = {
   title: 'Nuevo usuario',
@@ -9,10 +8,8 @@ export const metadata = {
 export default async function Page() {
   return (
     <>
-      <Header title="Usuarios" />
-      <PageWrapper>
-        <UserForm action="create" />
-      </PageWrapper>
+      <FormTitle title="Nuevo usuario" />
+      <UserForm action="create" />
     </>
   );
 }

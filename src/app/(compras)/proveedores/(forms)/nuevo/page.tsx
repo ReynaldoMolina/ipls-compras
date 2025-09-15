@@ -1,6 +1,5 @@
-import { ProviderForm } from '@/components/forms/provider';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import FormTitle from '@/components/forms/elements/form-title';
+import { ProveedorForm } from '@/components/forms/proveedor';
 import {
   getDepartamentos,
   getSectores,
@@ -28,15 +27,13 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <Header title="Proveedores" />
-      <PageWrapper>
-        <ProviderForm
-          action="create"
-          departamentos={departamentos}
-          sectores={sectores}
-          subsectores={subsectores}
-        />
-      </PageWrapper>
+      <FormTitle title="Nuevo proveedor" />
+      <ProveedorForm
+        action="create"
+        departamentos={departamentos}
+        sectores={sectores}
+        subsectores={subsectores}
+      />
     </>
   );
 }

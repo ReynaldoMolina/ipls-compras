@@ -1,8 +1,5 @@
 import ActionBar from '@/components/actionbar/action-bar';
-import Header from '@/components//header/header';
-import PageWrapper from '@/components/page-wrapper';
 import { DataTable } from '../../../components/tables/data-table';
-import FilterButton from '@/components/actionbar/filter-button';
 import { columns } from './columns';
 import { getUsers } from '@/lib/data/usuarios';
 
@@ -22,11 +19,8 @@ export default async function Page(props) {
 
   return (
     <>
-      <Header title={title} />
-      <PageWrapper>
-        <ActionBar>{/* <FilterButton filterData={filterData} /> */}</ActionBar>
-        <DataTable columns={columns} data={data} />
-      </PageWrapper>
+      <ActionBar>{/* <FilterButton filterData={filterData} /> */}</ActionBar>
+      <DataTable columns={columns} data={data} />
     </>
   );
 }

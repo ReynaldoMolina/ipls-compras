@@ -79,7 +79,7 @@ export function SolvenciaForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-2xl">
+        <Card className="max-w-2xl mx-auto">
           <CardHeader>
             <CardTitle>
               {action === 'create' ? 'Nueva' : 'Editar'} solvencia

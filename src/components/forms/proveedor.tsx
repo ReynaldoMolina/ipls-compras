@@ -17,7 +17,7 @@ import { ComboBox } from '../combo-box';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
 import FormButtons from './elements/form-buttons';
-import { ComboBoxData, ProveedorForm } from '@/types/types';
+import { ComboBoxData, ProveedorFormType } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
 import {
   Card,
@@ -27,10 +27,15 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+import FormTitle from './elements/form-title';
+import SolvenciaState from '../tables/solvencia-state-cell';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+import { Button } from '../ui/button';
 
 type ProviderFormValues = z.infer<typeof providerSchema>;
 
-export function ProviderForm({
+export function ProveedorForm({
   action,
   provider,
   departamentos,
@@ -38,7 +43,7 @@ export function ProviderForm({
   subsectores,
 }: {
   action: 'create' | 'edit';
-  provider?: ProveedorForm;
+  provider?: ProveedorFormType;
   departamentos: ComboBoxData;
   sectores: ComboBoxData;
   subsectores: ComboBoxData;
@@ -84,7 +89,7 @@ export function ProviderForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-2xl">
+        <Card className="max-w-3xl mx-auto">
           <CardHeader>
             <CardTitle>
               {action === 'create' ? 'Nuevo' : 'Editar'} proveedor
@@ -95,6 +100,26 @@ export function ProviderForm({
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {action === 'edit' && (
+              <FormFieldSet name="solvencias">
+                <div className="inline-flex gap-3 items-center">
+                  <span className="inline-flex gap-2 text-xs items-center">
+                    Vence el
+                    <SolvenciaState date={provider?.solvencia} />
+                  </span>
+                  <Button asChild size="sm" variant="outline">
+                    <Link
+                      href={`/proveedores/${provider?.id}/solvencias`}
+                      className="inline-flex items-center gap-2 text-xs ml-auto"
+                    >
+                      Ver solvencias
+                      <ChevronRight className="size-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </FormFieldSet>
+            )}
+
             <FormFieldSet name="info">
               <FormField
                 control={form.control}
@@ -117,7 +142,11 @@ export function ProviderForm({
                     <FormItem>
                       <FormLabel>Razón social</FormLabel>
                       <FormControl>
-                        <Input placeholder="Razón social" {...field} />
+                        <Input
+                          placeholder="Razón social"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,7 +160,11 @@ export function ProviderForm({
                     <FormItem>
                       <FormLabel>RUC</FormLabel>
                       <FormControl>
-                        <Input placeholder="RUC" {...field} />
+                        <Input
+                          placeholder="RUC"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -149,7 +182,11 @@ export function ProviderForm({
                     <FormItem>
                       <FormLabel>Contacto principal</FormLabel>
                       <FormControl>
-                        <Input placeholder="Nombre" {...field} />
+                        <Input
+                          placeholder="Nombre"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -162,7 +199,11 @@ export function ProviderForm({
                     <FormItem>
                       <FormLabel>Teléfono</FormLabel>
                       <FormControl>
-                        <Input placeholder="Teléfono" {...field} />
+                        <Input
+                          placeholder="Teléfono"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -177,7 +218,11 @@ export function ProviderForm({
                     <FormItem>
                       <FormLabel>Correo</FormLabel>
                       <FormControl>
-                        <Input placeholder="Correo" {...field} />
+                        <Input
+                          placeholder="Correo"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -191,7 +236,7 @@ export function ProviderForm({
                       <FormLabel>Departamento</FormLabel>
                       <ComboBox
                         field={field}
-                        data={departamentos}
+                        options={departamentos}
                         form={form}
                       />
                       <FormMessage />
@@ -206,7 +251,11 @@ export function ProviderForm({
                   <FormItem>
                     <FormLabel>Dirección</FormLabel>
                     <FormControl>
-                      <Input placeholder="Dirección" {...field} />
+                      <Input
+                        placeholder="Dirección"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -224,7 +273,7 @@ export function ProviderForm({
                       <FormLabel>Sector</FormLabel>
                       <ComboBox
                         field={field}
-                        data={sectores}
+                        options={sectores}
                         form={form}
                         updateParams={true}
                       />
@@ -238,7 +287,11 @@ export function ProviderForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Subsector</FormLabel>
-                      <ComboBox field={field} data={subsectores} form={form} />
+                      <ComboBox
+                        field={field}
+                        options={subsectores}
+                        form={form}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}

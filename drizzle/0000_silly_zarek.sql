@@ -39,7 +39,7 @@ CREATE TABLE "solicitudes_detalle" (
 	"id_solicitud" integer NOT NULL,
 	"producto_servicio" text NOT NULL,
 	"cantidad" real NOT NULL,
-	"unidad_medida" integer NOT NULL,
+	"id_unidad_medida" integer NOT NULL,
 	"precio" real NOT NULL,
 	"observaciones" text,
 	"prioridad" text,
@@ -107,7 +107,7 @@ ALTER TABLE "proveedores" ADD CONSTRAINT "proveedores_id_departamento_departamen
 ALTER TABLE "proveedores" ADD CONSTRAINT "proveedores_id_sector_sectores_id_fk" FOREIGN KEY ("id_sector") REFERENCES "public"."sectores"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "proveedores" ADD CONSTRAINT "proveedores_id_subsector_subsectores_id_fk" FOREIGN KEY ("id_subsector") REFERENCES "public"."subsectores"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_id_solicitud_solicitudes_id_fk" FOREIGN KEY ("id_solicitud") REFERENCES "public"."solicitudes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_unidad_medida_unidades_medida_id_fk" FOREIGN KEY ("unidad_medida") REFERENCES "public"."unidades_medida"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_id_unidad_medida_unidades_medida_id_fk" FOREIGN KEY ("id_unidad_medida") REFERENCES "public"."unidades_medida"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_id_estado_solicitudes_estados_id_fk" FOREIGN KEY ("id_estado") REFERENCES "public"."solicitudes_estados"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_id_ubicacion_ubicaciones_id_fk" FOREIGN KEY ("id_ubicacion") REFERENCES "public"."ubicaciones"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "solicitudes_detalle" ADD CONSTRAINT "solicitudes_detalle_id_categoria_categoria_productos_id_fk" FOREIGN KEY ("id_categoria") REFERENCES "public"."categoria_productos"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

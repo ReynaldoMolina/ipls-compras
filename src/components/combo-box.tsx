@@ -28,23 +28,26 @@ import {
 import z from 'zod';
 import { providerSchema } from '@/validation-schemas';
 import { useUpdateUrlParams } from './forms/elements/update-params';
+import { ComboBoxData } from '@/types/types';
 
 interface ComboBoxProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
-  data: { value: number; label: string }[];
+  options: ComboBoxData;
   form: UseFormReturn<z.infer<typeof providerSchema>>;
   updateParams?: boolean;
 }
 
 export function ComboBox<T extends FieldValues>({
   field,
-  data,
+  options,
   form,
   updateParams = false,
 }: ComboBoxProps<T>) {
   const setUrlParam = useUpdateUrlParams();
+  const [open, setOpen] = React.useState(false);
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
@@ -56,34 +59,35 @@ export function ComboBox<T extends FieldValues>({
             )}
           >
             {field.value
-              ? data.find((element) => element.value === Number(field.value))
-                  ?.label
+              ? options.find((option) => option.value === String(field.value))
+                  ?.label || 'Selecciona una opción'
               : 'Selecciona una opción'}
-            <ChevronsUpDown className="opacity-50" />
+            <ChevronsUpDown className="opacity-50 ml-auto" />
           </Button>
         </FormControl>
       </PopoverTrigger>
+
       <PopoverContent className="w-full p-0">
         <Command className="max-h-50">
           <CommandInput placeholder="Buscar..." className="h-9" />
           <CommandList>
             <CommandEmpty>No hay resultados</CommandEmpty>
             <CommandGroup>
-              {data.map((element) => (
+              {options.map((element) => (
                 <CommandItem
                   key={element.value}
                   value={element.label}
                   onSelect={() => {
                     form.setValue(field.name, Number(element.value));
-                    if (updateParams)
-                      setUrlParam('sector', String(element.value));
+                    if (updateParams) setUrlParam('sector', element.value);
+                    setOpen(false);
                   }}
                 >
                   {element.label}
                   <Check
                     className={cn(
                       'ml-auto',
-                      element.value === field.value
+                      element.value === String(field.value)
                         ? 'opacity-100'
                         : 'opacity-0'
                     )}

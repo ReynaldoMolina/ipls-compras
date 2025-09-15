@@ -22,6 +22,7 @@ export default function FilterButton({
   filterOptions: FilterOptions;
 }) {
   const pathname = usePathname();
+
   const filterMenu = getFilterMenuByPath(pathname, filterOptions);
 
   return (

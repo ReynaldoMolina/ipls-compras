@@ -1,6 +1,5 @@
 'use client';
 
-import { EditLink } from '@/components/tables/edit-link';
 import TableDate from '@/components/tables/date-cell';
 import Solvency from '@/components/tables/solvencia-state-cell';
 import { SortButton } from '@/components/tables/sort-button';
@@ -8,21 +7,25 @@ import { ColumnDef } from '@tanstack/react-table';
 import DefaultCell from '@/components/tables/default-cell';
 import { Solvencia } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
+import { EditLink } from '@/components/tables/edit-link';
 
 export const columns: ColumnDef<Solvencia>[] = [
-  {
-    id: 'edit',
-    header: 'Editar',
-    cell: ({ row }) => (
-      <EditLink
-        href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}/editar`}
-      />
-    ),
-  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: TableId,
+  },
+  {
+    accessorKey: 'nombre_comercial',
+    header: ({ column }) => {
+      return <SortButton column={column} label="Nombre comercial" />;
+    },
+    cell: ({ row }) => (
+      <EditLink
+        href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}/editar`}
+        label={row.original.proveedor ?? ''}
+      />
+    ),
   },
   {
     accessorKey: 'verificado',

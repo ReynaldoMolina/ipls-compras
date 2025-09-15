@@ -1,5 +1,5 @@
 {
-  "id": "df9d0132-ef37-452f-a128-a0e4a0b061bb",
+  "id": "7cf6886f-3e99-47db-8362-51b2852e297c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -329,8 +329,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "unidad_medida": {
-          "name": "unidad_medida",
+        "id_unidad_medida": {
+          "name": "id_unidad_medida",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -417,12 +417,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "solicitudes_detalle_unidad_medida_unidades_medida_id_fk": {
-          "name": "solicitudes_detalle_unidad_medida_unidades_medida_id_fk",
+        "solicitudes_detalle_id_unidad_medida_unidades_medida_id_fk": {
+          "name": "solicitudes_detalle_id_unidad_medida_unidades_medida_id_fk",
           "tableFrom": "solicitudes_detalle",
           "tableTo": "unidades_medida",
           "columnsFrom": [
-            "unidad_medida"
+            "id_unidad_medida"
           ],
           "columnsTo": [
             "id"

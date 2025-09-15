@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { DateStatus } from '@/types/types';
-import { Calendar, CircleCheck, ClockAlert, OctagonAlert } from 'lucide-react';
+import { Calendar, Check, ClockAlert, X } from 'lucide-react';
 import { formatDate } from '@/lib/format-date';
 
 interface Props {
@@ -31,9 +31,9 @@ export default function SolvenciaState({ date, id }: Props) {
 
   const iconStyle = 'size-4 opacity-70';
   const icons = {
-    active: <CircleCheck className={iconStyle} />,
+    active: <Check className={iconStyle} />,
     due: <ClockAlert className={iconStyle} />,
-    expired: <OctagonAlert className={iconStyle} />,
+    expired: <X className={iconStyle} />,
     empty: <Calendar className={iconStyle} />,
   };
 
@@ -44,12 +44,20 @@ export default function SolvenciaState({ date, id }: Props) {
     empty: 'border border-border text-muted-foreground',
   };
 
+  const titles = {
+    active: 'Activa',
+    due: 'Vence hoy',
+    expired: 'Vencida',
+    empty: 'Sin solvencia',
+  };
+
   const label = formatDate(date);
 
   if (!id) {
     return (
       <span
-        className={`flex items-center text-xs justify-start gap-1 p-1 rounded ${bgColors[dateStatus]} w-fit whitespace-nowrap`}
+        className={`${bgColors[dateStatus]} flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap cursor-default`}
+        title={titles[dateStatus]}
       >
         {icons[dateStatus]}
         {label}
@@ -62,7 +70,7 @@ export default function SolvenciaState({ date, id }: Props) {
       href={`/proveedores/${id}/solvencias`}
       onClick={(e) => e.stopPropagation()}
       className={`${bgColors[dateStatus]} flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap hover:underline underline-offset-2`}
-      title="Ir a solvencias"
+      title={titles[dateStatus]}
     >
       {icons[dateStatus]}
       {label}

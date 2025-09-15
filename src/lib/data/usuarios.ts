@@ -1,9 +1,9 @@
 import { db } from '@/db/db';
 import { usuarios } from '@/db/schema/usuarios';
 import { SearchParamsProps, Usuario } from '@/types/types';
-import { eq, and, asc } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
-import { buildOrderFragment } from './build-orderby';
+import { buildOrderByFragment } from './build-orderby';
 import { buildFiltersUsuarios } from './build-filters';
 
 export async function getUsers(params: SearchParamsProps) {
@@ -22,7 +22,7 @@ export async function getUsers(params: SearchParamsProps) {
   ]);
 
   const { rolesFilter } = buildFiltersUsuarios(params);
-  const orderFragment = buildOrderFragment(params, selectFields);
+  const orderFragment = buildOrderByFragment(params, selectFields);
 
   try {
     const data = await db

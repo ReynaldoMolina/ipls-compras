@@ -3,9 +3,10 @@ import { solvencias } from '@/db/schema/solvencias';
 import { SearchParamsProps } from '@/types/types';
 import { eq, and } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
-import { buildOrderFragment } from './build-orderby';
-import { buildFiltersSolvencias } from './build-filters';
+import { buildOrderByFragment } from './build-orderby';
+import { buildFilterBySolvencia } from './build-filters';
 import { usuarios } from '@/db/schema/usuarios';
+import { proveedores } from '@/db/schema/proveedores';
 
 export async function getSolvenciasByProviderId(
   id: number,
@@ -14,27 +15,30 @@ export async function getSolvenciasByProviderId(
   const selectFields = {
     id: solvencias.id,
     id_proveedor: solvencias.id_proveedor,
+    proveedor: proveedores.nombre_comercial,
     emitida: solvencias.emitida,
     vence: solvencias.vence,
     url: solvencias.url,
     verificado: solvencias.verificado,
     recibido: solvencias.recibido,
+    id_usuario: solvencias.id_usuario,
     usuario: usuarios.nombre,
   };
 
-  const searchFilter = buildSearchFilter(searchParams, [usuarios.nombre]);
-  const { solvenciaFilter } = buildFiltersSolvencias(searchParams);
-  const orderFragment = buildOrderFragment(searchParams, selectFields);
+  const filterBySearch = buildSearchFilter(searchParams, [usuarios.nombre]);
+  const filterBySolvencia = buildFilterBySolvencia(searchParams);
+  const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {
     const data = await db
       .select(selectFields)
       .from(solvencias)
       .leftJoin(usuarios, eq(solvencias.id_usuario, usuarios.id))
-      .where(and(searchFilter, eq(solvencias.id_proveedor, id)))
-      .groupBy(solvencias.id, usuarios.nombre)
-      .having(solvenciaFilter)
-      .orderBy(orderFragment);
+      .leftJoin(proveedores, eq(solvencias.id_proveedor, proveedores.id))
+      .where(and(filterBySearch, eq(solvencias.id_proveedor, id)))
+      .groupBy(solvencias.id, usuarios.nombre, proveedores.id)
+      .having(filterBySolvencia)
+      .orderBy(orderBy);
     return data;
   } catch (error) {
     console.error(error);
@@ -44,7 +48,7 @@ export async function getSolvenciasByProviderId(
   }
 }
 
-export async function getSolvenciasById(id: number) {
+export async function getSolvenciaById(id: number) {
   try {
     const data = await db
       .select()

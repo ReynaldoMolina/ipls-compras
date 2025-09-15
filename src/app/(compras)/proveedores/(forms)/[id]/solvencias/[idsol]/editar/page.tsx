@@ -1,6 +1,9 @@
 import { EditPageProps } from '@/types/types';
-import { getSolvenciasById } from '@/lib/data/solvencias';
+import { getSolvenciaById } from '@/lib/data/solvencias';
 import { SolvenciaForm } from '@/components/forms/solvencias';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
+import FormTitle from '@/components/forms/elements/form-title';
 
 export async function generateMetadata(props: EditPageProps) {
   const urlparams = await props.params;
@@ -25,10 +28,11 @@ export default async function Page(props: Props) {
   const params = await props.params;
   const id_proveedor = Number(params?.id);
   const id = Number(params?.idsol);
-  const data = await getSolvenciasById(id);
+  const data = await getSolvenciaById(id);
 
   return (
     <>
+      <FormTitle title={`Proveedor ${id_proveedor} - Solvencia ${id}`} />
       <SolvenciaForm
         action="edit"
         solvencia={data}

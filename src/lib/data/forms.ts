@@ -9,7 +9,7 @@ export async function getDepartamentos() {
   try {
     const data = await db
       .select({
-        value: departamentos.id,
+        value: sql<string>`CAST(${departamentos.id} AS TEXT)`,
         label: departamentos.departamento,
       })
       .from(departamentos)
@@ -27,7 +27,7 @@ export async function getSectores() {
   try {
     const data = await db
       .select({
-        value: sectores.id,
+        value: sql<string>`CAST(${sectores.id} AS TEXT)`,
         label: sectores.sector,
       })
       .from(sectores)
@@ -43,11 +43,11 @@ export async function getSectores() {
 
 export async function getSubsectoresBySector(sectorId: number | undefined) {
   if (!sectorId) {
-    return [{ value: 0, label: 'Selecciona un sector' }];
+    return [{ value: '', label: 'Selecciona un sector' }];
   }
   return db
     .select({
-      value: subsectores.id,
+      value: sql<string>`CAST(${subsectores.id} AS TEXT)`,
       label: subsectores.subsector,
     })
     .from(subsectores)
@@ -58,7 +58,7 @@ export async function getEntidadesAcademicas() {
   try {
     const data = await db
       .select({
-        value: entidades_academicas.id,
+        value: sql<string>`CAST(${entidades_academicas.id} AS TEXT)`,
         label: entidades_academicas.nombre,
       })
       .from(entidades_academicas)

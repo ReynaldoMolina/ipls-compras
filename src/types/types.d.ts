@@ -40,12 +40,13 @@ export interface Proveedores extends Proveedor {
   solvencia: string | null;
   departamento?: string | null;
 }
-export interface ProveedorForm extends Proveedor {
+export interface ProveedorFormType extends Proveedor {
   contacto_principal?: string | null;
   id_departamento: number;
   direccion?: string | null;
   id_sector?: number | null;
   id_subsector?: number | null;
+  solvencia?: string | null;
 }
 
 export interface FormProps {
@@ -57,12 +58,14 @@ export interface FormProps {
 export interface Solvencia {
   id?: number;
   id_proveedor: number;
+  proveedor: string | null;
   emitida: string | null;
   vence: string | null;
   verificado: string | null;
   recibido: string | null;
   url: string | null;
   id_usuario: number | null;
+  usuario: string | null;
 }
 
 export interface Usuario {
@@ -116,14 +119,14 @@ export type PrevState = {
   message: string | undefined;
 };
 
-export type FilterOptions = {
-  departamentosOptions?: { value: number; label: string }[];
-  years?: { value: number; label: string }[];
+export type SelectOptions = {
+  value: string;
+  label: string;
 };
 
-export type SelectOptions = {
-  value: string | number;
-  label: string;
+export type FilterOptions = {
+  departamentosOptions?: SelectOptions[];
+  years?: SelectOptions[];
 };
 
 export type ComboBoxData = SelectOptions[];

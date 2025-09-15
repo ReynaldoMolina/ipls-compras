@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Sidebar,
   SidebarContent,
@@ -7,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import Logo from '@/icons/logo.svg';
 import Link from 'next/link';
@@ -19,6 +22,7 @@ import {
   Users,
   Truck,
 } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export interface SidebarItem {
   id: PageId;
@@ -61,6 +65,9 @@ export const sidebarItems: SidebarItem[] = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -78,7 +85,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {sidebarItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname.includes(item.url)}
+                    onClick={() => setOpenMobile(false)}
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span className="text-xs">{item.title}</span>

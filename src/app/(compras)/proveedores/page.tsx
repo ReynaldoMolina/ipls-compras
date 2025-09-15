@@ -1,6 +1,4 @@
 import ActionBar from '@/components/actionbar/action-bar';
-import Header from '@/components//header/header';
-import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
 import { DataTable } from '../../../components/tables/data-table';
 import {
@@ -9,10 +7,8 @@ import {
 } from '@/lib/data/proveedores';
 import FilterButton from '@/components/actionbar/filter-button';
 
-const title = 'Proveedores';
-
 export const metadata = {
-  title: title,
+  title: 'Proveedores',
 };
 
 type Props = {
@@ -26,13 +22,10 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <Header title={title} />
-      <PageWrapper>
-        <ActionBar>
-          <FilterButton filterOptions={{ departamentosOptions }} />
-        </ActionBar>
-        <DataTable columns={columns} data={proveedoresTableData} />
-      </PageWrapper>
+      <ActionBar>
+        <FilterButton filterOptions={{ departamentosOptions }} />
+      </ActionBar>
+      <DataTable columns={columns} data={proveedoresTableData} />
     </>
   );
 }
