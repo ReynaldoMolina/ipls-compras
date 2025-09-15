@@ -7,11 +7,13 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Delete } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export default function SearchInput() {
   const searchParams = useSearchParams();
-  const searchTextParam = searchParams.get('search')?.toString();
-  const [searchText, setSearchText] = useState(searchTextParam || '');
+  const [searchText, setSearchText] = useState(
+    searchParams.get('search')?.toString() || ''
+  );
   const pathname = usePathname();
   const { replace } = useRouter();
 
@@ -31,7 +33,7 @@ export default function SearchInput() {
   }
 
   return (
-    <div className="flex items-center relative w-full max-w-xs">
+    <div className="inline-flex items-center relative w-full max-w-xs">
       <Search className="absolute left-2 size-4 text-muted-foreground" />
       <Input
         type="search"
@@ -41,10 +43,13 @@ export default function SearchInput() {
         onChange={(event) => handleChange(event.target.value)}
       />
       {searchText.length > 0 && (
-        <Delete
-          className="absolute right-2 size-6 text-muted-foreground p-1 cursor-pointer"
+        <Button
+          variant="ghost"
+          className="absolute right-1 size-7"
           onClick={() => handleChange('')}
-        />
+        >
+          <Delete className="text-muted-foreground" />
+        </Button>
       )}
     </div>
   );

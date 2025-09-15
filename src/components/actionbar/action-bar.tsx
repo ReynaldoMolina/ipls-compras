@@ -13,11 +13,9 @@ export default function ActionBar({
   allowNew = true,
 }: ActionBarProps) {
   return (
-    <div
-      className={`flex items-center ${allowSearch ? 'justify-between' : 'justify-end'} gap-2`}
-    >
+    <div className="inline-flex gap-2">
       {allowSearch && <SearchInput />}
-      <div className="flex gap-2">
+      <div className="inline-flex gap-2 ml-auto">
         {children}
         {allowNew && <NewButton />}
       </div>
