@@ -15,9 +15,7 @@ export function buildFilterProveedoresByDepartamento(
     : undefined;
 }
 
-export function buildFilterProveedoresBySolvencia(
-  searchParams: SearchParamsProps
-) {
+export function buildFilterBySolvencia(searchParams: SearchParamsProps) {
   const solvenciaValues =
     searchParams.solvencia?.split(',').filter(Boolean) ?? [];
 

@@ -8,7 +8,7 @@ import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
   buildFilterProveedoresByDepartamento,
-  buildFilterProveedoresBySolvencia,
+  buildFilterBySolvencia,
 } from './build-filters';
 
 export async function getProveedoresTableData(searchParams: SearchParamsProps) {
@@ -32,7 +32,7 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
   const filterByDepartamento =
     buildFilterProveedoresByDepartamento(searchParams);
 
-  const filterBySolvencia = buildFilterProveedoresBySolvencia(searchParams);
+  const filterBySolvencia = buildFilterBySolvencia(searchParams);
 
   const orderBy = buildOrderByFragment(searchParams, selectFields);
 

@@ -6,8 +6,8 @@ import {
 } from '@/types/types';
 import { eq, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
-import { buildOrderFragment } from './build-orderby';
-import { buildFiltersProviders } from './build-filters';
+import { buildOrderByFragment } from './build-orderby';
+import { buildFilterBySolvencia } from './build-filters';
 import { solicitudes } from '@/db/schema/solicitudes';
 import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
@@ -29,10 +29,12 @@ export async function getSolicitudes(params: SearchParamsProps) {
     `,
   };
 
-  const searchFilter = buildSearchFilter(params, [entidades_academicas.nombre]);
+  const filterBySearch = buildSearchFilter(params, [
+    entidades_academicas.nombre,
+  ]);
 
-  const { solvenciaFilter } = buildFiltersProviders(params);
-  const orderFragment = buildOrderFragment(params, selectFields);
+  const filterBySolvencia = buildFilterBySolvencia(params);
+  const orderBy = buildOrderByFragment(params, selectFields);
 
   try {
     const data = await db
@@ -46,14 +48,14 @@ export async function getSolicitudes(params: SearchParamsProps) {
         solicitudes_detalle,
         eq(solicitudes.id, solicitudes_detalle.id_solicitud)
       )
-      .where(and(searchFilter))
+      .where(and(filterBySearch))
       .groupBy(
         solicitudes.id,
         entidades_academicas.tipo,
         entidades_academicas.nombre
       )
-      .having(solvenciaFilter)
-      .orderBy(orderFragment);
+      .having(filterBySolvencia)
+      .orderBy(orderBy);
     return data;
   } catch (error) {
     console.error(error);

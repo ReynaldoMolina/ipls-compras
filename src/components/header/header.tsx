@@ -16,7 +16,13 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import ChangeTheme from './change-theme';
 import { User, Contrast, LogOut } from 'lucide-react';
 
-const user = {
+type User = {
+  name: string;
+  email: string;
+  avatar: string;
+};
+
+const user: User = {
   name: 'Reynaldo Molina',
   email: 'reynaldo.molina.pst@ipls-lasalle.org',
   avatar: 'https://github.com/shadcn.png',
@@ -28,51 +34,59 @@ export default function Header({ title }: { title: string }) {
       <SidebarTrigger />
       <h1 className="text-title font-semibold">{title}</h1>
 
-      <div className="flex items-center ml-auto">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar className="size-7">
-              <AvatarImage src={user.avatar} />
-              <AvatarFallback>RM</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="max-w-70">
-            <div className="flex gap-2 px-1 py-2">
-              <Avatar className="size-10 rounded-full">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">RM</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
-                </span>
-              </div>
-            </div>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User />
-                Perfil
-              </DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <Contrast className="mr-2 h-4 w-4 opacity-60" />
-                  Tema
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <ChangeTheme />
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+      <DropdownMenu>
+        <DropdownMenuTrigger className="ml-auto">
+          <Avatar className="size-7">
+            <AvatarImage src={user.avatar} />
+            <AvatarFallback>RM</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent className="max-w-70">
+          <UserInfo user={user} />
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <User />
+              Perfil
+            </DropdownMenuItem>
+            <ChangeThemeSubMenu />
             <DropdownMenuItem>
               <LogOut />
               Cerrar sesión
             </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
+  );
+}
+
+function UserInfo({ user }: { user: User }) {
+  return (
+    <div className="flex gap-2 px-1 py-2">
+      <Avatar className="size-10 rounded-full">
+        <AvatarImage src={user.avatar} alt={user.name} />
+        <AvatarFallback className="rounded-lg">RM</AvatarFallback>
+      </Avatar>
+      <div className="grid text-left text-xs">
+        <span className="font-medium text-sm">{user.name}</span>
+        <span className="text-muted-foreground">{user.email}</span>
+      </div>
+    </div>
+  );
+}
+
+function ChangeThemeSubMenu() {
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Contrast className="mr-2 h-4 w-4 opacity-60" />
+        Tema
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <ChangeTheme />
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
   );
 }
