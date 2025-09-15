@@ -58,13 +58,16 @@ export interface FormProps {
 export interface Solvencia {
   id?: number;
   id_proveedor: number;
-  proveedor: string | null;
   emitida: string | null;
   vence: string | null;
   verificado: string | null;
   recibido: string | null;
   url: string | null;
   id_usuario: number | null;
+}
+
+export interface SolvenciaTable extends Solvencia {
+  proveedor: string | null;
   usuario: string | null;
 }
 

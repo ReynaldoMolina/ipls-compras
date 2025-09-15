@@ -103,10 +103,10 @@ export function ProveedorForm({
             {action === 'edit' && (
               <FormFieldSet name="solvencias">
                 <div className="inline-flex gap-3 items-center">
-                  <span className="inline-flex gap-2 text-xs items-center">
-                    Vence el
+                  <div className="inline-flex gap-2 text-xs items-center">
+                    <span className="text-muted-foreground">Vence el:</span>
                     <SolvenciaState date={provider?.solvencia} />
-                  </span>
+                  </div>
                   <Button asChild size="sm" variant="outline">
                     <Link
                       href={`/proveedores/${provider?.id}/solvencias`}

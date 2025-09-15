@@ -5,11 +5,11 @@ import Solvency from '@/components/tables/solvencia-state-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import DefaultCell from '@/components/tables/default-cell';
-import { Solvencia } from '@/types/types';
+import { SolvenciaTable } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import { EditLink } from '@/components/tables/edit-link';
 
-export const columns: ColumnDef<Solvencia>[] = [
+export const columns: ColumnDef<SolvenciaTable>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
@@ -17,9 +17,9 @@ export const columns: ColumnDef<Solvencia>[] = [
   },
   {
     accessorKey: 'nombre_comercial',
-    header: ({ column }) => {
-      return <SortButton column={column} label="Nombre comercial" />;
-    },
+    header: ({ column }) => (
+      <SortButton column={column} label="Nombre comercial" />
+    ),
     cell: ({ row }) => (
       <EditLink
         href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}/editar`}
@@ -29,9 +29,7 @@ export const columns: ColumnDef<Solvencia>[] = [
   },
   {
     accessorKey: 'verificado',
-    header: ({ column }) => {
-      return <SortButton column={column} label="Verificado" />;
-    },
+    header: ({ column }) => <SortButton column={column} label="Verificado" />,
     cell: TableDate,
   },
   {
@@ -56,9 +54,9 @@ export const columns: ColumnDef<Solvencia>[] = [
   },
   {
     accessorKey: 'usuario',
-    header: ({ column }) => {
-      return <SortButton column={column} label="Verificado por" />;
-    },
+    header: ({ column }) => (
+      <SortButton column={column} label="Verificado por" />
+    ),
     cell: DefaultCell,
   },
 ];

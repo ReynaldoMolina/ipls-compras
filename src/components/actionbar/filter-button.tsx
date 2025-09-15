@@ -14,19 +14,19 @@ import {
   SolvenciasFilters,
 } from './filter/FilterMenu';
 import { FilterOptions } from '@/types/types';
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 
 export default function FilterButton({
   filterOptions,
 }: {
   filterOptions: FilterOptions;
 }) {
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
   const filterMenu = getFilterMenuByPath(pathname, filterOptions);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <ListFilter />

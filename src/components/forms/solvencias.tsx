@@ -171,7 +171,11 @@ export function SolvenciaForm({
                   <FormItem>
                     <FormLabel>Url</FormLabel>
                     <FormControl>
-                      <Input placeholder="Url" {...field} />
+                      <Input
+                        placeholder="Url"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
