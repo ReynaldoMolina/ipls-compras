@@ -5,7 +5,7 @@ import { columns } from './columns';
 import { DataTable } from '../../../components/tables/data-table';
 import {
   getProveedoresTableData,
-  getDepartamentosFromProveedores,
+  getUniqueDepartamentosFromProveedores,
 } from '@/lib/data/proveedores';
 import FilterButton from '@/components/actionbar/filter-button';
 
@@ -22,18 +22,14 @@ type Props = {
 export default async function Page(props: Props) {
   const searchParams = await props.searchParams;
   const proveedoresTableData = await getProveedoresTableData(searchParams);
-  const departamentoOptions = await getDepartamentosFromProveedores();
-
-  const filterData = {
-    departamentosOptions: departamentoOptions,
-  };
+  const departamentosOptions = await getUniqueDepartamentosFromProveedores();
 
   return (
     <>
       <Header title={title} />
       <PageWrapper>
         <ActionBar>
-          <FilterButton filterData={filterData} />
+          <FilterButton filterOptions={{ departamentosOptions }} />
         </ActionBar>
         <DataTable columns={columns} data={proveedoresTableData} />
       </PageWrapper>

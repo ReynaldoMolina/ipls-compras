@@ -73,7 +73,7 @@ export async function getProveedorById(id: number): Promise<ProveedorForm> {
   }
 }
 
-export async function getDepartamentosFromProveedores() {
+export async function getUniqueDepartamentosFromProveedores() {
   try {
     const data = await db
       .selectDistinct({

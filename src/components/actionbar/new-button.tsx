@@ -12,7 +12,7 @@ export default function NewButton() {
     <Button asChild>
       <Link href={`${pathname}/nuevo`}>
         <Plus />
-        <span className="hidden md:flex">Nuevo</span>
+        <span className="hidden sm:inline-flex">Nuevo</span>
       </Link>
     </Button>
   );

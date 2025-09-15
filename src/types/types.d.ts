@@ -116,11 +116,9 @@ export type PrevState = {
   message: string | undefined;
 };
 
-export type FilterData = {
-  filterData?: {
-    departamentosOptions?: { value: number; label: string }[];
-    years?: { value: number; label: string }[];
-  };
+export type FilterOptions = {
+  departamentosOptions?: { value: number; label: string }[];
+  years?: { value: number; label: string }[];
 };
 
 export type SelectOptions = {
