@@ -20,49 +20,43 @@ export function buildFilterBySolvencia(searchParams: SearchParamsProps) {
     searchParams.solvencia?.split(',').filter(Boolean) ?? [];
 
   const solvenciaMap: Record<string, SQL | undefined> = {
-    1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
-    2: eq(max(solvencias.vence), sql`CURRENT_DATE`),
-    3: lt(max(solvencias.vence), sql`CURRENT_DATE`),
-    4: isNull(max(solvencias.vence)),
+    activa: gt(max(solvencias.vence), sql`CURRENT_DATE`),
+    por_vencer: eq(max(solvencias.vence), sql`CURRENT_DATE`),
+    vencida: lt(max(solvencias.vence), sql`CURRENT_DATE`),
+    sin_solvencia: isNull(max(solvencias.vence)),
   };
 
   const solvenciaConditions = solvenciaValues
     .map((s) => solvenciaMap[s])
     .filter((cond): cond is SQL => cond !== undefined);
 
-  const solvenciaFilter =
-    solvenciaConditions.length > 0 ? or(...solvenciaConditions) : undefined;
-
-  return solvenciaFilter;
+  return solvenciaConditions.length > 0
+    ? or(...solvenciaConditions)
+    : undefined;
 }
 
-export function filterSolvencias(searchParams: SearchParamsProps) {
-  // solvencia
-  const solvenciaValues =
-    searchParams.solvencia?.split(',').filter(Boolean) ?? [];
-
-  const solvenciaMap: Record<string, SQL | undefined> = {
-    1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
-    2: eq(max(solvencias.vence), sql`CURRENT_DATE`),
-    3: lt(max(solvencias.vence), sql`CURRENT_DATE`),
-    4: isNull(max(solvencias.vence)),
-  };
-
-  const solvenciaConditions = solvenciaValues
-    .map((s) => solvenciaMap[s])
-    .filter((cond): cond is SQL => cond !== undefined);
-
-  const solvenciaFilter =
-    solvenciaConditions.length > 0 ? or(...solvenciaConditions) : undefined;
-
-  return { solvenciaFilter };
-}
-
-export function buildFiltersUsuarios(searchParams: SearchParamsProps) {
-  // rol
+export function buildFilterUsuariosByRol(searchParams: SearchParamsProps) {
   const roles = searchParams.rol?.split(',').filter(Boolean) ?? [];
-  const rolesFilter =
-    roles.length > 0 ? inArray(usuarios.rol, roles) : undefined;
+  return roles.length > 0 ? inArray(usuarios.rol, roles) : undefined;
+}
 
-  return { rolesFilter };
+export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
+  const states = searchParams.activo?.split(',').filter(Boolean) ?? [];
+
+  console.log(states);
+
+  const statesMap: Record<string, boolean> = {
+    true: true,
+    false: false,
+  };
+
+  const mappedStates = states
+    .map((state) => statesMap[state])
+    .filter((value): value is boolean => value !== undefined);
+
+  console.log(mappedStates);
+
+  return mappedStates.length > 0
+    ? inArray(usuarios.activo, mappedStates)
+    : undefined;
 }

@@ -16,6 +16,7 @@ export type SearchParamsProps = {
   departamento?: string;
   solvencia?: string;
   rol?: string;
+  activo?: 'active' | 'inactive';
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
@@ -130,6 +131,8 @@ export type SelectOptions = {
 export type FilterOptions = {
   departamentosOptions?: SelectOptions[];
   years?: SelectOptions[];
+  userStates?: SelectOptions[];
+  userRoles?: SelectOptions[];
 };
 
 export type ComboBoxData = SelectOptions[];

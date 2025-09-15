@@ -4,7 +4,7 @@ import { solvenciaStatus } from './solvenciaStatus';
 
 const years = [
   {
-    value: 2023,
+    value: '2023',
     label: '2023',
   },
 ];
@@ -49,6 +49,25 @@ export function SolvenciasFilters(filterOptions: FilterOptions) {
         states={years}
         paramKey="year"
         pageKey="solvencias"
+      />
+    </>
+  );
+}
+
+export function UsuariosFilters(filterOptions: FilterOptions) {
+  return (
+    <>
+      <FilterState
+        label="Estado"
+        states={filterOptions.userStates}
+        paramKey="activo"
+        pageKey="usuarios"
+      />
+      <FilterState
+        label="Rol"
+        states={filterOptions.userRoles}
+        paramKey="rol"
+        pageKey="usuarios"
       />
     </>
   );

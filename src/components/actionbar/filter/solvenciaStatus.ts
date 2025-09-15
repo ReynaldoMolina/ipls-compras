@@ -1,18 +1,18 @@
 export const solvenciaStatus = [
   {
-    value: 1,
+    value: 'activa',
     label: 'Activa',
   },
   {
-    value: 2,
+    value: 'por_vencer',
     label: 'Por vencer',
   },
   {
-    value: 3,
+    value: 'vencida',
     label: 'Vencida',
   },
   {
-    value: 4,
+    value: 'sin_solvencia',
     label: 'Sin solvencia',
   },
 ];

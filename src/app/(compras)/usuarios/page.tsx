@@ -1,7 +1,11 @@
 import ActionBar from '@/components/actionbar/action-bar';
-import { DataTable } from '../../../components/tables/data-table';
 import { columns } from './columns';
-import { getUsers } from '@/lib/data/usuarios';
+import {
+  getUniqueRolsFromUsuarios,
+  getUsersTableData,
+} from '@/lib/data/usuarios';
+import FilterButton from '@/components/actionbar/filter-button';
+import { DataTable } from '@/components/tables/data-table';
 
 const title = 'Usuarios';
 
@@ -9,18 +13,32 @@ export const metadata = {
   title: title,
 };
 
-export default async function Page(props) {
-  const params = await props.searchParams;
-  const data = await getUsers(params);
+type Props = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-  // const filterData = {
-  //   departamentos: departamentos,
-  // };
+export default async function Page(props: Props) {
+  const searchParams = await props.searchParams;
+  const tableData = await getUsersTableData(searchParams);
+  const userRoles = await getUniqueRolsFromUsuarios();
+
+  const userStates = [
+    {
+      value: 'true',
+      label: 'Activo',
+    },
+    {
+      value: 'false',
+      label: 'Inactivo',
+    },
+  ];
 
   return (
     <>
-      <ActionBar>{/* <FilterButton filterData={filterData} /> */}</ActionBar>
-      <DataTable columns={columns} data={data} />
+      <ActionBar>
+        <FilterButton filterOptions={{ userStates, userRoles }} />
+      </ActionBar>
+      <DataTable columns={columns} data={tableData} />
     </>
   );
 }

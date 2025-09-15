@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import { useUrlParams } from '@/hooks/useUrlParams';
+import { SelectOptions } from '@/types/types';
 
 export function FilterState({
   label,
@@ -13,7 +14,7 @@ export function FilterState({
   pageKey,
 }: {
   label: string;
-  states?: { value: number; label: string }[];
+  states?: SelectOptions[];
   paramKey: string;
   pageKey: string;
 }) {

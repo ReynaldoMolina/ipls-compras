@@ -1,12 +1,15 @@
 import { db } from '@/db/db';
 import { usuarios } from '@/db/schema/usuarios';
 import { SearchParamsProps, Usuario } from '@/types/types';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
-import { buildFiltersUsuarios } from './build-filters';
+import {
+  buildFilterUsuariosByRol,
+  buildFilterUsuariosByActive,
+} from './build-filters';
 
-export async function getUsers(params: SearchParamsProps) {
+export async function getUsersTableData(searchParams: SearchParamsProps) {
   const selectFields = {
     id: usuarios.id,
     nombre: usuarios.nombre,
@@ -16,19 +19,21 @@ export async function getUsers(params: SearchParamsProps) {
     activo: usuarios.activo,
   };
 
-  const searchFilter = buildSearchFilter(params, [
+  const filterBySearch = buildSearchFilter(searchParams, [
     usuarios.nombre,
     usuarios.apellido,
+    usuarios.correo,
   ]);
 
-  const { rolesFilter } = buildFiltersUsuarios(params);
-  const orderFragment = buildOrderByFragment(params, selectFields);
+  const filterUsuariosByRol = buildFilterUsuariosByRol(searchParams);
+  const filterUsuariosByActive = buildFilterUsuariosByActive(searchParams);
+  const orderFragment = buildOrderByFragment(searchParams, selectFields);
 
   try {
     const data = await db
       .select(selectFields)
       .from(usuarios)
-      .where(and(searchFilter, rolesFilter))
+      .where(and(filterBySearch, filterUsuariosByRol, filterUsuariosByActive))
       .orderBy(orderFragment);
     return data;
   } catch (error) {
@@ -51,24 +56,20 @@ export async function getUserById(id: number): Promise<Usuario> {
   }
 }
 
-// export async function getProvidersDepartamentos() {
-//   try {
-//     const data = await db
-//       .selectDistinct({
-//         value: departamentos.id,
-//         label: departamentos.departamento,
-//       })
-//       .from(proveedores)
-//       .innerJoin(
-//         departamentos,
-//         eq(proveedores.id_departamento, departamentos.id)
-//       )
-//       .orderBy(asc(departamentos.departamento));
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error(
-//       'No se pudieron obtener los departamentos, por favor intenta de nuevo'
-//     );
-//   }
-// }
+export async function getUniqueRolsFromUsuarios() {
+  try {
+    const data = await db
+      .selectDistinct({
+        value: usuarios.rol,
+        label: usuarios.rol,
+      })
+      .from(usuarios)
+      .orderBy(asc(usuarios.rol));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los roles únicos desde los usuarios, por favor intenta de nuevo'
+    );
+  }
+}

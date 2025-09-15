@@ -12,6 +12,7 @@ import {
   ProvidersFilters,
   ResumenFilters,
   SolvenciasFilters,
+  UsuariosFilters,
 } from './filter/FilterMenu';
 import { FilterOptions } from '@/types/types';
 import { JSX, useState } from 'react';
@@ -45,6 +46,7 @@ function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
   const menuMap: Record<string, JSX.Element> = {
     '/proveedores': <ProvidersFilters {...filterOptions} />,
     '/proveedores/[id]/solvencias': <SolvenciasFilters {...filterOptions} />,
+    '/usuarios': <UsuariosFilters {...filterOptions} />,
     '/resumen': <ResumenFilters {...filterOptions} />,
   };
 
