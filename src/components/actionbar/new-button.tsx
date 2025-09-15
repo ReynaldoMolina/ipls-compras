@@ -7,13 +7,12 @@ import Link from 'next/link';
 
 export default function NewButton() {
   const pathname = usePathname();
-  const label = pathname === '/ordenes' ? 'Añadir bien o servicio' : 'Nuevo';
 
   return (
     <Button asChild>
       <Link href={`${pathname}/nuevo`}>
         <Plus />
-        <span className="hidden md:flex">{label}</span>
+        <span className="hidden md:flex">Nuevo</span>
       </Link>
     </Button>
   );
