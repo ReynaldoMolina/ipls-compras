@@ -3,7 +3,7 @@ import { asc, desc, SQL, AnyColumn } from 'drizzle-orm';
 
 type ColumnLike = AnyColumn | SQL;
 
-export function buildOrderFragment<T extends Record<string, ColumnLike>>(
+export function buildOrderByFragment<T extends Record<string, ColumnLike>>(
   params: SearchParamsProps,
   validFields: T
 ) {

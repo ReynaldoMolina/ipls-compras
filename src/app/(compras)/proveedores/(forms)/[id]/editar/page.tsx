@@ -4,7 +4,7 @@ import {
   getSectores,
   getSubsectoresBySector,
 } from '@/lib/data/forms';
-import { getProviderById } from '@/lib/data/providers';
+import { getProviderById } from '@/lib/data/proveedores';
 import { EditPageProps } from '@/types/types';
 
 export async function generateMetadata(props: EditPageProps) {

@@ -2,9 +2,9 @@ import { db } from '@/db/db';
 import { solvencias } from '@/db/schema/solvencias';
 import { SearchParamsProps } from '@/types/types';
 import { eq, and } from 'drizzle-orm';
-import { buildSearchFilter } from './buildSearchFilter';
-import { buildOrderFragment } from './buildOrderFragment';
-import { buildFiltersSolvencias } from './buildFilterFragment';
+import { buildSearchFilter } from './build-search-filter';
+import { buildOrderFragment } from './build-orderby';
+import { buildFiltersSolvencias } from './build-filters';
 import { usuarios } from '@/db/schema/usuarios';
 
 export async function getSolvenciasByProviderId(

@@ -5,9 +5,9 @@ import {
   SolicitudDetalle,
 } from '@/types/types';
 import { eq, and, asc, sql } from 'drizzle-orm';
-import { buildSearchFilter } from './buildSearchFilter';
-import { buildOrderFragment } from './buildOrderFragment';
-import { buildFiltersProviders } from './buildFilterFragment';
+import { buildSearchFilter } from './build-search-filter';
+import { buildOrderFragment } from './build-orderby';
+import { buildFiltersProviders } from './build-filters';
 import { solicitudes } from '@/db/schema/solicitudes';
 import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';

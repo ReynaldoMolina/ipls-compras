@@ -4,17 +4,22 @@ import { usuarios } from '@/db/schema/usuarios';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
 
-export function buildFiltersProviders(params: SearchParamsProps) {
-  //departamentos
+export function buildFilterProveedoresByDepartamento(
+  searchParams: SearchParamsProps
+) {
   const departamentos =
-    params.departamento?.split(',').filter(Boolean).map(Number) ?? [];
-  const departamentoFilter =
-    departamentos.length > 0
-      ? inArray(proveedores.id_departamento, departamentos)
-      : undefined;
+    searchParams.departamento?.split(',').filter(Boolean).map(Number) ?? [];
 
-  // solvencia
-  const solvenciaValues = params.solvencia?.split(',').filter(Boolean) ?? [];
+  return departamentos.length > 0
+    ? inArray(proveedores.id_departamento, departamentos)
+    : undefined;
+}
+
+export function buildFilterProveedoresBySolvencia(
+  searchParams: SearchParamsProps
+) {
+  const solvenciaValues =
+    searchParams.solvencia?.split(',').filter(Boolean) ?? [];
 
   const solvenciaMap: Record<string, SQL | undefined> = {
     1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
@@ -30,12 +35,13 @@ export function buildFiltersProviders(params: SearchParamsProps) {
   const solvenciaFilter =
     solvenciaConditions.length > 0 ? or(...solvenciaConditions) : undefined;
 
-  return { departamentoFilter, solvenciaFilter };
+  return solvenciaFilter;
 }
 
-export function buildFiltersSolvencias(params: SearchParamsProps) {
+export function filterSolvencias(searchParams: SearchParamsProps) {
   // solvencia
-  const solvenciaValues = params.solvencia?.split(',').filter(Boolean) ?? [];
+  const solvenciaValues =
+    searchParams.solvencia?.split(',').filter(Boolean) ?? [];
 
   const solvenciaMap: Record<string, SQL | undefined> = {
     1: gt(max(solvencias.vence), sql`CURRENT_DATE`),
@@ -54,9 +60,9 @@ export function buildFiltersSolvencias(params: SearchParamsProps) {
   return { solvenciaFilter };
 }
 
-export function buildFiltersUsuarios(params: SearchParamsProps) {
+export function buildFiltersUsuarios(searchParams: SearchParamsProps) {
   // rol
-  const roles = params.rol?.split(',').filter(Boolean) ?? [];
+  const roles = searchParams.rol?.split(',').filter(Boolean) ?? [];
   const rolesFilter =
     roles.length > 0 ? inArray(usuarios.rol, roles) : undefined;
 
