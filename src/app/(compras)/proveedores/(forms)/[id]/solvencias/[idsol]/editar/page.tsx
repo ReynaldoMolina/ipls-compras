@@ -1,8 +1,6 @@
 import { EditPageProps } from '@/types/types';
 import { getSolvenciaById } from '@/lib/data/solvencias';
 import { SolvenciaForm } from '@/components/forms/solvencias';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
 import FormTitle from '@/components/forms/elements/form-title';
 
 export async function generateMetadata(props: EditPageProps) {
