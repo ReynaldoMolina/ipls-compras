@@ -14,7 +14,7 @@ export default function Header({
 
   return (
     <header className="flex h-11 min-h-11 w-full items-center gap-3 px-3 py-1 border-b border-b-border">
-      {showBackIcon ? <BackButton /> : <SidebarTrigger />}
+      {showBackIcon ? <BackButton /> : !isMobile ? <SidebarTrigger /> : null}
       <h1 className="text-sm font-semibold">{title}</h1>
       {isMobile && <SidebarTrigger className="ml-auto" />}
     </header>
