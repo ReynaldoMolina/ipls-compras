@@ -14,9 +14,12 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from './ui/card';
+import { formatter } from './tables/number-cell';
+import { TrendingUp } from 'lucide-react';
 
 const chartConfig = {
   presupuesto: {
@@ -31,10 +34,10 @@ const chartConfig = {
 
 export default function Chart({ chartData }: { chartData: ChartData[] }) {
   return (
-    <Card className="w-full max-w-200 mx-auto">
+    <Card className="mx-auto">
       <CardHeader>
         <CardTitle>Presupuesto</CardTitle>
-        <CardDescription>Año 2025</CardDescription>
+        <CardDescription>Enero - Diciembre 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
@@ -53,8 +56,24 @@ export default function Chart({ chartData }: { chartData: ChartData[] }) {
               dataKey="presupuesto"
               fill="var(--color-presupuesto)"
               radius={4}
-            />
-            <Bar dataKey="asignado" fill="var(--color-asignado)" radius={4} />
+            >
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={11}
+                formatter={(value: number) => formatter.format(value)}
+              />
+            </Bar>
+            <Bar dataKey="asignado" fill="var(--color-asignado)" radius={4}>
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={11}
+                formatter={(value: number) => formatter.format(value)}
+              />
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

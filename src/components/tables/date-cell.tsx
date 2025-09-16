@@ -13,7 +13,7 @@ export default function TableDate<TData, TValue>({
   return (
     <Badge
       variant="outline"
-      className={`${dateString ? '' : 'text-muted-foreground'} inline-flex gap-1 text-sm font-normal whitespace-nowrap`}
+      className={`${dateString ? '' : 'text-muted-foreground'} inline-flex gap-1 whitespace-nowrap`}
     >
       <Calendar className="size-3.5" />
       {label}

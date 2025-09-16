@@ -30,7 +30,7 @@ export default function SolvenciaState({ date, id }: Props) {
 
   const dateStatus = getDateStatus(date);
 
-  const iconStyle = 'size-4';
+  const iconStyle = 'size-3.5';
   const icons = {
     active: <Check className={iconStyle} />,
     due: <ClockAlert className={iconStyle} />,
@@ -58,7 +58,7 @@ export default function SolvenciaState({ date, id }: Props) {
     return (
       <Badge
         variant="outline"
-        className={`${bgColors[dateStatus]} inline-flex gap-1 text-sm whitespace-nowrap font-normal cursor-default`}
+        className={`${bgColors[dateStatus]} inline-flex gap-1 whitespace-nowrap font-normal cursor-default`}
         title={titles[dateStatus]}
       >
         {icons[dateStatus]}
@@ -71,7 +71,7 @@ export default function SolvenciaState({ date, id }: Props) {
     <Link href={`/proveedores/${id}/solvencias`} title={titles[dateStatus]}>
       <Badge
         variant="outline"
-        className={`${bgColors[dateStatus]} inline-flex gap-1  hover:underline underline-offset-2 whitespace-nowrap text-sm font-normal`}
+        className={`${bgColors[dateStatus]} inline-flex gap-1 hover:underline underline-offset-2 whitespace-nowrap font-normal`}
         title={titles[dateStatus]}
       >
         {icons[dateStatus]}
