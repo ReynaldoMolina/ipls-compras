@@ -5,7 +5,7 @@ import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
 import { solicitudes } from '@/db/schema/solicitudes';
 
-export async function getResumenChartDataByEntidad(
+export async function getResumenComparisonChartByEntidad(
   searchParams: SearchParamsProps
 ) {
   const selectFields = {

@@ -145,11 +145,11 @@ export type ComboBoxData = SelectOptions[];
 
 export type EditedRows = Record<string, boolean>;
 
-export type ChartData = {
+export interface ChartData {
   entidad_academica: string | null;
   presupuesto: number;
-  asignado: number;
-};
+  asignado?: number;
+}
 
 export type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
