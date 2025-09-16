@@ -28,6 +28,8 @@ import {
 import { DatePicker } from '../date-picker';
 import { ComboBox } from '../combo-box';
 import { Input } from '../ui/input';
+import FormInputGroup from './elements/form-input-group';
+import FormSelect from '../select';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -35,10 +37,12 @@ export function SolicitudForm({
   action,
   solicitud,
   entidadesAcademicas,
+  years,
 }: {
   action: 'create' | 'edit';
   solicitud?: SolicitudFormType;
   entidadesAcademicas: ComboBoxData;
+  years: ComboBoxData;
 }) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
     resolver: zodResolver(solicitudSchema),
@@ -46,12 +50,14 @@ export function SolicitudForm({
       ? {
           fecha: solicitud.fecha ?? undefined,
           id_entidad_academica: solicitud.id_entidad_academica ?? 0,
+          year: solicitud.year ?? 0,
           id_usuario: solicitud.id_usuario ?? 0,
           revisado_bodega: solicitud.revisado_bodega ?? false,
         }
       : {
           fecha: undefined,
           id_entidad_academica: 0,
+          year: undefined,
           id_usuario: 1,
           revisado_bodega: false,
         },
@@ -80,17 +86,30 @@ export function SolicitudForm({
           </CardHeader>
           <CardContent>
             <FormFieldSet name="info">
-              <FormField
-                control={form.control}
-                name="fecha"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Fecha solicitud</FormLabel>
-                    <DatePicker<SolicitudFormValues> field={field} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormInputGroup>
+                <FormField
+                  control={form.control}
+                  name="fecha"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Fecha solicitud</FormLabel>
+                      <DatePicker<SolicitudFormValues> field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="year"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Año</FormLabel>
+                      <ComboBox field={field} options={years} form={form} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </FormInputGroup>
               <FormField
                 control={form.control}
                 name="id_entidad_academica"
@@ -129,7 +148,7 @@ export function SolicitudForm({
                 name="revisado_bodega"
                 render={({ field }) => (
                   <FormItem>
-                    <span className="text-xs font-medium">Estado</span>
+                    <span className="text-sm font-medium">Estado</span>
                     <div className="flex flex-row items-center justify-between rounded-md border px-3 py-2 shadow-xs max-h-9">
                       <FormLabel>¿Revisado por bodega?</FormLabel>
                       <FormControl>

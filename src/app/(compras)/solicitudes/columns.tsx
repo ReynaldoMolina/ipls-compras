@@ -7,6 +7,7 @@ import TableDate from '@/components/tables/date-cell';
 import { TableNumber } from '@/components/tables/number-cell';
 import { Solicitudes } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
+import DefaultCell from '@/components/tables/default-cell';
 
 export const columns: ColumnDef<Solicitudes>[] = [
   {
@@ -25,6 +26,11 @@ export const columns: ColumnDef<Solicitudes>[] = [
         label={row.original.entidad_academica ?? 'Sin nombre'}
       />
     ),
+  },
+  {
+    accessorKey: 'year',
+    header: ({ column }) => <SortButton column={column} label="Año" />,
+    cell: DefaultCell,
   },
   {
     accessorKey: 'fecha',

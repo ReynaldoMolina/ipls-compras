@@ -17,9 +17,14 @@ export const solvenciaStatus = [
   },
 ];
 
-export const years = [
-  {
-    value: '2023',
-    label: '2023',
-  },
-];
+export const currentYear = new Date().getFullYear();
+const startYear = 2024;
+const endYear = currentYear + 1;
+
+export const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => {
+  const year = startYear + i;
+  return {
+    value: String(year),
+    label: String(year),
+  };
+});

@@ -1,20 +1,15 @@
 import { db } from '@/db/db';
-import { SearchParamsProps } from '@/types/types';
 import { eq, sql } from 'drizzle-orm';
 import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
 import { solicitudes } from '@/db/schema/solicitudes';
 
-export async function getResumenComparisonChartByEntidad(
-  searchParams: SearchParamsProps
-) {
+export async function getResumenComparisonChartByEntidad(year: number) {
   const selectFields = {
     entidad_academica: entidades_academicas.abreviacion,
     presupuesto: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
     asignado: sql<number>`COALESCE(SUM(${solicitudes_detalle.precio_compra}), 0) + COALESCE(SUM(${solicitudes_detalle.precio_bodega}), 0)`,
   };
-
-  // const filterBySolvencia = buildFilterBySolvencia(searchParams);
 
   try {
     const data = await db
@@ -28,7 +23,7 @@ export async function getResumenComparisonChartByEntidad(
         solicitudes_detalle,
         eq(solicitudes.id, solicitudes_detalle.id_solicitud)
       )
-      // .where(eq(entidades_academicas.tipo, 'especialidad'))
+      .where(eq(solicitudes.year, year))
       .groupBy(
         solicitudes.id,
         entidades_academicas.tipo,

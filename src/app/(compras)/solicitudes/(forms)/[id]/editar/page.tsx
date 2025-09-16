@@ -15,6 +15,7 @@ import {
 } from '@/lib/data/solicitudes-table';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
+import { years } from '@/components/actionbar/filter/filter-states-data';
 
 export async function generateMetadata(props: EditPageProps) {
   const urlparams = await props.params;
@@ -73,6 +74,7 @@ export default async function Page(props: Props) {
               action="edit"
               solicitud={solicitud}
               entidadesAcademicas={entidadesAcademicas}
+              years={years}
             />
           </TabsContent>
         </Tabs>

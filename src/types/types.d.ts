@@ -90,6 +90,7 @@ export type UserType = {
 export interface Solicitud {
   id?: number;
   fecha: string | null;
+  year: number | null;
 }
 
 export interface Solicitudes extends Solicitud {

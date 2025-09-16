@@ -5,6 +5,7 @@ import { usuarios } from './usuarios';
 export const solicitudes = pgTable('solicitudes', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   fecha: date().notNull(),
+  year: integer().notNull(),
   id_entidad_academica: integer()
     .notNull()
     .references(() => entidades_academicas.id),

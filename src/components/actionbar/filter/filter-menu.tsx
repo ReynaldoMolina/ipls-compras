@@ -26,7 +26,7 @@ export function ResumenFilters(filterOptions: FilterOptions) {
     <>
       <FilterState
         label="Año"
-        states={years}
+        states={filterOptions.years}
         paramKey="year"
         pageKey="resumen"
       />

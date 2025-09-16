@@ -4,7 +4,7 @@ import {
   SolicitudFormType,
   SolicitudDetalle,
 } from '@/types/types';
-import { eq, and, sql } from 'drizzle-orm';
+import { eq, and, sql, desc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
@@ -16,6 +16,7 @@ export async function getSolicitudes(params: SearchParamsProps) {
   const selectFields = {
     id: solicitudes.id,
     fecha: solicitudes.fecha,
+    year: solicitudes.year,
     tipo: entidades_academicas.tipo,
     entidad_academica: entidades_academicas.nombre,
     presupuestado: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
@@ -94,6 +95,24 @@ export async function getSolicitudDetalleById(
     console.error(error);
     throw new Error(
       'No se pudo obtener la solicitud, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getUniqueYearsFromSolicitudes() {
+  try {
+    const data = await db
+      .selectDistinct({
+        year: solicitudes.year,
+      })
+      .from(solicitudes)
+      .orderBy(desc(solicitudes.year));
+
+    return data.map((e) => ({ value: String(e.year), label: String(e.year) }));
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los años únicos desde las solicitudes, por favor intenta de nuevo'
     );
   }
 }
