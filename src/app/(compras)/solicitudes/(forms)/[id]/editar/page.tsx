@@ -13,6 +13,8 @@ import {
   getDetalleUbicaciones,
   getUnidadesMedida,
 } from '@/lib/data/solicitudes-table';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
 
 export async function generateMetadata(props: EditPageProps) {
   const urlparams = await props.params;
@@ -43,30 +45,38 @@ export default async function Page(props: Props) {
   const categorias = await getDetalleCategorias();
 
   return (
-    <Tabs defaultValue="detail" className="flex flex-col overflow-y-auto">
-      <TabsList className="min-h-9">
-        <TabsTrigger value="info">Información</TabsTrigger>
-        <TabsTrigger value="detail">Detalle</TabsTrigger>
-      </TabsList>
-      <TabsContent value="info">
-        <SolicitudForm
-          action="edit"
-          solicitud={solicitud}
-          entidadesAcademicas={entidadesAcademicas}
-        />
-      </TabsContent>
-      <TabsContent
-        value="detail"
-        className="flex flex-col gap-3 overflow-y-auto"
-      >
-        <SolicitudesDetalleTable
-          data={solicitud_detalle}
-          unidadesMedida={unidadesMedida}
-          estados={estados}
-          ubicaciones={ubicaciones}
-          categorias={categorias}
-        />
-      </TabsContent>
-    </Tabs>
+    <>
+      <Header title={`Solicitud ${id}`} />
+      <PageWrapper>
+        <Tabs defaultValue="detail" className="flex flex-col overflow-y-auto">
+          <div className="inline-flex items-center">
+            <TabsList className="min-h-9">
+              <TabsTrigger value="detail">Detalle</TabsTrigger>
+              <TabsTrigger value="info">Información</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent
+            value="detail"
+            className="flex flex-col gap-3 overflow-y-auto"
+          >
+            <SolicitudesDetalleTable
+              idSolicitud={id}
+              data={solicitud_detalle}
+              unidadesMedida={unidadesMedida}
+              estados={estados}
+              ubicaciones={ubicaciones}
+              categorias={categorias}
+            />
+          </TabsContent>
+          <TabsContent value="info">
+            <SolicitudForm
+              action="edit"
+              solicitud={solicitud}
+              entidadesAcademicas={entidadesAcademicas}
+            />
+          </TabsContent>
+        </Tabs>
+      </PageWrapper>
+    </>
   );
 }

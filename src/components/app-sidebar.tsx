@@ -3,8 +3,10 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -14,15 +16,33 @@ import {
 import Logo from '@/icons/logo.svg';
 import Link from 'next/link';
 
-import { PageId } from '@/types/types';
+import { PageId, UserType } from '@/types/types';
 import {
   ChartColumn,
   ListCheck,
   ShoppingCart,
   Users,
   Truck,
+  User,
+  LogOut,
+  Contrast,
+  ChevronsUpDown,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import ChangeTheme from './change-theme';
 
 export interface SidebarItem {
   id: PageId;
@@ -64,6 +84,12 @@ export const sidebarItems: SidebarItem[] = [
   },
 ];
 
+const user: UserType = {
+  name: 'Reynaldo Molina',
+  email: 'reynaldo.molina.pst@ipls-lasalle.org',
+  avatar: 'https://avatars.githubusercontent.com/u/132531419?v=4&size=64',
+};
+
 export function AppSidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
@@ -76,11 +102,12 @@ export function AppSidebar() {
           className="flex gap-2 items-center rounded-md hover:bg-sidebar-accent p-2"
         >
           <Logo className="size-7" />
-          <span className="font-semibold">IPLS Compras</span>
+          <span className="font-semibold text-sm">IPLS Compras</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Menú</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {sidebarItems.map((item) => (
@@ -92,7 +119,7 @@ export function AppSidebar() {
                   >
                     <Link href={item.url}>
                       <item.icon />
-                      <span className="text-xs">{item.title}</span>
+                      <span className="text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -101,6 +128,91 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <UserMenu />
+      </SidebarFooter>
     </Sidebar>
+  );
+}
+
+function UserMenu() {
+  const { isMobile } = useSidebar();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <SidebarMenuButton
+          size="lg"
+          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+        >
+          <Avatar className="h-8 w-8 rounded-lg">
+            <AvatarImage src={user.avatar} alt={user.name} />
+            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+          </Avatar>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <span className="truncate font-medium">{user.name}</span>
+            <span className="truncate text-xs text-muted-foreground">
+              {user.email}
+            </span>
+          </div>
+          <ChevronsUpDown className="ml-auto size-4" />
+        </SidebarMenuButton>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+        side={isMobile ? 'bottom' : 'right'}
+        align="end"
+        sideOffset={4}
+      >
+        <UserInfo user={user} />
+        <DropdownMenuSeparator />
+
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <User />
+            Cuenta
+          </DropdownMenuItem>
+          <ChangeThemeSubMenu />
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <LogOut />
+          Cerrar sesión
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+function UserInfo({ user }: { user: UserType }) {
+  return (
+    <DropdownMenuLabel className="p-0 font-normal">
+      <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+        <Avatar className="h-8 w-8 rounded-lg">
+          <AvatarImage src={user.avatar} alt={user.name} />
+          <AvatarFallback className="rounded-lg">RM</AvatarFallback>
+        </Avatar>
+        <div className="grid flex-1 text-left text-sm leading-tight">
+          <span className="truncate font-medium">{user.name}</span>
+          <span className="truncate text-xs text-muted-foreground">
+            {user.email}
+          </span>
+        </div>
+      </div>
+    </DropdownMenuLabel>
+  );
+}
+
+function ChangeThemeSubMenu() {
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Contrast className="mr-2 h-4 w-4 opacity-60" />
+        Tema
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <ChangeTheme />
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
   );
 }

@@ -13,7 +13,7 @@ import {
   ResumenFilters,
   SolvenciasFilters,
   UsuariosFilters,
-} from './filter/FilterMenu';
+} from './filter/filter-menu';
 import { FilterOptions } from '@/types/types';
 import { JSX, useState } from 'react';
 

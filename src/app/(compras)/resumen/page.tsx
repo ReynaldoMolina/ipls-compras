@@ -1,4 +1,9 @@
 import ActionBar from '@/components/actionbar/action-bar';
+import Chart from '@/components/chart';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
+import { getResumenChartDataByEntidad } from '@/lib/data/resumen';
+import { PageProps } from '@/types/types';
 
 const title = 'Resumen';
 
@@ -6,19 +11,17 @@ export const metadata = {
   title: title,
 };
 
-export default async function Page() {
-  // const params = await props.searchParams;
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
+  const chartData = await getResumenChartDataByEntidad(searchParams);
+
   return (
     <>
-      <ActionBar allowSearch={false} allowNew={false} />
-      <div className="flex flex-col lg:flex-row gap-3 grow">
-        <div className="flex items-center justify-center bg-brand-border rounded w-full h-100">
-          Graph 1
-        </div>
-        <div className="flex items-center justify-center bg-brand-border rounded w-full h-100">
-          Graph 1
-        </div>
-      </div>
+      <Header title="Resumen" />
+      <PageWrapper>
+        <ActionBar allowSearch={false} allowNew={false} />
+        <Chart chartData={chartData} />
+      </PageWrapper>
     </>
   );
 }

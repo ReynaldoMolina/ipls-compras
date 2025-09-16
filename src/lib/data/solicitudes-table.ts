@@ -3,13 +3,13 @@ import { categoria_productos } from '@/db/schema/categoria_productos';
 import { solicitudes_estados } from '@/db/schema/solicitudes-estados';
 import { ubicaciones } from '@/db/schema/ubicaciones';
 import { unidades_medida } from '@/db/schema/unidades-medida';
-import { asc } from 'drizzle-orm';
+import { asc, sql } from 'drizzle-orm';
 
 export async function getUnidadesMedida() {
   try {
     const data = await db
       .select({
-        value: unidades_medida.id,
+        value: sql<string>`CAST(${unidades_medida.id} AS TEXT)`,
         label: unidades_medida.unidad_medida,
       })
       .from(unidades_medida)
@@ -27,7 +27,7 @@ export async function getDetalleEstados() {
   try {
     const data = await db
       .select({
-        value: solicitudes_estados.id,
+        value: sql<string>`CAST(${solicitudes_estados.id} AS TEXT)`,
         label: solicitudes_estados.estado,
       })
       .from(solicitudes_estados)
@@ -45,7 +45,7 @@ export async function getDetalleUbicaciones() {
   try {
     const data = await db
       .select({
-        value: ubicaciones.id,
+        value: sql<string>`CAST(${ubicaciones.id} AS TEXT)`,
         label: ubicaciones.ubicacion,
       })
       .from(ubicaciones)
@@ -63,7 +63,7 @@ export async function getDetalleCategorias() {
   try {
     const data = await db
       .select({
-        value: categoria_productos.id,
+        value: sql<string>`CAST(${categoria_productos.id} AS TEXT)`,
         label: categoria_productos.categoria,
       })
       .from(categoria_productos)

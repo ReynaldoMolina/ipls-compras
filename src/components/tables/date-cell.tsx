@@ -1,6 +1,7 @@
 import { formatDate } from '@/lib/format-date';
 import { CellContext } from '@tanstack/react-table';
 import { Calendar } from 'lucide-react';
+import { Badge } from '../ui/badge';
 
 export default function TableDate<TData, TValue>({
   getValue,
@@ -10,11 +11,12 @@ export default function TableDate<TData, TValue>({
   const label = dateString ? formatDate(dateString) : 'Sin fecha';
 
   return (
-    <span className="flex items-center gap-1 p-1 rounded border border-border w-fit whitespace-nowrap">
-      <Calendar
-        className={`${dateString ? '' : 'text-muted-foreground'} size-3.5`}
-      />
-      <span className={dateString ? '' : 'text-muted-foreground'}>{label}</span>
-    </span>
+    <Badge
+      variant="outline"
+      className={`${dateString ? '' : 'text-muted-foreground'} inline-flex gap-1 text-sm font-normal whitespace-nowrap`}
+    >
+      <Calendar className="size-3.5" />
+      {label}
+    </Badge>
   );
 }

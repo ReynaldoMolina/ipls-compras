@@ -6,7 +6,8 @@ import { SolicitudDetalle, SelectOptions } from '@/types/types';
 import { getSolicitudesDetalleColumns } from '@/app/(compras)/solicitudes/(forms)/columns';
 
 type Props = {
-  data: SolicitudDetalle[];
+  idSolicitud: number;
+  data?: SolicitudDetalle[];
   unidadesMedida: SelectOptions[];
   estados: SelectOptions[];
   ubicaciones: SelectOptions[];
@@ -14,6 +15,7 @@ type Props = {
 };
 
 export default function SolicitudesDetalleTable({
+  idSolicitud,
   data,
   unidadesMedida,
   estados,
@@ -31,5 +33,11 @@ export default function SolicitudesDetalleTable({
     [unidadesMedida, estados, ubicaciones, categorias]
   );
 
-  return <DataTableDetalle columns={columns} initialData={data} />;
+  return (
+    <DataTableDetalle
+      idSolicitud={idSolicitud}
+      columns={columns}
+      initialData={data}
+    />
+  );
 }

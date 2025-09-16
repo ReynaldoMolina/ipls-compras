@@ -14,7 +14,7 @@ import {
 import { solicitudSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
 import FormButtons from './elements/form-buttons';
-import { ComboBoxData, SolicitudForm } from '@/types/types';
+import { ComboBoxData, SolicitudFormType } from '@/types/types';
 import { createSolicitud, updateSolicitud } from '@/lib/actions/solicitudes';
 import { Switch } from '../ui/switch';
 import {
@@ -37,7 +37,7 @@ export function SolicitudForm({
   entidadesAcademicas,
 }: {
   action: 'create' | 'edit';
-  solicitud?: SolicitudForm;
+  solicitud?: SolicitudFormType;
   entidadesAcademicas: ComboBoxData;
 }) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
@@ -99,7 +99,7 @@ export function SolicitudForm({
                     <FormLabel>Carrera / curso / área</FormLabel>
                     <ComboBox
                       field={field}
-                      data={entidadesAcademicas}
+                      options={entidadesAcademicas}
                       form={form}
                     />
                     <FormMessage />
@@ -134,7 +134,7 @@ export function SolicitudForm({
                       <FormLabel>¿Revisado por bodega?</FormLabel>
                       <FormControl>
                         <Switch
-                          checked={field.value}
+                          checked={field.value ?? false}
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>

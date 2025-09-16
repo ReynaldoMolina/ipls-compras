@@ -20,7 +20,6 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
     ruc: proveedores.ruc,
     telefono: proveedores.telefono,
     departamento: departamentos.departamento,
-    correo: proveedores.correo,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [

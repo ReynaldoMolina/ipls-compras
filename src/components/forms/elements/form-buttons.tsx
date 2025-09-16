@@ -5,17 +5,10 @@ export default function FormButtons({ action }: { action: 'create' | 'edit' }) {
   const router = useRouter();
   return (
     <>
-      <Button
-        type="button"
-        className="text-xs"
-        variant="secondary"
-        onClick={() => router.back()}
-      >
+      <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button type="submit" className="text-xs">
-        {action === 'create' ? 'Crear' : 'Guardar'}
-      </Button>
+      <Button type="submit">{action === 'create' ? 'Crear' : 'Guardar'}</Button>
     </>
   );
 }

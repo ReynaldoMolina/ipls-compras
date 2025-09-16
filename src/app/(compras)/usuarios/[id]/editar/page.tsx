@@ -1,5 +1,6 @@
-import FormTitle from '@/components/forms/elements/form-title';
 import { UserForm } from '@/components/forms/usuarios';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
 import { getUserById } from '@/lib/data/usuarios';
 import { EditPageProps } from '@/types/types';
 
@@ -29,8 +30,10 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <FormTitle title={`Usuario ${id}`} />
-      <UserForm action="edit" user={user} />
+      <Header title={`Usuario ${id}`} />
+      <PageWrapper>
+        <UserForm action="edit" user={user} />
+      </PageWrapper>
     </>
   );
 }

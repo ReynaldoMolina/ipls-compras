@@ -47,7 +47,7 @@ export function EditableCell<TData, TValue>({
   if (type === 'combobox')
     return (
       <ComboBoxTable
-        data={columnMeta?.options ?? []}
+        options={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
       />

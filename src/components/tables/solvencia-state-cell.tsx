@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { DateStatus } from '@/types/types';
 import { Calendar, Check, ClockAlert, X } from 'lucide-react';
 import { formatDate } from '@/lib/format-date';
+import { Badge } from '../ui/badge';
 
 interface Props {
   date: string | null;
@@ -29,7 +30,7 @@ export default function SolvenciaState({ date, id }: Props) {
 
   const dateStatus = getDateStatus(date);
 
-  const iconStyle = 'size-4 opacity-70';
+  const iconStyle = 'size-4';
   const icons = {
     active: <Check className={iconStyle} />,
     due: <ClockAlert className={iconStyle} />,
@@ -41,7 +42,7 @@ export default function SolvenciaState({ date, id }: Props) {
     active: 'bg-date-active',
     due: 'bg-date-due',
     expired: 'bg-date-warning',
-    empty: 'border border-border text-muted-foreground',
+    empty: 'text-muted-foreground',
   };
 
   const titles = {
@@ -55,25 +56,27 @@ export default function SolvenciaState({ date, id }: Props) {
 
   if (!id) {
     return (
-      <span
-        className={`${bgColors[dateStatus]} flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap cursor-default`}
+      <Badge
+        variant="outline"
+        className={`${bgColors[dateStatus]} inline-flex gap-1 text-sm whitespace-nowrap font-normal cursor-default`}
         title={titles[dateStatus]}
       >
         {icons[dateStatus]}
         {label}
-      </span>
+      </Badge>
     );
   }
 
   return (
-    <Link
-      href={`/proveedores/${id}/solvencias`}
-      onClick={(e) => e.stopPropagation()}
-      className={`${bgColors[dateStatus]} flex items-center text-xs justify-start gap-1 p-1 rounded w-fit whitespace-nowrap hover:underline underline-offset-2`}
-      title={titles[dateStatus]}
-    >
-      {icons[dateStatus]}
-      {label}
+    <Link href={`/proveedores/${id}/solvencias`} title={titles[dateStatus]}>
+      <Badge
+        variant="outline"
+        className={`${bgColors[dateStatus]} inline-flex gap-1  hover:underline underline-offset-2 whitespace-nowrap text-sm font-normal`}
+        title={titles[dateStatus]}
+      >
+        {icons[dateStatus]}
+        {label}
+      </Badge>
     </Link>
   );
 }

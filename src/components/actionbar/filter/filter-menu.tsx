@@ -1,13 +1,6 @@
 import { FilterOptions } from '@/types/types';
-import { FilterState } from './FilterState';
-import { solvenciaStatus } from './solvenciaStatus';
-
-const years = [
-  {
-    value: '2023',
-    label: '2023',
-  },
-];
+import { FilterState } from './filter-state';
+import { solvenciaStatus, years } from './filter-states-data';
 
 export function ProvidersFilters(filterOptions: FilterOptions) {
   return (

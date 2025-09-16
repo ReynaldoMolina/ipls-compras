@@ -1,10 +1,10 @@
 import { db } from '@/db/db';
 import {
   SearchParamsProps,
-  SolicitudForm,
+  SolicitudFormType,
   SolicitudDetalle,
 } from '@/types/types';
-import { eq, and, asc, sql } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
@@ -65,7 +65,7 @@ export async function getSolicitudes(params: SearchParamsProps) {
   }
 }
 
-export async function getSolicitudById(id: number): Promise<SolicitudForm> {
+export async function getSolicitudById(id: number): Promise<SolicitudFormType> {
   try {
     const data = await db
       .select()

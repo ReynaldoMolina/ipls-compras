@@ -10,12 +10,8 @@ interface EditLinkProps {
 export function EditLink({ href, label }: EditLinkProps) {
   if (!label)
     return (
-      <Button asChild variant="outline" size="sm">
-        <Link
-          href={href}
-          className="hover:underline underline-offset-2 whitespace-nowrap"
-          title="Editar"
-        >
+      <Button asChild variant="outline">
+        <Link href={href} className="whitespace-nowrap" title="Editar">
           <Pencil className="size-3.5" />
         </Link>
       </Button>

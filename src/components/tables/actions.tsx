@@ -1,3 +1,5 @@
+'use client';
+
 import { CornerDownLeft, Keyboard, Plus, Trash2, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Table } from '@tanstack/react-table';
@@ -6,27 +8,31 @@ import { Input } from '../ui/input';
 
 interface TableActionsProps<TData> {
   table: Table<TData>;
+  idSolicitud?: number;
 }
 
-const emptyRow = {
-  id_solicitud: 1,
-  producto_servicio: '',
-  cantidad: 1,
-  id_unidad_medida: 1,
-  precio: 0,
-  observaciones: '',
-  prioridad: '',
-  id_estado: null,
-  comprado: 0,
-  recibido: 0,
-  precio_compra: 0,
-  entrega_bodega: 0,
-  precio_bodega: 0,
-  id_ubicacion: null,
-  id_categoria: null,
-};
+export function TableNewRow<TData>({
+  table,
+  idSolicitud,
+}: TableActionsProps<TData>) {
+  const emptyRow = {
+    id_solicitud: Number(idSolicitud),
+    producto_servicio: '',
+    cantidad: 1,
+    id_unidad_medida: 1,
+    precio: 0,
+    observaciones: '',
+    prioridad: '',
+    id_estado: null,
+    comprado: 0,
+    recibido: 0,
+    precio_compra: 0,
+    entrega_bodega: 0,
+    precio_bodega: 0,
+    id_ubicacion: null,
+    id_categoria: null,
+  };
 
-export function TableNewRow<TData>({ table }: TableActionsProps<TData>) {
   const [isEditing, setIsEditing] = useState(false);
   const [newRow, setNewRow] = useState(emptyRow);
   const meta = table.options.meta;
@@ -134,7 +140,7 @@ export function TableOptions<TData>({ table }: TableActionsProps<TData>) {
         >
           <X className="size-4" />
         </Button>
-        <span className="text-xs">{`${selectedRows.length} seleccionado(s)`}</span>
+        <span className="text-sm">{`${selectedRows.length} seleccionado(s)`}</span>
       </div>
       <div className="h-full w-0.5 bg-border"></div>
       <Button
@@ -144,7 +150,7 @@ export function TableOptions<TData>({ table }: TableActionsProps<TData>) {
         size="sm"
       >
         <Trash2 className="size-3.5" />
-        Eliminar
+        <span className="hidden sm:block">Eliminar</span>
       </Button>
     </div>
   );

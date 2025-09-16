@@ -15,6 +15,13 @@ export const columns: ColumnDef<Proveedores>[] = [
     cell: TableId,
   },
   {
+    accessorKey: 'solvencia',
+    header: ({ column }) => <SortButton column={column} label="Solvencia" />,
+    cell: ({ row }) => (
+      <SolvenciaState date={row.original.solvencia} id={row.original.id} />
+    ),
+  },
+  {
     accessorKey: 'nombre_comercial',
     header: ({ column }) => (
       <SortButton column={column} label="Nombre comercial" />
@@ -24,13 +31,6 @@ export const columns: ColumnDef<Proveedores>[] = [
         href={`/proveedores/${row.original.id}/editar`}
         label={row.original.nombre_comercial}
       />
-    ),
-  },
-  {
-    accessorKey: 'solvencia',
-    header: ({ column }) => <SortButton column={column} label="Solvencia" />,
-    cell: ({ row }) => (
-      <SolvenciaState date={row.original.solvencia} id={row.original.id} />
     ),
   },
   {
@@ -51,11 +51,6 @@ export const columns: ColumnDef<Proveedores>[] = [
   {
     accessorKey: 'departamento',
     header: ({ column }) => <SortButton column={column} label="Departamento" />,
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'correo',
-    header: ({ column }) => <SortButton column={column} label="Correo" />,
     cell: DefaultCell,
   },
 ];

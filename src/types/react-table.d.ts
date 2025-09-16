@@ -1,5 +1,5 @@
 import type { ColumnMeta, TableMeta } from '@tanstack/react-table';
-import { SolicitudDetalle } from './types';
+import { SelectOptions, SolicitudDetalle } from './types';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -32,6 +32,6 @@ declare module '@tanstack/react-table' {
       | 'boolean'
       | 'date'
       | 'combobox';
-    options?: { label: string; value: string | number }[];
+    options?: SelectOptions[];
   }
 }

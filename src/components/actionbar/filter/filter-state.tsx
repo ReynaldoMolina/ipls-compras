@@ -31,7 +31,7 @@ export function FilterState({
 
   return (
     <DropdownMenuGroup>
-      <DropdownMenuLabel className="text-xs">{label}</DropdownMenuLabel>
+      <DropdownMenuLabel className="text-sm">{label}</DropdownMenuLabel>
       <Separator className="mb-1" />
       {states.map((state) => {
         const isActive = activeStates.includes(String(state.value));
@@ -41,7 +41,7 @@ export function FilterState({
             checked={isActive}
             onCheckedChange={() => toggle(String(state.value))}
           >
-            <span className="text-xs">{state.label}</span>
+            <span className="text-sm">{state.label}</span>
           </DropdownMenuCheckboxItem>
         );
       })}

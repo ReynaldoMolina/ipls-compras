@@ -14,16 +14,16 @@ import {
 } from '../ui/command';
 
 export default function ComboBoxTable({
-  data,
+  options,
   value,
   onChange,
 }: {
-  data: SelectOptions[];
+  options: SelectOptions[];
   value: string | number;
-  onChange: (val: string | number) => void;
+  onChange: (val: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const selectedOption = data.find((el) => el.value === value);
+  const selectedOption = options.find((el) => el.value === String(value));
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -45,7 +45,7 @@ export default function ComboBoxTable({
           <CommandList>
             <CommandEmpty>No hay resultados</CommandEmpty>
             <CommandGroup>
-              {data.map((element) => (
+              {options.map((element) => (
                 <CommandItem
                   key={element.value}
                   value={element.label}

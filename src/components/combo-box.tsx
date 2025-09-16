@@ -25,15 +25,13 @@ import {
   Path,
   UseFormReturn,
 } from 'react-hook-form';
-import z from 'zod';
-import { providerSchema } from '@/validation-schemas';
 import { useUpdateUrlParams } from './forms/elements/update-params';
 import { ComboBoxData } from '@/types/types';
 
 interface ComboBoxProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
   options: ComboBoxData;
-  form: UseFormReturn<z.infer<typeof providerSchema>>;
+  form: UseFormReturn<T>;
   updateParams?: boolean;
 }
 
@@ -54,7 +52,7 @@ export function ComboBox<T extends FieldValues>({
             variant="outline"
             role="combobox"
             className={cn(
-              'w-full justify-between text-xs font-normal',
+              'w-full justify-between text-sm font-normal',
               !field.value && 'text-muted-foreground'
             )}
           >

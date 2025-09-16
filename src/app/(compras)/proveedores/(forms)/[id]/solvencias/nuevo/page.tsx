@@ -1,6 +1,7 @@
 import { EditPageProps } from '@/types/types';
 import { SolvenciaForm } from '@/components/forms/solvencias';
-import FormTitle from '@/components/forms/elements/form-title';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
 
 export async function generateMetadata(props: EditPageProps) {
   const params = await props.params;
@@ -26,8 +27,10 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <FormTitle title={`Proveedor ${id_proveedor} - Nueva solvencia`} />
-      <SolvenciaForm action="create" id_proveedor={id_proveedor} />
+      <Header title={`Proveedor ${id_proveedor} - Nueva solvencia`} />
+      <PageWrapper>
+        <SolvenciaForm action="create" id_proveedor={id_proveedor} />
+      </PageWrapper>
     </>
   );
 }

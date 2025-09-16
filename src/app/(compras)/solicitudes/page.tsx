@@ -3,7 +3,6 @@ import Header from '@/components//header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
 import { DataTable } from '../../../components/tables/data-table';
-import FilterButton from '@/components/actionbar/filter-button';
 import { SearchParamsProps } from '@/types/types';
 import { getSolicitudes } from '@/lib/data/solicitudes';
 
@@ -21,15 +20,9 @@ export default async function Page(props: Props) {
   const params = await props.searchParams;
   const data = await getSolicitudes(params);
 
-  // const departamentos = await getProvidersDepartamentos();
-
-  // const filterData = {
-  //   departamentos: departamentos,
-  // };
-
   return (
     <>
-      <Header title={title} />
+      <Header title={title} showBackIcon={false} />
       <PageWrapper>
         <ActionBar>{/* <FilterButton filterData={filterData} /> */}</ActionBar>
         <DataTable columns={columns} data={data} />

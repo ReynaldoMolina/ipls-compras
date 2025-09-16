@@ -1,6 +1,5 @@
 'use client';
 
-import z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { CalendarIcon } from 'lucide-react';
@@ -14,6 +13,7 @@ import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useState } from 'react';
 
 interface DatePickerProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
@@ -22,6 +22,8 @@ interface DatePickerProps<T extends FieldValues> {
 export function DatePicker<T extends FieldValues>({
   field,
 }: DatePickerProps<T>) {
+  const [open, setOpen] = useState(false);
+
   const selectedDate =
     typeof field.value === 'string' && field.value
       ? parse(field.value, 'yyyy-MM-dd', new Date())
@@ -32,7 +34,7 @@ export function DatePicker<T extends FieldValues>({
   }
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
@@ -42,7 +44,7 @@ export function DatePicker<T extends FieldValues>({
               !field.value && 'text-muted-foreground'
             )}
           >
-            <span className="text-xs">
+            <span className="text-sm">
               {selectedDate
                 ? format(selectedDate, 'dd/MMM/yyyy', { locale: es })
                 : 'Selecciona una fecha'}
@@ -55,7 +57,10 @@ export function DatePicker<T extends FieldValues>({
         <Calendar
           mode="single"
           selected={selectedDate}
-          onSelect={handleSelect}
+          onSelect={(date) => {
+            handleSelect(date);
+            setOpen(false);
+          }}
           captionLayout="dropdown"
         />
       </PopoverContent>

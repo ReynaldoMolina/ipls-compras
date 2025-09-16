@@ -6,6 +6,8 @@ import {
 } from '@/lib/data/usuarios';
 import FilterButton from '@/components/actionbar/filter-button';
 import { DataTable } from '@/components/tables/data-table';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
 
 const title = 'Usuarios';
 
@@ -35,10 +37,13 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <ActionBar>
-        <FilterButton filterOptions={{ userStates, userRoles }} />
-      </ActionBar>
-      <DataTable columns={columns} data={tableData} />
+      <Header title="Usuarios" showBackIcon={false} />
+      <PageWrapper>
+        <ActionBar>
+          <FilterButton filterOptions={{ userStates, userRoles }} />
+        </ActionBar>
+        <DataTable columns={columns} data={tableData} />
+      </PageWrapper>
     </>
   );
 }

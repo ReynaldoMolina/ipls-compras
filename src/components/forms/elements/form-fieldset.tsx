@@ -13,10 +13,10 @@ const titles = {
   sector: 'Sector',
   verification: 'Verificación',
   permissions: 'Permisos y estado',
-  solvencias: 'Solvencias',
+  solvencia: 'Solvencia',
 };
 
-const iconStyles = 'size-4.5';
+const iconStyles = 'size-5';
 
 const icons = {
   info: <Info className={iconStyles} />,
@@ -24,7 +24,7 @@ const icons = {
   sector: <Factory className={iconStyles} />,
   verification: <CalendarCheck className={iconStyles} />,
   permissions: <Shield className={iconStyles} />,
-  solvencias: <File className={iconStyles} />,
+  solvencia: <File className={iconStyles} />,
 };
 
 type FormSectionName = keyof typeof titles;
@@ -39,7 +39,7 @@ export function FormFieldSet({
   return (
     <fieldset className="flex flex-col gap-5">
       {/* title */}
-      <span className="flex items-center gap-2 font-semibold text-xs border-b pb-2">
+      <span className="flex items-center gap-2 font-semibold text-sm border-b pb-2">
         {icons[name]}
         <legend>{titles[name]}</legend>
       </span>

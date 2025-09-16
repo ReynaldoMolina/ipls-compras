@@ -7,21 +7,21 @@ export default function Hero() {
         src="/images/logo-blanco.png"
         width={90}
         height={50}
-        className="w-25 text-white text-xs text-center"
+        className="w-25 text-white text-sm text-center"
         alt="Logo"
       />
       <Image
         src="/images/login.png"
         width={500}
         height={269}
-        className="w-full max-w-60 text-white text-xs text-center"
+        className="w-full max-w-60 text-white text-sm text-center"
         alt="Persona revisando inventario y pagando en línea"
       />
       <div className="flex flex-col gap-1 items-center justify-center">
-        <span className="text-xs text-white text-center">
+        <span className="text-sm text-white text-center">
           Sistema de gestión de
         </span>
-        <span className="text-white text-login-title font-bold">Compras</span>
+        <span className="text-white text-lg font-bold">Compras</span>
       </div>
     </div>
   );

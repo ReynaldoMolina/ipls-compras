@@ -81,6 +81,12 @@ export interface Usuario {
   activo: boolean | null;
 }
 
+export type UserType = {
+  name: string;
+  email: string;
+  avatar: string;
+};
+
 export interface Solicitud {
   id?: number;
   fecha: string | null;
@@ -94,7 +100,7 @@ export interface Solicitudes extends Solicitud {
   restante: number | null;
 }
 
-export interface SolicitudForm extends Solicitud {
+export interface SolicitudFormType extends Solicitud {
   id_entidad_academica: number | null;
   id_usuario: number | null;
   revisado_bodega: boolean | null;
@@ -137,4 +143,14 @@ export type FilterOptions = {
 
 export type ComboBoxData = SelectOptions[];
 
-type EditedRows = Record<string, boolean>;
+export type EditedRows = Record<string, boolean>;
+
+export type ChartData = {
+  entidad_academica: string | null;
+  presupuesto: number;
+  asignado: number;
+};
+
+export type PageProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};

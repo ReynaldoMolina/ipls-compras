@@ -6,6 +6,8 @@ import {
   getUniqueDepartamentosFromProveedores,
 } from '@/lib/data/proveedores';
 import FilterButton from '@/components/actionbar/filter-button';
+import Header from '@/components/header/header';
+import PageWrapper from '@/components/page-wrapper';
 
 export const metadata = {
   title: 'Proveedores',
@@ -22,10 +24,13 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <ActionBar>
-        <FilterButton filterOptions={{ departamentosOptions }} />
-      </ActionBar>
-      <DataTable columns={columns} data={proveedoresTableData} />
+      <Header title="Proveedores" showBackIcon={false} />
+      <PageWrapper>
+        <ActionBar>
+          <FilterButton filterOptions={{ departamentosOptions }} />
+        </ActionBar>
+        <DataTable columns={columns} data={proveedoresTableData} />
+      </PageWrapper>
     </>
   );
 }

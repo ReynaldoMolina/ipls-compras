@@ -40,10 +40,10 @@ export function LoginForm() {
             className="flex flex-col gap-6 p-6 md:p-8 mb-0"
           >
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-xl font-bold">Bienvenido</h1>
-              <p className="text-muted-foreground text-balance text-sm">
+              <h1 className="text-lg font-bold">Bienvenido</h1>
+              <span className="text-muted-foreground text-balance text-sm">
                 Ingresa a tu cuenta de IPLS Compras
-              </p>
+              </span>
             </div>
             <FormField
               control={form.control}
@@ -67,7 +67,7 @@ export function LoginForm() {
                     <FormLabel>Contraseña</FormLabel>
                     <Link
                       href="#"
-                      className="ml-auto text-xs underline-offset-2 hover:underline"
+                      className="ml-auto text-sm underline-offset-2 hover:underline text-muted-foreground"
                     >
                       ¿Olvidaste tu contraseña?
                     </Link>
@@ -79,10 +79,10 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full text-xs">
+            <Button type="submit" className="w-full">
               Iniciar sesión
             </Button>
-            <div className="after:border-border relative text-center text-xs after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
               <span className="bg-card text-muted-foreground relative z-10 px-2">
                 O ingresa con
               </span>
@@ -94,7 +94,7 @@ export function LoginForm() {
                   fill="currentColor"
                 />
               </svg>
-              <span className="text-xs">Google</span>
+              <span className="text-sm">Google</span>
             </Button>
           </form>
           <div className="bg-muted relative hidden md:block">

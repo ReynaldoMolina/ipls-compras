@@ -29,18 +29,18 @@ import { TableNewRow, TableOptions } from './actions';
 import { saveSolicitudesDetalle } from '@/lib/actions/solicitudes-detalle';
 
 interface DataTableProps<TData, TValue> {
+  idSolicitud: number;
   columns: ColumnDef<TData, TValue>[];
-  initialData: TData[];
-  action: 'create' | 'edit';
+  initialData?: TData[];
 }
 
 export function DataTableDetalle<TData, TValue>({
+  idSolicitud,
   columns,
   initialData,
-  action,
 }: DataTableProps<TData, TValue>) {
   // data
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(initialData || []);
   const [newRows, setNewRows] = useState<TData[]>([]);
   const [editedRows, setEditedRows] = useState<TData[]>([]);
   const [deletedRows, setDeletedRows] = useState<TData[]>([]);
@@ -142,9 +142,9 @@ export function DataTableDetalle<TData, TValue>({
 
   function handleSave() {
     saveSolicitudesDetalle({ newRows, editedRows, deletedRows });
-    console.log(newRows);
-    console.log(editedRows);
-    console.log(deletedRows);
+    // console.log(newRows);
+    // console.log(editedRows);
+    // console.log(deletedRows);
   }
 
   const column = table.getColumn('producto_servicio');
@@ -153,12 +153,12 @@ export function DataTableDetalle<TData, TValue>({
   return (
     <>
       <div className="flex gap-3 justify-between items-center">
-        <div className="flex items-center relative w-full max-w-xs">
+        <div className="flex items-center relative w-full max-w-60">
           <Search className="absolute left-2 size-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Buscar"
-            className="px-8 text-xs md:text-xs"
+            className="px-8 text-sm"
             value={
               (table
                 .getColumn('producto_servicio')
@@ -244,9 +244,8 @@ export function DataTableDetalle<TData, TValue>({
         </TableFooter>
       </Table>
 
-      <TableNewRow table={table} />
+      <TableNewRow table={table} idSolicitud={idSolicitud} />
       <TableOptions table={table} />
-      {/* <pre className="text-[10px]">{JSON.stringify(data[3], null, '\t')}</pre> */}
     </>
   );
 }

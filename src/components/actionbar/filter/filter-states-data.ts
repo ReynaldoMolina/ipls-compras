@@ -16,3 +16,10 @@ export const solvenciaStatus = [
     label: 'Sin solvencia',
   },
 ];
+
+export const years = [
+  {
+    value: '2023',
+    label: '2023',
+  },
+];

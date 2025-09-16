@@ -27,7 +27,6 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import FormTitle from './elements/form-title';
 import SolvenciaState from '../tables/solvencia-state-cell';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
@@ -89,28 +88,29 @@ export function ProveedorForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-3xl mx-auto">
+        <Card className="max-w-2xl mx-auto">
           <CardHeader>
             <CardTitle>
               {action === 'create' ? 'Nuevo' : 'Editar'} proveedor
             </CardTitle>
             <CardDescription>
               {action === 'create' ? 'Ingresa' : 'Edita'} la información del
-              proveedor
+              proveedor, haz click en{' '}
+              {action === 'create' ? 'Crear' : 'Guardar'} cuando estés listo.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {action === 'edit' && (
-              <FormFieldSet name="solvencias">
+              <FormFieldSet name="solvencia">
                 <div className="inline-flex gap-3 items-center">
-                  <div className="inline-flex gap-2 text-xs items-center">
+                  <div className="inline-flex gap-2 text-sm items-center">
                     <span className="text-muted-foreground">Vence el:</span>
                     <SolvenciaState date={provider?.solvencia} />
                   </div>
                   <Button asChild size="sm" variant="outline">
                     <Link
                       href={`/proveedores/${provider?.id}/solvencias`}
-                      className="inline-flex items-center gap-2 text-xs ml-auto"
+                      className="inline-flex items-center gap-2 ml-auto"
                     >
                       Ver solvencias
                       <ChevronRight className="size-4" />
