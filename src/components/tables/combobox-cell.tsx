@@ -13,7 +13,7 @@ import {
   CommandList,
 } from '../ui/command';
 
-export default function ComboBoxTable({
+export default function ComboBoxCell({
   options,
   value,
   onChange,

@@ -1,6 +1,6 @@
 import { CellContext } from '@tanstack/react-table';
 
-export default function TableId<TData, TValue>({
+export default function IdCell<TData, TValue>({
   getValue,
 }: CellContext<TData, TValue>) {
   const value = getValue();

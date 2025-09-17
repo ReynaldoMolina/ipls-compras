@@ -16,7 +16,6 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
     id: proveedores.id,
     solvencia: max(solvencias.vence),
     nombre_comercial: proveedores.nombre_comercial,
-    razon_social: proveedores.razon_social,
     ruc: proveedores.ruc,
     telefono: proveedores.telefono,
     departamento: departamentos.departamento,
@@ -24,7 +23,6 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
 
   const filterBySearch = buildSearchFilter(searchParams, [
     proveedores.nombre_comercial,
-    proveedores.razon_social,
     proveedores.ruc,
   ]);
 

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { CellContext } from '@tanstack/react-table';
-import ComboBoxTable from './combobox-table';
-import { SelectTable } from './select-cell';
+import ComboBoxCell from './combobox-cell';
+import SelectCell from './select-cell';
 import { Input } from '../ui/input';
-import { formatter } from './number-cell';
+import { formatNumber } from '@/lib/formatters';
 
 const alignment = {
   text: 'text-left',
@@ -46,7 +46,7 @@ export function EditableCell<TData, TValue>({
 
   if (type === 'combobox')
     return (
-      <ComboBoxTable
+      <ComboBoxCell
         options={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
@@ -55,7 +55,7 @@ export function EditableCell<TData, TValue>({
 
   if (type === 'select')
     return (
-      <SelectTable
+      <SelectCell
         data={columnMeta?.options ?? []}
         value={value}
         onChange={onSelectChange}
@@ -112,7 +112,7 @@ function InlineEdit({
         {type === 'float' &&
         typeof currentValue === 'number' &&
         currentValue !== 0
-          ? formatter.format(currentValue ?? 0)
+          ? formatNumber(currentValue ?? 0)
           : currentValue !== 0
             ? currentValue
             : '-'}

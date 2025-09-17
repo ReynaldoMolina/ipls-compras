@@ -1,3 +1,4 @@
+import { years } from '@/components/actionbar/filter/filter-states-data';
 import { SolicitudForm } from '@/components/forms/solicitudes';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
@@ -19,6 +20,7 @@ export default async function Page() {
         <SolicitudForm
           action="create"
           entidadesAcademicas={entidadesAcademicas}
+          years={years}
         />
       </PageWrapper>
     </>

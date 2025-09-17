@@ -1,7 +1,7 @@
 'use client';
 
 import TableDate from '@/components/tables/date-cell';
-import Solvency from '@/components/tables/solvencia-state-cell';
+import Solvency from '@/components/tables/date-status-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import DefaultCell from '@/components/tables/default-cell';

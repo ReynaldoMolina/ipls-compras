@@ -1,7 +1,7 @@
 import { Checkbox } from '../ui/checkbox';
 import { CellContext, HeaderContext } from '@tanstack/react-table';
 
-export function TableCheckBoxHeader<TData, TValue>({
+export function CheckBoxCellHeader<TData, TValue>({
   table,
 }: HeaderContext<TData, TValue>) {
   return (
@@ -18,7 +18,7 @@ export function TableCheckBoxHeader<TData, TValue>({
   );
 }
 
-export function TableCheckBox<TData, TValue>({
+export function CheckBoxCell<TData, TValue>({
   row,
 }: CellContext<TData, TValue>) {
   return (

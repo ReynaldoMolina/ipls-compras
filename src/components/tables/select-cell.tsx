@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import { SelectOptions } from '@/types/types';
 
-export function SelectTable({
+export default function SelectCell({
   data,
   value,
   onChange,

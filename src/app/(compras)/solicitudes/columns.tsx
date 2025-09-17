@@ -4,7 +4,7 @@ import { EditLink } from '@/components/tables/edit-link';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import TableDate from '@/components/tables/date-cell';
-import { TableNumber } from '@/components/tables/number-cell';
+import { NumberCell } from '@/components/tables/number-cell';
 import { Solicitudes } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
@@ -44,16 +44,16 @@ export const columns: ColumnDef<Solicitudes>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Presupuestado" />
     ),
-    cell: TableNumber,
+    cell: NumberCell,
   },
   {
     accessorKey: 'asignado',
     header: ({ column }) => <SortButton column={column} label="Asignado" />,
-    cell: TableNumber,
+    cell: NumberCell,
   },
   {
     accessorKey: 'restante',
     header: ({ column }) => <SortButton column={column} label="Restante" />,
-    cell: TableNumber,
+    cell: NumberCell,
   },
 ];

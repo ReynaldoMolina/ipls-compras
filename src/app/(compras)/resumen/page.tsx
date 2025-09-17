@@ -41,7 +41,7 @@ export default async function Page(props: PageProps) {
           <Chart
             chartData={comparisonChartData}
             chartConfig={comparisonChartConfig}
-            title="Presupuesto general por especialidades"
+            title="Comparación presupuesto por especialidades"
             description={`Año ${year}`}
           />
         </div>

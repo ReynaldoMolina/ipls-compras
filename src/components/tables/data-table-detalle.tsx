@@ -25,7 +25,7 @@ import { useState } from 'react';
 import { Input } from '../ui/input';
 import { Delete, Save, Search } from 'lucide-react';
 import { Button } from '../ui/button';
-import { TableNewRow, TableOptions } from './actions';
+import { TableNewRow, TableOptions } from './actions-menu';
 import { saveSolicitudesDetalle } from '@/lib/actions/solicitudes-detalle';
 
 interface DataTableProps<TData, TValue> {

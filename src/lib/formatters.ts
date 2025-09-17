@@ -12,3 +12,8 @@ export function formatDate(date: string | null | undefined) {
 
   return format(newDate, 'dd MMM yyyy', { locale: es });
 }
+
+export const formatNumber = new Intl.NumberFormat('es-NI', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+}).format;
