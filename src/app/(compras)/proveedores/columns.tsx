@@ -3,15 +3,16 @@
 import DateStatus from '@/components/tables/date-status-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
+import { EditCell } from '@/components/tables/edit-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { Proveedores } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 
 export const columns: ColumnDef<Proveedores>[] = [
   {
-    id: 'actions',
-    header: 'Acciones',
-    cell: DefaultCell,
+    id: 'edit',
+    header: 'Edit',
+    cell: ({ row }) => <EditCell href={`/proveedores/${row.original.id}`} />,
   },
   {
     accessorKey: 'id',

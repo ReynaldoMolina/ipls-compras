@@ -9,13 +9,13 @@ import { usuarios } from '@/db/schema/usuarios';
 import { proveedores } from '@/db/schema/proveedores';
 
 export async function getSolvenciasByProviderId(
-  id: number,
+  id_proveedor: number,
   searchParams: SearchParamsProps
 ) {
   const selectFields = {
     id: solvencias.id,
     id_proveedor: solvencias.id_proveedor,
-    proveedor: proveedores.nombre_comercial,
+    nombre_comercial: proveedores.nombre_comercial,
     emitida: solvencias.emitida,
     vence: solvencias.vence,
     url: solvencias.url,
@@ -35,7 +35,7 @@ export async function getSolvenciasByProviderId(
       .from(solvencias)
       .leftJoin(usuarios, eq(solvencias.id_usuario, usuarios.id))
       .leftJoin(proveedores, eq(solvencias.id_proveedor, proveedores.id))
-      .where(and(filterBySearch, eq(solvencias.id_proveedor, id)))
+      .where(and(filterBySearch, eq(solvencias.id_proveedor, id_proveedor)))
       .groupBy(solvencias.id, usuarios.nombre, proveedores.id)
       .having(filterBySolvencia)
       .orderBy(orderBy);

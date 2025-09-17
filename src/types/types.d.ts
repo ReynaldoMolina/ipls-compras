@@ -68,7 +68,7 @@ export interface Solvencia {
 }
 
 export interface SolvenciaTable extends Solvencia {
-  proveedor: string | null;
+  nombre_comercial: string | null;
   usuario: string | null;
 }
 

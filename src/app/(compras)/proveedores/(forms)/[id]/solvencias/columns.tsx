@@ -1,13 +1,12 @@
 'use client';
 
-import TableDate from '@/components/tables/date-cell';
-import Solvency from '@/components/tables/date-status-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import DefaultCell from '@/components/tables/default-cell';
 import { SolvenciaTable } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
-import { EditLink } from '@/components/tables/edit-link';
+import DefaultCell from '@/components/tables/default-cell';
+import DateCell from '@/components/tables/date-cell';
+import Solvency from '@/components/tables/date-status-cell';
 
 export const columns: ColumnDef<SolvenciaTable>[] = [
   {
@@ -20,27 +19,22 @@ export const columns: ColumnDef<SolvenciaTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Nombre comercial" />
     ),
-    cell: ({ row }) => (
-      <EditLink
-        href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}/editar`}
-        label={row.original.proveedor ?? ''}
-      />
-    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'verificado',
     header: ({ column }) => <SortButton column={column} label="Verificado" />,
-    cell: TableDate,
+    cell: DateCell,
   },
   {
     accessorKey: 'recibido',
     header: ({ column }) => <SortButton column={column} label="Recibido" />,
-    cell: TableDate,
+    cell: DateCell,
   },
   {
     accessorKey: 'emitida',
     header: ({ column }) => <SortButton column={column} label="Emitida" />,
-    cell: TableDate,
+    cell: DateCell,
   },
   {
     accessorKey: 'vence',

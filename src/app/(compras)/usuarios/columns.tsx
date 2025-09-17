@@ -1,6 +1,5 @@
 'use client';
 
-import { EditLink } from '@/components/tables/edit-link';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import TableBool from '@/components/tables/bool-cell';
@@ -18,16 +17,7 @@ export const columns: ColumnDef<Usuario>[] = [
     id: 'nombre',
     header: ({ column }) => <SortButton column={column} label="Nombre" />,
     accessorFn: (row) => `${row.nombre ?? ''} ${row.apellido ?? ''}`.trim(),
-    cell: ({ row }) => (
-      <EditLink
-        href={`/usuarios/${row.original.id}/editar`}
-        label={
-          `${row.original.nombre ?? ''} ${row.original.apellido ?? ''}`.trim() ||
-          'Sin nombre'
-        }
-      />
-    ),
-    sortingFn: 'alphanumeric',
+    cell: DefaultCell,
   },
   {
     accessorKey: 'correo',

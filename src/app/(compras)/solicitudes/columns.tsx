@@ -1,6 +1,5 @@
 'use client';
 
-import { EditLink } from '@/components/tables/edit-link';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import TableDate from '@/components/tables/date-cell';
@@ -20,12 +19,7 @@ export const columns: ColumnDef<Solicitudes>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Carrera / curso / área" />
     ),
-    cell: ({ row }) => (
-      <EditLink
-        href={`/solicitudes/${row.original.id}/editar`}
-        label={row.original.entidad_academica ?? 'Sin nombre'}
-      />
-    ),
+    cell: DefaultCell,
   },
   {
     accessorKey: 'year',
