@@ -2,23 +2,21 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuGroup,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
-import { useUrlParams } from '@/hooks/useUrlParams';
+import { useUrlParams } from '@/hooks/use-url-params';
 import { SelectOptions } from '@/types/types';
 
-export function FilterState({
+export function FilterCheckBox({
   label,
-  states = [],
+  options = [],
   paramKey,
-  pageKey,
 }: {
   label: string;
-  states?: SelectOptions[];
+  options?: SelectOptions[];
   paramKey: string;
-  pageKey: string;
 }) {
-  const { getParam, setParam } = useUrlParams(pageKey);
+  const { getParam, setCheckBoxParam } = useUrlParams();
   const activeStates = getParam(paramKey);
 
   function toggle(state: string) {
@@ -26,22 +24,22 @@ export function FilterState({
       ? activeStates.filter((s) => s !== state)
       : [...activeStates, state];
 
-    setParam(paramKey, newStates);
+    setCheckBoxParam(paramKey, newStates);
   }
 
   return (
     <DropdownMenuGroup>
-      <DropdownMenuLabel className="text-sm">{label}</DropdownMenuLabel>
-      <Separator className="mb-1" />
-      {states.map((state) => {
-        const isActive = activeStates.includes(String(state.value));
+      <DropdownMenuLabel>{label}</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      {options.map((option) => {
+        const isActive = activeStates.includes(String(option.value));
         return (
           <DropdownMenuCheckboxItem
-            key={state.value}
+            key={option.value}
             checked={isActive}
-            onCheckedChange={() => toggle(String(state.value))}
+            onCheckedChange={() => toggle(String(option.value))}
           >
-            <span className="text-sm">{state.label}</span>
+            {option.label}
           </DropdownMenuCheckboxItem>
         );
       })}

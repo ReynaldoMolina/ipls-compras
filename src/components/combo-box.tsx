@@ -33,6 +33,7 @@ interface ComboBoxProps<T extends FieldValues> {
   options: ComboBoxData;
   form: UseFormReturn<T>;
   updateParams?: boolean;
+  resetOnOptionsChange?: boolean;
 }
 
 export function ComboBox<T extends FieldValues>({
@@ -58,7 +59,7 @@ export function ComboBox<T extends FieldValues>({
           >
             {field.value
               ? options.find((option) => option.value === String(field.value))
-                  ?.label || 'Selecciona una opción'
+                  ?.label
               : 'Selecciona una opción'}
             <ChevronsUpDown className="opacity-50 ml-auto" />
           </Button>
@@ -77,7 +78,10 @@ export function ComboBox<T extends FieldValues>({
                   value={element.label}
                   onSelect={() => {
                     form.setValue(field.name, Number(element.value));
-                    if (updateParams) setUrlParam('sector', element.value);
+                    if (updateParams) {
+                      setUrlParam('sector', element.value);
+                      form.setValue('id_subsector', 0);
+                    }
                     setOpen(false);
                   }}
                 >

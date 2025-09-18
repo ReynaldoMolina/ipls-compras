@@ -5,19 +5,14 @@ import {
   getDepartamentos,
   getSectores,
   getSubsectoresBySector,
-} from '@/lib/data/forms';
+} from '@/lib/data/form-elements';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Nuevo proveedor',
 };
 
-type Props = {
-  searchParams?: {
-    sector?: string;
-  };
-};
-
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
   const sectorId = searchParams?.sector
     ? Number(searchParams.sector)

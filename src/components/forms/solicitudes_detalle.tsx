@@ -13,8 +13,8 @@ import {
 } from '@/components/ui/form';
 import { solicitudSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
-import FormButtons from './elements/form-buttons';
-import { ComboBoxData, Solicitud } from '@/types/types';
+import FormButtons from './elements/form-footer';
+import { ComboBoxData, FormAction, Solicitud } from '@/types/types';
 import { createUser, updateUser } from '@/lib/actions/usuarios';
 import { Switch } from '../ui/switch';
 import {
@@ -36,7 +36,7 @@ export function SolicitudForm({
   solicitud,
   entidadesAcademicas,
 }: {
-  action: 'create' | 'edit';
+  action: FormAction;
   solicitud?: Solicitud;
   entidadesAcademicas: ComboBoxData;
 }) {

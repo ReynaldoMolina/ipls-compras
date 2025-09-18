@@ -3,11 +3,11 @@
 import { useMemo } from 'react';
 import { DataTableDetalle } from './data-table-detalle';
 import { SolicitudDetalle, SelectOptions } from '@/types/types';
-import { getSolicitudesDetalleColumns } from '@/app/(compras)/solicitudes/(forms)/columns';
+import { getSolicitudesDetalleColumns } from '@/app/(compras)/solicitudes/(forms)/[id]/detalle/columns';
 
 type Props = {
   idSolicitud: number;
-  data?: SolicitudDetalle[];
+  tableData?: SolicitudDetalle[];
   unidadesMedida: SelectOptions[];
   estados: SelectOptions[];
   ubicaciones: SelectOptions[];
@@ -16,7 +16,7 @@ type Props = {
 
 export default function SolicitudesDetalleTable({
   idSolicitud,
-  data,
+  tableData,
   unidadesMedida,
   estados,
   ubicaciones,
@@ -37,7 +37,7 @@ export default function SolicitudesDetalleTable({
     <DataTableDetalle
       idSolicitud={idSolicitud}
       columns={columns}
-      initialData={data}
+      initialData={tableData}
     />
   );
 }

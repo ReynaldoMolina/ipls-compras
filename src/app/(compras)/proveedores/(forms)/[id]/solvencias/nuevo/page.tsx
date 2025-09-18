@@ -1,9 +1,9 @@
-import { EditPageProps } from '@/types/types';
+import { PageProps } from '@/types/types';
 import { SolvenciaForm } from '@/components/forms/solvencias';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 
-export async function generateMetadata(props: EditPageProps) {
+export async function generateMetadata(props: PageProps) {
   const params = await props.params;
   const { id } = params;
   return {
@@ -11,17 +11,7 @@ export async function generateMetadata(props: EditPageProps) {
   };
 }
 
-type Props = {
-  params?: {
-    id: string;
-    idsol: string;
-  };
-  searchParams?: {
-    solvencia?: string;
-  };
-};
-
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps) {
   const params = await props.params;
   const id_proveedor = Number(params?.id);
 

@@ -8,7 +8,7 @@ import { getDateStatus } from '@/lib/get-date-status';
 export default function DateStatusCell({ date }: { date: string | null }) {
   const dateStatus = getDateStatus(date);
   const formattedDate = formatDate(date);
-  const iconClass = 'size-3.5';
+  const iconClass = 'size-4';
 
   const statusConfig = {
     active: {

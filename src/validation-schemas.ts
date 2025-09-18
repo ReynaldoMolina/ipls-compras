@@ -27,7 +27,7 @@ export const usuarioSchema = z.object({
   nombre: z.string().min(1, 'Requerido'),
   apellido: z.string().min(1, 'Requerido'),
   correo: z.email('Ingresa un correo válido'),
-  rol: z.string('Requerido'),
+  rol: z.string().min(1, 'Requerido'),
   activo: z.boolean('Requerido'),
 });
 
@@ -42,4 +42,22 @@ export const solicitudSchema = z.object({
   year: z.number().min(1, 'Requerido'),
   id_usuario: z.number().min(1, 'Requerido'),
   revisado_bodega: z.boolean().nullable(),
+});
+
+export const detalleSolicitudSchema = z.object({
+  id_solicitud: z.number().min(1, 'Requerido'),
+  producto_servicio: z.string().min(1, 'Requerido'),
+  cantidad: z.number().min(1, 'Requerido'),
+  id_unidad_medida: z.number().min(1, 'Requerido'),
+  precio: z.number().min(1, 'Requerido'),
+  observaciones: z.string().nullable(),
+  prioridad: z.string().nullable(),
+  comprado: z.number().nullable(),
+  recibido: z.number().nullable(),
+  precio_compra: z.number().nullable(),
+  entrega_bodega: z.number().nullable(),
+  precio_bodega: z.number().nullable(),
+  id_estado: z.number().nullable(),
+  id_ubicacion: z.number().nullable(),
+  id_categoria: z.number().min(1, 'Requerido'),
 });

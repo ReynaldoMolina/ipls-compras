@@ -1,12 +1,11 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import { Delete } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export default function SearchInput() {
@@ -48,7 +47,7 @@ export default function SearchInput() {
           className="absolute right-1 size-7"
           onClick={() => handleChange('')}
         >
-          <Delete className="text-muted-foreground" />
+          <X />
         </Button>
       )}
     </div>

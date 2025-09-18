@@ -2,7 +2,7 @@
 
 import { db } from '@/db/db';
 import { PrevState, Provider } from '@/types/types';
-import { goBackTo } from './actionsUtils';
+import { goBackTo } from './go-back-to-list';
 import { proveedores } from '@/db/schema/proveedores';
 import { eq } from 'drizzle-orm';
 

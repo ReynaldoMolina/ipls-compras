@@ -2,7 +2,7 @@
 
 import { db } from '@/db/db';
 import { PrevState, Solvencia } from '@/types/types';
-import { goBackTo } from './actionsUtils';
+import { goBackTo } from './go-back-to-list';
 import { solvencias } from '@/db/schema/solvencias';
 import { eq } from 'drizzle-orm';
 

@@ -11,6 +11,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -81,6 +82,28 @@ export function DataTable<TData, TValue>({
           </TableRow>
         )}
       </TableBody>
+      {table.getAllColumns().some((col) => col.columnDef.footer) &&
+        table.getRowModel().rows?.length > 0 && (
+          <TableFooter>
+            {table.getFooterGroups().map((footerGroup) => (
+              <TableRow
+                key={footerGroup.id}
+                className="border-double border-t-3"
+              >
+                {footerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="p-1">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.footer,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableFooter>
+        )}
     </Table>
   );
 }

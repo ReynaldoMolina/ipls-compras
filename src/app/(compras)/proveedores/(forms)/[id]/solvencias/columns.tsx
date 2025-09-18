@@ -7,8 +7,18 @@ import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import DateCell from '@/components/tables/date-cell';
 import Solvency from '@/components/tables/date-status-cell';
+import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<SolvenciaTable>[] = [
+  {
+    id: 'edit',
+    header: 'Edit',
+    cell: ({ row }) => (
+      <EditCell
+        href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}`}
+      />
+    ),
+  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,

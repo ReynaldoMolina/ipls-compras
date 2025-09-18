@@ -6,8 +6,14 @@ import TableBool from '@/components/tables/bool-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { Usuario } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
+import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<Usuario>[] = [
+  {
+    id: 'edit',
+    header: 'Edit',
+    cell: ({ row }) => <EditCell href={`/usuarios/${row.original.id}`} />,
+  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,

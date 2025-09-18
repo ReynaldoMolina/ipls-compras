@@ -1,17 +1,34 @@
 import { formatNumber } from '@/lib/formatters';
 import { CellContext } from '@tanstack/react-table';
 
-export function NumberCell<TData, TValue>({
+export function NumberIntegerCell<TData, TValue>({
   getValue,
 }: CellContext<TData, TValue>) {
   const rawValue = getValue() as number | null;
   const value = rawValue ?? 0;
+  const isZero = value === 0;
 
   return (
     <span
-      className={`${value < 0 && 'text-destructive'} block w-full text-right`}
+      className={`${value < 0 && 'text-destructive'} ${isZero && 'text-muted-foreground'} block w-full text-center`}
     >
-      {formatNumber(value)}
+      {isZero ? '-' : value}
+    </span>
+  );
+}
+
+export function NumberFloatCell<TData, TValue>({
+  getValue,
+}: CellContext<TData, TValue>) {
+  const rawValue = getValue() as number | null;
+  const value = rawValue ?? 0;
+  const isZero = value === 0;
+
+  return (
+    <span
+      className={`${value < 0 && 'text-destructive'} ${isZero && 'text-muted-foreground'} block w-full text-right`}
+    >
+      {isZero ? '-' : formatNumber(value)}
     </span>
   );
 }
@@ -27,6 +44,7 @@ export function NumberCellWithValue({
   if (isNaN(newValue)) {
     newValue = 0;
   }
+  const isZero = value === 0;
 
   const alignments = {
     float: 'text-right',
@@ -35,9 +53,9 @@ export function NumberCellWithValue({
 
   return (
     <span
-      className={`${newValue < 0 && 'text-destructive'} ${alignments[type]} block w-full px-1 text-muted-foreground`}
+      className={`${newValue < 0 && 'text-destructive'} ${alignments[type]} ${isZero && 'text-muted-foreground'} block w-full px-1 text-muted-foreground`}
     >
-      {type === 'float' ? formatNumber(newValue) : newValue}
+      {isZero ? '-' : type === 'float' ? formatNumber(newValue) : newValue}
     </span>
   );
 }

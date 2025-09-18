@@ -6,40 +6,36 @@ import { z } from 'zod';
 
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { solvenciaSchema } from '@/validation-schemas';
-import FormButtons from './elements/form-buttons';
-import { Solvencia } from '@/types/types';
+import { FormAction, Solvencia } from '@/types/types';
 import { createSolvencia, updateSolvencia } from '@/lib/actions/solvencias';
 import { DatePicker } from '../date-picker';
-import { Input } from '../ui/input';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+import { Card, CardContent } from '../ui/card';
+import FormHeader from './elements/form-header';
+import FormOptions from './elements/form-options';
+import FormTextField from './elements/form-text-field';
+import FormFooter from './elements/form-footer';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
+
+interface SolvenciaFormProps {
+  action: FormAction;
+  solvencia?: Solvencia;
+  id_proveedor: number;
+}
 
 export function SolvenciaForm({
   action,
   solvencia,
   id_proveedor,
-}: {
-  action: 'create' | 'edit';
-  solvencia?: Solvencia;
-  id_proveedor: number;
-}) {
+}: SolvenciaFormProps) {
   const form = useForm<z.infer<typeof solvenciaSchema>>({
     resolver: zodResolver(solvenciaSchema),
     defaultValues: solvencia
@@ -80,27 +76,19 @@ export function SolvenciaForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-2xl mx-auto">
-          <CardHeader>
-            <CardTitle>
-              {action === 'create' ? 'Nueva' : 'Editar'} solvencia
-            </CardTitle>
-            <CardDescription>
-              {action === 'create' ? 'Ingresa' : 'Edita'} la información de la
-              solvencia
-            </CardDescription>
-          </CardHeader>
+          <FormHeader action={action} name="solvencia" noun="f">
+            <FormOptions action={action} />
+          </FormHeader>
           <CardContent>
-            <FormField
-              control={form.control}
-              name="id_proveedor"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <Input placeholder="Id proveedor" {...field} disabled />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormFieldSet name="verification">
+              <FormTextField
+                control={form.control}
+                name="id_proveedor"
+                label="Id proveedor"
+                placeholder="Id proveedor"
+                hidden
+                disabled
+              />
               <FormInputGroup>
                 <FormField
                   control={form.control}
@@ -125,18 +113,12 @@ export function SolvenciaForm({
                   )}
                 />
               </FormInputGroup>
-              <FormField
+              <FormTextField
                 control={form.control}
                 name="id_usuario"
-                render={({ field }) => (
-                  <FormItem className="hidden">
-                    <FormLabel>Verificado por</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nombre" type="number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Verificado por"
+                placeholder="Usuario"
+                disabled
               />
             </FormFieldSet>
             <FormFieldSet name="info">
@@ -164,28 +146,15 @@ export function SolvenciaForm({
                   )}
                 />
               </FormInputGroup>
-              <FormField
+              <FormTextField
                 control={form.control}
                 name="url"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Url</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Url"
-                        {...field}
-                        value={field.value ?? ''}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Url"
+                placeholder="Url"
               />
             </FormFieldSet>
           </CardContent>
-          <CardFooter>
-            <FormButtons action={action} />
-          </CardFooter>
+          <FormFooter action={action} />
         </Card>
       </form>
     </Form>

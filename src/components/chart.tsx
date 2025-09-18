@@ -17,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
-import { formatter } from './tables/number-cell';
+import { formatNumber } from '@/lib/formatters';
 
 interface ChartProps {
   chartData: ChartData[];
@@ -61,7 +61,7 @@ export default function Chart({
                   offset={12}
                   className="fill-foreground"
                   fontSize={11}
-                  formatter={(value: number) => formatter.format(value)}
+                  formatter={(value: number) => formatNumber(value)}
                 />
               </Bar>
             ))}

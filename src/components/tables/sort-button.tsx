@@ -1,4 +1,4 @@
-import { useSortParams } from '../../hooks/use-setSort';
+import { useSortParams } from '../../hooks/use-set-sort';
 import { ArrowUp } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Column } from '@tanstack/react-table';

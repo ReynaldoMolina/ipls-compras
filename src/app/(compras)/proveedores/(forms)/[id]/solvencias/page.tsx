@@ -1,13 +1,16 @@
 import { DataTable } from '@/components/tables/data-table';
-import { EditPageProps } from '@/types/types';
+import { PageProps } from '@/types/types';
 import { columns } from './columns';
-import { getSolvenciasByProviderId } from '@/lib/data/solvencias';
+import {
+  getSolvenciasByProviderId,
+  getUniqueYearsFromSolvencias,
+} from '@/lib/data/solvencias';
 import ActionBar from '@/components/actionbar/action-bar';
 import FilterButton from '@/components/actionbar/filter-button';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 
-export async function generateMetadata(props: EditPageProps) {
+export async function generateMetadata(props: PageProps) {
   const params = await props.params;
   const { id } = params;
   return {
@@ -15,27 +18,15 @@ export async function generateMetadata(props: EditPageProps) {
   };
 }
 
-type Props = {
-  params?: {
-    id: string;
-  };
-  searchParams: {
-    solvencia?: string;
-  };
-};
-
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps) {
   const params = await props.params;
-  const id_proveedor = Number(params?.id);
   const searchParams = await props.searchParams;
-  const tableData = await getSolvenciasByProviderId(id_proveedor, searchParams);
-
-  const years = [
-    {
-      value: '2025',
-      label: '2025',
-    },
-  ];
+  const id_proveedor = Number(params?.id);
+  const tableData = await getSolvenciasByProviderId(
+    id_proveedor,
+    searchParams || {}
+  );
+  const years = await getUniqueYearsFromSolvencias();
 
   return (
     <>

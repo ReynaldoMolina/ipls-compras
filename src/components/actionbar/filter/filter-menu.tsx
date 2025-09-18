@@ -1,21 +1,20 @@
 import { FilterOptions } from '@/types/types';
-import { FilterState } from './filter-state';
-import { solvenciaStatus, years } from './filter-states-data';
+import { FilterCheckBox } from './filter-checkbox';
+import { solvenciaStatus } from './filter-states-data';
+import { FilterRadio } from './filter-radio';
 
 export function ProvidersFilters(filterOptions: FilterOptions) {
   return (
     <>
-      <FilterState
+      <FilterCheckBox
         label="Solvencia"
-        states={solvenciaStatus}
+        options={solvenciaStatus}
         paramKey="solvencia"
-        pageKey="proveedores"
       />
-      <FilterState
+      <FilterCheckBox
         label="Departamentos"
-        states={filterOptions?.departamentosOptions}
+        options={filterOptions?.departamentosOptions}
         paramKey="departamento"
-        pageKey="proveedores"
       />
     </>
   );
@@ -24,12 +23,7 @@ export function ProvidersFilters(filterOptions: FilterOptions) {
 export function ResumenFilters(filterOptions: FilterOptions) {
   return (
     <>
-      <FilterState
-        label="Año"
-        states={filterOptions.years}
-        paramKey="year"
-        pageKey="resumen"
-      />
+      <FilterRadio label="Año" options={filterOptions.years} paramKey="year" />
     </>
   );
 }
@@ -37,11 +31,10 @@ export function ResumenFilters(filterOptions: FilterOptions) {
 export function SolvenciasFilters(filterOptions: FilterOptions) {
   return (
     <>
-      <FilterState
+      <FilterCheckBox
         label="Año"
-        states={years}
+        options={filterOptions.years}
         paramKey="year"
-        pageKey="solvencias"
       />
     </>
   );
@@ -50,17 +43,27 @@ export function SolvenciasFilters(filterOptions: FilterOptions) {
 export function UsuariosFilters(filterOptions: FilterOptions) {
   return (
     <>
-      <FilterState
+      <FilterRadio
         label="Estado"
-        states={filterOptions.userStates}
+        options={filterOptions.userStates}
         paramKey="activo"
-        pageKey="usuarios"
       />
-      <FilterState
+      <FilterCheckBox
         label="Rol"
-        states={filterOptions.userRoles}
+        options={filterOptions.userRoles}
         paramKey="rol"
-        pageKey="usuarios"
+      />
+    </>
+  );
+}
+
+export function SolicitudesFilters(filterOptions: FilterOptions) {
+  return (
+    <>
+      <FilterCheckBox
+        label="Año"
+        options={filterOptions.years}
+        paramKey="year"
       />
     </>
   );

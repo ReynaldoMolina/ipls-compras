@@ -17,7 +17,45 @@ export const solvenciaStatus = [
   },
 ];
 
+export const userStates = [
+  {
+    value: 'true',
+    label: 'Activo',
+  },
+  {
+    value: 'false',
+    label: 'Inactivo',
+  },
+];
+
+export const roles = [
+  {
+    value: 'superadmin',
+    label: 'Super admin',
+  },
+  {
+    value: 'administrador',
+    label: 'Administrador',
+  },
+  {
+    value: 'docente',
+    label: 'Docente',
+  },
+];
+
+export const prioridad = [
+  {
+    value: 'I semestre',
+    label: 'I semestre',
+  },
+  {
+    value: 'II semestre',
+    label: 'II semestre',
+  },
+];
+
 export const currentYear = new Date().getFullYear();
+
 const startYear = 2024;
 const endYear = currentYear + 1;
 

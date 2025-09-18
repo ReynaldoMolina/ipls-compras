@@ -7,21 +7,22 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { ListFilter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import {
   ProvidersFilters,
   ResumenFilters,
+  SolicitudesFilters,
   SolvenciasFilters,
   UsuariosFilters,
 } from './filter/filter-menu';
 import { FilterOptions } from '@/types/types';
-import { JSX, useState } from 'react';
+import { useState } from 'react';
 
-export default function FilterButton({
-  filterOptions,
-}: {
+interface FilterButtonProps {
   filterOptions: FilterOptions;
-}) {
+}
+
+export default function FilterButton({ filterOptions }: FilterButtonProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const filterMenu = getFilterMenuByPath(pathname, filterOptions);
@@ -30,7 +31,7 @@ export default function FilterButton({
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <ListFilter />
+          <Filter />
           <span className="hidden sm:inline-flex">Filtrar</span>
         </Button>
       </DropdownMenuTrigger>
@@ -43,12 +44,28 @@ export default function FilterButton({
 }
 
 function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
-  const menuMap: Record<string, JSX.Element> = {
-    '/proveedores': <ProvidersFilters {...filterOptions} />,
-    '/proveedores/[id]/solvencias': <SolvenciasFilters {...filterOptions} />,
-    '/usuarios': <UsuariosFilters {...filterOptions} />,
-    '/resumen': <ResumenFilters {...filterOptions} />,
-  };
+  if (
+    pathname.startsWith('/proveedores/') &&
+    pathname.endsWith('/solvencias')
+  ) {
+    return <SolvenciasFilters {...filterOptions} />;
+  }
 
-  return menuMap[pathname] ?? null;
+  if (pathname === '/proveedores') {
+    return <ProvidersFilters {...filterOptions} />;
+  }
+
+  if (pathname === '/usuarios') {
+    return <UsuariosFilters {...filterOptions} />;
+  }
+
+  if (pathname === '/resumen') {
+    return <ResumenFilters {...filterOptions} />;
+  }
+
+  if (pathname === '/solicitudes') {
+    return <SolicitudesFilters {...filterOptions} />;
+  }
+
+  return null;
 }

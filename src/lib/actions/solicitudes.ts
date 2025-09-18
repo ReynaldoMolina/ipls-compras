@@ -2,7 +2,7 @@
 
 import { db } from '@/db/db';
 import { PrevState, Solicitud } from '@/types/types';
-import { goBackTo } from './actionsUtils';
+import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
 import { solicitudes } from '@/db/schema/solicitudes';
 

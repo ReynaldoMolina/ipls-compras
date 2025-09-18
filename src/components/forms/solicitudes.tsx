@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -13,37 +12,34 @@ import {
 } from '@/components/ui/form';
 import { solicitudSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
-import FormButtons from './elements/form-buttons';
-import { ComboBoxData, SolicitudFormType } from '@/types/types';
+import { ComboBoxData, FormAction, SolicitudFormType } from '@/types/types';
 import { createSolicitud, updateSolicitud } from '@/lib/actions/solicitudes';
-import { Switch } from '../ui/switch';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
-import { ComboBox } from '../combo-box';
-import { Input } from '../ui/input';
 import FormInputGroup from './elements/form-input-group';
-import FormSelect from '../select';
+import FormHeader from './elements/form-header';
+import FormOptions from './elements/form-options';
+import FormCombobox from './elements/form-combobox';
+import FormTextField from './elements/form-text-field';
+import { FormSwitch } from './elements/form-switch';
+import { FormLink } from './elements/form-link';
+import FormFooter from './elements/form-footer';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
+
+interface SolicitudFormProps {
+  action: FormAction;
+  solicitud?: SolicitudFormType;
+  entidadesAcademicas: ComboBoxData;
+  years: ComboBoxData;
+}
 
 export function SolicitudForm({
   action,
   solicitud,
   entidadesAcademicas,
   years,
-}: {
-  action: 'create' | 'edit';
-  solicitud?: SolicitudFormType;
-  entidadesAcademicas: ComboBoxData;
-  years: ComboBoxData;
-}) {
+}: SolicitudFormProps) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
     resolver: zodResolver(solicitudSchema),
     defaultValues: solicitud
@@ -74,17 +70,16 @@ export function SolicitudForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-2xl">
-          <CardHeader>
-            <CardTitle>
-              {action === 'create' ? 'Nueva' : 'Editar'} solicitud
-            </CardTitle>
-            <CardDescription>
-              {action === 'create' ? 'Ingresa' : 'Edita'} la información de la
-              solicitud
-            </CardDescription>
-          </CardHeader>
+        <Card className="max-w-3xl mx-auto">
+          <FormHeader action={action} name="solicitud" noun="f">
+            <FormOptions action={action} />
+          </FormHeader>
           <CardContent>
+            <FormLink
+              action={action}
+              href={`/solicitudes/${solicitud?.id}/detalle`}
+              label="Ir a detalle de la solicitud"
+            />
             <FormFieldSet name="info">
               <FormInputGroup>
                 <FormField
@@ -98,75 +93,35 @@ export function SolicitudForm({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
+                <FormCombobox
+                  form={form}
                   name="year"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Año</FormLabel>
-                      <ComboBox field={field} options={years} form={form} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Año"
+                  options={years}
                 />
               </FormInputGroup>
-              <FormField
-                control={form.control}
+              <FormCombobox
+                form={form}
                 name="id_entidad_academica"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Carrera / curso / área</FormLabel>
-                    <ComboBox
-                      field={field}
-                      options={entidadesAcademicas}
-                      form={form}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Carrera / curso / área"
+                options={entidadesAcademicas}
               />
-              <FormField
+              <FormTextField
                 control={form.control}
                 name="id_usuario"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Solicitado por</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Nombre"
-                        type="number"
-                        {...field}
-                        disabled
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Solicitado por"
+                placeholder="Nombre"
+                disabled
               />
-              <FormField
+              <FormSwitch
                 control={form.control}
                 name="revisado_bodega"
-                render={({ field }) => (
-                  <FormItem>
-                    <span className="text-sm font-medium">Estado</span>
-                    <div className="flex flex-row items-center justify-between rounded-md border px-3 py-2 shadow-xs max-h-9">
-                      <FormLabel>¿Revisado por bodega?</FormLabel>
-                      <FormControl>
-                        <Switch
-                          checked={field.value ?? false}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Estado"
+                description="¿Revisado por bodega?"
               />
             </FormFieldSet>
           </CardContent>
-          <CardFooter>
-            <FormButtons action={action} />
-          </CardFooter>
+          <FormFooter action={action} />
         </Card>
       </form>
     </Form>

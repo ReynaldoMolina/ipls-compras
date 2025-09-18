@@ -1,7 +1,7 @@
 import { Check, XIcon } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
-const iconStyle = 'size-3.5';
+const iconStyle = 'size-4';
 
 export default function BoolCell({ value }: { value: boolean | null }) {
   if (value === null) {

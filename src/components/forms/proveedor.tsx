@@ -3,36 +3,27 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import { providerSchema } from '@/validation-schemas';
-import { ComboBox } from '../combo-box';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
-import FormButtons from './elements/form-buttons';
-import { ComboBoxData, ProveedorFormType } from '@/types/types';
+import FormFooter from './elements/form-footer';
+import { ComboBoxData, FormAction, ProveedorFormType } from '@/types/types';
 import { createProvider, updateProvider } from '@/lib/actions/providers';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
-import SolvenciaState from '../tables/date-status-cell';
-import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
+import FormHeader from './elements/form-header';
+import FormTextField from './elements/form-text-field';
+import FormCombobox from './elements/form-combobox';
+import FormOptions from './elements/form-options';
+import { FormLink } from './elements/form-link';
 
-type ProviderFormValues = z.infer<typeof providerSchema>;
+interface ProveedorFormProps {
+  action: FormAction;
+  provider?: ProveedorFormType;
+  departamentos: ComboBoxData;
+  sectores: ComboBoxData;
+  subsectores: ComboBoxData;
+}
 
 export function ProveedorForm({
   action,
@@ -40,14 +31,7 @@ export function ProveedorForm({
   departamentos,
   sectores,
   subsectores,
-}: {
-  action: 'create' | 'edit';
-  provider?: ProveedorFormType;
-  departamentos: ComboBoxData;
-  sectores: ComboBoxData;
-  subsectores: ComboBoxData;
-}) {
-  // 1. Define your form.
+}: ProveedorFormProps) {
   const form = useForm<z.infer<typeof providerSchema>>({
     resolver: zodResolver(providerSchema),
     defaultValues: provider
@@ -88,212 +72,83 @@ export function ProveedorForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {action === 'create' ? 'Nuevo' : 'Editar'} proveedor
-            </CardTitle>
-            <CardDescription>
-              {action === 'create' ? 'Ingresa' : 'Edita'} la información del
-              proveedor, haz click en{' '}
-              {action === 'create' ? 'Crear' : 'Guardar'} cuando estés listo.
-            </CardDescription>
-          </CardHeader>
+        <Card className="mx-auto max-w-3xl">
+          <FormHeader action={action} name="proveedor" noun="m">
+            <FormOptions action={action} />
+          </FormHeader>
           <CardContent>
-            {action === 'edit' && (
-              <Button asChild size="sm" variant="outline">
-                <Link
-                  href={`/proveedores/${provider?.id}/solvencias`}
-                  className="inline-flex items-center gap-2 ml-auto"
-                >
-                  Ver solvencias
-                  <ChevronRight className="size-4" />
-                </Link>
-              </Button>
-            )}
-
+            <FormLink
+              action={action}
+              href={`/proveedores/${provider?.id}/solvencias`}
+              label="Ir a solvencias"
+            />
             <FormFieldSet name="info">
-              <FormField
+              <FormTextField
                 control={form.control}
                 name="nombre_comercial"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nombre comercial</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nombre" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Nombre comercial"
               />
               <FormInputGroup>
-                <FormField
+                <FormTextField
                   control={form.control}
                   name="razon_social"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Razón social</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Razón social"
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Razón social"
                 />
-
-                <FormField
-                  control={form.control}
-                  name="ruc"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RUC</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="RUC"
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <FormTextField control={form.control} name="ruc" label="RUC" />
               </FormInputGroup>
             </FormFieldSet>
 
             <FormFieldSet name="contact">
               <FormInputGroup>
-                <FormField
+                <FormTextField
                   control={form.control}
                   name="contacto_principal"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Contacto principal</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Nombre"
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Nombre"
                 />
-                <FormField
+                <FormTextField
                   control={form.control}
                   name="telefono"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Teléfono</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Teléfono"
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Teléfono"
                 />
               </FormInputGroup>
               <FormInputGroup>
-                <FormField
+                <FormTextField
                   control={form.control}
                   name="correo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Correo</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Correo"
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Correo"
                 />
-                <FormField<ProviderFormValues>
-                  control={form.control}
+                <FormCombobox
+                  form={form}
                   name="id_departamento"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Departamento</FormLabel>
-                      <ComboBox
-                        field={field}
-                        options={departamentos}
-                        form={form}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Departamento"
+                  options={departamentos}
                 />
               </FormInputGroup>
-              <FormField
+              <FormTextField
                 control={form.control}
                 name="direccion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Dirección</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Dirección"
-                        {...field}
-                        value={field.value ?? ''}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Dirección"
               />
             </FormFieldSet>
 
             <FormFieldSet name="sector">
-              <FormInputGroup>
-                <FormField<ProviderFormValues>
-                  control={form.control}
-                  name="id_sector"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Sector</FormLabel>
-                      <ComboBox
-                        field={field}
-                        options={sectores}
-                        form={form}
-                        updateParams={true}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField<ProviderFormValues>
-                  control={form.control}
-                  name="id_subsector"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Subsector</FormLabel>
-                      <ComboBox
-                        field={field}
-                        options={subsectores}
-                        form={form}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </FormInputGroup>
+              <FormCombobox
+                form={form}
+                name="id_sector"
+                label="Sector"
+                options={sectores}
+                updateParams
+              />
+              <FormCombobox
+                form={form}
+                name="id_subsector"
+                label="Subsector"
+                options={subsectores}
+                resetOnOptionsChange
+              />
             </FormFieldSet>
           </CardContent>
-          <CardFooter>
-            <FormButtons action={action} />
-          </CardFooter>
+          <FormFooter action={action} />
         </Card>
       </form>
     </Form>

@@ -1,4 +1,5 @@
 import { proveedores } from '@/db/schema/proveedores';
+import { solicitudes } from '@/db/schema/solicitudes';
 import { solvencias } from '@/db/schema/solvencias';
 import { usuarios } from '@/db/schema/usuarios';
 import { SearchParamsProps } from '@/types/types';
@@ -43,8 +44,6 @@ export function buildFilterUsuariosByRol(searchParams: SearchParamsProps) {
 export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
   const states = searchParams.activo?.split(',').filter(Boolean) ?? [];
 
-  console.log(states);
-
   const statesMap: Record<string, boolean> = {
     true: true,
     false: false,
@@ -54,9 +53,13 @@ export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
     .map((state) => statesMap[state])
     .filter((value): value is boolean => value !== undefined);
 
-  console.log(mappedStates);
-
   return mappedStates.length > 0
     ? inArray(usuarios.activo, mappedStates)
     : undefined;
+}
+
+export function buildFilterSolicitudesByYear(searchParams: SearchParamsProps) {
+  const years = searchParams.year?.split(',').filter(Boolean) ?? [];
+  const mappedYears = years.map((year) => Number(year));
+  return years.length > 0 ? inArray(solicitudes.year, mappedYears) : undefined;
 }

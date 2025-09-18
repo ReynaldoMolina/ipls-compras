@@ -1,16 +1,5 @@
-import {
-  ControllerRenderProps,
-  FieldValues,
-  Path,
-  UseFormReturn,
-} from 'react-hook-form';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from './ui/form';
+import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
+import { FormControl } from './ui/form';
 import {
   Select,
   SelectContent,
@@ -25,12 +14,10 @@ interface SelectProps<T extends FieldValues> {
   options: SelectOptions[];
 }
 
-export default function FormSelect<T extends FieldValues>({
+export default function SelectField<T extends FieldValues>({
   field,
   options,
 }: SelectProps<T>) {
-  console.log(field.value);
-
   return (
     <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
       <FormControl>

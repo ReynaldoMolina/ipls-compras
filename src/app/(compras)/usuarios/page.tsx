@@ -8,32 +8,17 @@ import FilterButton from '@/components/actionbar/filter-button';
 import { DataTable } from '@/components/tables/data-table';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-
-const title = 'Usuarios';
+import { PageProps } from '@/types/types';
+import { userStates } from '@/components/actionbar/filter/filter-states-data';
 
 export const metadata = {
-  title: title,
+  title: 'Usuarios',
 };
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
-  const tableData = await getUsersTableData(searchParams);
+  const tableData = await getUsersTableData(searchParams || {});
   const userRoles = await getUniqueRolsFromUsuarios();
-
-  const userStates = [
-    {
-      value: 'true',
-      label: 'Activo',
-    },
-    {
-      value: 'false',
-      label: 'Inactivo',
-    },
-  ];
 
   return (
     <>

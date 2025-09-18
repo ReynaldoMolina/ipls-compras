@@ -2,7 +2,7 @@
 
 import { db } from '@/db/db';
 import { PrevState, Usuario } from '@/types/types';
-import { goBackTo } from './actionsUtils';
+import { goBackTo } from './go-back-to-list';
 import { usuarios } from '@/db/schema/usuarios';
 import { eq } from 'drizzle-orm';
 

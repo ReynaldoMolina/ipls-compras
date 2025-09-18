@@ -15,7 +15,7 @@ export default function DateCell<TData, TValue>({
       variant="outline"
       className={`${dateString ? '' : 'text-muted-foreground'} inline-flex gap-1 whitespace-nowrap`}
     >
-      <Calendar className="size-3.5" />
+      <Calendar className="size-4" />
       {label}
     </Badge>
   );

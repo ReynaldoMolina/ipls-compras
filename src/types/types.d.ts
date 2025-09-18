@@ -14,19 +14,14 @@ export type SearchParamsProps = {
   orderBy?: string;
   direction?: SortOrder;
   departamento?: string;
+  sector?: string;
   solvencia?: string;
   rol?: string;
   activo?: 'active' | 'inactive';
+  year?: string;
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
-
-export type EditPageProps = {
-  params: {
-    id: string;
-    idsol?: string;
-  };
-};
 
 interface Proveedor {
   id?: number;
@@ -50,8 +45,10 @@ export interface ProveedorFormType extends Proveedor {
   solvencia?: string | null;
 }
 
+export type FormAction = 'create' | 'edit';
+
 export interface FormProps {
-  action: 'create' | 'edit';
+  action: FormAction;
   data?: ProveedorForm;
   id?: number;
 }
@@ -112,23 +109,29 @@ export interface SolicitudDetalle {
   id_solicitud: number;
   producto_servicio: string;
   cantidad: number;
-  id_unidad_medida: number;
   precio: number;
   observaciones?: string | null;
   prioridad?: string | null;
-  id_estado?: number | null;
   comprado?: number | null;
   recibido?: number | null;
   precio_compra?: number | null;
   entrega_bodega?: number | null;
   precio_bodega?: number | null;
+}
+
+export interface SolicitudDetalleForm extends SolicitudDetalle {
+  id_unidad_medida: number;
+  id_estado?: number | null;
   id_ubicacion?: number | null;
   id_categoria?: number | null;
 }
 
-export type PrevState = {
-  message: string | undefined;
-};
+export interface SolicitudDetalleTable extends SolicitudDetalle {
+  unidad_medida: string | null;
+  estado?: string | null;
+  ubicacion?: string | null;
+  categoria?: string | null;
+}
 
 export type SelectOptions = {
   value: string;
@@ -152,6 +155,23 @@ export interface ChartData {
   asignado?: number;
 }
 
-export type PageProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+export interface PageProps {
+  params: {
+    id: string;
+    idsol?: string;
+  };
+  searchParams?: SearchParamsProps;
+}
+
+export interface ActionsBarDetalleProps<TData> {
+  idSolicitud: number;
+  column?: Column<TData, unknown>;
+  selectOptions: DetalleSelectOptions;
+}
+
+export interface DetalleSelectOptions {
+  unidadesMedida?: ComboBoxData;
+  estados?: ComboBoxData;
+  ubicaciones?: ComboBoxData;
+  categorias?: ComboBoxData;
+}

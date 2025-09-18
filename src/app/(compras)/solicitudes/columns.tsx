@@ -3,12 +3,22 @@
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import TableDate from '@/components/tables/date-cell';
-import { NumberCell } from '@/components/tables/number-cell';
+import {
+  NumberCellWithValue,
+  NumberFloatCell,
+} from '@/components/tables/number-cell';
 import { Solicitudes } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
+import { EditCell } from '@/components/tables/edit-cell';
+import { sumColumn } from '@/lib/sum-column';
 
 export const columns: ColumnDef<Solicitudes>[] = [
+  {
+    id: 'edit',
+    header: 'Edit',
+    cell: ({ row }) => <EditCell href={`/solicitudes/${row.original.id}`} />,
+  },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
@@ -20,6 +30,7 @@ export const columns: ColumnDef<Solicitudes>[] = [
       <SortButton column={column} label="Carrera / curso / área" />
     ),
     cell: DefaultCell,
+    footer: 'Totales',
   },
   {
     accessorKey: 'year',
@@ -38,16 +49,28 @@ export const columns: ColumnDef<Solicitudes>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Presupuestado" />
     ),
-    cell: NumberCell,
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'presupuestado');
+      return <NumberCellWithValue value={total} />;
+    },
   },
   {
     accessorKey: 'asignado',
     header: ({ column }) => <SortButton column={column} label="Asignado" />,
-    cell: NumberCell,
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'asignado');
+      return <NumberCellWithValue value={total} />;
+    },
   },
   {
     accessorKey: 'restante',
     header: ({ column }) => <SortButton column={column} label="Restante" />,
-    cell: NumberCell,
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'restante');
+      return <NumberCellWithValue value={total} />;
+    },
   },
 ];

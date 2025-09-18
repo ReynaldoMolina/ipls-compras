@@ -14,13 +14,13 @@ declare module '@tanstack/react-table' {
     setDeletedRows?: React.Dispatch<React.SetStateAction<TData[]>>;
 
     // helpers
-    addRow: (newRow: TData) => void;
-    updateRow: (
-      rowIndex: number,
-      columnId: keyof TData,
-      value: unknown
-    ) => void;
-    deleteRows: (rows: TData[]) => void;
+    // addRow: (newRow: TData) => void;
+    // updateRow: (
+    //   rowIndex: number,
+    //   columnId: keyof TData,
+    //   value: unknown
+    // ) => void;
+    // deleteRows: (rows: TData[]) => void;
   }
 
   interface ColumnMeta<TData extends RowData, TValue> {

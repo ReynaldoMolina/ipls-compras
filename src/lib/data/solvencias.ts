@@ -1,7 +1,7 @@
 import { db } from '@/db/db';
 import { solvencias } from '@/db/schema/solvencias';
 import { SearchParamsProps } from '@/types/types';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, desc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
@@ -59,6 +59,29 @@ export async function getSolvenciaById(id: number) {
     console.error(error);
     throw new Error(
       'No se pudo obtener la solvencia, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getUniqueYearsFromSolvencias() {
+  const selectedFields = {
+    year: sql<number>`extract(year from ${solvencias.emitida})`.as('year'),
+  };
+
+  try {
+    const data = await db
+      .selectDistinct(selectedFields)
+      .from(solvencias)
+      .orderBy(desc(selectedFields.year));
+
+    return data.map((e) => ({
+      value: String(e.year),
+      label: String(e.year),
+    }));
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los años únicos desde las solvencias, por favor intenta de nuevo'
     );
   }
 }

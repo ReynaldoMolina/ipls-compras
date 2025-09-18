@@ -2,7 +2,7 @@ import { years } from '@/components/actionbar/filter/filter-states-data';
 import { SolicitudForm } from '@/components/forms/solicitudes';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-import { getEntidadesAcademicas } from '@/lib/data/forms';
+import { getEntidadesAcademicas } from '@/lib/data/form-elements';
 
 const title = 'Nueva solicitud';
 

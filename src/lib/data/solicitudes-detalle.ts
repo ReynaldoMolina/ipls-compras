@@ -1,9 +1,63 @@
 import { db } from '@/db/db';
 import { categoria_productos } from '@/db/schema/categoria_productos';
+import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
 import { solicitudes_estados } from '@/db/schema/solicitudes-estados';
 import { ubicaciones } from '@/db/schema/ubicaciones';
 import { unidades_medida } from '@/db/schema/unidades-medida';
-import { asc, sql } from 'drizzle-orm';
+import { SolicitudDetalleTable } from '@/types/types';
+import { asc, sql, eq } from 'drizzle-orm';
+
+export async function getSolicitudDetalleByIdSolicitud(
+  id: number
+): Promise<SolicitudDetalleTable[]> {
+  const selectFields = {
+    id: solicitudes_detalle.id,
+    id_solicitud: solicitudes_detalle.id_solicitud,
+    producto_servicio: solicitudes_detalle.producto_servicio,
+    cantidad: solicitudes_detalle.cantidad,
+    unidad_medida: unidades_medida.unidad_medida,
+    precio: solicitudes_detalle.precio,
+    observaciones: solicitudes_detalle.observaciones,
+    prioridad: solicitudes_detalle.prioridad,
+    estado: solicitudes_estados.estado,
+    comprado: solicitudes_detalle.comprado,
+    recibido: solicitudes_detalle.recibido,
+    precio_compra: solicitudes_detalle.precio_compra,
+    entrega_bodega: solicitudes_detalle.entrega_bodega,
+    precio_bodega: solicitudes_detalle.precio_bodega,
+    ubicacion: ubicaciones.ubicacion,
+    categoria: categoria_productos.categoria,
+  };
+  try {
+    const data = await db
+      .select(selectFields)
+      .from(solicitudes_detalle)
+      .leftJoin(
+        unidades_medida,
+        eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
+      )
+      .leftJoin(
+        solicitudes_estados,
+        eq(solicitudes_detalle.id_estado, solicitudes_estados.id)
+      )
+      .leftJoin(
+        ubicaciones,
+        eq(solicitudes_detalle.id_ubicacion, ubicaciones.id)
+      )
+      .leftJoin(
+        categoria_productos,
+        eq(solicitudes_detalle.id_categoria, categoria_productos.id)
+      )
+      .where(eq(solicitudes_detalle.id_solicitud, id))
+      .orderBy(solicitudes_detalle.id);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el detalle de la solicitud, por favor intenta de nuevo'
+    );
+  }
+}
 
 export async function getUnidadesMedida() {
   try {

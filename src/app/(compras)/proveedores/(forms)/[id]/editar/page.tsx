@@ -5,11 +5,11 @@ import {
   getDepartamentos,
   getSectores,
   getSubsectoresBySector,
-} from '@/lib/data/forms';
+} from '@/lib/data/form-elements';
 import { getProveedorById } from '@/lib/data/proveedores';
-import { EditPageProps } from '@/types/types';
+import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props: EditPageProps) {
+export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
   const { id } = urlparams;
   return {
@@ -38,7 +38,7 @@ export default async function Page(props: Props) {
   const departamentos = await getDepartamentos();
   const sectores = await getSectores();
   const subsectores = await getSubsectoresBySector(
-    sectorId || (provider.id_sector ?? undefined)
+    sectorId || (provider.id_sector ?? 0)
   );
 
   return (

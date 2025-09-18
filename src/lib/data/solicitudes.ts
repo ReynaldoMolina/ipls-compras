@@ -1,18 +1,14 @@
 import { db } from '@/db/db';
-import {
-  SearchParamsProps,
-  SolicitudFormType,
-  SolicitudDetalle,
-} from '@/types/types';
+import { SearchParamsProps, SolicitudFormType } from '@/types/types';
 import { eq, and, sql, desc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
-import { buildFilterBySolvencia } from './build-filters';
+import { buildFilterSolicitudesByYear } from './build-filters';
 import { solicitudes } from '@/db/schema/solicitudes';
 import { entidades_academicas } from '@/db/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
 
-export async function getSolicitudes(params: SearchParamsProps) {
+export async function getSolicitudesTableData(params: SearchParamsProps) {
   const selectFields = {
     id: solicitudes.id,
     fecha: solicitudes.fecha,
@@ -34,7 +30,7 @@ export async function getSolicitudes(params: SearchParamsProps) {
     entidades_academicas.nombre,
   ]);
 
-  const filterBySolvencia = buildFilterBySolvencia(params);
+  const filterByYear = buildFilterSolicitudesByYear(params);
   const orderBy = buildOrderByFragment(params, selectFields);
 
   try {
@@ -49,13 +45,12 @@ export async function getSolicitudes(params: SearchParamsProps) {
         solicitudes_detalle,
         eq(solicitudes.id, solicitudes_detalle.id_solicitud)
       )
-      .where(and(filterBySearch))
+      .where(and(filterBySearch, filterByYear))
       .groupBy(
         solicitudes.id,
         entidades_academicas.tipo,
         entidades_academicas.nombre
       )
-      .having(filterBySolvencia)
       .orderBy(orderBy);
     return data;
   } catch (error) {
@@ -73,24 +68,6 @@ export async function getSolicitudById(id: number): Promise<SolicitudFormType> {
       .from(solicitudes)
       .where(eq(solicitudes.id, id));
     return data[0];
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudo obtener la solicitud, por favor intenta de nuevo'
-    );
-  }
-}
-
-export async function getSolicitudDetalleById(
-  id: number
-): Promise<SolicitudDetalle[]> {
-  try {
-    const data = await db
-      .select()
-      .from(solicitudes_detalle)
-      .where(eq(solicitudes_detalle.id_solicitud, id))
-      .orderBy(solicitudes_detalle.id);
-    return data;
   } catch (error) {
     console.error(error);
     throw new Error(

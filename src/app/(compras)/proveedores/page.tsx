@@ -8,18 +8,17 @@ import {
 import FilterButton from '@/components/actionbar/filter-button';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Proveedores',
 };
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
-  const proveedoresTableData = await getProveedoresTableData(searchParams);
+  const proveedoresTableData = await getProveedoresTableData(
+    searchParams ?? {}
+  );
   const departamentosOptions = await getUniqueDepartamentosFromProveedores();
 
   return (
