@@ -4,11 +4,16 @@ import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
 import { solicitudes_estados } from '@/db/schema/solicitudes-estados';
 import { ubicaciones } from '@/db/schema/ubicaciones';
 import { unidades_medida } from '@/db/schema/unidades-medida';
-import { SolicitudDetalleTable } from '@/types/types';
+import {
+  SearchParamsProps,
+  SolicitudDetalleForm,
+  SolicitudDetalleTable,
+} from '@/types/types';
 import { asc, sql, eq } from 'drizzle-orm';
 
-export async function getSolicitudDetalleByIdSolicitud(
-  id: number
+export async function getSolicitudDetalleBySolicitudId(
+  id_solicitud: number,
+  searchParams: SearchParamsProps
 ): Promise<SolicitudDetalleTable[]> {
   const selectFields = {
     id: solicitudes_detalle.id,
@@ -48,9 +53,27 @@ export async function getSolicitudDetalleByIdSolicitud(
         categoria_productos,
         eq(solicitudes_detalle.id_categoria, categoria_productos.id)
       )
-      .where(eq(solicitudes_detalle.id_solicitud, id))
+      .where(eq(solicitudes_detalle.id_solicitud, id_solicitud))
       .orderBy(solicitudes_detalle.id);
     return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el detalle de la solicitud, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getSolicitudDetalleById(
+  id: number
+): Promise<SolicitudDetalleForm> {
+  try {
+    const data = await db
+      .select()
+      .from(solicitudes_detalle)
+      .where(eq(solicitudes_detalle.id, id))
+      .orderBy(solicitudes_detalle.id);
+    return data[0];
   } catch (error) {
     console.error(error);
     throw new Error(

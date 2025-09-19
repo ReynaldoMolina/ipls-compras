@@ -16,7 +16,7 @@ export default function FormOptions({ action }: { action: FormAction }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" type="button" size="icon">
+        <Button variant="outline" type="button" size="icon" title="Opciones">
           <Ellipsis />
         </Button>
       </DropdownMenuTrigger>

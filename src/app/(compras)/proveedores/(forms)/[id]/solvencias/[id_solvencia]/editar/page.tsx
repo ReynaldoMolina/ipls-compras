@@ -7,16 +7,16 @@ import PageWrapper from '@/components/page-wrapper';
 export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
   const { id } = urlparams;
-  const { idsol } = urlparams;
+  const { id_solvencia } = urlparams;
   return {
-    title: `Proveedor ${id} - Solvencia ${idsol}`,
+    title: `Proveedor ${id} - Solvencia ${id_solvencia}`,
   };
 }
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
   const id_proveedor = Number(params?.id);
-  const id_solvencia = Number(params?.idsol);
+  const id_solvencia = Number(params?.id_solvencia);
   const data = await getSolvenciaById(id_solvencia);
 
   return (

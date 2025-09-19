@@ -1,13 +1,11 @@
 import { ActionsBarDetalleProps } from '@/types/types';
-import { DetalleForm } from './detalle-form';
 import { OptionsButton } from './options-button';
 import { SearchInput } from './search-input';
 import { FilterButtonDetalle } from './filter-button-detalle';
+import NewButton from '@/components/actionbar/new-button';
 
 export function ActionsBarDetalle<TData>({
-  idSolicitud,
   column,
-  selectOptions,
 }: ActionsBarDetalleProps<TData>) {
   return (
     <div className="inline-flex gap-2">
@@ -15,11 +13,7 @@ export function ActionsBarDetalle<TData>({
       <div className="inline-flex gap-2 ml-auto">
         <OptionsButton />
         <FilterButtonDetalle />
-        <DetalleForm
-          action="create"
-          idSolicitud={idSolicitud}
-          selectOptions={selectOptions}
-        />
+        <NewButton />
       </div>
     </div>
   );

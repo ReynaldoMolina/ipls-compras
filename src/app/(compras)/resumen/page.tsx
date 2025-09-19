@@ -31,7 +31,7 @@ export default async function Page(props: PageProps) {
         <ActionBar allowSearch={false} allowNew={false}>
           <FilterButton filterOptions={{ years }} />
         </ActionBar>
-        <div className="inline-flex flex-col md:flex-row gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <Chart
             chartData={presupuestoChartData}
             chartConfig={presupuestoChartConfig}

@@ -14,7 +14,7 @@ import {
 } from '@/components/tables/checkbox-cell';
 import { sumColumn } from '@/lib/sum-column';
 import DefaultCell from '@/components/tables/default-cell';
-import { EditCellDialog } from '@/components/tables/edit-cell-dialog';
+import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<SolicitudDetalle>[] = [
   {
@@ -26,7 +26,11 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
   {
     id: 'edit',
     header: 'Edit',
-    cell: ({ row }) => <EditCellDialog id={row.original.id} />,
+    cell: ({ row }) => (
+      <EditCell
+        href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}`}
+      />
+    ),
   },
   {
     id: 'item',

@@ -17,10 +17,10 @@ export default function FormDelete() {
     <AlertDialog>
       <AlertDialogTrigger className="w-full" asChild>
         <Button
-          variant="destructive"
+          variant="ghost"
           size="sm"
           type="button"
-          className="w-full justify-start"
+          className="w-full justify-start text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/10 hover:text-destructive"
         >
           <Trash />
           Eliminar

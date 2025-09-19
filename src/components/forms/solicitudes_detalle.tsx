@@ -1,154 +1,208 @@
 'use client';
 
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  DetalleSelectOptions,
+  FormAction,
+  SolicitudDetalleFormType,
+} from '@/types/types';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
+import { detalleSolicitudSchema } from '@/validation-schemas';
+import { Form } from '@/components/ui/form';
+import FormTextField from '@/components/forms/elements/form-text-field';
+import FormInputGroup from '@/components/forms/elements/form-input-group';
+import FormCombobox from '@/components/forms/elements/form-combobox';
+import { FormSelect } from '@/components/forms/elements/form-select';
+import { prioridad } from '@/components/actionbar/filter/filter-states-data';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { solicitudSchema } from '@/validation-schemas';
-import { FormFieldSet } from './elements/form-fieldset';
-import FormButtons from './elements/form-footer';
-import { ComboBoxData, FormAction, Solicitud } from '@/types/types';
-import { createUser, updateUser } from '@/lib/actions/usuarios';
-import { Switch } from '../ui/switch';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
-import { DatePicker } from '../date-picker';
-import { ComboBox } from '../combo-box';
-import { Input } from '../ui/input';
+  createSolicitudDetalle,
+  updateSolicitudDetalle,
+} from '@/lib/actions/solicitudes-detalle';
+import { FormFieldSet } from '@/components/forms/elements/form-fieldset';
+import { Card, CardContent } from '../ui/card';
+import FormHeader from './elements/form-header';
+import FormOptions from './elements/form-options';
+import FormFooter from './elements/form-footer';
+import FormTextArea from './elements/form-text-area';
 
-type SolicitudFormValues = z.infer<typeof solicitudSchema>;
-
-export function SolicitudForm({
-  action,
-  solicitud,
-  entidadesAcademicas,
-}: {
+interface SolicitudDetalleFormProps {
   action: FormAction;
-  solicitud?: Solicitud;
-  entidadesAcademicas: ComboBoxData;
-}) {
-  const form = useForm<z.infer<typeof solicitudSchema>>({
-    resolver: zodResolver(solicitudSchema),
-    defaultValues: solicitud
+  detalle?: SolicitudDetalleFormType;
+  id_solicitud: number;
+  selectOptions: DetalleSelectOptions;
+}
+
+export function SolicitudDetalleForm({
+  action,
+  detalle,
+  id_solicitud,
+  selectOptions,
+}: SolicitudDetalleFormProps) {
+  const form = useForm<z.infer<typeof detalleSolicitudSchema>>({
+    resolver: zodResolver(detalleSolicitudSchema),
+    defaultValues: detalle
       ? {
-          fecha: solicitud.fecha ?? undefined,
-          id_entidad_academica: solicitud.id_entidad_academica ?? 0,
-          id_usuario: solicitud.id_usuario ?? 0,
-          revisado_bodega: solicitud.revisado_bodega ?? false,
+          id_solicitud: detalle.id_solicitud ?? id_solicitud,
+          producto_servicio: detalle.producto_servicio ?? '',
+          cantidad: detalle.cantidad ?? 0,
+          id_unidad_medida: detalle.id_unidad_medida ?? 0,
+          precio: detalle.precio ?? 0,
+          observaciones: detalle.observaciones ?? null,
+          prioridad: detalle.prioridad ?? '',
+          comprado: detalle.comprado ?? null,
+          recibido: detalle.recibido ?? null,
+          precio_compra: detalle.precio_compra ?? null,
+          entrega_bodega: detalle.entrega_bodega ?? null,
+          precio_bodega: detalle.precio_bodega ?? null,
+          id_estado: detalle.id_estado ?? null,
+          id_ubicacion: detalle.id_ubicacion ?? null,
+          id_categoria: detalle.id_categoria ?? 0,
         }
       : {
-          fecha: undefined,
-          id_entidad_academica: 0,
-          id_usuario: 1,
-          revisado_bodega: false,
+          id_solicitud: id_solicitud,
+          producto_servicio: '',
+          cantidad: 0,
+          id_unidad_medida: 0,
+          precio: 0,
+          observaciones: '',
+          prioridad: '',
+          comprado: null,
+          recibido: null,
+          precio_compra: null,
+          entrega_bodega: null,
+          precio_bodega: null,
+          id_estado: null,
+          id_ubicacion: null,
+          id_categoria: 0,
         },
   });
 
-  function onSubmit(values: z.infer<typeof solicitudSchema>) {
-    // if (action === 'create') {
-    //   createUser(undefined, values);
-    // } else if (action === 'edit' && user) {
-    //   updateUser(user.id, { message: undefined }, values);
-    // }
-    console.log(values);
+  function onSubmit(values: z.infer<typeof detalleSolicitudSchema>) {
+    if (action === 'create') {
+      createSolicitudDetalle(values, id_solicitud);
+    } else if (action === 'edit' && detalle) {
+      updateSolicitudDetalle(detalle.id, undefined, values, id_solicitud);
+    }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-2xl">
-          <CardHeader>
-            <CardTitle>
-              {action === 'create' ? 'Nueva' : 'Editar'} solicitud
-            </CardTitle>
-            <CardDescription>
-              {action === 'create' ? 'Ingresa' : 'Edita'} la información de la
-              solicitud
-            </CardDescription>
-          </CardHeader>
+        <Card className="max-w-2xl mx-auto">
+          <FormHeader action={action} name="detalle" noun="m">
+            <FormOptions action={action} />
+          </FormHeader>
           <CardContent>
             <FormFieldSet name="info">
-              <FormField
+              <FormTextField
                 control={form.control}
-                name="fecha"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Fecha solicitud</FormLabel>
-                    <DatePicker<SolicitudFormValues> field={field} />
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="id_solicitud"
+                label="Id solicitud"
+                hidden
+                disabled
               />
-              <FormField
+              <FormTextField
                 control={form.control}
-                name="id_entidad_academica"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Carrera / curso / área</FormLabel>
-                    <ComboBox
-                      field={field}
-                      data={entidadesAcademicas}
-                      form={form}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="producto_servicio"
+                label="Nombre o descripción"
               />
-              <FormField
+              <FormInputGroup className="flex-row">
+                <FormTextField
+                  control={form.control}
+                  name="cantidad"
+                  label="Cantidad"
+                  type="number"
+                />
+                <FormTextField
+                  control={form.control}
+                  name="precio"
+                  label="Precio"
+                  type="number"
+                />
+              </FormInputGroup>
+              <FormInputGroup>
+                <FormCombobox
+                  form={form}
+                  name="id_unidad_medida"
+                  label="Unidad de medida"
+                  options={selectOptions.unidadesMedida}
+                />
+                <FormCombobox
+                  form={form}
+                  name="id_categoria"
+                  label="Categoría"
+                  options={selectOptions.categorias}
+                />
+              </FormInputGroup>
+              <FormTextArea
                 control={form.control}
-                name="id_usuario"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Solicitado por</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Nombre"
-                        type="number"
-                        {...field}
-                        disabled
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="revisado_bodega"
-                render={({ field }) => (
-                  <FormItem>
-                    <span className="text-xs font-medium">Estado</span>
-                    <div className="flex flex-row items-center justify-between rounded-md border px-3 py-2 shadow-xs max-h-9">
-                      <FormLabel>¿Revisado por bodega?</FormLabel>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="observaciones"
+                label="Observaciones"
               />
             </FormFieldSet>
+            <FormFieldSet name="status">
+              <FormInputGroup>
+                <FormSelect
+                  control={form.control}
+                  name="prioridad"
+                  label="Prioridad"
+                  options={prioridad}
+                />
+                <FormCombobox
+                  form={form}
+                  name="id_estado"
+                  label="Estado"
+                  options={selectOptions.estados}
+                />
+              </FormInputGroup>
+            </FormFieldSet>
+            <FormFieldSet name="bodega">
+              <FormInputGroup className="flex-row">
+                <FormTextField
+                  control={form.control}
+                  name="comprado"
+                  label="Comprado"
+                  type="number"
+                />
+                <FormTextField
+                  control={form.control}
+                  name="recibido"
+                  label="Recibido"
+                  type="number"
+                />
+                <FormTextField
+                  control={form.control}
+                  name="precio_compra"
+                  label="Precio compra"
+                  type="number"
+                />
+              </FormInputGroup>
+              <FormInputGroup className="flex-row">
+                <FormTextField
+                  control={form.control}
+                  name="entrega_bodega"
+                  label="Entrega bodega"
+                  type="number"
+                />
+                <FormTextField
+                  control={form.control}
+                  name="precio_bodega"
+                  label="Precio bodega"
+                  type="number"
+                />
+              </FormInputGroup>
+              <FormInputGroup>
+                <FormCombobox
+                  form={form}
+                  name="id_ubicacion"
+                  label="Ubicación"
+                  options={selectOptions.ubicaciones}
+                />
+              </FormInputGroup>
+            </FormFieldSet>
           </CardContent>
-          <CardFooter>
-            <FormButtons action={action} />
-          </CardFooter>
+          <FormFooter action={action} />
         </Card>
       </form>
     </Form>

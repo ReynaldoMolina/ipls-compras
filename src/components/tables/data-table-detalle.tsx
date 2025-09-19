@@ -23,20 +23,15 @@ import {
 
 import { useState } from 'react';
 import { ActionsBarDetalle } from './action-bar-detalle/actions-bar-detalle';
-import { DetalleSelectOptions } from '@/types/types';
 
 interface DataTableProps<TData, TValue> {
-  idSolicitud: number;
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
-  selectOptions: DetalleSelectOptions;
 }
 
 export function DataTableDetalle<TData, TValue>({
-  idSolicitud,
   columns,
   tableData,
-  selectOptions,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -59,16 +54,9 @@ export function DataTableDetalle<TData, TValue>({
     },
   });
 
-  // function handleSave() {
-  // }
-
   return (
     <>
-      <ActionsBarDetalle
-        idSolicitud={idSolicitud}
-        column={table.getColumn('producto_servicio')}
-        selectOptions={selectOptions}
-      />
+      <ActionsBarDetalle column={table.getColumn('producto_servicio')} />
 
       <Table>
         <TableHeader>

@@ -10,14 +10,24 @@ import {
 import { Solicitudes } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
-import { EditCell } from '@/components/tables/edit-cell';
+import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
 
 export const columns: ColumnDef<Solicitudes>[] = [
   {
-    id: 'edit',
-    header: 'Edit',
-    cell: ({ row }) => <EditCell href={`/solicitudes/${row.original.id}`} />,
+    id: 'actions',
+    header: 'Acciones',
+    cell: ({ row }) => {
+      return (
+        <div className="inline-flex gap-1">
+          <EditCell href={`/solicitudes/${row.original.id}`} />
+          <GoToListCell
+            href={`/solicitudes/${row.original.id}/detalle`}
+            label="detalle"
+          />
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'id',

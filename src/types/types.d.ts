@@ -19,6 +19,7 @@ export type SearchParamsProps = {
   rol?: string;
   activo?: 'active' | 'inactive';
   year?: string;
+  selected?: string;
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
@@ -119,7 +120,7 @@ export interface SolicitudDetalle {
   precio_bodega?: number | null;
 }
 
-export interface SolicitudDetalleForm extends SolicitudDetalle {
+export interface SolicitudDetalleFormType extends SolicitudDetalle {
   id_unidad_medida: number;
   id_estado?: number | null;
   id_ubicacion?: number | null;
@@ -158,15 +159,14 @@ export interface ChartData {
 export interface PageProps {
   params: {
     id: string;
-    idsol?: string;
+    id_solvencia?: string;
+    id_detalle?: string;
   };
   searchParams?: SearchParamsProps;
 }
 
 export interface ActionsBarDetalleProps<TData> {
-  idSolicitud: number;
   column?: Column<TData, unknown>;
-  selectOptions: DetalleSelectOptions;
 }
 
 export interface DetalleSelectOptions {

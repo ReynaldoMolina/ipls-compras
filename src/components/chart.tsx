@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from './ui/card';
 import { formatNumber } from '@/lib/formatters';
+import FormHeader from './forms/elements/form-header';
 
 interface ChartProps {
   chartData: ChartData[];
@@ -37,8 +38,10 @@ export default function Chart({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <div className="inline-flex flex-col space-y-1.5">
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
