@@ -3,7 +3,10 @@ import { OrdenFormType, SearchParamsProps } from '@/types/types';
 import { eq, and, sql, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
-import { buildFilterSolicitudesByYear } from './build-filters';
+import {
+  buildFilterSolicitudesByYear,
+  buildOrdenesByIdSolicitud,
+} from './build-filters';
 import { solicitudes } from '@/database/schema/solicitudes';
 import { entidades_academicas } from '@/database/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
@@ -11,7 +14,10 @@ import { ordenes } from '@/database/schema/ordenes';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { ordenes_estados } from '@/database/schema/ordenes-estados';
 
-export async function getOrdenesTableData(params: SearchParamsProps) {
+export async function getOrdenesTableData(
+  params: SearchParamsProps,
+  id_solicitud: number
+) {
   const selectFields = {
     id: ordenes.id,
     entidad_academica: entidades_academicas.nombre,
@@ -37,6 +43,7 @@ export async function getOrdenesTableData(params: SearchParamsProps) {
     entidades_academicas.nombre,
   ]);
 
+  const filterByIdSolicitud = buildOrdenesByIdSolicitud(id_solicitud);
   const filterByYear = buildFilterSolicitudesByYear(params);
   const orderBy = buildOrderByFragment(params, selectFields);
 
@@ -55,7 +62,7 @@ export async function getOrdenesTableData(params: SearchParamsProps) {
         eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
       )
       .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
-      .where(and(filterBySearch, filterByYear))
+      .where(and(filterBySearch, filterByYear, filterByIdSolicitud))
       .groupBy(
         ordenes.id,
         solicitudes.year,

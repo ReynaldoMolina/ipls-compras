@@ -43,6 +43,7 @@ import {
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import ChangeTheme from './change-theme';
+import { getActiveSidebarOption } from '@/lib/get-sidebar-active-option';
 
 export interface SidebarItem {
   id: PageId;
@@ -93,6 +94,7 @@ const user: UserType = {
 export function AppSidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
+  const activeUrl = getActiveSidebarOption(pathname, sidebarItems);
 
   return (
     <Sidebar>
@@ -114,7 +116,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname.includes(item.url)}
+                    isActive={item.url === activeUrl}
                     onClick={() => setOpenMobile(false)}
                   >
                     <Link href={item.url}>

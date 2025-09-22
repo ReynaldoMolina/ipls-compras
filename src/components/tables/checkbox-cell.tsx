@@ -33,7 +33,7 @@ export function CheckBoxCell<TData, TValue>({
         checked={row.getIsSelected()}
         onCheckedChange={row.getToggleSelectedHandler()}
         aria-label="Select row"
-        className="rounded"
+        className="rounded bg-background/80"
         title="Seleccionar"
       />
     </div>

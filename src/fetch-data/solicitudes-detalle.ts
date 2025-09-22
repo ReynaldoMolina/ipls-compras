@@ -24,6 +24,7 @@ export async function getSolicitudDetalleBySolicitudId(
     precio: solicitudes_detalle.precio,
     observaciones: solicitudes_detalle.observaciones,
     prioridad: solicitudes_detalle.prioridad,
+    id_estado: solicitudes_detalle.id_estado,
     estado: solicitudes_estados.estado,
     comprado: solicitudes_detalle.comprado,
     recibido: solicitudes_detalle.recibido,

@@ -75,11 +75,18 @@ export function SolicitudForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <FormLink
-              action={action}
-              href={`/solicitudes/${solicitud?.id}/detalle`}
-              label="Ir a detalle de la solicitud"
-            />
+            <div className="flex flex-col gap-2">
+              <FormLink
+                action={action}
+                href={`/solicitudes/${solicitud?.id}/detalle`}
+                label="Ir a detalle de la solicitud"
+              />
+              <FormLink
+                action={action}
+                href={`/solicitudes/${solicitud?.id}/ordenes`}
+                label="Ver órdenes"
+              />
+            </div>
             <FormFieldSet name="info">
               <FormInputGroup>
                 <FormField

@@ -39,7 +39,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
   },
   {
     accessorKey: 'id_solicitud',
-    header: ({ column }) => <SortButton column={column} label="Solicitud Nº" />,
+    header: ({ column }) => <SortButton column={column} label="Solicitud" />,
     cell: TableId,
   },
   {

@@ -118,11 +118,11 @@ export interface SolicitudDetalle {
   precio_compra?: number | null;
   entrega_bodega?: number | null;
   precio_bodega?: number | null;
+  id_estado?: number | null;
 }
 
 export interface SolicitudDetalleFormType extends SolicitudDetalle {
   id_unidad_medida: number;
-  id_estado?: number | null;
   id_ubicacion?: number | null;
   id_categoria?: number | null;
 }

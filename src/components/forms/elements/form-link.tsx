@@ -16,7 +16,7 @@ export function FormLink({ action, href, label }: FormLinkProps) {
     <Button asChild size="sm" variant="outline">
       <Link href={href} className="inline-flex gap-2">
         {label}
-        <ChevronRight className="size-4" />
+        <ChevronRight className="size-4 ml-auto" />
       </Link>
     </Button>
   );

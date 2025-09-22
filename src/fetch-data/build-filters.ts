@@ -1,3 +1,4 @@
+import { ordenes } from '@/database/schema/ordenes';
 import { proveedores } from '@/database/schema/proveedores';
 import { solicitudes } from '@/database/schema/solicitudes';
 import { solvencias } from '@/database/schema/solvencias';
@@ -62,4 +63,9 @@ export function buildFilterSolicitudesByYear(searchParams: SearchParamsProps) {
   const years = searchParams.year?.split(',').filter(Boolean) ?? [];
   const mappedYears = years.map((year) => Number(year));
   return years.length > 0 ? inArray(solicitudes.year, mappedYears) : undefined;
+}
+
+export function buildOrdenesByIdSolicitud(id_solicitud: number) {
+  if (!id_solicitud || id_solicitud === null) return undefined;
+  return eq(ordenes.id_solicitud, id_solicitud);
 }
