@@ -10,9 +10,22 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { Trash } from 'lucide-react';
+import { Trash, TriangleAlert } from 'lucide-react';
+import { Dispatch, SetStateAction } from 'react';
 
-export default function FormDelete() {
+interface DeleteButtonProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  count: number;
+  handleDelete: () => void;
+  disabled?: boolean;
+}
+
+export default function DeleteButton({
+  setOpen,
+  count,
+  handleDelete,
+  disabled = false,
+}: DeleteButtonProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger className="w-full" asChild>
@@ -21,6 +34,7 @@ export default function FormDelete() {
           size="sm"
           type="button"
           className="w-full justify-start text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/10 hover:text-destructive"
+          disabled={disabled}
         >
           <Trash />
           Eliminar
@@ -28,16 +42,27 @@ export default function FormDelete() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+          <AlertDialogTitle className="inline-flex gap-2 items-center">
+            <TriangleAlert className="size-5" />
+            ¿Estás seguro?
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            Esta acción no se puede deshacer. Se va a eliminar el registro de
-            forma permanentemente.
+            Esta acción no se puede deshacer.
+            {count > 1
+              ? ` Se van a eliminar ${count} registros `
+              : ` Se va a eliminar el registro `}
+            de forma permanente.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={() => alert('borrado')}>
-            Continuar
+          <AlertDialogAction
+            onClick={() => {
+              setOpen(false);
+              handleDelete();
+            }}
+          >
+            Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

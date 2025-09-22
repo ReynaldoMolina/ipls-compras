@@ -48,7 +48,7 @@ export function SolicitudDetalleForm({
           cantidad: detalle.cantidad ?? 0,
           id_unidad_medida: detalle.id_unidad_medida ?? 0,
           precio: detalle.precio ?? 0,
-          observaciones: detalle.observaciones ?? null,
+          observaciones: detalle.observaciones ?? '',
           prioridad: detalle.prioridad ?? '',
           comprado: detalle.comprado ?? null,
           recibido: detalle.recibido ?? null,
@@ -82,7 +82,7 @@ export function SolicitudDetalleForm({
     if (action === 'create') {
       createSolicitudDetalle(values, id_solicitud);
     } else if (action === 'edit' && detalle) {
-      updateSolicitudDetalle(detalle.id, undefined, values, id_solicitud);
+      updateSolicitudDetalle(detalle.id, values, id_solicitud);
     }
   }
 

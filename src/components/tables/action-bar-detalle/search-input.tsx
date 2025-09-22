@@ -1,12 +1,9 @@
 import { Input } from '@/components/ui/input';
-import { Column } from '@tanstack/react-table';
+import { Table } from '@tanstack/react-table';
 import { Search, X } from 'lucide-react';
 
-export function SearchInput<TData>({
-  column,
-}: {
-  column: Column<TData, unknown>;
-}) {
+export function SearchInput<TData>({ table }: { table: Table<TData> }) {
+  const column = table.getColumn('producto_servicio');
   const searchText = (column?.getFilterValue() as string) ?? '';
 
   return (

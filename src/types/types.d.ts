@@ -161,12 +161,13 @@ export interface PageProps {
     id: string;
     id_solvencia?: string;
     id_detalle?: string;
+    id_orden?: string;
   };
   searchParams?: SearchParamsProps;
 }
 
 export interface ActionsBarDetalleProps<TData> {
-  column?: Column<TData, unknown>;
+  table: Table<TData>;
 }
 
 export interface DetalleSelectOptions {
@@ -174,4 +175,29 @@ export interface DetalleSelectOptions {
   estados?: ComboBoxData;
   ubicaciones?: ComboBoxData;
   categorias?: ComboBoxData;
+}
+
+export interface Orden {
+  id?: number;
+  id_solicitud: number;
+  fecha_creacion: string | null;
+  fecha_a_utilizar: string | null;
+}
+
+export interface OrdenesTable extends Orden {
+  entidad_academica: string | null;
+  year: number | null;
+  tipo: string | null;
+  presupuestado: number;
+  asignado: number;
+  restante: number;
+}
+
+export interface OrdenFormType extends Orden {
+  id_estado: number | null;
+  observaciones: string | null;
+}
+
+export interface OrdenDetalleTable {
+  h: string;
 }

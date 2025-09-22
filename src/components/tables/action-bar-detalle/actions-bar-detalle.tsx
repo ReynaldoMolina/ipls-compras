@@ -1,19 +1,19 @@
 import { ActionsBarDetalleProps } from '@/types/types';
-import { OptionsButton } from './options-button';
+import { OptionsMenu } from './options-menu';
 import { SearchInput } from './search-input';
 import { FilterButtonDetalle } from './filter-button-detalle';
 import NewButton from '@/components/actionbar/new-button';
 
 export function ActionsBarDetalle<TData>({
-  column,
+  table,
 }: ActionsBarDetalleProps<TData>) {
   return (
     <div className="inline-flex gap-2">
-      <SearchInput column={column} />
+      <SearchInput table={table} />
       <div className="inline-flex gap-2 ml-auto">
-        <OptionsButton />
+        <OptionsMenu table={table} />
         <FilterButtonDetalle />
-        <NewButton />
+        <NewButton isDetalle />
       </div>
     </div>
   );

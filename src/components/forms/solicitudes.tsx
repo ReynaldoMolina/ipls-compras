@@ -53,7 +53,7 @@ export function SolicitudForm({
       : {
           fecha: undefined,
           id_entidad_academica: 0,
-          year: undefined,
+          year: 0,
           id_usuario: 1,
           revisado_bodega: false,
         },

@@ -11,27 +11,12 @@ import {
 } from '@/types/types';
 import { asc, sql, eq } from 'drizzle-orm';
 
-export async function getSolicitudDetalleBySolicitudId(
+export async function getOrdenDetalleByOrdenId(
   id_solicitud: number,
   searchParams: SearchParamsProps
-): Promise<SolicitudDetalleTable[]> {
+): Promise<OrdenDetalleTable[]> {
   const selectFields = {
     id: solicitudes_detalle.id,
-    id_solicitud: solicitudes_detalle.id_solicitud,
-    producto_servicio: solicitudes_detalle.producto_servicio,
-    cantidad: solicitudes_detalle.cantidad,
-    unidad_medida: unidades_medida.unidad_medida,
-    precio: solicitudes_detalle.precio,
-    observaciones: solicitudes_detalle.observaciones,
-    prioridad: solicitudes_detalle.prioridad,
-    estado: solicitudes_estados.estado,
-    comprado: solicitudes_detalle.comprado,
-    recibido: solicitudes_detalle.recibido,
-    precio_compra: solicitudes_detalle.precio_compra,
-    entrega_bodega: solicitudes_detalle.entrega_bodega,
-    precio_bodega: solicitudes_detalle.precio_bodega,
-    ubicacion: ubicaciones.ubicacion,
-    categoria: categoria_productos.categoria,
   };
   try {
     const data = await db
@@ -41,18 +26,18 @@ export async function getSolicitudDetalleBySolicitudId(
         unidades_medida,
         eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
       )
-      .leftJoin(
-        solicitudes_estados,
-        eq(solicitudes_detalle.id_estado, solicitudes_estados.id)
-      )
-      .leftJoin(
-        ubicaciones,
-        eq(solicitudes_detalle.id_ubicacion, ubicaciones.id)
-      )
-      .leftJoin(
-        categoria_productos,
-        eq(solicitudes_detalle.id_categoria, categoria_productos.id)
-      )
+      // .leftJoin(
+      //   solicitudes_estados,
+      //   eq(solicitudes_detalle.id_estado, solicitudes_estados.id)
+      // )
+      // .leftJoin(
+      //   ubicaciones,
+      //   eq(solicitudes_detalle.id_ubicacion, ubicaciones.id)
+      // )
+      // .leftJoin(
+      //   categoria_productos,
+      //   eq(solicitudes_detalle.id_categoria, categoria_productos.id)
+      // )
       .where(eq(solicitudes_detalle.id_solicitud, id_solicitud))
       .orderBy(solicitudes_detalle.id);
     return data;

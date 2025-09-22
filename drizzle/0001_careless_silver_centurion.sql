@@ -1,1 +1,1 @@
-ALTER TABLE "solicitudes" ADD COLUMN "year" integer NOT NULL;
+-- ALTER TABLE "solicitudes" ADD COLUMN "year" integer NOT NULL;

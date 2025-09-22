@@ -27,11 +27,11 @@ export default async function Page(props: PageProps) {
   return (
     <>
       <Header title="Resumen" showBackIcon={false} />
-      <PageWrapper>
+      <section className="flex flex-1 flex-col p-3 gap-3 overflow-y-auto">
         <ActionBar allowSearch={false} allowNew={false}>
           <FilterButton filterOptions={{ years }} />
         </ActionBar>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="flex flex-1 bg-red-600 flex-col gap-3 w-full overflow-x-auto">
           <Chart
             chartData={presupuestoChartData}
             chartConfig={presupuestoChartConfig}
@@ -45,7 +45,7 @@ export default async function Page(props: PageProps) {
             description={`Año ${year}`}
           />
         </div>
-      </PageWrapper>
+      </section>
     </>
   );
 }

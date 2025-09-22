@@ -14,7 +14,8 @@ export default function FormHeader({
   noun: 'm' | 'f';
 }) {
   const article = noun === 'm' ? 'del' : 'de la';
-  const verb = action === 'create' ? 'Nuevo' : 'Editar';
+  const verb =
+    action === 'create' ? (noun === 'm' ? 'Nuevo' : 'Nueva') : 'Editar';
   const instruction = action === 'create' ? 'Ingresa' : 'Edita';
   const button = action === 'create' ? 'crear' : 'guardar';
 

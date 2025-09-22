@@ -18,7 +18,6 @@ import {
   CardTitle,
 } from './ui/card';
 import { formatNumber } from '@/lib/formatters';
-import FormHeader from './forms/elements/form-header';
 
 interface ChartProps {
   chartData: ChartData[];
@@ -36,14 +35,15 @@ export default function Chart({
   dataKeyX = 'entidad_academica',
 }: ChartProps) {
   return (
-    <Card className="w-full">
+    // w-full needed for correct responsive
+    <Card className="w-full min-w-lg flex-1">
       <CardHeader>
         <div className="inline-flex flex-col space-y-1.5">
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-1">
         <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
@@ -63,7 +63,7 @@ export default function Chart({
                   position="top"
                   offset={12}
                   className="fill-foreground"
-                  fontSize={11}
+                  fontSize={8}
                   formatter={(value: number) => formatNumber(value)}
                 />
               </Bar>

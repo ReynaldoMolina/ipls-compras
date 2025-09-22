@@ -1,13 +1,11 @@
-import { years } from '@/components/actionbar/filter/filter-states-data';
 import { SolicitudForm } from '@/components/forms/solicitudes';
+import { getEntidadesAcademicas } from '@/lib/data/form-elements';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-import { getEntidadesAcademicas } from '@/lib/data/form-elements';
-
-const title = 'Nueva solicitud';
+import { years } from '@/components/actionbar/filter/filter-states-data';
 
 export const metadata = {
-  title: title,
+  title: 'Nueva solicitud',
 };
 
 export default async function Page() {

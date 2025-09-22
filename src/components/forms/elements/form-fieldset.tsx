@@ -44,6 +44,10 @@ const fieldsetConfig = {
     title: 'Información de bodega',
     icon: <Warehouse className={iconStyles} />,
   },
+  status_orden: {
+    title: 'Estado',
+    icon: <Flag className={iconStyles} />,
+  },
 };
 
 interface FormFieldSetProps {
