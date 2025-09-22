@@ -1,6 +1,7 @@
 import { OrdenForm } from '@/components/forms/ordenes';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
+import { getProveedores } from '@/fetch-data/form-select-options';
 import { getOrdenesEstados } from '@/fetch-data/ordenes';
 import { PageProps } from '@/types/types';
 
@@ -14,6 +15,7 @@ export default async function Page(props: PageProps) {
   const params = await props.params;
   const id_solicitud = Number(params.id);
   const estados = await getOrdenesEstados();
+  const proveedores = await getProveedores();
 
   return (
     <>
@@ -23,6 +25,7 @@ export default async function Page(props: PageProps) {
           action="create"
           id_solicitud={id_solicitud}
           estados={estados}
+          proveedores={proveedores}
         />
       </PageWrapper>
     </>

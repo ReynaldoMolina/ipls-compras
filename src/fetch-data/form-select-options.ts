@@ -1,6 +1,7 @@
 import { db } from '@/database/db';
 import { departamentos } from '@/database/schema/departamentos';
 import { entidades_academicas } from '@/database/schema/entidades-academicas';
+import { proveedores } from '@/database/schema/proveedores';
 import { sectores } from '@/database/schema/sectores';
 import { subsectores } from '@/database/schema/subsectores';
 import { asc, eq, sql } from 'drizzle-orm';
@@ -68,6 +69,24 @@ export async function getEntidadesAcademicas() {
     console.error(error);
     throw new Error(
       'No se pudieron obtener las entidades, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getProveedores() {
+  try {
+    const data = await db
+      .select({
+        value: sql<string>`CAST(${proveedores.id} AS TEXT)`,
+        label: proveedores.nombre_comercial,
+      })
+      .from(proveedores)
+      .orderBy(asc(proveedores.nombre_comercial));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los proveedores, por favor intenta de nuevo'
     );
   }
 }

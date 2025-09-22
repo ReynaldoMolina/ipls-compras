@@ -1,6 +1,6 @@
 import { FilterOptions } from '@/types/types';
 import { FilterCheckBox } from './filter-checkbox';
-import { solvenciaStatus } from './filter-states-data';
+import { solvenciaStatus } from '../../select-options-data';
 import { FilterRadio } from './filter-radio';
 
 export function ProvidersFilters(filterOptions: FilterOptions) {

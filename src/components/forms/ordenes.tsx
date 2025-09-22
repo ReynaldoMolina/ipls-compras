@@ -23,6 +23,8 @@ import FormTextField from './elements/form-text-field';
 import { FormLink, FormLinkGroup } from './elements/form-link';
 import FormFooter from './elements/form-footer';
 import FormTextArea from './elements/form-text-area';
+import { FormSelect } from './elements/form-select';
+import { monedas, terminosDePago } from '../select-options-data';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
@@ -31,6 +33,7 @@ interface OrdenFormProps {
   orden?: OrdenFormType;
   id_solicitud: number;
   estados: ComboBoxData;
+  proveedores: ComboBoxData;
 }
 
 export function OrdenForm({
@@ -38,6 +41,7 @@ export function OrdenForm({
   orden,
   id_solicitud,
   estados,
+  proveedores,
 }: OrdenFormProps) {
   const form = useForm<z.infer<typeof ordenesSchema>>({
     resolver: zodResolver(ordenesSchema),
@@ -45,13 +49,23 @@ export function OrdenForm({
       ? {
           id_solicitud: orden.id_solicitud ?? id_solicitud,
           fecha_creacion: orden.fecha_creacion ?? undefined,
+          fecha_a_utilizar: orden.fecha_a_utilizar ?? undefined,
+          id_proveedor: orden.id_proveedor ?? 0,
           id_estado: orden.id_estado ?? 0,
+          numero_cotizacion: orden.numero_cotizacion ?? '',
+          termino_de_pago: orden.termino_de_pago ?? '',
+          moneda: orden.moneda ?? '',
           observaciones: orden.observaciones ?? '',
         }
       : {
           id_solicitud: id_solicitud,
           fecha_creacion: undefined,
+          fecha_a_utilizar: undefined,
+          id_proveedor: 0,
           id_estado: 0,
+          numero_cotizacion: '',
+          termino_de_pago: '',
+          moneda: '',
           observaciones: '',
         },
   });
@@ -63,6 +77,7 @@ export function OrdenForm({
     //   updateSolicitud(orden?.id, { message: undefined }, values);
     // }
     alert('orden form test');
+    console.log(values);
   }
 
   return (
@@ -100,6 +115,17 @@ export function OrdenForm({
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="fecha_a_utilizar"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Fecha a utilizar</FormLabel>
+                      <DatePicker<OrdenFormValues> field={field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </FormInputGroup>
               <FormCombobox
                 form={form}
@@ -107,6 +133,32 @@ export function OrdenForm({
                 label="Estado"
                 options={estados}
               />
+              <FormCombobox
+                form={form}
+                name="id_proveedor"
+                label="Proveedor"
+                options={proveedores}
+              />
+              <FormTextField
+                control={form.control}
+                name="numero_cotizacion"
+                label="Cotización Nº"
+              />
+              <FormInputGroup>
+                <FormSelect
+                  control={form.control}
+                  name="termino_de_pago"
+                  label="Término de pago"
+                  options={terminosDePago}
+                />
+                <FormSelect
+                  control={form.control}
+                  name="moneda"
+                  label="Moneda"
+                  options={monedas}
+                />
+              </FormInputGroup>
+
               <FormTextArea
                 control={form.control}
                 name="observaciones"

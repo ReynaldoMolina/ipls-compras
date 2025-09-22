@@ -5,7 +5,7 @@ import {
   getDepartamentos,
   getSectores,
   getSubsectoresBySector,
-} from '@/fetch-data/form-elements';
+} from '@/fetch-data/form-select-options';
 import { getProveedorById } from '@/fetch-data/proveedores';
 import { PageProps } from '@/types/types';
 

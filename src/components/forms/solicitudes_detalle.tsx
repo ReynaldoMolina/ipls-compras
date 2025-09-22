@@ -14,7 +14,7 @@ import FormTextField from '@/components/forms/elements/form-text-field';
 import FormInputGroup from '@/components/forms/elements/form-input-group';
 import FormCombobox from '@/components/forms/elements/form-combobox';
 import { FormSelect } from '@/components/forms/elements/form-select';
-import { prioridad } from '@/components/actionbar/filter/filter-states-data';
+import { prioridad } from '@/components/select-options-data';
 import {
   createSolicitudDetalle,
   updateSolicitudDetalle,

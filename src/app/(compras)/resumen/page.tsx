@@ -6,7 +6,7 @@ import { presupuestoChartConfig, comparisonChartConfig } from './chart-config';
 import { PageProps } from '@/types/types';
 import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
-import { currentYear } from '@/components/actionbar/filter/filter-states-data';
+import { currentYear } from '@/components/select-options-data';
 
 const title = 'Resumen';
 

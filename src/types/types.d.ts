@@ -197,6 +197,10 @@ export interface OrdenesTable extends Orden {
 
 export interface OrdenFormType extends Orden {
   id_estado: number | null;
+  id_proveedor: number | null;
+  numero_cotizacion: string | null;
+  termino_de_pago: string | null;
+  moneda: string | null;
   observaciones: string | null;
 }
 

@@ -3,6 +3,7 @@ import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { getOrdenById, getOrdenesEstados } from '@/fetch-data/ordenes';
 import { OrdenForm } from '@/components/forms/ordenes';
+import { getProveedores } from '@/fetch-data/form-select-options';
 
 export async function generateMetadata(props: PageProps) {
   const params = await props.params;
@@ -19,6 +20,7 @@ export default async function Page(props: PageProps) {
 
   const orden = await getOrdenById(id_orden);
   const estados = await getOrdenesEstados();
+  const proveedores = await getProveedores();
 
   return (
     <>
@@ -29,6 +31,7 @@ export default async function Page(props: PageProps) {
           orden={orden}
           id_solicitud={id_solicitud}
           estados={estados}
+          proveedores={proveedores}
         />
       </PageWrapper>
     </>

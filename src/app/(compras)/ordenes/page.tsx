@@ -16,7 +16,7 @@ export const metadata = {
 
 export default async function Page(props: PageProps) {
   const params = await props.searchParams;
-  const tableData = await getOrdenesTableData(params ?? {});
+  const tableData = await getOrdenesTableData(params ?? {}, undefined);
   const years = await getUniqueYearsFromSolicitudes();
 
   return (

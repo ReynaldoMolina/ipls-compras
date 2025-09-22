@@ -15,7 +15,7 @@ import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { OptionsMenuCombobox } from './options-menu-combobox';
-import { prioridad } from '@/components/actionbar/filter/filter-states-data';
+import { prioridad } from '@/components/select-options-data';
 import { PrioridadSubMenu } from './prioridad-submenu';
 import {
   deleteSolicitudDetalleByIds,

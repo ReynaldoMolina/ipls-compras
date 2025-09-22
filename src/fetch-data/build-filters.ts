@@ -65,7 +65,7 @@ export function buildFilterSolicitudesByYear(searchParams: SearchParamsProps) {
   return years.length > 0 ? inArray(solicitudes.year, mappedYears) : undefined;
 }
 
-export function buildOrdenesByIdSolicitud(id_solicitud: number) {
+export function buildOrdenesByIdSolicitud(id_solicitud: number | undefined) {
   if (!id_solicitud || id_solicitud === null) return undefined;
   return eq(ordenes.id_solicitud, id_solicitud);
 }

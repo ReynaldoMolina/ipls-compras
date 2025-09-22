@@ -16,7 +16,7 @@ import { ordenes_estados } from '@/database/schema/ordenes-estados';
 
 export async function getOrdenesTableData(
   params: SearchParamsProps,
-  id_solicitud: number
+  id_solicitud: number | undefined
 ) {
   const selectFields = {
     id: ordenes.id,
@@ -43,7 +43,9 @@ export async function getOrdenesTableData(
     entidades_academicas.nombre,
   ]);
 
-  const filterByIdSolicitud = buildOrdenesByIdSolicitud(id_solicitud);
+  const filterByIdSolicitud = buildOrdenesByIdSolicitud(
+    id_solicitud ?? undefined
+  );
   const filterByYear = buildFilterSolicitudesByYear(params);
   const orderBy = buildOrderByFragment(params, selectFields);
 

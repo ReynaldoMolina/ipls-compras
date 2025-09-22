@@ -58,7 +58,6 @@ export const currentYear = new Date().getFullYear();
 
 const startYear = 2024;
 const endYear = currentYear + 1;
-
 export const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => {
   const year = startYear + i;
   return {
@@ -66,3 +65,25 @@ export const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => {
     label: String(year),
   };
 });
+
+export const terminosDePago = [
+  {
+    value: 'cheque',
+    label: 'Cheque',
+  },
+  {
+    value: 'efectivo',
+    label: 'Efectivo',
+  },
+];
+
+export const monedas = [
+  {
+    value: 'cordobas',
+    label: 'Córdobas',
+  },
+  {
+    value: 'dolares',
+    label: 'Dólares',
+  },
+];
