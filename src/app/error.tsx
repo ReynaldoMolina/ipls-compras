@@ -1,5 +1,8 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { Frown, House, RotateCcw } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 export default function Error({
@@ -15,16 +18,27 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex items-center justify-center gap-5">
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
+    <section className="flex flex-col items-center justify-center gap-10 h-screen">
+      <div className="flex flex-col items-center gap-2 max-w-md">
+        <Frown className="size-10" />
+        <h1 className="font-semibold text-lg">Lo sentimos</h1>
+        <span className="text-sm text-muted-foreground text-center text-pretty">
+          Ha ocurrido un error inesperado y no hemos podido cargar la
+          información.
+        </span>
+      </div>
+      <div className="flex items-center gap-2 max-w-md">
+        <Button variant="secondary" onClick={() => reset()} asChild>
+          <Link href="/">
+            <House />
+            Inicio
+          </Link>
+        </Button>
+        <Button onClick={() => reset()}>
+          <RotateCcw />
+          Reintentar
+        </Button>
+      </div>
+    </section>
   );
 }

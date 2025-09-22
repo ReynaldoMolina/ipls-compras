@@ -1,7 +1,6 @@
 import ActionBar from '@/components/actionbar/action-bar';
 import Chart from '@/components/chart';
 import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
 import { getResumenComparisonChartByEntidad } from '@/lib/data/resumen';
 import { presupuestoChartConfig, comparisonChartConfig } from './chart-config';
 import { PageProps } from '@/types/types';
@@ -31,7 +30,7 @@ export default async function Page(props: PageProps) {
         <ActionBar allowSearch={false} allowNew={false}>
           <FilterButton filterOptions={{ years }} />
         </ActionBar>
-        <div className="flex flex-1 bg-red-600 flex-col gap-3 w-full overflow-x-auto">
+        <div className="flex flex-1 flex-col gap-3 w-full overflow-x-auto">
           <Chart
             chartData={presupuestoChartData}
             chartConfig={presupuestoChartConfig}
