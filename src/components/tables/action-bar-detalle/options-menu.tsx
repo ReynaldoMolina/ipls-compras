@@ -15,7 +15,6 @@ import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { OptionsMenuCombobox } from './options-menu-combobox';
-import { prioridad } from '@/components/select-options-data';
 import { PrioridadSubMenu } from './prioridad-submenu';
 import {
   deleteSolicitudDetalleByIds,
@@ -23,7 +22,8 @@ import {
   updateSolicitudDetalleColumnByIds,
 } from '@/server-actions/solicitudes-detalle';
 import FormDelete from '@/components/actionbar/delete-button';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { prioridad } from '@/components/select-options-data';
 
 interface OptionsMenuProps<TData> {
   table: Table<TData>;
@@ -39,7 +39,6 @@ export function OptionsMenu<TData>({
   const [open, setOpen] = useState(false);
   const { selectOptions, id_solicitud } = table.options.meta ?? {};
   const router = useRouter();
-  const pathname = usePathname();
 
   const selectedRowsIds = table
     .getSelectedRowModel()
@@ -54,15 +53,9 @@ export function OptionsMenu<TData>({
     if (!id_solicitud || selectedRowsIds.length === 0) return;
 
     try {
-      await updateSolicitudDetalleColumnByIds(
-        selectedRowsIds,
-        column,
-        value,
-        id_solicitud
-      );
-
-      // router.refresh();
-      router.replace(pathname);
+      await updateSolicitudDetalleColumnByIds(selectedRowsIds, column, value);
+      table.toggleAllPageRowsSelected(false);
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

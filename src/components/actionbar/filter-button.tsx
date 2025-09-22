@@ -9,6 +9,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Filter } from 'lucide-react';
 import {
+  OrdenesFilters,
   ProvidersFilters,
   ResumenFilters,
   SolicitudesFilters,
@@ -63,8 +64,15 @@ function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
     return <ResumenFilters {...filterOptions} />;
   }
 
-  if (pathname === '/solicitudes' || pathname === '/ordenes') {
+  if (pathname === '/solicitudes') {
     return <SolicitudesFilters {...filterOptions} />;
+  }
+
+  if (
+    pathname === '/ordenes' ||
+    (pathname.startsWith('/solicitudes/') && pathname.endsWith('/ordenes'))
+  ) {
+    return <OrdenesFilters {...filterOptions} />;
   }
 
   return null;

@@ -21,10 +21,7 @@ export const columns: ColumnDef<Solicitudes>[] = [
       return (
         <div className="inline-flex gap-1">
           <EditCell href={`/solicitudes/${row.original.id}`} />
-          <GoToListCell
-            href={`/solicitudes/${row.original.id}/detalle`}
-            label="detalle"
-          />
+          <GoToListCell href={`/solicitudes/${row.original.id}/detalle`} />
         </div>
       );
     },

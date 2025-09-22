@@ -1,28 +1,44 @@
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { List, Pencil } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export function EditCell({ href }: { href: string }) {
   return (
-    <Button asChild variant="outline" size="table" title="Editar">
-      <Link href={`${href}/editar`}>
-        <Pencil className="size-3.5" />
-      </Link>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button asChild variant="outline" size="table">
+          <Link href={`${href}/editar`}>
+            <Pencil className="size-3.5" />
+          </Link>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Editar</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
-export function GoToListCell({ href, label }: { href: string; label: string }) {
+export function GoToListCell({
+  href,
+  label,
+}: {
+  href: string;
+  label?: string;
+}) {
   return (
-    <Button
-      asChild
-      variant="outline"
-      size="table"
-      title={`Ir a ${label ? label : 'lista'}`}
-    >
-      <Link href={href}>
-        <List className="size-3.5" />
-      </Link>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button asChild variant="outline" size="table">
+          <Link href={href}>
+            <List className="size-3.5" />
+          </Link>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{label ?? 'Detalle'}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }

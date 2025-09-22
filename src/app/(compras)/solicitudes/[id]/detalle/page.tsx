@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { PageProps } from '@/types/types';
 import {
   getDetalleCategorias,

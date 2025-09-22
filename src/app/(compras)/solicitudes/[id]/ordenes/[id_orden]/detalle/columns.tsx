@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { SolicitudDetalle } from '@/types/types';
+import { OrdenDetalleTable, SolicitudDetalle } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import {
   NumberIntegerCell,
@@ -16,7 +16,7 @@ import { sumColumn } from '@/lib/sum-column';
 import DefaultCell from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
-export const columns: ColumnDef<SolicitudDetalle>[] = [
+export const columns: ColumnDef<OrdenDetalleTable>[] = [
   {
     id: 'select',
     header: CheckBoxCellHeader,
@@ -28,7 +28,7 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
     header: 'Edit',
     cell: ({ row }) => (
       <EditCell
-        href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}`}
+        href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}/editar`}
       />
     ),
   },
@@ -62,8 +62,10 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
     cell: DefaultCell,
   },
   {
-    accessorKey: 'precio',
-    header: ({ column }) => <SortButtonClient column={column} label="Precio" />,
+    accessorKey: 'precio_real',
+    header: ({ column }) => (
+      <SortButtonClient column={column} label="Precio real" />
+    ),
     cell: NumberFloatCell,
   },
   {
@@ -73,13 +75,13 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
     ),
     cell: ({ row }) => (
       <NumberCellWithValue
-        value={row.original.cantidad * row.original.precio}
+        value={row.original.cantidad * (row.original.precio_real ?? 0)}
       />
     ),
     footer: ({ table }) => {
       const total = table.getFilteredRowModel().rows.reduce((sum, row) => {
         const cantidad = Number(row.getValue('cantidad')) || 0;
-        const precio = Number(row.getValue('precio')) || 0;
+        const precio = Number(row.getValue('precio_real')) || 0;
         return sum + cantidad * precio;
       }, 0);
 
@@ -90,87 +92,6 @@ export const columns: ColumnDef<SolicitudDetalle>[] = [
     accessorKey: 'observaciones',
     header: ({ column }) => (
       <SortButtonClient column={column} label="Observaciones" />
-    ),
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'prioridad',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Prioridad" />
-    ),
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'estado',
-    header: ({ column }) => <SortButtonClient column={column} label="Estado" />,
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'comprado',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Comprado" />
-    ),
-    cell: NumberIntegerCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'comprado');
-      return <NumberCellWithValue value={total} type="integer" />;
-    },
-  },
-  {
-    accessorKey: 'recibido',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Recibido" />
-    ),
-    cell: NumberIntegerCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'recibido');
-      return <NumberCellWithValue value={total} type="integer" />;
-    },
-  },
-  {
-    accessorKey: 'precio_compra',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Precio compra" />
-    ),
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'precio_compra');
-      return <NumberCellWithValue value={total} />;
-    },
-  },
-  {
-    accessorKey: 'entrega_bodega',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Entrega bodega" />
-    ),
-    cell: NumberIntegerCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'entrega_bodega');
-      return <NumberCellWithValue value={total} type="integer" />;
-    },
-  },
-  {
-    accessorKey: 'precio_bodega',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Precio bodega" />
-    ),
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'precio_bodega');
-      return <NumberCellWithValue value={total} />;
-    },
-  },
-  {
-    accessorKey: 'ubicacion',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Ubicación" />
-    ),
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'categoria',
-    header: ({ column }) => (
-      <SortButtonClient column={column} label="Categoría" />
     ),
     cell: DefaultCell,
   },

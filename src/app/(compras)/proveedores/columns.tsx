@@ -18,7 +18,7 @@ export const columns: ColumnDef<Proveedores>[] = [
           <EditCell href={`/proveedores/${row.original.id}`} />
           <GoToListCell
             href={`/proveedores/${row.original.id}/solvencias`}
-            label="solvencias"
+            label="Solvencias"
           />
         </div>
       );

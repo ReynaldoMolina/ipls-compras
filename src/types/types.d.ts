@@ -20,6 +20,7 @@ export type SearchParamsProps = {
   activo?: 'active' | 'inactive';
   year?: string;
   selected?: string;
+  orden_estado?: string;
 };
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
@@ -144,6 +145,7 @@ export type FilterOptions = {
   years?: SelectOptions[];
   userStates?: SelectOptions[];
   userRoles?: SelectOptions[];
+  ordenesStates?: SelectOptions[];
 };
 
 export type ComboBoxData = SelectOptions[];
@@ -205,5 +207,12 @@ export interface OrdenFormType extends Orden {
 }
 
 export interface OrdenDetalleTable {
-  h: string;
+  id: number;
+  id_solicitud: number | null;
+  producto_servicio: string | null;
+  cantidad: number;
+  unidad_medida: string | null;
+  precio_real: number | null;
+  categoria: string | null;
+  observaciones: string | null;
 }

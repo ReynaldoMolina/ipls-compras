@@ -44,8 +44,7 @@ export type SolicitudDetalleColumn =
 export async function updateSolicitudDetalleColumnByIds(
   ids: number[],
   column: SolicitudDetalleColumn,
-  value: number | string,
-  id_solicitud: number
+  value: number | string
 ) {
   if (ids?.length === 0) return;
 
@@ -58,8 +57,6 @@ export async function updateSolicitudDetalleColumnByIds(
     console.error(error);
     return error;
   }
-
-  revalidatePath(`/solicitudes/${id_solicitud}/detalle`);
 }
 
 export async function deleteSolicitudDetalleByIds(

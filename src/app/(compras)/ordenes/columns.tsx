@@ -26,7 +26,6 @@ export const columns: ColumnDef<OrdenesTable>[] = [
           />
           <GoToListCell
             href={`/solicitudes/${row.original.id_solicitud}/ordenes/${row.original.id}/detalle`}
-            label="detalle"
           />
         </div>
       );

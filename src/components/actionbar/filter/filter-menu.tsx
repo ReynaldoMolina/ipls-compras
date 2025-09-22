@@ -1,7 +1,7 @@
 import { FilterOptions } from '@/types/types';
 import { FilterCheckBox } from './filter-checkbox';
-import { solvenciaStatus } from '../../select-options-data';
 import { FilterRadio } from './filter-radio';
+import { solvenciaStatus } from '@/components/select-options-data';
 
 export function ProvidersFilters(filterOptions: FilterOptions) {
   return (
@@ -64,6 +64,23 @@ export function SolicitudesFilters(filterOptions: FilterOptions) {
         label="Año"
         options={filterOptions.years}
         paramKey="year"
+      />
+    </>
+  );
+}
+
+export function OrdenesFilters(filterOptions: FilterOptions) {
+  return (
+    <>
+      <FilterCheckBox
+        label="Año"
+        options={filterOptions.years}
+        paramKey="year"
+      />
+      <FilterCheckBox
+        label="Estado"
+        options={filterOptions.ordenesStates}
+        paramKey="orden_estado"
       />
     </>
   );

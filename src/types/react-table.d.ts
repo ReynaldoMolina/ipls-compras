@@ -3,7 +3,7 @@ import { DetalleSelectOptions } from './types';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
-    selectOptions: DetalleSelectOptions;
+    selectOptions: DetalleSelectOptions | undefined;
     id_solicitud: number;
   }
 

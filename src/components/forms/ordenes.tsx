@@ -25,6 +25,7 @@ import FormFooter from './elements/form-footer';
 import FormTextArea from './elements/form-text-area';
 import { FormSelect } from './elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';
+import { createOrden, updateOrden } from '@/server-actions/ordenes';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
@@ -58,11 +59,11 @@ export function OrdenForm({
           observaciones: orden.observaciones ?? '',
         }
       : {
-          id_solicitud: id_solicitud,
+          id_solicitud: id_solicitud ?? undefined,
           fecha_creacion: undefined,
           fecha_a_utilizar: undefined,
           id_proveedor: 0,
-          id_estado: 0,
+          id_estado: 1,
           numero_cotizacion: '',
           termino_de_pago: '',
           moneda: '',
@@ -71,13 +72,11 @@ export function OrdenForm({
   });
 
   function onSubmit(values: z.infer<typeof ordenesSchema>) {
-    // if (action === 'create') {
-    //   createSolicitud(undefined, values);
-    // } else if (action === 'edit' && orden) {
-    //   updateSolicitud(orden?.id, { message: undefined }, values);
-    // }
-    alert('orden form test');
-    console.log(values);
+    if (action === 'create') {
+      createOrden(values);
+    } else if (action === 'edit' && orden) {
+      updateOrden(orden?.id, values);
+    }
   }
 
   return (
@@ -88,9 +87,8 @@ export function OrdenForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <FormLinkGroup>
+            <FormLinkGroup action={action}>
               <FormLink
-                action={action}
                 href={`/solicitudes/${id_solicitud}/ordenes/${orden?.id}/detalle`}
                 label="Ver lista de productos"
               />
@@ -101,7 +99,6 @@ export function OrdenForm({
                   control={form.control}
                   name="id_solicitud"
                   label="Solicitud Nº"
-                  hidden
                   disabled
                 />
                 <FormField

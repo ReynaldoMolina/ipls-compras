@@ -1,10 +1,9 @@
 import { PageProps } from '@/types/types';
-import { getSolicitudDetalleBySolicitudId } from '@/fetch-data/solicitudes-detalle';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
-import { DataTable } from '@/components/tables/data-table';
-import { getOrdenById } from '@/fetch-data/ordenes';
+import { getOrdenDetalleById } from '@/fetch-data/ordenes';
+import { DataTableDetalle } from '@/components/tables/data-table-detalle';
 
 export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
@@ -16,11 +15,9 @@ export async function generateMetadata(props: PageProps) {
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
-  const searchParams = await props.searchParams;
   const id_solicitud = Number(params?.id);
   const id_orden = Number(params?.id_orden);
-
-  const tableData = await getOrdenById(id_orden);
+  const tableData = await getOrdenDetalleById(id_orden);
 
   return (
     <>
@@ -28,7 +25,11 @@ export default async function Page(props: PageProps) {
         title={`Solicitud ${id_solicitud} - Orden ${id_orden} - Detalle`}
       />
       <PageWrapper>
-        <DataTable columns={columns} data={tableData} />
+        <DataTableDetalle
+          columns={columns}
+          tableData={tableData}
+          id_solicitud={id_solicitud}
+        />
       </PageWrapper>
     </>
   );

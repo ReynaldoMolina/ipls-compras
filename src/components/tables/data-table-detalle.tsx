@@ -21,14 +21,14 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActionsBarDetalle } from './action-bar-detalle/actions-bar-detalle';
 import { DetalleSelectOptions } from '@/types/types';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
-  selectOptions: DetalleSelectOptions;
+  selectOptions?: DetalleSelectOptions;
   id_solicitud: number;
 }
 
@@ -43,6 +43,10 @@ export function DataTableDetalle<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [grouped, setGrouped] = useState(true);
+
+  useEffect(() => {
+    setData(tableData || []);
+  }, [tableData]);
 
   const table = useReactTable({
     data,

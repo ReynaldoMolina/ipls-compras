@@ -4,14 +4,11 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface FormLinkProps {
-  action: FormAction;
   href: string;
   label: string;
 }
 
-export function FormLink({ action, href, label }: FormLinkProps) {
-  if (action === 'create') return null;
-
+export function FormLink({ href, label }: FormLinkProps) {
   return (
     <Button asChild size="sm" variant="outline">
       <Link href={href} className="inline-flex gap-2">
@@ -23,9 +20,11 @@ export function FormLink({ action, href, label }: FormLinkProps) {
 }
 
 interface FormLinkGroupProps {
+  action: FormAction;
   children: React.ReactNode;
 }
 
-export function FormLinkGroup({ children }: FormLinkGroupProps) {
+export function FormLinkGroup({ action, children }: FormLinkGroupProps) {
+  if (action === 'create') return null;
   return <div className="flex flex-col gap-2">{children}</div>;
 }

@@ -1,9 +1,14 @@
 import { db } from '@/database/db';
-import { OrdenFormType, SearchParamsProps } from '@/types/types';
+import {
+  OrdenDetalleTable,
+  OrdenFormType,
+  SearchParamsProps,
+} from '@/types/types';
 import { eq, and, sql, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
+  buildFilterByOrderState,
   buildFilterSolicitudesByYear,
   buildOrdenesByIdSolicitud,
 } from './build-filters';
@@ -13,6 +18,8 @@ import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { ordenes } from '@/database/schema/ordenes';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { ordenes_estados } from '@/database/schema/ordenes-estados';
+import { unidades_medida } from '@/database/schema/unidades-medida';
+import { categoria_productos } from '@/database/schema/categoria_productos';
 
 export async function getOrdenesTableData(
   params: SearchParamsProps,
@@ -47,6 +54,7 @@ export async function getOrdenesTableData(
     id_solicitud ?? undefined
   );
   const filterByYear = buildFilterSolicitudesByYear(params);
+  const filterByOrderState = buildFilterByOrderState(params);
   const orderBy = buildOrderByFragment(params, selectFields);
 
   try {
@@ -64,7 +72,14 @@ export async function getOrdenesTableData(
         eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
       )
       .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
-      .where(and(filterBySearch, filterByYear, filterByIdSolicitud))
+      .where(
+        and(
+          filterBySearch,
+          filterByYear,
+          filterByIdSolicitud,
+          filterByOrderState
+        )
+      )
       .groupBy(
         ordenes.id,
         solicitudes.year,
@@ -89,6 +104,46 @@ export async function getOrdenById(id: number): Promise<OrdenFormType> {
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener la orden, por favor intenta de nuevo');
+  }
+}
+
+export async function getOrdenDetalleById(
+  id_orden: number
+): Promise<OrdenDetalleTable[]> {
+  const selectFields = {
+    id: ordenes_detalle.id,
+    id_solicitud: solicitudes_detalle.id_solicitud,
+    producto_servicio: solicitudes_detalle.producto_servicio,
+    cantidad: ordenes_detalle.cantidad,
+    unidad_medida: unidades_medida.unidad_medida,
+    precio_real: ordenes_detalle.precio_real,
+    categoria: categoria_productos.categoria,
+    observaciones: ordenes_detalle.observaciones,
+  };
+
+  try {
+    const data = await db
+      .select(selectFields)
+      .from(ordenes_detalle)
+      .leftJoin(
+        solicitudes_detalle,
+        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
+      )
+      .leftJoin(
+        unidades_medida,
+        eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
+      )
+      .leftJoin(
+        categoria_productos,
+        eq(solicitudes_detalle.id_categoria, categoria_productos.id)
+      )
+      .where(eq(ordenes_detalle.id_orden, id_orden));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el detalle de la orden, por favor intenta de nuevo'
+    );
   }
 }
 

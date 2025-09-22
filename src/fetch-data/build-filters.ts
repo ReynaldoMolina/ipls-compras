@@ -69,3 +69,11 @@ export function buildOrdenesByIdSolicitud(id_solicitud: number | undefined) {
   if (!id_solicitud || id_solicitud === null) return undefined;
   return eq(ordenes.id_solicitud, id_solicitud);
 }
+
+export function buildFilterByOrderState(searchParams: SearchParamsProps) {
+  const estados = searchParams.orden_estado?.split(',').filter(Boolean) ?? [];
+  const mappedEstados = estados.map((estado) => Number(estado));
+  return estados.length > 0
+    ? inArray(ordenes.id_estado, mappedEstados)
+    : undefined;
+}

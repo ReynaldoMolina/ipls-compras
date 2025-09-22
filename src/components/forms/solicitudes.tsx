@@ -75,14 +75,12 @@ export function SolicitudForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <FormLinkGroup>
+            <FormLinkGroup action={action}>
               <FormLink
-                action={action}
                 href={`/solicitudes/${solicitud?.id}/detalle`}
                 label="Ver lista de productos"
               />
               <FormLink
-                action={action}
                 href={`/solicitudes/${solicitud?.id}/ordenes`}
                 label="Ver órdenes de compra"
               />

@@ -1,0 +1,1 @@
+ALTER TABLE "ordenes_detalle" ADD COLUMN "observacion" text;
