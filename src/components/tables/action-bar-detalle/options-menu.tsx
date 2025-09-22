@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { OptionsMenuCombobox } from './options-menu-combobox';
 import { prioridad } from '@/components/actionbar/filter/filter-states-data';
 import { PrioridadSubMenu } from './prioridad-submenu';
@@ -24,7 +25,17 @@ import {
 import FormDelete from '@/components/actionbar/delete-button';
 import { usePathname, useRouter } from 'next/navigation';
 
-export function OptionsMenu<TData>({ table }: { table: Table<TData> }) {
+interface OptionsMenuProps<TData> {
+  table: Table<TData>;
+  setGrouped: Dispatch<SetStateAction<boolean>>;
+  grouped: boolean;
+}
+
+export function OptionsMenu<TData>({
+  table,
+  setGrouped,
+  grouped,
+}: OptionsMenuProps<TData>) {
   const [open, setOpen] = useState(false);
   const { selectOptions, id_solicitud } = table.options.meta ?? {};
   const router = useRouter();
@@ -74,6 +85,17 @@ export function OptionsMenu<TData>({ table }: { table: Table<TData> }) {
           <DropdownMenuLabel>Órden de compra</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem disabled={isDisabled}>Crear orden</DropdownMenuItem>
+        </DropdownMenuGroup>
+
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Agrupar</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuCheckboxItem
+            checked={grouped}
+            onCheckedChange={setGrouped}
+          >
+            Por categoría
+          </DropdownMenuCheckboxItem>
         </DropdownMenuGroup>
 
         <DropdownMenuGroup>

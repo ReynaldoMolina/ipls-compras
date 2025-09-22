@@ -6,12 +6,14 @@ import NewButton from '@/components/actionbar/new-button';
 
 export function ActionsBarDetalle<TData>({
   table,
+  setGrouped,
+  grouped,
 }: ActionsBarDetalleProps<TData>) {
   return (
     <div className="inline-flex gap-2">
       <SearchInput table={table} />
       <div className="inline-flex gap-2 ml-auto">
-        <OptionsMenu table={table} />
+        <OptionsMenu table={table} setGrouped={setGrouped} grouped={grouped} />
         <FilterButtonDetalle />
         <NewButton isDetalle />
       </div>

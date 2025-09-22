@@ -42,6 +42,7 @@ export function DataTableDetalle<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [grouped, setGrouped] = useState(true);
 
   const table = useReactTable({
     data,
@@ -58,69 +59,121 @@ export function DataTableDetalle<TData, TValue>({
       rowSelection,
     },
     meta: {
-      selectOptions: selectOptions,
-      id_solicitud: id_solicitud,
+      selectOptions,
+      id_solicitud,
     },
   });
 
+  const colorMap: Record<string, string> = {
+    1: 'bg-date-due',
+    2: 'bg-date-warning',
+    3: 'bg-date-active',
+  };
+
   return (
     <>
-      <ActionsBarDetalle table={table} />
+      <ActionsBarDetalle
+        table={table}
+        setGrouped={setGrouped}
+        grouped={grouped}
+      />
 
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => {
-              const colorMap: Record<string, string> = {
-                1: 'bg-date-due',
-                2: 'bg-date-warning',
-                3: 'bg-date-active',
-              };
 
-              return (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className={colorMap[row.original.id_estado]}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              );
-            })
-          ) : (
+        {table.getRowModel().rows.length === 0 ? (
+          <TableBody>
             <TableRow className="hover:bg-transparent">
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 No hay resultados
               </TableCell>
             </TableRow>
-          )}
-        </TableBody>
-        {table.getRowModel().rows?.length ? (
+          </TableBody>
+        ) : grouped ? (
+          // Grouped by categoria
+          <>
+            {Array.from(
+              new Set(
+                table
+                  .getRowModel()
+                  .rows.map((row) => row.original.categoria ?? 'Sin categoría')
+              )
+            ).map((categoria) => {
+              const rows = table
+                .getRowModel()
+                .rows.filter(
+                  (row) =>
+                    (row.original.categoria ?? 'Sin categoría') === categoria
+                );
+
+              return (
+                <tbody key={categoria}>
+                  {/* Category header */}
+                  <TableRow className="bg-muted/50 hover:bg-muted/50">
+                    <TableCell
+                      colSpan={columns.length}
+                      className="font-semibold text-left"
+                    >
+                      {categoria}
+                    </TableCell>
+                  </TableRow>
+
+                  {/* Rows in this category */}
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                      className={colorMap[String(row.original.id_estado)]}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </tbody>
+              );
+            })}
+          </>
+        ) : (
+          // Flat rows
+          <TableBody>
+            {table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && 'selected'}
+                className={colorMap[String(row.original.id_estado)]}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        )}
+
+        {table.getRowModel().rows.length > 0 && (
           <TableFooter>
             {table.getFooterGroups().map((footerGroup) => (
               <TableRow
@@ -140,7 +193,7 @@ export function DataTableDetalle<TData, TValue>({
               </TableRow>
             ))}
           </TableFooter>
-        ) : null}
+        )}
       </Table>
     </>
   );

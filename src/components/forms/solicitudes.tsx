@@ -22,7 +22,7 @@ import FormOptions from './elements/form-options';
 import FormCombobox from './elements/form-combobox';
 import FormTextField from './elements/form-text-field';
 import { FormSwitch } from './elements/form-switch';
-import { FormLink } from './elements/form-link';
+import { FormLink, FormLinkGroup } from './elements/form-link';
 import FormFooter from './elements/form-footer';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
@@ -75,18 +75,18 @@ export function SolicitudForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <div className="flex flex-col gap-2">
+            <FormLinkGroup>
               <FormLink
                 action={action}
                 href={`/solicitudes/${solicitud?.id}/detalle`}
-                label="Ir a detalle de la solicitud"
+                label="Ver lista de productos"
               />
               <FormLink
                 action={action}
                 href={`/solicitudes/${solicitud?.id}/ordenes`}
-                label="Ver órdenes"
+                label="Ver órdenes de compra"
               />
-            </div>
+            </FormLinkGroup>
             <FormFieldSet name="info">
               <FormInputGroup>
                 <FormField

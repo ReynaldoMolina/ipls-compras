@@ -20,7 +20,7 @@ import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';
 import FormCombobox from './elements/form-combobox';
 import FormTextField from './elements/form-text-field';
-import { FormLink } from './elements/form-link';
+import { FormLink, FormLinkGroup } from './elements/form-link';
 import FormFooter from './elements/form-footer';
 import FormTextArea from './elements/form-text-area';
 
@@ -73,17 +73,20 @@ export function OrdenForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <FormLink
-              action={action}
-              href={`/solicitudes/${id_solicitud}/ordenes/${orden?.id}/detalle`}
-              label="Ir a detalle de la orden"
-            />
+            <FormLinkGroup>
+              <FormLink
+                action={action}
+                href={`/solicitudes/${id_solicitud}/ordenes/${orden?.id}/detalle`}
+                label="Ver lista de productos"
+              />
+            </FormLinkGroup>
             <FormFieldSet name="info">
               <FormInputGroup>
                 <FormTextField
                   control={form.control}
                   name="id_solicitud"
                   label="Solicitud Nº"
+                  hidden
                   disabled
                 />
                 <FormField

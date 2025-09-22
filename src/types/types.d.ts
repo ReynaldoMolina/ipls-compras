@@ -168,6 +168,8 @@ export interface PageProps {
 
 export interface ActionsBarDetalleProps<TData> {
   table: Table<TData>;
+  setGrouped: Dispatch<SetStateAction<boolean>>;
+  grouped: boolean;
 }
 
 export interface DetalleSelectOptions {

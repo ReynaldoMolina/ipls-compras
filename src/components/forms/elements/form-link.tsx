@@ -21,3 +21,11 @@ export function FormLink({ action, href, label }: FormLinkProps) {
     </Button>
   );
 }
+
+interface FormLinkGroupProps {
+  children: React.ReactNode;
+}
+
+export function FormLinkGroup({ children }: FormLinkGroupProps) {
+  return <div className="flex flex-col gap-2">{children}</div>;
+}

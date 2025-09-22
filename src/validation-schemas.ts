@@ -65,6 +65,11 @@ export const detalleSolicitudSchema = z.object({
 export const ordenesSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
   fecha_creacion: z.string('Requerido'),
+  fecha_a_utilizar: z.string('Requerido'),
+  id_proveedor: z.number().min(1, 'Requerido'),
   id_estado: z.number().min(1, 'Requerido'),
+  numero_cotizacion: z.string().nullable(),
+  termino_de_pago: z.string().nullable(),
+  moneda: z.string().nullable(),
   observaciones: z.string().nullable(),
 });
