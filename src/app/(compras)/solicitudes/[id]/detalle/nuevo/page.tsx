@@ -4,7 +4,7 @@ import {
   getDetalleEstados,
   getDetalleUbicaciones,
   getUnidadesMedida,
-} from '@/lib/data/solicitudes-detalle';
+} from '@/fetch-data/solicitudes-detalle';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { SolicitudDetalleForm } from '@/components/forms/solicitudes_detalle';

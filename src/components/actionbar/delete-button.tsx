@@ -33,7 +33,7 @@ export default function DeleteButton({
           variant="ghost"
           size="sm"
           type="button"
-          className="w-full justify-start text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/10 hover:text-destructive"
+          className="w-full justify-start text-destructive hover:text-destructive"
           disabled={disabled}
         >
           <Trash />
@@ -62,6 +62,7 @@ export default function DeleteButton({
               handleDelete();
             }}
           >
+            <Trash />
             Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>

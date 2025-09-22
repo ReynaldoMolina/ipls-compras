@@ -4,7 +4,7 @@ import { columns } from './columns';
 import {
   getSolvenciasByProviderId,
   getUniqueYearsFromSolvencias,
-} from '@/lib/data/solvencias';
+} from '@/fetch-data/solvencias';
 import ActionBar from '@/components/actionbar/action-bar';
 import FilterButton from '@/components/actionbar/filter-button';
 import Header from '@/components/header/header';

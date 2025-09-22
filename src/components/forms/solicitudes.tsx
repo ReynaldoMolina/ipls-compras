@@ -13,7 +13,7 @@ import {
 import { solicitudSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
 import { ComboBoxData, FormAction, SolicitudFormType } from '@/types/types';
-import { createSolicitud, updateSolicitud } from '@/lib/actions/solicitudes';
+import { createSolicitud, updateSolicitud } from '@/server-actions/solicitudes';
 import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
 import FormInputGroup from './elements/form-input-group';

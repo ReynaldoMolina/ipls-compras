@@ -1,9 +1,9 @@
-import { db } from '@/db/db';
-import { categoria_productos } from '@/db/schema/categoria_productos';
-import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
-import { solicitudes_estados } from '@/db/schema/solicitudes-estados';
-import { ubicaciones } from '@/db/schema/ubicaciones';
-import { unidades_medida } from '@/db/schema/unidades-medida';
+import { db } from '@/database/db';
+import { categoria_productos } from '@/database/schema/categoria_productos';
+import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
+import { solicitudes_estados } from '@/database/schema/solicitudes-estados';
+import { ubicaciones } from '@/database/schema/ubicaciones';
+import { unidades_medida } from '@/database/schema/unidades-medida';
 import {
   SearchParamsProps,
   SolicitudDetalleFormType,

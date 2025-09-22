@@ -4,7 +4,7 @@ import { DataTable } from '../../../components/tables/data-table';
 import {
   getProveedoresTableData,
   getUniqueDepartamentosFromProveedores,
-} from '@/lib/data/proveedores';
+} from '@/fetch-data/proveedores';
 import FilterButton from '@/components/actionbar/filter-button';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';

@@ -1,5 +1,5 @@
-import { db } from '@/db/db';
-import { usuarios } from '@/db/schema/usuarios';
+import { db } from '@/database/db';
+import { usuarios } from '@/database/schema/usuarios';
 import { SearchParamsProps, Usuario } from '@/types/types';
 import { eq, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';

@@ -8,7 +8,7 @@ import { usuarioSchema } from '@/validation-schemas';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
 import { FormAction, Usuario } from '@/types/types';
-import { createUser, updateUser } from '@/lib/actions/usuarios';
+import { createUser, updateUser } from '@/server-actions/usuarios';
 import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';

@@ -1,7 +1,7 @@
 import { PageProps } from '@/types/types';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-import { getOrdenById, getOrdenesEstados } from '@/lib/data/ordenes';
+import { getOrdenById, getOrdenesEstados } from '@/fetch-data/ordenes';
 import { OrdenForm } from '@/components/forms/ordenes';
 
 export async function generateMetadata(props: PageProps) {

@@ -1,10 +1,10 @@
 'use server';
 
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { PrevState, Solicitud } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
-import { solicitudes } from '@/db/schema/solicitudes';
+import { solicitudes } from '@/database/schema/solicitudes';
 
 export async function createSolicitud(
   prevState: PrevState | undefined,

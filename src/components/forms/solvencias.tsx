@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { solvenciaSchema } from '@/validation-schemas';
 import { FormAction, Solvencia } from '@/types/types';
-import { createSolvencia, updateSolvencia } from '@/lib/actions/solvencias';
+import { createSolvencia, updateSolvencia } from '@/server-actions/solvencias';
 import { DatePicker } from '../date-picker';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';

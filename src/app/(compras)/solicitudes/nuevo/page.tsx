@@ -1,5 +1,5 @@
 import { SolicitudForm } from '@/components/forms/solicitudes';
-import { getEntidadesAcademicas } from '@/lib/data/form-elements';
+import { getEntidadesAcademicas } from '@/fetch-data/form-elements';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { years } from '@/components/actionbar/filter/filter-states-data';

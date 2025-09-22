@@ -1,9 +1,9 @@
 'use server';
 
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { PrevState, Provider } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
-import { proveedores } from '@/db/schema/proveedores';
+import { proveedores } from '@/database/schema/proveedores';
 import { eq } from 'drizzle-orm';
 
 export async function createProvider(

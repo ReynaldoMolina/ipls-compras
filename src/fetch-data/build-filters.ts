@@ -1,7 +1,7 @@
-import { proveedores } from '@/db/schema/proveedores';
-import { solicitudes } from '@/db/schema/solicitudes';
-import { solvencias } from '@/db/schema/solvencias';
-import { usuarios } from '@/db/schema/usuarios';
+import { proveedores } from '@/database/schema/proveedores';
+import { solicitudes } from '@/database/schema/solicitudes';
+import { solvencias } from '@/database/schema/solvencias';
+import { usuarios } from '@/database/schema/usuarios';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
 

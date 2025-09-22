@@ -4,9 +4,9 @@ import PageWrapper from '@/components/page-wrapper';
 import { DataTable } from '@/components/tables/data-table';
 import { PageProps } from '@/types/types';
 import { columns } from './columns';
-import { getOrdenesTableData } from '@/lib/data/ordenes';
+import { getOrdenesTableData } from '@/fetch-data/ordenes';
 import FilterButton from '@/components/actionbar/filter-button';
-import { getUniqueYearsFromSolicitudes } from '@/lib/data/solicitudes';
+import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 
 const title = 'Órdenes de compra';
 

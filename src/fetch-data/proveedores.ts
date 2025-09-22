@@ -1,7 +1,7 @@
-import { db } from '@/db/db';
-import { proveedores } from '@/db/schema/proveedores';
-import { solvencias } from '@/db/schema/solvencias';
-import { departamentos } from '@/db/schema/departamentos';
+import { db } from '@/database/db';
+import { proveedores } from '@/database/schema/proveedores';
+import { solvencias } from '@/database/schema/solvencias';
+import { departamentos } from '@/database/schema/departamentos';
 import { ProveedorFormType, SearchParamsProps } from '@/types/types';
 import { eq, max, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';

@@ -1,12 +1,12 @@
-import { db } from '@/db/db';
-import { solvencias } from '@/db/schema/solvencias';
+import { db } from '@/database/db';
+import { solvencias } from '@/database/schema/solvencias';
 import { SearchParamsProps } from '@/types/types';
 import { eq, and, desc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
-import { usuarios } from '@/db/schema/usuarios';
-import { proveedores } from '@/db/schema/proveedores';
+import { usuarios } from '@/database/schema/usuarios';
+import { proveedores } from '@/database/schema/proveedores';
 
 export async function getSolvenciasByProviderId(
   id_proveedor: number,

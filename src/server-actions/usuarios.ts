@@ -1,9 +1,9 @@
 'use server';
 
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { PrevState, Usuario } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
-import { usuarios } from '@/db/schema/usuarios';
+import { usuarios } from '@/database/schema/usuarios';
 import { eq } from 'drizzle-orm';
 
 export async function createUser(

@@ -1,15 +1,15 @@
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { OrdenFormType, SearchParamsProps } from '@/types/types';
 import { eq, and, sql, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterSolicitudesByYear } from './build-filters';
-import { solicitudes } from '@/db/schema/solicitudes';
-import { entidades_academicas } from '@/db/schema/entidades-academicas';
-import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
-import { ordenes } from '@/db/schema/ordenes';
-import { ordenes_detalle } from '@/db/schema/ordenes-detalle';
-import { ordenes_estados } from '@/db/schema/ordenes-estados';
+import { solicitudes } from '@/database/schema/solicitudes';
+import { entidades_academicas } from '@/database/schema/entidades-academicas';
+import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
+import { ordenes } from '@/database/schema/ordenes';
+import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
+import { ordenes_estados } from '@/database/schema/ordenes-estados';
 
 export async function getOrdenesTableData(params: SearchParamsProps) {
   const selectFields = {

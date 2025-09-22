@@ -1,8 +1,8 @@
-import { db } from '@/db/db';
-import { departamentos } from '@/db/schema/departamentos';
-import { entidades_academicas } from '@/db/schema/entidades-academicas';
-import { sectores } from '@/db/schema/sectores';
-import { subsectores } from '@/db/schema/subsectores';
+import { db } from '@/database/db';
+import { departamentos } from '@/database/schema/departamentos';
+import { entidades_academicas } from '@/database/schema/entidades-academicas';
+import { sectores } from '@/database/schema/sectores';
+import { subsectores } from '@/database/schema/subsectores';
 import { asc, eq, sql } from 'drizzle-orm';
 
 export async function getDepartamentos() {

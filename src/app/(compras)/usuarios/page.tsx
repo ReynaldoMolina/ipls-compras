@@ -3,7 +3,7 @@ import { columns } from './columns';
 import {
   getUniqueRolsFromUsuarios,
   getUsersTableData,
-} from '@/lib/data/usuarios';
+} from '@/fetch-data/usuarios';
 import FilterButton from '@/components/actionbar/filter-button';
 import { DataTable } from '@/components/tables/data-table';
 import Header from '@/components/header/header';

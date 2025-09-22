@@ -1,12 +1,12 @@
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { SearchParamsProps, SolicitudFormType } from '@/types/types';
 import { eq, and, sql, desc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterSolicitudesByYear } from './build-filters';
-import { solicitudes } from '@/db/schema/solicitudes';
-import { entidades_academicas } from '@/db/schema/entidades-academicas';
-import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
+import { solicitudes } from '@/database/schema/solicitudes';
+import { entidades_academicas } from '@/database/schema/entidades-academicas';
+import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 
 export async function getSolicitudesTableData(params: SearchParamsProps) {
   const selectFields = {

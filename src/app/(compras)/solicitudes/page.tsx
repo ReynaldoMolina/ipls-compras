@@ -7,7 +7,7 @@ import { PageProps } from '@/types/types';
 import {
   getSolicitudesTableData,
   getUniqueYearsFromSolicitudes,
-} from '@/lib/data/solicitudes';
+} from '@/fetch-data/solicitudes';
 import FilterButton from '@/components/actionbar/filter-button';
 
 const title = 'Solicitudes de compra';

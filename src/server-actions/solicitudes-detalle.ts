@@ -1,8 +1,8 @@
 'use server';
 
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { goBackTo } from './go-back-to-list';
-import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
+import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { eq, inArray } from 'drizzle-orm';
 import { SolicitudDetalleFormType } from '@/types/types';
 import { revalidatePath } from 'next/cache';

@@ -9,7 +9,7 @@ import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
 import FormFooter from './elements/form-footer';
 import { ComboBoxData, FormAction, ProveedorFormType } from '@/types/types';
-import { createProvider, updateProvider } from '@/lib/actions/providers';
+import { createProvider, updateProvider } from '@/server-actions/providers';
 import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';
 import FormTextField from './elements/form-text-field';

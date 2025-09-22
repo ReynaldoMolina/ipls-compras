@@ -1,8 +1,8 @@
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { eq, sql } from 'drizzle-orm';
-import { entidades_academicas } from '@/db/schema/entidades-academicas';
-import { solicitudes_detalle } from '@/db/schema/solicitudes-detalle';
-import { solicitudes } from '@/db/schema/solicitudes';
+import { entidades_academicas } from '@/database/schema/entidades-academicas';
+import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
+import { solicitudes } from '@/database/schema/solicitudes';
 
 export async function getResumenComparisonChartByEntidad(year: number) {
   const selectFields = {

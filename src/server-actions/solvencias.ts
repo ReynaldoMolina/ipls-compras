@@ -1,9 +1,9 @@
 'use server';
 
-import { db } from '@/db/db';
+import { db } from '@/database/db';
 import { PrevState, Solvencia } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
-import { solvencias } from '@/db/schema/solvencias';
+import { solvencias } from '@/database/schema/solvencias';
 import { eq } from 'drizzle-orm';
 
 export async function createSolvencia(

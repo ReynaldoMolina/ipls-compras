@@ -1,10 +1,10 @@
 import { PageProps } from '@/types/types';
-import { getSolicitudDetalleBySolicitudId } from '@/lib/data/solicitudes-detalle';
+import { getSolicitudDetalleBySolicitudId } from '@/fetch-data/solicitudes-detalle';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
 import { DataTable } from '@/components/tables/data-table';
-import { getOrdenById } from '@/lib/data/ordenes';
+import { getOrdenById } from '@/fetch-data/ordenes';
 
 export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;

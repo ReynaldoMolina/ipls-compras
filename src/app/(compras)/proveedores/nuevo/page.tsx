@@ -5,7 +5,7 @@ import {
   getDepartamentos,
   getSectores,
   getSubsectoresBySector,
-} from '@/lib/data/form-elements';
+} from '@/fetch-data/form-elements';
 import { PageProps } from '@/types/types';
 
 export const metadata = {

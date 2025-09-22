@@ -18,7 +18,7 @@ import { prioridad } from '@/components/actionbar/filter/filter-states-data';
 import {
   createSolicitudDetalle,
   updateSolicitudDetalle,
-} from '@/lib/actions/solicitudes-detalle';
+} from '@/server-actions/solicitudes-detalle';
 import { FormFieldSet } from '@/components/forms/elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';

@@ -20,7 +20,7 @@ import {
   deleteSolicitudDetalleByIds,
   SolicitudDetalleColumn,
   updateSolicitudDetalleColumnByIds,
-} from '@/lib/actions/solicitudes-detalle';
+} from '@/server-actions/solicitudes-detalle';
 import FormDelete from '@/components/actionbar/delete-button';
 import { usePathname, useRouter } from 'next/navigation';
 

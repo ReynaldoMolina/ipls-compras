@@ -1,5 +1,5 @@
 import { PageProps } from '@/types/types';
-import { getSolvenciaById } from '@/lib/data/solvencias';
+import { getSolvenciaById } from '@/fetch-data/solvencias';
 import { SolvenciaForm } from '@/components/forms/solvencias';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';

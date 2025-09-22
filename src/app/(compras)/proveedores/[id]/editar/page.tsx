@@ -5,8 +5,8 @@ import {
   getDepartamentos,
   getSectores,
   getSubsectoresBySector,
-} from '@/lib/data/form-elements';
-import { getProveedorById } from '@/lib/data/proveedores';
+} from '@/fetch-data/form-elements';
+import { getProveedorById } from '@/fetch-data/proveedores';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata(props: PageProps) {

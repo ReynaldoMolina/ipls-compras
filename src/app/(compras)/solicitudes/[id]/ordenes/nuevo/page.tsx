@@ -1,7 +1,7 @@
 import { OrdenForm } from '@/components/forms/ordenes';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-import { getOrdenesEstados } from '@/lib/data/ordenes';
+import { getOrdenesEstados } from '@/fetch-data/ordenes';
 import { PageProps } from '@/types/types';
 
 const title = 'Nueva orden';
