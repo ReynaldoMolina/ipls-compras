@@ -18,11 +18,9 @@ import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { ordenes } from '@/database/schema/ordenes';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { ordenes_estados } from '@/database/schema/ordenes-estados';
-import { unidades_medida } from '@/database/schema/unidades-medida';
-import { categoria_productos } from '@/database/schema/categoria_productos';
 
 export async function getOrdenesTableData(
-  params: SearchParamsProps,
+  searchParams: SearchParamsProps,
   id_solicitud: number | undefined
 ) {
   const selectFields = {
@@ -46,16 +44,16 @@ export async function getOrdenesTableData(
     `,
   };
 
-  const filterBySearch = buildSearchFilter(params, [
+  const filterBySearch = buildSearchFilter(searchParams, [
     entidades_academicas.nombre,
   ]);
 
   const filterByIdSolicitud = buildOrdenesByIdSolicitud(
     id_solicitud ?? undefined
   );
-  const filterByYear = buildFilterSolicitudesByYear(params);
-  const filterByOrderState = buildFilterByOrderState(params);
-  const orderBy = buildOrderByFragment(params, selectFields);
+  const filterByYear = buildFilterSolicitudesByYear(searchParams);
+  const filterByOrderState = buildFilterByOrderState(searchParams);
+  const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {
     const data = await db
@@ -107,46 +105,6 @@ export async function getOrdenById(id: number): Promise<OrdenFormType> {
   }
 }
 
-export async function getOrdenDetalleById(
-  id_orden: number
-): Promise<OrdenDetalleTable[]> {
-  const selectFields = {
-    id: ordenes_detalle.id,
-    id_solicitud: solicitudes_detalle.id_solicitud,
-    producto_servicio: solicitudes_detalle.producto_servicio,
-    cantidad: ordenes_detalle.cantidad,
-    unidad_medida: unidades_medida.unidad_medida,
-    precio_real: ordenes_detalle.precio_real,
-    categoria: categoria_productos.categoria,
-    observaciones: ordenes_detalle.observaciones,
-  };
-
-  try {
-    const data = await db
-      .select(selectFields)
-      .from(ordenes_detalle)
-      .leftJoin(
-        solicitudes_detalle,
-        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
-      )
-      .leftJoin(
-        unidades_medida,
-        eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
-      )
-      .leftJoin(
-        categoria_productos,
-        eq(solicitudes_detalle.id_categoria, categoria_productos.id)
-      )
-      .where(eq(ordenes_detalle.id_orden, id_orden));
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudo obtener el detalle de la orden, por favor intenta de nuevo'
-    );
-  }
-}
-
 export async function getOrdenesEstados() {
   try {
     const data = await db
@@ -161,6 +119,65 @@ export async function getOrdenesEstados() {
     console.error(error);
     throw new Error(
       'No se pudieron obtener los estados, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getOrdenesAddToExistingModal(
+  searchParams: SearchParamsProps,
+  id_solicitud: number | undefined
+) {
+  const selectFields = {
+    id: ordenes.id,
+    entidad_academica: entidades_academicas.nombre,
+    id_solicitud: ordenes.id_solicitud,
+    year: solicitudes.year,
+    estado: ordenes_estados.estado,
+  };
+
+  const filterByIdSolicitud = buildOrdenesByIdSolicitud(
+    id_solicitud ?? undefined
+  );
+  const filterByYear = buildFilterSolicitudesByYear(searchParams);
+  const filterByOrderState = buildFilterByOrderState(searchParams);
+  const orderBy = buildOrderByFragment(searchParams, selectFields);
+
+  try {
+    const data = await db
+      .select(selectFields)
+      .from(ordenes)
+      .leftJoin(solicitudes, eq(ordenes.id_solicitud, solicitudes.id))
+      .leftJoin(
+        entidades_academicas,
+        eq(solicitudes.id_entidad_academica, entidades_academicas.id)
+      )
+      .leftJoin(ordenes_detalle, eq(ordenes.id, ordenes_detalle.id_orden))
+      .leftJoin(
+        solicitudes_detalle,
+        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
+      )
+      .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
+      .where(
+        and(
+          // filterBySearch,
+          filterByYear,
+          // filterByIdSolicitud,
+          filterByOrderState
+        )
+      )
+      .groupBy(
+        ordenes.id,
+        solicitudes.year,
+        entidades_academicas.nombre,
+        entidades_academicas.tipo,
+        ordenes_estados.estado
+      )
+      .orderBy(orderBy);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener las ordenes, por favor intenta de nuevo.'
     );
   }
 }

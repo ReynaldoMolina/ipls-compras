@@ -9,8 +9,10 @@ import {
 } from '@/fetch-data/solicitudes-detalle';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
-import { DataTableDetalle } from '@/components/tables/data-table-detalle';
 import { columns } from './columns';
+import { getProveedores } from '@/fetch-data/form-select-options';
+import { getOrdenesAddToExistingModal } from '@/fetch-data/ordenes';
+import { DataTableSolicitudesDetalle } from '@/components/tables/detalle/data-table-solicitudes-detalle';
 
 export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
@@ -32,15 +34,22 @@ export default async function Page(props: PageProps) {
   const unidadesMedida = await getUnidadesMedida();
   const estados = await getDetalleEstados();
   const categorias = await getDetalleCategorias();
+  const proveedores = await getProveedores();
+
+  const ordenesTableDataModal = await getOrdenesAddToExistingModal(
+    searchParams || {},
+    undefined
+  );
 
   return (
     <>
       <Header title={`Solicitud ${id_solicitud} - Detalle`} />
       <PageWrapper>
-        <DataTableDetalle
+        <DataTableSolicitudesDetalle
           columns={columns}
           tableData={tableData}
-          selectOptions={{ unidadesMedida, estados, categorias }}
+          tableDataModal={ordenesTableDataModal}
+          selectOptions={{ unidadesMedida, estados, categorias, proveedores }}
           id_solicitud={id_solicitud}
         />
       </PageWrapper>

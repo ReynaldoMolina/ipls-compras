@@ -8,7 +8,7 @@ export default function FormHeader({
   name,
   noun,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   action: FormAction;
   name: string;
   noun: 'm' | 'f';

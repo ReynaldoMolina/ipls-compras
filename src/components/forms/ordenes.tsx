@@ -21,7 +21,7 @@ import FormOptions from './elements/form-options';
 import FormCombobox from './elements/form-combobox';
 import FormTextField from './elements/form-text-field';
 import { FormLink, FormLinkGroup } from './elements/form-link';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 import FormTextArea from './elements/form-text-area';
 import { FormSelect } from './elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';

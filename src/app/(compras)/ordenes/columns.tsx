@@ -36,11 +36,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: TableId,
   },
-  {
-    accessorKey: 'id_solicitud',
-    header: ({ column }) => <SortButton column={column} label="Solicitud" />,
-    cell: TableId,
-  },
+
   {
     accessorKey: 'entidad_academica',
     header: ({ column }) => (
@@ -48,6 +44,11 @@ export const columns: ColumnDef<OrdenesTable>[] = [
     ),
     cell: DefaultCell,
     footer: 'Totales',
+  },
+  {
+    accessorKey: 'id_solicitud',
+    header: ({ column }) => <SortButton column={column} label="Solicitud" />,
+    cell: TableId,
   },
   {
     accessorKey: 'year',

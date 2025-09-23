@@ -22,19 +22,21 @@ import {
 } from '@/components/ui/table';
 
 import { useEffect, useState } from 'react';
-import { ActionsBarDetalle } from './action-bar-detalle/actions-bar-detalle';
 import { DetalleSelectOptions } from '@/types/types';
+import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
+  tableDataModal?: TData[];
   selectOptions?: DetalleSelectOptions;
   id_solicitud: number;
 }
 
-export function DataTableDetalle<TData, TValue>({
+export function DataTableSolicitudesDetalle<TData, TValue>({
   columns,
   tableData,
+  tableDataModal,
   selectOptions,
   id_solicitud,
 }: DataTableProps<TData, TValue>) {
@@ -67,6 +69,7 @@ export function DataTableDetalle<TData, TValue>({
       id_solicitud,
       setGrouped,
       grouped,
+      tableDataModal,
     },
   });
 

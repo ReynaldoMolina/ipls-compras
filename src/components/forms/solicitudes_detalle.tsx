@@ -22,7 +22,7 @@ import { FormFieldSet } from '@/components/forms/elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 import FormTextArea from './elements/form-text-area';
 import { prioridad } from '../select-options-data';
 

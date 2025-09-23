@@ -13,7 +13,7 @@ import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';
 import FormTextField from './elements/form-text-field';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 import { roles } from '../select-options-data';
 import { FormSwitch } from './elements/form-switch';
 import { FormSelect } from './elements/form-select';

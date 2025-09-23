@@ -23,7 +23,7 @@ import FormCombobox from './elements/form-combobox';
 import FormTextField from './elements/form-text-field';
 import { FormSwitch } from './elements/form-switch';
 import { FormLink, FormLinkGroup } from './elements/form-link';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 

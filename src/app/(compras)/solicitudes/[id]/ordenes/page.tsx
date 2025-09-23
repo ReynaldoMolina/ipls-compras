@@ -8,11 +8,13 @@ import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 import { columns } from '@/app/(compras)/ordenes/columns';
 
-const title = 'Órdenes de compra';
-
-export const metadata = {
-  title: title,
-};
+export async function generateMetadata(props: PageProps) {
+  const urlparams = await props.params;
+  const { id } = urlparams;
+  return {
+    title: `Solicitud ${id} - Órdenes de compra`,
+  };
+}
 
 export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
@@ -27,7 +29,7 @@ export default async function Page(props: PageProps) {
 
   return (
     <>
-      <Header title="Órdenes de compra" />
+      <Header title={`Solicitud ${id_solicitud} - Órdenes de compra`} />
       <PageWrapper>
         <ActionBar>
           <FilterButton filterOptions={{ years, ordenesStates }} />

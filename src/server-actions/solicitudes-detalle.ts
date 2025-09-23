@@ -26,6 +26,7 @@ export async function updateSolicitudDetalle(
   id_solicitud: number
 ) {
   if (!id) return;
+
   try {
     await db
       .update(solicitudes_detalle)

@@ -2,7 +2,7 @@ import { PageProps } from '@/types/types';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
-import { getOrdenDetalleById } from '@/fetch-data/ordenes';
+import { getOrdenDetalleById } from '@/fetch-data/ordenes-detalle';
 import { DataTableDetalle } from '@/components/tables/data-table-detalle';
 
 export async function generateMetadata(props: PageProps) {

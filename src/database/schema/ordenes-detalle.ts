@@ -1,9 +1,9 @@
-import { integer, pgTable, real, text } from 'drizzle-orm/pg-core';
+import { integer, pgTable, real, serial, text } from 'drizzle-orm/pg-core';
 import { ordenes } from './ordenes';
 import { solicitudes_detalle } from './solicitudes-detalle';
 
 export const ordenes_detalle = pgTable('ordenes_detalle', {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: serial().primaryKey(),
   id_orden: integer()
     .notNull()
     .references(() => ordenes.id),

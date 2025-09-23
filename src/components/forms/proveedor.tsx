@@ -7,7 +7,7 @@ import { Form } from '@/components/ui/form';
 import { providerSchema } from '@/validation-schemas';
 import FormInputGroup from './elements/form-input-group';
 import { FormFieldSet } from './elements/form-fieldset';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 import { ComboBoxData, FormAction, ProveedorFormType } from '@/types/types';
 import { createProvider, updateProvider } from '@/server-actions/providers';
 import { Card, CardContent } from '../ui/card';
@@ -15,7 +15,7 @@ import FormHeader from './elements/form-header';
 import FormTextField from './elements/form-text-field';
 import FormCombobox from './elements/form-combobox';
 import FormOptions from './elements/form-options';
-import { FormLink } from './elements/form-link';
+import { FormLink, FormLinkGroup } from './elements/form-link';
 
 interface ProveedorFormProps {
   action: FormAction;
@@ -77,11 +77,12 @@ export function ProveedorForm({
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>
-            <FormLink
-              action={action}
-              href={`/proveedores/${provider?.id}/solvencias`}
-              label="Ir a solvencias"
-            />
+            <FormLinkGroup action={action}>
+              <FormLink
+                href={`/proveedores/${provider?.id}/solvencias`}
+                label="Ir a solvencias"
+              />
+            </FormLinkGroup>
             <FormFieldSet name="info">
               <FormTextField
                 control={form.control}

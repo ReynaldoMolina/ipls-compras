@@ -1,20 +1,13 @@
 import type { TableMeta } from '@tanstack/react-table';
 import { DetalleSelectOptions } from './types';
+import { Dispatch, SetStateAction } from 'react';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
-    selectOptions: DetalleSelectOptions | undefined;
-    id_solicitud: number;
+    selectOptions?: DetalleSelectOptions | undefined;
+    id_solicitud?: number;
+    grouped?: boolean;
+    setGrouped?: Dispatch<SetStateAction<boolean>>;
+    tableDataModal?: TData[];
   }
-
-  // interface ColumnMeta<TData extends RowData, TValue> {
-  //   type?:
-  //     | 'text'
-  //     | 'integer'
-  //     | 'float'
-  //     | 'select'
-  //     | 'boolean'
-  //     | 'date'
-  //     | 'combobox';
-  // }
 }

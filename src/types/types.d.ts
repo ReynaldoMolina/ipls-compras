@@ -170,8 +170,6 @@ export interface PageProps {
 
 export interface ActionsBarDetalleProps<TData> {
   table: Table<TData>;
-  setGrouped: Dispatch<SetStateAction<boolean>>;
-  grouped: boolean;
 }
 
 export interface DetalleSelectOptions {
@@ -179,6 +177,7 @@ export interface DetalleSelectOptions {
   estados?: ComboBoxData;
   ubicaciones?: ComboBoxData;
   categorias?: ComboBoxData;
+  proveedores?: ComboBoxData;
 }
 
 export interface Orden {
@@ -191,10 +190,17 @@ export interface Orden {
 export interface OrdenesTable extends Orden {
   entidad_academica: string | null;
   year: number | null;
+  estado: string | null;
   tipo: string | null;
   presupuestado: number;
   asignado: number;
   restante: number;
+}
+
+export interface OrdenesModal extends Orden {
+  entidad_academica: string | null;
+  year: number | null;
+  estado: string | null;
 }
 
 export interface OrdenFormType extends Orden {

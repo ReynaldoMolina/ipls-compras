@@ -1,0 +1,176 @@
+'use client';
+
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { ordenesSchema } from '@/validation-schemas';
+import { FormFieldSet } from './elements/form-fieldset';
+import { DatePicker } from '../date-picker';
+import FormInputGroup from './elements/form-input-group';
+import FormCombobox from './elements/form-combobox';
+import FormTextField from './elements/form-text-field';
+import { FormFooterDialog } from './elements/form-footer';
+import FormTextArea from './elements/form-text-area';
+import { FormSelect } from './elements/form-select';
+import { monedas, terminosDePago } from '../select-options-data';
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
+import React, { useState } from 'react';
+import { DialogTrigger } from '@radix-ui/react-dialog';
+import { Button } from '../ui/button';
+import { Table } from '@tanstack/react-table';
+import { createOrdenFromSelectedIds } from '@/server-actions/ordenes';
+
+type OrdenFormValues = z.infer<typeof ordenesSchema>;
+
+interface OrdenFormProps<TData> {
+  id_solicitud: number;
+  table: Table<TData>;
+}
+
+export function OrdenNewFormModal<TData>({
+  id_solicitud,
+  table,
+}: OrdenFormProps<TData>) {
+  const [open, setOpen] = useState(false);
+
+  const form = useForm<z.infer<typeof ordenesSchema>>({
+    resolver: zodResolver(ordenesSchema),
+    defaultValues: {
+      id_solicitud: id_solicitud ?? undefined,
+      fecha_creacion: undefined,
+      fecha_a_utilizar: undefined,
+      id_proveedor: 0,
+      id_estado: 1,
+      numero_cotizacion: '',
+      termino_de_pago: '',
+      moneda: '',
+      observaciones: '',
+    },
+  });
+
+  const proveedores = table.options.meta?.selectOptions?.proveedores ?? [];
+
+  const selectedRowsIds = table
+    .getSelectedRowModel()
+    .rows.map((r) => r.original.id);
+
+  const isPlural = selectedRowsIds.length > 1;
+
+  function onSubmit(values: z.infer<typeof ordenesSchema>) {
+    createOrdenFromSelectedIds(values, selectedRowsIds);
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="font-normal rounded-sm px-2 py-1.5 text-sm w-full justify-start dark:hover:bg-accent"
+        >
+          Nueva
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="h-[95%] overflow-y-auto max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Nueva orden de compra</DialogTitle>
+          <DialogDescription className="inline-flex flex-col text-balance gap-3">
+            <span>
+              Ingresa la información de la orden, haz click en crear cuando
+              estés listo.
+            </span>
+            <span className="text-foreground">
+              Se {isPlural ? 'van' : 'va'} a agregar {selectedRowsIds.length}{' '}
+              {isPlural ? 'registros' : 'registro'}.
+            </span>
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-15 py-6">
+              <FormFieldSet name="info">
+                <FormInputGroup>
+                  <FormTextField
+                    control={form.control}
+                    name="id_solicitud"
+                    label="Solicitud Nº"
+                    disabled
+                  />
+                  <FormField
+                    control={form.control}
+                    name="fecha_creacion"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Fecha creación</FormLabel>
+                        <DatePicker<OrdenFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="fecha_a_utilizar"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Fecha a utilizar</FormLabel>
+                        <DatePicker<OrdenFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </FormInputGroup>
+                <FormCombobox
+                  form={form}
+                  name="id_proveedor"
+                  label="Proveedor"
+                  options={proveedores}
+                />
+                <FormTextField
+                  control={form.control}
+                  name="numero_cotizacion"
+                  label="Cotización Nº"
+                />
+                <FormInputGroup>
+                  <FormSelect
+                    control={form.control}
+                    name="termino_de_pago"
+                    label="Término de pago"
+                    options={terminosDePago}
+                  />
+                  <FormSelect
+                    control={form.control}
+                    name="moneda"
+                    label="Moneda"
+                    options={monedas}
+                  />
+                </FormInputGroup>
+
+                <FormTextArea
+                  control={form.control}
+                  name="observaciones"
+                  label="Observaciones"
+                />
+              </FormFieldSet>
+            </div>
+            <FormFooterDialog setOpen={setOpen} />
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}
