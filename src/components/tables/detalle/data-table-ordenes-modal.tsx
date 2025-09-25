@@ -69,8 +69,6 @@ export function DataTableOrdenesModal<TData, TValue>({
 
   return (
     <>
-      {/* <ActionsBarDetalle table={table} /> */}
-
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

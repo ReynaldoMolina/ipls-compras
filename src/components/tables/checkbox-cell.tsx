@@ -28,14 +28,12 @@ export function CheckBoxCell<TData, TValue>({
   row,
 }: CellContext<TData, TValue>) {
   return (
-    <div className="w-full h-full inline-flex justify-center items-center">
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={row.getToggleSelectedHandler()}
-        aria-label="Select row"
-        className="rounded bg-background/80"
-        title="Seleccionar"
-      />
-    </div>
+    <Checkbox
+      checked={row.getIsSelected()}
+      onCheckedChange={row.getToggleSelectedHandler()}
+      aria-label="Select row"
+      className="rounded"
+      title="Seleccionar"
+    />
   );
 }
