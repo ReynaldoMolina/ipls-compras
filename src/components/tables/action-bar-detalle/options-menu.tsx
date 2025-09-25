@@ -10,6 +10,8 @@ import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
 import { OptionsMenuSolicitudDetalle } from './options-menu/options-menu-solicitud-detalle';
+import { OptionsMenuOrdenDetalle } from './options-menu/options-menu-orden-detalle';
+import { set } from 'zod';
 
 interface OptionsMenuProps<TData> {
   table: Table<TData>;
@@ -25,7 +27,7 @@ export function OptionsMenu<TData>({
   // select options according to table name
 
   const optionsMenu = {
-    orden: <></>,
+    orden: <OptionsMenuOrdenDetalle table={table} setOpen={setOpen} />,
     solicitud: <OptionsMenuSolicitudDetalle table={table} setOpen={setOpen} />,
     ordenmodal: <></>,
   };

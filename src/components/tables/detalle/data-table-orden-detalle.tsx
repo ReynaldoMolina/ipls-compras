@@ -68,7 +68,7 @@ export function DataTableOrdenDetalle<TData, TValue>({
 
   return (
     <>
-      <ActionsBarDetalle table={table} />
+      <ActionsBarDetalle table={table} tableName="orden" allowNew={false} />
 
       <Table>
         <TableHeader>

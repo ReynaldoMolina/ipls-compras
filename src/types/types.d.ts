@@ -172,6 +172,7 @@ export interface PageProps {
 export interface ActionsBarDetalleProps<TData> {
   table: Table<TData>;
   tableName: 'orden' | 'solicitud' | 'ordenmodal';
+  allowNew?: boolean;
 }
 
 export interface DetalleSelectOptions {

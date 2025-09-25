@@ -7,6 +7,7 @@ import NewButton from '@/components/actionbar/new-button';
 export function ActionsBarDetalle<TData>({
   table,
   tableName,
+  allowNew = true,
 }: ActionsBarDetalleProps<TData>) {
   return (
     <div className="inline-flex gap-2">
@@ -14,7 +15,7 @@ export function ActionsBarDetalle<TData>({
       <div className="inline-flex gap-2 ml-auto">
         <OptionsMenu table={table} tableName={tableName} />
         <FilterButtonDetalle />
-        <NewButton isDetalle />
+        {allowNew && <NewButton isDetalle />}
       </div>
     </div>
   );
