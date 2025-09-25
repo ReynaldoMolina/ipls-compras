@@ -46,7 +46,7 @@ export function ComboBox<T extends FieldValues>({
   const [open, setOpen] = React.useState(false);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
