@@ -31,7 +31,7 @@ export default async function Page(props: PageProps) {
     <>
       <Header title={`Solicitud ${id_solicitud} - Órdenes de compra`} />
       <PageWrapper>
-        <ActionBar>
+        <ActionBar allowNew={false}>
           <FilterButton filterOptions={{ years, ordenesStates }} />
         </ActionBar>
         <DataTable columns={columns} data={tableData} />

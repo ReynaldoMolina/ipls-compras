@@ -44,7 +44,7 @@ export function DataTableSolicitudesDetalle<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
-  const [grouped, setGrouped] = useState(true);
+  const [grouped, setGrouped] = useState(false);
 
   useEffect(() => {
     setData(tableData || []);
@@ -81,7 +81,7 @@ export function DataTableSolicitudesDetalle<TData, TValue>({
 
   return (
     <>
-      <ActionsBarDetalle table={table} />
+      <ActionsBarDetalle table={table} tableName="solicitud" />
 
       <Table>
         <TableHeader>

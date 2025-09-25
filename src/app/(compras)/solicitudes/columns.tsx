@@ -7,13 +7,13 @@ import {
   NumberCellWithValue,
   NumberFloatCell,
 } from '@/components/tables/number-cell';
-import { Solicitudes } from '@/types/types';
+import { SolicitudesTable } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
 
-export const columns: ColumnDef<Solicitudes>[] = [
+export const columns: ColumnDef<SolicitudesTable>[] = [
   {
     id: 'actions',
     header: 'Acciones',
@@ -32,6 +32,11 @@ export const columns: ColumnDef<Solicitudes>[] = [
     cell: TableId,
   },
   {
+    accessorKey: 'abreviacion',
+    header: ({ column }) => <SortButton column={column} label="Cod" />,
+    cell: DefaultCell,
+  },
+  {
     accessorKey: 'entidad_academica',
     header: ({ column }) => (
       <SortButton column={column} label="Carrera / curso / área" />
@@ -39,17 +44,11 @@ export const columns: ColumnDef<Solicitudes>[] = [
     cell: DefaultCell,
     footer: 'Totales',
   },
+
   {
     accessorKey: 'year',
     header: ({ column }) => <SortButton column={column} label="Año" />,
     cell: DefaultCell,
-  },
-  {
-    accessorKey: 'fecha',
-    header: ({ column }) => (
-      <SortButton column={column} label="Fecha solicitud" />
-    ),
-    cell: TableDate,
   },
   {
     accessorKey: 'presupuestado',

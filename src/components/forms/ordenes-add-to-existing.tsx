@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '../ui/button';
 import { Table } from '@tanstack/react-table';
-import { DataTableOrdenesModal } from '../tables/detalle/data-table-solicitudes-ordenes-modal';
+import { DataTableOrdenesModal } from '../tables/detalle/data-table-ordenes-modal';
 import { columns } from '@/app/(compras)/solicitudes/[id]/detalle/modal-columns';
 
 interface OrdenFormProps<TData> {

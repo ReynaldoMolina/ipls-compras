@@ -13,10 +13,22 @@ import { OptionsMenuSolicitudDetalle } from './options-menu/options-menu-solicit
 
 interface OptionsMenuProps<TData> {
   table: Table<TData>;
+  tableName: 'orden' | 'solicitud' | 'ordenmodal';
 }
 
-export function OptionsMenu<TData>({ table }: OptionsMenuProps<TData>) {
+export function OptionsMenu<TData>({
+  table,
+  tableName,
+}: OptionsMenuProps<TData>) {
   const [open, setOpen] = useState(false);
+
+  // select options according to table name
+
+  const optionsMenu = {
+    orden: <></>,
+    solicitud: <OptionsMenuSolicitudDetalle table={table} setOpen={setOpen} />,
+    ordenmodal: <></>,
+  };
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -27,7 +39,7 @@ export function OptionsMenu<TData>({ table }: OptionsMenuProps<TData>) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="flex flex-col gap-3">
-        <OptionsMenuSolicitudDetalle table={table} setOpen={setOpen} />
+        {optionsMenu[tableName]}
       </DropdownMenuContent>
     </DropdownMenu>
   );

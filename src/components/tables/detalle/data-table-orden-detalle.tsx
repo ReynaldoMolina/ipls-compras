@@ -21,8 +21,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { useEffect, useState } from 'react';
-import { ActionsBarDetalle } from './action-bar-detalle/actions-bar-detalle';
+import { useState } from 'react';
+import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
 import { DetalleSelectOptions } from '@/types/types';
 
 interface DataTableProps<TData, TValue> {
@@ -32,7 +32,7 @@ interface DataTableProps<TData, TValue> {
   id_solicitud: number;
 }
 
-export function DataTableDetalle<TData, TValue>({
+export function DataTableOrdenDetalle<TData, TValue>({
   columns,
   tableData,
   selectOptions,
@@ -42,11 +42,7 @@ export function DataTableDetalle<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
-  const [grouped, setGrouped] = useState(true);
-
-  useEffect(() => {
-    setData(tableData || []);
-  }, [tableData]);
+  const [grouped, setGrouped] = useState(false);
 
   const table = useReactTable({
     data,
@@ -69,12 +65,6 @@ export function DataTableDetalle<TData, TValue>({
       grouped,
     },
   });
-
-  const colorMap: Record<string, string> = {
-    1: 'bg-date-due',
-    2: 'bg-date-warning',
-    3: 'bg-date-active',
-  };
 
   return (
     <>
@@ -140,7 +130,6 @@ export function DataTableDetalle<TData, TValue>({
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      className={colorMap[String(row.original.id_estado)]}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
@@ -163,7 +152,6 @@ export function DataTableDetalle<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className={colorMap[String(row.original.id_estado)]}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

@@ -21,7 +21,7 @@ import { Card, CardContent } from '../ui/card';
 import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';
 import FormTextField from './elements/form-text-field';
-import FormFooter from './elements/form-footer';
+import { FormFooter } from './elements/form-footer';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
@@ -45,7 +45,7 @@ export function SolvenciaForm({
           vence: solvencia.vence ?? null,
           verificado: solvencia.verificado ?? undefined,
           recibido: solvencia.recibido ?? null,
-          url: solvencia.url ?? undefined,
+          url: solvencia.url ?? null,
           id_usuario: solvencia.id_usuario ?? 1,
         }
       : {
@@ -54,7 +54,7 @@ export function SolvenciaForm({
           vence: null,
           verificado: undefined,
           recibido: null,
-          url: undefined,
+          url: null,
           id_usuario: 1,
         },
   });

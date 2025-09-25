@@ -92,9 +92,10 @@ export interface Solicitud {
   year: number | null;
 }
 
-export interface Solicitudes extends Solicitud {
+export interface SolicitudesTable extends Solicitud {
   tipo: string | null;
   entidad_academica: string | null;
+  abreviacion: string | null;
   presupuestado: number | null;
   asignado: number | null;
   restante: number | null;
@@ -170,6 +171,7 @@ export interface PageProps {
 
 export interface ActionsBarDetalleProps<TData> {
   table: Table<TData>;
+  tableName: 'orden' | 'solicitud' | 'ordenmodal';
 }
 
 export interface DetalleSelectOptions {

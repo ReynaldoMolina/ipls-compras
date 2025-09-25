@@ -11,10 +11,10 @@ import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 export async function getSolicitudesTableData(params: SearchParamsProps) {
   const selectFields = {
     id: solicitudes.id,
-    fecha: solicitudes.fecha,
     year: solicitudes.year,
     tipo: entidades_academicas.tipo,
     entidad_academica: entidades_academicas.nombre,
+    abreviacion: entidades_academicas.abreviacion,
     presupuestado: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
     asignado: sql<number>`COALESCE(SUM(${solicitudes_detalle.precio_compra}), 0) + COALESCE(SUM(${solicitudes_detalle.precio_bodega}), 0)`,
     restante: sql<number>`
@@ -49,7 +49,8 @@ export async function getSolicitudesTableData(params: SearchParamsProps) {
       .groupBy(
         solicitudes.id,
         entidades_academicas.tipo,
-        entidades_academicas.nombre
+        entidades_academicas.nombre,
+        entidades_academicas.abreviacion
       )
       .orderBy(orderBy);
     return data;
