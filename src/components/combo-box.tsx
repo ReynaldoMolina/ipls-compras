@@ -46,6 +46,7 @@ export function ComboBox<T extends FieldValues>({
   const [open, setOpen] = React.useState(false);
 
   return (
+    // add modal={true} to allow scroll inside modal
     <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
         <FormControl>

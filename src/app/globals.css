@@ -19,9 +19,12 @@
   --brand-blue: #1b2c65;
   --brand-yellow: #ffb152;
   --brand-yellow-light: #fec887;
-  --date-active: #d2ffd0;
-  --date-due: #fffba0;
-  --date-warning: #ffd7d4;
+  --date-active: #d5ffd3;
+  --date-active-hover: #b4ffb0;
+  --date-due: #fffcbf;
+  --date-due-hover: #fff878;
+  --date-warning: #ffe4e2;
+  --date-warning-hover: #ffbfba;
   /* shadcn */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -60,9 +63,12 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --date-active: #073013;
-  --date-due: #584100;
-  --date-warning: #421310;
+  --date-active: #001b09;
+  --date-active-hover: #003512;
+  --date-due: rgb(58, 42, 0);
+  --date-due-hover: rgb(86, 61, 0);
+  --date-warning: rgb(44, 3, 0);
+  --date-warning-hover: rgb(74, 5, 0);
   /* shadcn */
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -107,8 +113,11 @@
   --color-brand-yellow-light: var(--brand-yellow-light);
   /* dates */
   --color-date-active: var(--date-active);
+  --color-date-active-hover: var(--date-active-hover);
   --color-date-due: var(--date-due);
+  --color-date-due-hover: var(--date-due-hover);
   --color-date-warning: var(--date-warning);
+  --color-date-warning-hover: var(--date-warning-hover);
 
   /* shadcn */
   --color-sidebar-ring: var(--sidebar-ring);
