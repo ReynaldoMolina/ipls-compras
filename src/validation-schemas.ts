@@ -73,3 +73,11 @@ export const ordenesSchema = z.object({
   moneda: z.string().nullable(),
   observaciones: z.string().nullable(),
 });
+
+export const detalleOrdenSchema = z.object({
+  id_orden: z.number().min(1, 'Requerido'),
+  id_solicitud_detalle: z.number().min(1, 'Requerido'),
+  cantidad: z.number().min(1, 'Requerido'),
+  precio_real: z.number().min(1, 'Requerido'),
+  observaciones: z.string().nullable(),
+});

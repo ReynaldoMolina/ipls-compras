@@ -165,6 +165,7 @@ export interface PageProps {
     id_solvencia?: string;
     id_detalle?: string;
     id_orden?: string;
+    id_orden_detalle?: string;
   };
   searchParams?: SearchParamsProps;
 }
@@ -224,5 +225,16 @@ export interface OrdenDetalleTable {
   unidad_medida: string | null;
   precio_real: number | null;
   categoria: string | null;
+  observaciones: string | null;
+}
+
+export interface OrdenDetalleFormType {
+  id: number;
+  id_orden: number | null;
+  id_solicitud_detalle: number | null;
+  producto_servicio: string | null;
+  cantidad_solicitud: number | null;
+  cantidad: number;
+  precio_real: number | null;
   observaciones: string | null;
 }

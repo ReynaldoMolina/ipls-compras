@@ -4,13 +4,13 @@ import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { unidades_medida } from '@/database/schema/unidades-medida';
 import {
+  OrdenDetalleFormType,
   OrdenDetalleTable,
-  SearchParamsProps,
   SolicitudDetalleFormType,
 } from '@/types/types';
-import { asc, sql, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
-export async function getOrdenDetalleById(
+export async function getOrdenDetalleByOrdenId(
   id_orden: number
 ): Promise<OrdenDetalleTable[]> {
   const selectFields = {
@@ -52,15 +52,30 @@ export async function getOrdenDetalleById(
   }
 }
 
-export async function getSolicitudDetalleById(
+export async function getOrdenDetalleById(
   id: number
-): Promise<SolicitudDetalleFormType> {
+): Promise<OrdenDetalleFormType> {
+  const selectFields = {
+    id: ordenes_detalle.id,
+    id_orden: ordenes_detalle.id_orden,
+    id_solicitud_detalle: ordenes_detalle.id_solicitud_detalle,
+    producto_servicio: solicitudes_detalle.producto_servicio,
+    cantidad_solicitud: solicitudes_detalle.cantidad,
+    cantidad: ordenes_detalle.cantidad,
+    precio_real: ordenes_detalle.precio_real,
+    observaciones: ordenes_detalle.observaciones,
+  };
+
   try {
     const data = await db
-      .select()
-      .from(solicitudes_detalle)
-      .where(eq(solicitudes_detalle.id, id))
-      .orderBy(solicitudes_detalle.id);
+      .select(selectFields)
+      .from(ordenes_detalle)
+      .leftJoin(
+        solicitudes_detalle,
+        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
+      )
+      .where(eq(ordenes_detalle.id, id))
+      .orderBy(ordenes_detalle.id);
     return data[0];
   } catch (error) {
     console.error(error);

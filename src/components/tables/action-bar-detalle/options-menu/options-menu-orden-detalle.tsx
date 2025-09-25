@@ -4,11 +4,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { deleteSolicitudDetalleByIds } from '@/server-actions/solicitudes-detalle';
 import { Table } from '@tanstack/react-table';
 import { Dispatch, SetStateAction } from 'react';
 import { GroupBySubMenu } from '../submenus';
 import DeleteButton from '@/components/actionbar/delete-button';
+import { deleteOrdenDetalleByIds } from '@/server-actions/ordenes-detalle';
+import { useRouter } from 'next/navigation';
 
 interface OptionsMenuOrdenDetalleProps<TData> {
   table: Table<TData>;
@@ -19,7 +20,10 @@ export function OptionsMenuOrdenDetalle<TData>({
   table,
   setOpen,
 }: OptionsMenuOrdenDetalleProps<TData>) {
-  const { id_solicitud, grouped, setGrouped } = table.options.meta ?? {};
+  const { grouped, setGrouped, id_orden, id_solicitud } =
+    table.options.meta ?? {};
+
+  const router = useRouter();
 
   const selectedRowsIds = table
     .getSelectedRowModel()
@@ -28,8 +32,8 @@ export function OptionsMenuOrdenDetalle<TData>({
   const isDisabled = selectedRowsIds.length <= 0;
 
   function handleDelete() {
-    // deleteSolicitudDetalleByIds(selectedRowsIds, id_solicitud);
-    alert('delete orden detalle test');
+    deleteOrdenDetalleByIds(selectedRowsIds, id_orden, id_solicitud);
+    router.refresh();
   }
 
   return (

@@ -6,6 +6,7 @@ declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     selectOptions?: DetalleSelectOptions | undefined;
     id_solicitud?: number;
+    id_orden?: number;
     grouped?: boolean;
     setGrouped?: Dispatch<SetStateAction<boolean>>;
     tableDataModal?: TData[];

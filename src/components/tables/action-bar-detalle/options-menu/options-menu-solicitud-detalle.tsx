@@ -57,6 +57,7 @@ export function OptionsMenuSolicitudDetalle<TData>({
 
   function handleDelete() {
     deleteSolicitudDetalleByIds(selectedRowsIds, id_solicitud);
+    router.refresh();
   }
 
   return (

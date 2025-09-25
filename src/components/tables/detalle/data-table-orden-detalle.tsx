@@ -21,7 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
 import { DetalleSelectOptions } from '@/types/types';
 
@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   tableData?: TData[];
   selectOptions?: DetalleSelectOptions;
   id_solicitud: number;
+  id_orden: number;
 }
 
 export function DataTableOrdenDetalle<TData, TValue>({
@@ -37,12 +38,17 @@ export function DataTableOrdenDetalle<TData, TValue>({
   tableData,
   selectOptions,
   id_solicitud,
+  id_orden,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [grouped, setGrouped] = useState(false);
+
+  useEffect(() => {
+    setData(tableData || []);
+  }, [tableData]);
 
   const table = useReactTable({
     data,
@@ -61,6 +67,7 @@ export function DataTableOrdenDetalle<TData, TValue>({
     meta: {
       selectOptions,
       id_solicitud,
+      id_orden,
       setGrouped,
       grouped,
     },

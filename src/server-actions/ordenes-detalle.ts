@@ -2,8 +2,11 @@
 
 import { db } from '@/database/db';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
-import { OrdenesModal } from '@/types/types';
+import { OrdenDetalleFormType, OrdenesModal } from '@/types/types';
+import { eq, inArray } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
+import { goBackTo } from './go-back-to-list';
+import { revalidatePath } from 'next/cache';
 
 export async function createOrdenDetalleBySelectedIds(
   selectedRowsIds: number[],
@@ -54,33 +57,35 @@ export async function addToExistingOrdenDetalleBySelectedIds(
   redirect(`/solicitudes/${orden.id_solicitud}/ordenes/${orden.id}/detalle`);
 }
 
-// export async function updateOrdenDetalleById(
-//   id_orden: number | undefined,
-//   data: OrdenFormType
-// ) {
-//   if (!id) return;
-//   try {
-//     await db.update(ordenes).set(data).where(eq(ordenes.id, id));
-//   } catch (error) {
-//     console.error(error);
-//     return error;
-//   }
-//   await goBackTo('/ordenes');
-// }
+export async function updateOrdenDetalleById(
+  id: number | undefined,
+  data: OrdenDetalleFormType
+) {
+  if (!id) return;
+  try {
+    await db
+      .update(ordenes_detalle)
+      .set(data)
+      .where(eq(ordenes_detalle.id, id));
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+  await goBackTo(`/solicitudes/${1}/ordenes/${data.id_orden}/detalle`);
+}
 
-// export async function deleteOrdenDetalleByIds(
-//   ids: number[],
-//   id_solicitud?: number
-// ) {
-//   if (ids?.length === 0 || !id_solicitud) return;
+export async function deleteOrdenDetalleByIds(
+  ids: number[],
+  id_orden?: number,
+  id_solicitud?: number
+) {
+  if (ids?.length === 0 || !id_orden) return;
 
-//   try {
-//     await db
-//       .delete(solicitudes_detalle)
-//       .where(inArray(solicitudes_detalle.id, ids));
-//   } catch (error) {
-//     console.error(error);
-//     return error;
-//   }
-//   revalidatePath(`/solicitudes/${id_solicitud}/detalle`);
-// }
+  try {
+    await db.delete(ordenes_detalle).where(inArray(ordenes_detalle.id, ids));
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+  revalidatePath(`/solicitudes/${id_solicitud}/ordenes/${id_orden}/detalle`);
+}
