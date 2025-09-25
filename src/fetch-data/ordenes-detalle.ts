@@ -16,6 +16,7 @@ export async function getOrdenDetalleById(
   const selectFields = {
     id: ordenes_detalle.id,
     id_solicitud: solicitudes_detalle.id_solicitud,
+    id_orden: ordenes_detalle.id_orden,
     producto_servicio: solicitudes_detalle.producto_servicio,
     cantidad: ordenes_detalle.cantidad,
     unidad_medida: unidades_medida.unidad_medida,

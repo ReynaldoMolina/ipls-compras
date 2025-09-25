@@ -28,7 +28,7 @@ export const columns: ColumnDef<OrdenDetalleTable>[] = [
     header: 'Edit',
     cell: ({ row }) => (
       <EditCell
-        href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}/editar`}
+        href={`/solicitudes/${row.original.id_solicitud}/ordenes/${row.original.id_orden}/detalle/${row.original.id}`}
       />
     ),
   },

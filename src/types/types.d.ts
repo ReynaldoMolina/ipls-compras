@@ -218,6 +218,7 @@ export interface OrdenFormType extends Orden {
 export interface OrdenDetalleTable {
   id: number;
   id_solicitud: number | null;
+  id_orden: number | null;
   producto_servicio: string | null;
   cantidad: number;
   unidad_medida: string | null;
