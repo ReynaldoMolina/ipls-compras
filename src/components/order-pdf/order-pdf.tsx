@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function OrdenPdf({ register }: OrdenPdfProps) {
+export function OrdenPdf({ register }: { register: OrdenPdfProps }) {
   return (
     <PDFViewer className="h-screen">
       <Document title="Órden de compra" author="IPLS - Administración">

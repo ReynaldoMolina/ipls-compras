@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Title({ register }: OrdenPdfProps) {
+export function Title({ register }: { register: OrdenPdfProps }) {
   return (
     <View style={styles.mainContainer}>
       {/* Empty slot */}
@@ -50,7 +50,9 @@ export function Title({ register }: OrdenPdfProps) {
       {/* order id */}
       <View style={styles.orderIdContainer}>
         <Text>No.</Text>
-        <Text style={styles.orderId}>00000{register.id_orden}</Text>
+        <Text style={styles.orderId}>
+          {String(register.id_orden).padStart(6, '0')}
+        </Text>
       </View>
     </View>
   );

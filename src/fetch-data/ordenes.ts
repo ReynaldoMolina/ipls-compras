@@ -1,9 +1,5 @@
 import { db } from '@/database/db';
-import {
-  OrdenDetalleTable,
-  OrdenFormType,
-  SearchParamsProps,
-} from '@/types/types';
+import { OrdenFormType, SearchParamsProps } from '@/types/types';
 import { eq, and, sql, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';

@@ -239,22 +239,20 @@ export interface OrdenDetalleFormType {
   observaciones: string | null;
 }
 
-export interface OrdePdfDetalleProps {
-  id_solicitud_detalle: number;
-  cantidad: number;
-  unidad_medida: string;
-  producto_servicio: string;
-  precio_real: number;
+export interface OrdenPdfProps {
+  id_orden: number;
+  proveedor: string | null;
+  numero_cotizacion: string | null;
+  termino_de_pago: string | null;
+  moneda: string | null;
+  fecha_creacion: string;
+  detalle: OrdePdfDetalleProps[];
 }
 
-export interface OrdenPdfProps {
-  register: {
-    id_orden: number;
-    proveedor: string;
-    numero_cotizacion: number;
-    termino_de_pago: string;
-    moneda: string;
-    fecha_creacion: string;
-    detalle: OrdePdfDetalleProps[];
-  };
+export interface OrdenPdfDetalleProps {
+  id_solicitud_detalle: number;
+  cantidad: number;
+  unidad_medida: string | null;
+  producto_servicio: string | null;
+  precio_real: number;
 }
