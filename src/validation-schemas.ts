@@ -1,14 +1,14 @@
 import { z } from 'zod';
 
 export const providerSchema = z.object({
-  nombre_comercial: z.string().min(1, 'Requerido'),
-  razon_social: z.string().nullable(),
-  ruc: z.string().nullable(),
-  contacto_principal: z.string().nullable(),
-  telefono: z.string().nullable(),
-  correo: z.string().nullable(),
+  nombre_comercial: z.string().trim().min(1, 'Requerido'),
+  razon_social: z.string().trim().nullable(),
+  ruc: z.string().trim().nullable(),
+  contacto_principal: z.string().trim().nullable(),
+  telefono: z.string().trim().nullable(),
+  correo: z.string().trim().nullable(),
   id_departamento: z.number().min(1, 'Requerido'),
-  direccion: z.string().nullable(),
+  direccion: z.string().trim().nullable(),
   id_sector: z.number().min(1, 'Requerido').nullable(),
   id_subsector: z.number().min(1, 'Requerido').nullable(),
 });
@@ -19,13 +19,13 @@ export const solvenciaSchema = z.object({
   vence: z.string().nullable(),
   verificado: z.string('Requerido'),
   recibido: z.string().nullable(),
-  url: z.string().nullable(),
+  url: z.string().trim().nullable(),
   id_usuario: z.number(),
 });
 
 export const usuarioSchema = z.object({
-  nombre: z.string().min(1, 'Requerido'),
-  apellido: z.string().min(1, 'Requerido'),
+  nombre: z.string().trim().min(1, 'Requerido'),
+  apellido: z.string().trim().min(1, 'Requerido'),
   correo: z.email('Ingresa un correo válido'),
   rol: z.string().min(1, 'Requerido'),
   activo: z.boolean('Requerido'),
@@ -46,11 +46,11 @@ export const solicitudSchema = z.object({
 
 export const detalleSolicitudSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
-  producto_servicio: z.string().min(1, 'Requerido'),
+  producto_servicio: z.string().trim().min(1, 'Requerido'),
   cantidad: z.number().min(1, 'Requerido'),
   id_unidad_medida: z.number().min(1, 'Requerido'),
   precio: z.number().min(1, 'Requerido'),
-  observaciones: z.string().nullable(),
+  observaciones: z.string().trim().nullable(),
   prioridad: z.string().nullable(),
   comprado: z.number().nullable(),
   recibido: z.number().nullable(),
@@ -68,10 +68,10 @@ export const ordenesSchema = z.object({
   fecha_a_utilizar: z.string('Requerido'),
   id_proveedor: z.number().min(1, 'Requerido'),
   id_estado: z.number().min(1, 'Requerido'),
-  numero_cotizacion: z.string().nullable(),
+  numero_cotizacion: z.string().trim().nullable(),
   termino_de_pago: z.string().nullable(),
   moneda: z.string().nullable(),
-  observaciones: z.string().nullable(),
+  observaciones: z.string().trim().nullable(),
 });
 
 export const detalleOrdenSchema = z.object({
@@ -79,5 +79,5 @@ export const detalleOrdenSchema = z.object({
   id_solicitud_detalle: z.number().min(1, 'Requerido'),
   cantidad: z.number().min(1, 'Requerido'),
   precio_real: z.number().min(1, 'Requerido'),
-  observaciones: z.string().nullable(),
+  observaciones: z.string().trim().nullable(),
 });

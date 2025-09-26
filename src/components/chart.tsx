@@ -36,7 +36,7 @@ export default function Chart({
 }: ChartProps) {
   return (
     // w-full needed for correct responsive
-    <Card className="w-full min-w-lg flex-1">
+    <Card className="w-full min-w-lg flex-1 h-fit">
       <CardHeader>
         <div className="inline-flex flex-col space-y-1.5">
           <CardTitle>{title}</CardTitle>

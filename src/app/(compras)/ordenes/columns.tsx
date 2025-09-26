@@ -74,33 +74,33 @@ export const columns: ColumnDef<OrdenesTable>[] = [
     header: ({ column }) => <SortButton column={column} label="Estado" />,
     cell: DefaultCell,
   },
-  {
-    accessorKey: 'presupuestado',
-    header: ({ column }) => (
-      <SortButton column={column} label="Presupuestado" />
-    ),
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'presupuestado');
-      return <NumberCellWithValue value={total} />;
-    },
-  },
+  // {
+  //   accessorKey: 'presupuestado',
+  //   header: ({ column }) => (
+  //     <SortButton column={column} label="Presupuestado" />
+  //   ),
+  //   cell: NumberFloatCell,
+  //   footer: ({ table }) => {
+  //     const total = sumColumn(table, 'presupuestado');
+  //     return <NumberCellWithValue value={total} />;
+  //   },
+  // },
   {
     accessorKey: 'asignado',
-    header: ({ column }) => <SortButton column={column} label="Asignado" />,
+    header: ({ column }) => <SortButton column={column} label="Total" />,
     cell: NumberFloatCell,
     footer: ({ table }) => {
       const total = sumColumn(table, 'asignado');
       return <NumberCellWithValue value={total} />;
     },
   },
-  {
-    accessorKey: 'restante',
-    header: ({ column }) => <SortButton column={column} label="Restante" />,
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'restante');
-      return <NumberCellWithValue value={total} />;
-    },
-  },
+  // {
+  //   accessorKey: 'restante',
+  //   header: ({ column }) => <SortButton column={column} label="Restante" />,
+  //   cell: NumberFloatCell,
+  //   footer: ({ table }) => {
+  //     const total = sumColumn(table, 'restante');
+  //     return <NumberCellWithValue value={total} />;
+  //   },
+  // },
 ];

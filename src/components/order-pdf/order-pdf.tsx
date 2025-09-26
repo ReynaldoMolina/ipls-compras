@@ -11,7 +11,7 @@ import Table from './table';
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    backgroundColor: '#E4E4E4',
+    backgroundColor: 'white',
     fontSize: 10,
     gap: 20,
   },

@@ -32,14 +32,14 @@ export function UserForm({ action, user }: UserFormProps) {
           apellido: user.apellido ?? '',
           correo: user.correo ?? '',
           rol: user.rol ?? '',
-          activo: user.activo ?? false,
+          activo: user.activo ?? true,
         }
       : {
           nombre: '',
           apellido: '',
           correo: '',
           rol: '',
-          activo: false,
+          activo: true,
         },
   });
 
