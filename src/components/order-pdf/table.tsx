@@ -23,9 +23,9 @@ export default function Table({ register }: { register: OrdenPdfProps }) {
 }
 
 const tdBase = {
-  paddingHorizontal: 2,
-  paddingVertical: 2,
-  // fontSize: 9,
+  padding: 2,
+  borderLeft: 1,
+  fontSize: 9,
 };
 
 const styles = StyleSheet.create({
@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
     width: '75%',
   },
   info: {
+    flexDirection: 'row',
+    gap: 5,
     borderBottom: 1,
     paddingHorizontal: 5,
     paddingVertical: 2,
@@ -55,8 +57,8 @@ const styles = StyleSheet.create({
   tableTh: {
     paddingHorizontal: 2,
     paddingVertical: 1,
-    // borderRight: 1,
-    fontSize: 9,
+    fontWeight: 'bold',
+    borderBottom: 1,
   },
   tableTd: tdBase,
   tdItem: {
@@ -76,17 +78,17 @@ const styles = StyleSheet.create({
   },
   tdUnidadMedida: {
     ...tdBase,
-    width: 60,
+    width: 59,
     textAlign: 'center',
   },
   tdDescripcion: {
     ...tdBase,
-    width: 300,
+    width: 307,
     textAlign: 'center',
   },
   tdPrecioUnitario: {
     ...tdBase,
-    width: 70,
+    width: 64,
     textAlign: 'right',
   },
   tdPrecioTotal: {
@@ -103,29 +105,35 @@ export function TableInfo({ register }: { register: OrdenPdfProps }) {
     <View style={{ flexDirection: 'row', height: 65 }}>
       {/* info */}
       <View style={styles.infoContainer}>
-        <Text style={styles.info}>Proveedor: {register.proveedor}</Text>
-        <Text style={styles.info}>
-          Términos de pago: {register.termino_de_pago?.toLocaleUpperCase()}
-        </Text>
-        <Text style={styles.info}>
-          Cotización Nº: {register.numero_cotizacion}
-        </Text>
-        <Text style={styles.info}>
-          Moneda: {register.moneda?.toLocaleUpperCase()}
-        </Text>
+        <View style={styles.info}>
+          <Text style={{ fontWeight: 'bold' }}>Proveedor:</Text>
+          <Text>{register.proveedor}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={{ fontWeight: 'bold' }}>Términos de pago:</Text>
+          <Text>{register.termino_de_pago?.toLocaleUpperCase()}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={{ fontWeight: 'bold' }}>Cotización Nº:</Text>
+          <Text>{register.numero_cotizacion}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={{ fontWeight: 'bold' }}>Moneda:</Text>
+          <Text>{register.moneda?.toLocaleUpperCase()}</Text>
+        </View>
       </View>
 
       {/* date */}
       <View style={{ width: '25%', height: '100%', borderTop: 1 }}>
         <View style={styles.dateContainer}>
           <View style={styles.dateCell}>
-            <Text>Día</Text>
+            <Text style={{ fontWeight: 'bold' }}>Día</Text>
           </View>
           <View style={styles.dateCell}>
-            <Text>Mes</Text>
+            <Text style={{ fontWeight: 'bold' }}>Mes</Text>
           </View>
           <View style={styles.dateCell}>
-            <Text>Año</Text>
+            <Text style={{ fontWeight: 'bold' }}>Año</Text>
           </View>
         </View>
 
@@ -147,30 +155,37 @@ export function TableInfo({ register }: { register: OrdenPdfProps }) {
 
 export function TableHeader() {
   return (
-    <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: 10,
-          // borderTop: 1,
-          // borderLeft: 1,
-          // borderBottom: 1,
-        }}
-      >
-        <Text style={[styles.tableTh, styles.tdItem]}>ITEM</Text>
-        <Text style={[styles.tableTh, styles.tdCodigo]}>CÓD</Text>
-        <Text style={[styles.tableTh, styles.tdCant]}>CANT</Text>
-        <Text style={[styles.tableTh, styles.tdUnidadMedida]}>U/M</Text>
-        <Text style={[styles.tableTh, styles.tdDescripcion]}>DESCRIPCIÓN</Text>
-        <Text style={[styles.tableTh, styles.tdPrecioUnitario]}>PRECIO</Text>
-        <Text style={[styles.tableTh, styles.tdPrecioTotal]}>PRECIO TOTAL</Text>
-      </View>
+    <View
+      style={{
+        flexDirection: 'row',
+        marginTop: 10,
+        borderTop: 1,
+        borderRight: 1,
+      }}
+    >
+      <Text style={[styles.tableTh, styles.tdItem]}>ITEM</Text>
+      <Text style={[styles.tableTh, styles.tdCodigo]}>CÓD</Text>
+      <Text style={[styles.tableTh, styles.tdCant]}>CANT</Text>
+      <Text style={[styles.tableTh, styles.tdUnidadMedida]}>U/M</Text>
+      <Text style={[styles.tableTh, styles.tdDescripcion]}>DESCRIPCIÓN</Text>
+      <Text style={[styles.tableTh, styles.tdPrecioUnitario]}>PRECIO</Text>
+      <Text style={[styles.tableTh, styles.tdPrecioTotal]}>PRECIO TOTAL</Text>
     </View>
   );
 }
 
 export function TableBody({ children }: { children: React.ReactNode }) {
-  return <View>{children}</View>;
+  return (
+    <View
+      style={{
+        // borderTop: 1,
+        borderRight: 1,
+        // borderLeft: 1,
+      }}
+    >
+      {children}
+    </View>
+  );
 }
 
 export function TableRow({
@@ -184,10 +199,6 @@ export function TableRow({
     <View
       style={{
         flexDirection: 'row',
-        // marginTop: 10,
-        // borderTop: 1,
-        // borderLeft: 1,
-        // borderBottom: 1,
       }}
     >
       <Text style={[styles.tableTd, styles.tdItem]}>{index + 1}</Text>
@@ -222,39 +233,74 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
   const totalNeto = base + iva;
 
   return (
-    <View style={{ flexDirection: 'row', marginTop: 10, height: 65 }}>
+    <View style={{ flexDirection: 'row', height: 65, borderRight: 1 }}>
       {/* firmas */}
-      <View style={{ flexDirection: 'row', width: '75%', border: '1' }}>
+      <View style={{ flexDirection: 'row', width: '75%' }}>
         <TableFooterFirma upperLabel="AREA" lowerLabel="SOLICITANTE" />
         <TableFooterFirma upperLabel="COMPRAS" lowerLabel="ELABORADO" />
         <TableFooterFirma upperLabel="GERENCIA" lowerLabel="AUTORIZADO" />
       </View>
 
       {/* totales */}
-      <View style={{ width: '25%', border: '1' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.tdPrecioUnitario, { textAlign: 'center' }]}>
+      <View style={{ width: '25%' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            height: 65,
+            borderBottom: 1,
+            borderTop: 1,
+          }}
+        >
+          <Text
+            style={[
+              styles.tdPrecioUnitario,
+              { textAlign: 'center', fontWeight: 'bold' },
+            ]}
+          >
             Subtotal
           </Text>
-          <Text style={styles.tdPrecioTotal}>{formatNumber(subtotal)}</Text>
+          <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
+            {formatNumber(subtotal)}
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.tdPrecioUnitario, { textAlign: 'center' }]}>
+        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+          <Text
+            style={[
+              styles.tdPrecioUnitario,
+              { textAlign: 'center', fontWeight: 'bold' },
+            ]}
+          >
             Descuento
           </Text>
-          <Text style={styles.tdPrecioTotal}>{formatNumber(descuento)}</Text>
+          <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
+            {formatNumber(descuento)}
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.tdPrecioUnitario, { textAlign: 'center' }]}>
+        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+          <Text
+            style={[
+              styles.tdPrecioUnitario,
+              { textAlign: 'center', fontWeight: 'bold' },
+            ]}
+          >
             I.V.A.
           </Text>
-          <Text style={styles.tdPrecioTotal}>{formatNumber(iva)}</Text>
+          <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
+            {formatNumber(iva)}
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.tdPrecioUnitario, { textAlign: 'center' }]}>
+        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+          <Text
+            style={[
+              styles.tdPrecioUnitario,
+              { textAlign: 'center', fontWeight: 'bold' },
+            ]}
+          >
             TOTAL
           </Text>
-          <Text style={styles.tdPrecioTotal}>{formatNumber(totalNeto)}</Text>
+          <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
+            {formatNumber(totalNeto)}
+          </Text>
         </View>
       </View>
     </View>
@@ -269,22 +315,31 @@ function TableFooterFirma({
   lowerLabel: string;
 }) {
   return (
-    <View style={{ width: '100%' }}>
+    <View
+      style={{ width: '100%', borderLeft: 1, borderTop: 1, borderBottom: 1 }}
+    >
       <View
         style={{
           alignItems: 'center',
           paddingVertical: 1,
           paddingHorizontal: 2,
+          borderBottom: 1,
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
         <Text>{upperLabel}</Text>
       </View>
-      <View style={{ flex: 1 }}></View>
+      <View style={{ height: '100%' }}></View>
+      <View style={{ height: '100%' }}></View>
       <View
         style={{
           alignItems: 'center',
           paddingVertical: 1,
           paddingHorizontal: 2,
+          borderTop: 1,
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
         <Text>{lowerLabel}</Text>
