@@ -12,7 +12,12 @@ import {
 } from '@/components/ui/form';
 import { ordenesSchema } from '@/validation-schemas';
 import { FormFieldSet } from './elements/form-fieldset';
-import { ComboBoxData, FormAction, OrdenFormType } from '@/types/types';
+import {
+  ComboBoxData,
+  FormAction,
+  OrdenFormType,
+  OrdenPdfProps,
+} from '@/types/types';
 import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
 import FormInputGroup from './elements/form-input-group';
@@ -35,6 +40,7 @@ interface OrdenFormProps {
   id_solicitud: number;
   estados: ComboBoxData;
   proveedores: ComboBoxData;
+  ordenPdf: OrdenPdfProps;
 }
 
 export function OrdenForm({
@@ -43,6 +49,7 @@ export function OrdenForm({
   id_solicitud,
   estados,
   proveedores,
+  ordenPdf,
 }: OrdenFormProps) {
   const form = useForm<z.infer<typeof ordenesSchema>>({
     resolver: zodResolver(ordenesSchema),
@@ -84,7 +91,7 @@ export function OrdenForm({
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-3xl mx-auto">
           <FormHeader action={action} name="orden" noun="f">
-            <FormOptions action={action} />
+            <FormOptions action={action} register={ordenPdf} />
           </FormHeader>
           <CardContent>
             <FormLinkGroup action={action}>
