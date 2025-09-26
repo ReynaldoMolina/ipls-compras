@@ -13,6 +13,7 @@ export async function getSolicitudesTableData(params: SearchParamsProps) {
     id: solicitudes.id,
     year: solicitudes.year,
     tipo: entidades_academicas.tipo,
+    revisado_bodega: solicitudes.revisado_bodega,
     entidad_academica: entidades_academicas.nombre,
     abreviacion: entidades_academicas.abreviacion,
     presupuestado: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,

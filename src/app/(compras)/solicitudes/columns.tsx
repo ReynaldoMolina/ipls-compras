@@ -51,6 +51,11 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
     cell: DefaultCell,
   },
   {
+    accessorKey: 'revisado_bodega',
+    header: ({ column }) => <SortButton column={column} label="Revisado?" />,
+    cell: DefaultCell,
+  },
+  {
     accessorKey: 'presupuestado',
     header: ({ column }) => (
       <SortButton column={column} label="Presupuestado" />

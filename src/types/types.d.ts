@@ -96,6 +96,7 @@ export interface SolicitudesTable extends Solicitud {
   tipo: string | null;
   entidad_academica: string | null;
   abreviacion: string | null;
+  revisado_bodega: boolean | null;
   presupuestado: number | null;
   asignado: number | null;
   restante: number | null;
