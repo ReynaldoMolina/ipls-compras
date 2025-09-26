@@ -238,3 +238,23 @@ export interface OrdenDetalleFormType {
   precio_real: number | null;
   observaciones: string | null;
 }
+
+export interface OrdePdfDetalleProps {
+  id_solicitud_detalle: number;
+  cantidad: number;
+  unidad_medida: string;
+  producto_servicio: string;
+  precio_real: number;
+}
+
+export interface OrdenPdfProps {
+  register: {
+    id_orden: number;
+    proveedor: string;
+    numero_cotizacion: number;
+    termino_de_pago: string;
+    moneda: string;
+    fecha_creacion: string;
+    detalle: OrdePdfDetalleProps[];
+  };
+}
