@@ -44,6 +44,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import ChangeTheme from './change-theme';
 import { getActiveSidebarOption } from '@/lib/get-sidebar-active-option';
+import { logOut } from '@/server-actions/auth';
+import { Button } from './ui/button';
 
 export interface SidebarItem {
   id: PageId;
@@ -177,10 +179,8 @@ function UserMenu() {
           <ChangeThemeSubMenu />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut />
-          Cerrar sesión
-        </DropdownMenuItem>
+
+        <SignOut />
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -209,12 +209,34 @@ function ChangeThemeSubMenu() {
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
-        <Contrast className="mr-2 h-4 w-4 opacity-60" />
+        <Contrast className="h-4 w-4 opacity-60" />
         Tema
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <ChangeTheme />
       </DropdownMenuPortal>
     </DropdownMenuSub>
+  );
+}
+
+function SignOut() {
+  return (
+    <form
+      action={async () => {
+        await logOut();
+      }}
+    >
+      <DropdownMenuItem asChild>
+        <Button
+          type="submit"
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start focus-visible:ring-0"
+        >
+          <LogOut />
+          Cerrar sesión
+        </Button>
+      </DropdownMenuItem>
+    </form>
   );
 }
