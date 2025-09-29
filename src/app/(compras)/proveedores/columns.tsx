@@ -24,22 +24,22 @@ export const columns: ColumnDef<Proveedores>[] = [
       );
     },
   },
-  {
-    accessorKey: 'id',
-    header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
-  },
-  {
-    accessorKey: 'solvencia',
-    header: ({ column }) => <SortButton column={column} label="Solvencia" />,
-    cell: ({ row }) => <DateStatusCell date={row.original.solvencia} />,
-  },
+  // {
+  //   accessorKey: 'id',
+  //   header: ({ column }) => <SortButton column={column} label="Id" />,
+  //   cell: TableId,
+  // },
   {
     accessorKey: 'nombre_comercial',
     header: ({ column }) => (
       <SortButton column={column} label="Nombre comercial" />
     ),
     cell: DefaultCell,
+  },
+  {
+    accessorKey: 'solvencia',
+    header: ({ column }) => <SortButton column={column} label="Solvencia" />,
+    cell: ({ row }) => <DateStatusCell date={row.original.solvencia} />,
   },
   {
     accessorKey: 'ruc',

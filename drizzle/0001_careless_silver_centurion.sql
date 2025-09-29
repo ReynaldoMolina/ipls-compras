@@ -1,1 +1,0 @@
--- ALTER TABLE "solicitudes" ADD COLUMN "year" integer NOT NULL;

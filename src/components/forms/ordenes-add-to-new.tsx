@@ -86,7 +86,7 @@ export function OrdenNewFormModal<TData>({
           Nueva
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[95%] overflow-y-auto max-w-2xl">
+      <DialogContent className="max-h-[95%] overflow-y-auto max-w-2xl">
         <DialogHeader>
           <DialogTitle>Nueva orden de compra</DialogTitle>
           <DialogDescription className="inline-flex flex-col text-balance gap-3">

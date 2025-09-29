@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1757952361070,
-      "tag": "0000_silly_zarek",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1758044721811,
-      "tag": "0001_careless_silver_centurion",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1758318072425,
-      "tag": "0002_overrated_cloak",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1758561639967,
-      "tag": "0003_numerous_shocker",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1758571485166,
-      "tag": "0004_lyrical_wild_pack",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1758649454189,
-      "tag": "0005_petite_colleen_wing",
+      "when": 1759176867189,
+      "tag": "0000_unknown_green_goblin",
       "breakpoints": true
     }
   ]

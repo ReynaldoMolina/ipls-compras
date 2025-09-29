@@ -1,11 +1,11 @@
-import { boolean, integer, pgTable, text } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const usuarios = pgTable('usuarios', {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  nombre: text().notNull(),
-  apellido: text().notNull(),
-  correo: text().notNull(),
-  password: text().notNull(),
-  rol: text().notNull(),
-  activo: boolean().notNull(),
+  id: uuid().primaryKey().defaultRandom(),
+  name: text(),
+  email: text().unique(),
+  emailVerified: timestamp({ mode: 'date' }),
+  image: text(),
+  role: text().notNull().default('user'),
+  activo: boolean().notNull().default(false),
 });

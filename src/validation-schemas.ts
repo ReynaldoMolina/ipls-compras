@@ -24,10 +24,11 @@ export const solvenciaSchema = z.object({
 });
 
 export const usuarioSchema = z.object({
-  nombre: z.string().trim().min(1, 'Requerido'),
-  apellido: z.string().trim().min(1, 'Requerido'),
-  correo: z.email('Ingresa un correo válido'),
-  rol: z.string().min(1, 'Requerido'),
+  name: z.string(),
+  email: z.string(),
+  emailVerified: z.date().nullable(),
+  image: z.string(),
+  role: z.string().min(1, 'Requerido'),
   activo: z.boolean('Requerido'),
 });
 

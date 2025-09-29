@@ -20,6 +20,8 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ isMobile, user }: UserMenuProps) {
+  console.log(user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

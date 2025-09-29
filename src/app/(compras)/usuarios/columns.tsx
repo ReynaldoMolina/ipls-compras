@@ -5,7 +5,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import TableBool from '@/components/tables/bool-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { Usuario } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<Usuario>[] = [
@@ -15,23 +14,17 @@ export const columns: ColumnDef<Usuario>[] = [
     cell: ({ row }) => <EditCell href={`/usuarios/${row.original.id}`} />,
   },
   {
-    accessorKey: 'id',
-    header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
-  },
-  {
-    id: 'nombre',
+    accessorKey: 'name',
     header: ({ column }) => <SortButton column={column} label="Nombre" />,
-    accessorFn: (row) => `${row.nombre ?? ''} ${row.apellido ?? ''}`.trim(),
     cell: DefaultCell,
   },
   {
-    accessorKey: 'correo',
+    accessorKey: 'email',
     header: ({ column }) => <SortButton column={column} label="Correo" />,
     cell: DefaultCell,
   },
   {
-    accessorKey: 'rol',
+    accessorKey: 'role',
     header: ({ column }) => <SortButton column={column} label="Rol" />,
     cell: DefaultCell,
   },

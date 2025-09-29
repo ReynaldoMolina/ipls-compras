@@ -72,11 +72,12 @@ export interface SolvenciaTable extends Solvencia {
 }
 
 export interface Usuario {
-  id?: number;
-  nombre: string | null;
-  apellido: string | null;
-  correo: string | null;
-  rol: string | null;
+  id?: string;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+  role: string | null;
   activo: boolean | null;
 }
 

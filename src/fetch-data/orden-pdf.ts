@@ -44,7 +44,8 @@ export async function getOrdenPdfById(id_orden: number | undefined) {
         unidades_medida,
         eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
       )
-      .where(eq(ordenes_detalle.id_orden, id_orden));
+      .where(eq(ordenes_detalle.id_orden, id_orden))
+      .orderBy(ordenes_detalle.id);
 
     // Combine into single object
     return {

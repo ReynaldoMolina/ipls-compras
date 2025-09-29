@@ -5,6 +5,7 @@ const defaultUser = {
   name: 'Usuario',
   image: '/logo.png',
   email: 'usuario@ipls-lasalle.org',
+  role: 'docente',
 };
 
 export async function SideBar() {

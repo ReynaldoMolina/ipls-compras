@@ -12,17 +12,15 @@ import {
 export async function getUsersTableData(searchParams: SearchParamsProps) {
   const selectFields = {
     id: usuarios.id,
-    nombre: usuarios.nombre,
-    apellido: usuarios.apellido,
-    correo: usuarios.correo,
-    rol: usuarios.rol,
+    name: usuarios.name,
+    email: usuarios.email,
+    role: usuarios.role,
     activo: usuarios.activo,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [
-    usuarios.nombre,
-    usuarios.apellido,
-    usuarios.correo,
+    usuarios.name,
+    usuarios.email,
   ]);
 
   const filterUsuariosByRol = buildFilterUsuariosByRol(searchParams);
@@ -44,14 +42,14 @@ export async function getUsersTableData(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getUserById(id: number): Promise<Usuario> {
+export async function getUserById(id: string): Promise<Usuario> {
   try {
-    const data = await db.select().from(usuarios).where(eq(usuarios.id, id));
-    return data[0];
+    const [data] = await db.select().from(usuarios).where(eq(usuarios.id, id));
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudo obtener el usuario, por favor intenta de nuevo'
+      'No se pudo obtener el usuarios, por favor intenta de nuevo'
     );
   }
 }
@@ -60,11 +58,11 @@ export async function getUniqueRolsFromUsuarios() {
   try {
     const data = await db
       .selectDistinct({
-        value: usuarios.rol,
-        label: usuarios.rol,
+        value: usuarios.role,
+        label: usuarios.role,
       })
       .from(usuarios)
-      .orderBy(asc(usuarios.rol));
+      .orderBy(asc(usuarios.role));
     return data;
   } catch (error) {
     console.error(error);

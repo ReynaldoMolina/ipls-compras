@@ -59,7 +59,7 @@ function OrdenOptions({ register }: { register: OrdenPdfProps }) {
           className="w-full justify-start"
         >
           <Link href={`/ordenes/${register.id_orden}/print`}>
-            <Printer />
+            <Printer className="text-foreground" />
             Imprimir
           </Link>
         </Button>

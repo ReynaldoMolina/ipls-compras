@@ -2,35 +2,23 @@ import { UserForm } from '@/components/forms/usuarios';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { getUserById } from '@/fetch-data/usuarios';
-import { EditPageProps } from '@/types/types';
+import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props: EditPageProps) {
+export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
   const { id } = urlparams;
   return {
-    title: `Usuario ${id}`,
+    title: `Editar usuario`,
   };
 }
 
-type Props = {
-  params?: {
-    id: string;
-  };
-  searchParams?: {
-    sector?: string;
-  };
-};
-
-export default async function Page(props: Props) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-
-  const id = Number(params?.id);
+export default async function Page(props: PageProps) {
+  const { id } = await props.params;
   const user = await getUserById(id);
 
   return (
     <>
-      <Header title={`Usuario ${id}`} />
+      <Header title={`Usuario - ${user.name}`} />
       <PageWrapper>
         <UserForm action="edit" user={user} />
       </PageWrapper>

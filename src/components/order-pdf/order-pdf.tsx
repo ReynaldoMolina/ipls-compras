@@ -6,6 +6,7 @@ import { Header } from './header';
 import { OrdenPdfProps } from '@/types/types';
 import { Title } from './title';
 import Table from './table';
+import { Footer } from './footer';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -13,7 +14,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'white',
     fontSize: 10,
-    gap: 20,
+    padding: 20,
+    gap: 15,
   },
 });
 
@@ -28,6 +30,7 @@ export function OrdenPdfViewer({ register }: { register: OrdenPdfProps }) {
           <Header />
           <Title register={register} />
           <Table register={register} />
+          <Footer />
         </Page>
       </Document>
     </PDFViewer>

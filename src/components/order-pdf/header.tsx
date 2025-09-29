@@ -3,8 +3,6 @@ import { View, Image, Text, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    marginHorizontal: 15,
-    marginTop: 15,
   },
   logoContainer: {
     width: '50%',

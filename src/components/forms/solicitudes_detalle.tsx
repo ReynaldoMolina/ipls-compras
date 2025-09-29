@@ -102,10 +102,10 @@ export function SolicitudDetalleForm({
                 hidden
                 disabled
               />
-              <FormTextField
+              <FormTextArea
                 control={form.control}
                 name="producto_servicio"
-                label="Nombre o descripción"
+                label="Producto o servicio"
               />
               <FormInputGroup className="flex-row">
                 <FormTextField
@@ -126,13 +126,13 @@ export function SolicitudDetalleForm({
                   form={form}
                   name="id_unidad_medida"
                   label="Unidad de medida"
-                  options={selectOptions.unidadesMedida}
+                  options={selectOptions.unidadesMedida ?? []}
                 />
                 <FormCombobox
                   form={form}
                   name="id_categoria"
                   label="Categoría"
-                  options={selectOptions.categorias}
+                  options={selectOptions.categorias ?? []}
                 />
               </FormInputGroup>
               <FormTextArea
@@ -153,7 +153,7 @@ export function SolicitudDetalleForm({
                   form={form}
                   name="id_estado"
                   label="Estado"
-                  options={selectOptions.estados}
+                  options={selectOptions.estados ?? []}
                 />
               </FormInputGroup>
             </FormFieldSet>
@@ -197,7 +197,7 @@ export function SolicitudDetalleForm({
                   form={form}
                   name="id_ubicacion"
                   label="Ubicación"
-                  options={selectOptions.ubicaciones}
+                  options={selectOptions.ubicaciones ?? []}
                 />
               </FormInputGroup>
             </FormFieldSet>

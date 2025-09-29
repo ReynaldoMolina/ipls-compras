@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function Table({ register }: { register: OrdenPdfProps }) {
   return (
-    <View style={{ marginHorizontal: 15, marginTop: 15 }}>
+    <View>
       <TableInfo register={register} />
       <TableHeader />
       <TableBody>
@@ -25,6 +25,7 @@ export default function Table({ register }: { register: OrdenPdfProps }) {
 const tdBase = {
   padding: 2,
   borderLeft: 1,
+  borderBottom: '1 solid black',
   fontSize: 9,
 };
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   tdDescripcion: {
     ...tdBase,
     width: 307,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   tdPrecioUnitario: {
     ...tdBase,
@@ -102,7 +103,7 @@ export function TableInfo({ register }: { register: OrdenPdfProps }) {
   const [year, month, day] = register.fecha_creacion.split('-');
 
   return (
-    <View style={{ flexDirection: 'row', height: 65 }}>
+    <View style={{ flexDirection: 'row', height: 65, marginBottom: 10 }}>
       {/* info */}
       <View style={styles.infoContainer}>
         <View style={styles.info}>
@@ -156,9 +157,9 @@ export function TableInfo({ register }: { register: OrdenPdfProps }) {
 export function TableHeader() {
   return (
     <View
+      fixed
       style={{
         flexDirection: 'row',
-        marginTop: 10,
         borderTop: 1,
         borderRight: 1,
       }}
@@ -177,6 +178,7 @@ export function TableHeader() {
 export function TableBody({ children }: { children: React.ReactNode }) {
   return (
     <View
+      wrap
       style={{
         // borderTop: 1,
         borderRight: 1,
@@ -201,21 +203,25 @@ export function TableRow({
         flexDirection: 'row',
       }}
     >
-      <Text style={[styles.tableTd, styles.tdItem]}>{index + 1}</Text>
-      <Text style={[styles.tableTd, styles.tdCodigo]}>
+      <Text break style={[styles.tableTd, styles.tdItem]}>
+        {index + 1}
+      </Text>
+      <Text break style={[styles.tableTd, styles.tdCodigo]}>
         {element.id_solicitud_detalle}
       </Text>
-      <Text style={[styles.tableTd, styles.tdCant]}>{element.cantidad}</Text>
-      <Text style={[styles.tableTd, styles.tdUnidadMedida]}>
+      <Text break style={[styles.tableTd, styles.tdCant]}>
+        {element.cantidad}
+      </Text>
+      <Text break style={[styles.tableTd, styles.tdUnidadMedida]}>
         {element.unidad_medida}
       </Text>
-      <Text style={[styles.tableTd, styles.tdDescripcion]}>
+      <Text break style={[styles.tableTd, styles.tdDescripcion]}>
         {element.producto_servicio}
       </Text>
-      <Text style={[styles.tableTd, styles.tdPrecioUnitario]}>
+      <Text break style={[styles.tableTd, styles.tdPrecioUnitario]}>
         {formatNumber(element.precio_real)}
       </Text>
-      <Text style={[styles.tableTd, styles.tdPrecioTotal]}>
+      <Text break style={[styles.tableTd, styles.tdPrecioTotal]}>
         {formatNumber(element.cantidad * element.precio_real)}
       </Text>
     </View>
@@ -247,7 +253,6 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
           style={{
             flexDirection: 'row',
             height: 65,
-            borderBottom: 1,
             borderTop: 1,
           }}
         >
@@ -263,7 +268,7 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
             {formatNumber(subtotal)}
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+        <View style={{ flexDirection: 'row', height: '100%' }}>
           <Text
             style={[
               styles.tdPrecioUnitario,
@@ -276,7 +281,7 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
             {formatNumber(descuento)}
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+        <View style={{ flexDirection: 'row', height: '100%' }}>
           <Text
             style={[
               styles.tdPrecioUnitario,
@@ -289,7 +294,7 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
             {formatNumber(iva)}
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', height: '100%', borderBottom: 1 }}>
+        <View style={{ flexDirection: 'row', height: '100%' }}>
           <Text
             style={[
               styles.tdPrecioUnitario,

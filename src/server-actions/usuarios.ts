@@ -20,7 +20,7 @@ export async function createUser(
 }
 
 export async function updateUser(
-  id: number | undefined,
+  id: string | undefined,
   prevState: PrevState,
   data: Usuario
 ) {

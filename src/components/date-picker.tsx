@@ -17,10 +17,12 @@ import { useState } from 'react';
 
 interface DatePickerProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
+  disabled?: boolean;
 }
 
 export function DatePicker<T extends FieldValues>({
   field,
+  disabled = false,
 }: DatePickerProps<T>) {
   const [open, setOpen] = useState(false);
 
@@ -38,6 +40,7 @@ export function DatePicker<T extends FieldValues>({
       <PopoverTrigger asChild>
         <FormControl>
           <Button
+            disabled={disabled}
             variant="outline"
             className={cn(
               'w-full pl-3 text-left font-normal',
@@ -55,6 +58,7 @@ export function DatePicker<T extends FieldValues>({
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0">
         <Calendar
+          disabled={disabled}
           mode="single"
           selected={selectedDate}
           onSelect={(date) => {

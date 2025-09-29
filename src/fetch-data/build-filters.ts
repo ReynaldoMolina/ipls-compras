@@ -39,7 +39,7 @@ export function buildFilterBySolvencia(searchParams: SearchParamsProps) {
 
 export function buildFilterUsuariosByRol(searchParams: SearchParamsProps) {
   const roles = searchParams.rol?.split(',').filter(Boolean) ?? [];
-  return roles.length > 0 ? inArray(usuarios.rol, roles) : undefined;
+  return roles.length > 0 ? inArray(usuarios.role, roles) : undefined;
 }
 
 export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {

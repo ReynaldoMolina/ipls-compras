@@ -1,5 +1,5 @@
 {
-  "id": "7cf6886f-3e99-47db-8362-51b2852e297c",
+  "id": "64afb964-67e2-450a-b9db-7d5f68b6c03e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -118,6 +118,242 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.ordenes_detalle": {
+      "name": "ordenes_detalle",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_orden": {
+          "name": "id_orden",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_solicitud_detalle": {
+          "name": "id_solicitud_detalle",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cantidad": {
+          "name": "cantidad",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "precio_real": {
+          "name": "precio_real",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "observaciones": {
+          "name": "observaciones",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ordenes_detalle_id_orden_ordenes_id_fk": {
+          "name": "ordenes_detalle_id_orden_ordenes_id_fk",
+          "tableFrom": "ordenes_detalle",
+          "tableTo": "ordenes",
+          "columnsFrom": [
+            "id_orden"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ordenes_detalle_id_solicitud_detalle_solicitudes_detalle_id_fk": {
+          "name": "ordenes_detalle_id_solicitud_detalle_solicitudes_detalle_id_fk",
+          "tableFrom": "ordenes_detalle",
+          "tableTo": "solicitudes_detalle",
+          "columnsFrom": [
+            "id_solicitud_detalle"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.ordenes_estados": {
+      "name": "ordenes_estados",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "ordenes_estados_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "estado": {
+          "name": "estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.ordenes": {
+      "name": "ordenes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "ordenes_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "id_solicitud": {
+          "name": "id_solicitud",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fecha_creacion": {
+          "name": "fecha_creacion",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fecha_a_utilizar": {
+          "name": "fecha_a_utilizar",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_proveedor": {
+          "name": "id_proveedor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_estado": {
+          "name": "id_estado",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "numero_cotizacion": {
+          "name": "numero_cotizacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "termino_de_pago": {
+          "name": "termino_de_pago",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "moneda": {
+          "name": "moneda",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "observaciones": {
+          "name": "observaciones",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ordenes_id_solicitud_solicitudes_id_fk": {
+          "name": "ordenes_id_solicitud_solicitudes_id_fk",
+          "tableFrom": "ordenes",
+          "tableTo": "solicitudes",
+          "columnsFrom": [
+            "id_solicitud"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ordenes_id_proveedor_proveedores_id_fk": {
+          "name": "ordenes_id_proveedor_proveedores_id_fk",
+          "tableFrom": "ordenes",
+          "tableTo": "proveedores",
+          "columnsFrom": [
+            "id_proveedor"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ordenes_id_estado_ordenes_estados_id_fk": {
+          "name": "ordenes_id_estado_ordenes_estados_id_fk",
+          "tableFrom": "ordenes",
+          "tableTo": "ordenes_estados",
+          "columnsFrom": [
+            "id_estado"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -539,6 +775,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
         "id_entidad_academica": {
           "name": "id_entidad_academica",
           "type": "integer",
@@ -547,7 +789,7 @@
         },
         "id_usuario": {
           "name": "id_usuario",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -652,7 +894,7 @@
         },
         "id_usuario": {
           "name": "id_usuario",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         }
@@ -826,62 +1068,62 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "usuarios_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "default": "gen_random_uuid()"
         },
-        "nombre": {
-          "name": "nombre",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "apellido": {
-          "name": "apellido",
+        "email": {
+          "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "correo": {
-          "name": "correo",
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "password": {
-          "name": "password",
+        "role": {
+          "name": "role",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "rol": {
-          "name": "rol",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "'user'"
         },
         "activo": {
           "name": "activo",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "usuarios_email_unique": {
+          "name": "usuarios_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
