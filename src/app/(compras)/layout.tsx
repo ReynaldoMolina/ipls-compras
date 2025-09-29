@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
+import { SideBar } from '@/components/sidebar/sidebar';
 
 export default async function Layout({
   children,
@@ -12,7 +12,7 @@ export default async function Layout({
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar />
+      <SideBar />
       <main className="flex flex-col flex-1 overflow-hidden max-h-screen">
         {children}
       </main>

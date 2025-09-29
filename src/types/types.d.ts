@@ -83,7 +83,7 @@ export interface Usuario {
 export type UserType = {
   name: string;
   email: string;
-  avatar: string;
+  image: string;
 };
 
 export interface Solicitud {
