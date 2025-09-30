@@ -1,6 +1,6 @@
-import { date, integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { date, integer, pgTable, text } from 'drizzle-orm/pg-core';
 import { proveedores } from './proveedores';
-import { usuarios } from './usuarios';
+import { users } from './usuarios';
 
 export const solvencias = pgTable('solvencias', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -12,7 +12,7 @@ export const solvencias = pgTable('solvencias', {
   verificado: date().notNull(),
   recibido: date(),
   url: text(),
-  id_usuario: uuid()
+  id_usuario: text()
     .notNull()
-    .references(() => usuarios.id),
+    .references(() => users.id),
 });

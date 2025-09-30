@@ -1,3 +1,6 @@
 import { handlers } from '@/auth';
+
 export const { GET, POST } = handlers;
-export const runtime = 'edge';
+
+// 👇 Important
+export const runtime = 'nodejs';

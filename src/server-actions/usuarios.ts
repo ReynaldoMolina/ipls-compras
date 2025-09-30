@@ -1,17 +1,14 @@
 'use server';
 
 import { db } from '@/database/db';
-import { PrevState, Usuario } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
-import { usuarios } from '@/database/schema/usuarios';
+import { users } from '@/database/schema/usuarios';
 import { eq } from 'drizzle-orm';
+import { User } from 'next-auth';
 
-export async function createUser(
-  prevState: PrevState | undefined,
-  data: Usuario
-) {
+export async function createUser(prevState: PrevState | undefined, data: User) {
   try {
-    await db.insert(usuarios).values(data);
+    await db.insert(users).values(data);
   } catch (error) {
     console.error(error);
     return { ...prevState, message: 'Error creating user' };
@@ -22,11 +19,11 @@ export async function createUser(
 export async function updateUser(
   id: string | undefined,
   prevState: PrevState,
-  data: Usuario
+  data: User
 ) {
   if (!id) return;
   try {
-    await db.update(usuarios).set(data).where(eq(usuarios.id, id));
+    await db.update(users).set(data).where(eq(users.id, id));
   } catch (error) {
     console.error(error);
     return error;

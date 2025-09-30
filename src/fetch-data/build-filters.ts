@@ -2,7 +2,7 @@ import { ordenes } from '@/database/schema/ordenes';
 import { proveedores } from '@/database/schema/proveedores';
 import { solicitudes } from '@/database/schema/solicitudes';
 import { solvencias } from '@/database/schema/solvencias';
-import { usuarios } from '@/database/schema/usuarios';
+import { users } from '@/database/schema/usuarios';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
 
@@ -39,7 +39,7 @@ export function buildFilterBySolvencia(searchParams: SearchParamsProps) {
 
 export function buildFilterUsuariosByRol(searchParams: SearchParamsProps) {
   const roles = searchParams.rol?.split(',').filter(Boolean) ?? [];
-  return roles.length > 0 ? inArray(usuarios.role, roles) : undefined;
+  return roles.length > 0 ? inArray(users.role, roles) : undefined;
 }
 
 export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
@@ -55,7 +55,7 @@ export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
     .filter((value): value is boolean => value !== undefined);
 
   return mappedStates.length > 0
-    ? inArray(usuarios.activo, mappedStates)
+    ? inArray(users.activo, mappedStates)
     : undefined;
 }
 
