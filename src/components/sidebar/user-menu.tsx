@@ -12,15 +12,14 @@ import {
 import { SidebarMenuButton } from '../ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { ChangeThemeSubMenu, SignOut, UserInfo } from './user-info';
-import { User } from 'next-auth';
+import { useUser } from '@/hooks/use-user';
 
 interface UserMenuProps {
   isMobile: boolean;
-  user: User;
 }
 
-export function UserMenu({ isMobile, user }: UserMenuProps) {
-  console.log(user);
+export function UserMenu({ isMobile }: UserMenuProps) {
+  const { user } = useUser();
 
   return (
     <DropdownMenu>

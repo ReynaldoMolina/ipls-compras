@@ -7,6 +7,7 @@ import { columns } from './columns';
 import { getOrdenesEstados, getOrdenesTableData } from '@/fetch-data/ordenes';
 import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
+import { defineAbilitiesFor } from '@/permissions/abilities';
 
 const title = 'Órdenes de compra';
 

@@ -1,13 +1,13 @@
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
-const PUBLIC_ROUTES = ['/login', '/register', '/unauthorized']; // add more public routes if needed
+const publicRoutes = ['/login', '/unauthorized']; // add more public routes if needed
 
 export async function middleware(req: Request) {
   const { pathname } = new URL(req.url);
 
   // allow public routes
-  if (PUBLIC_ROUTES.includes(pathname)) {
+  if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
   }
 

@@ -1,11 +1,12 @@
 export type PageId =
-  | 'resumen'
-  | 'solicitudes'
-  | 'ordenes'
-  | 'proveedores'
-  | 'usuarios'
-  | 'ajustes'
+  | 'Resumen'
+  | 'Solicitud'
+  | 'Orden'
+  | 'Proveedor'
+  | 'Usuario'
   | 'empty';
+
+export type Roles = 'superadmin' | 'administrador' | 'docente' | 'sinverificar';
 
 export type SortOrder = 'asc' | 'desc';
 
