@@ -33,6 +33,7 @@ import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '../ui/button';
 import { Table } from '@tanstack/react-table';
 import { createOrdenFromSelectedIds } from '@/server-actions/ordenes';
+import { getCurrentDate } from '@/lib/get-current-date';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
@@ -46,13 +47,14 @@ export function OrdenNewFormModal<TData>({
   table,
 }: OrdenFormProps<TData>) {
   const [open, setOpen] = useState(false);
+  const { currentDate } = getCurrentDate();
 
   const form = useForm<z.infer<typeof ordenesSchema>>({
     resolver: zodResolver(ordenesSchema),
     defaultValues: {
       id_solicitud: id_solicitud ?? undefined,
-      fecha_creacion: undefined,
-      fecha_a_utilizar: undefined,
+      fecha_creacion: currentDate,
+      fecha_a_utilizar: null,
       id_proveedor: 0,
       id_estado: 1,
       numero_cotizacion: '',

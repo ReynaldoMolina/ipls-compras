@@ -41,6 +41,10 @@ export const roles = [
     value: 'docente',
     label: 'Docente',
   },
+  {
+    value: 'sinverificar',
+    label: 'Sin verificar',
+  },
 ];
 
 export const prioridad = [

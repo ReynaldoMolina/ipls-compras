@@ -5,7 +5,7 @@ import { eq, and, desc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
-import { usuarios } from '@/database/schema/usuarios';
+import { users } from '@/database/schema/usuarios';
 import { proveedores } from '@/database/schema/proveedores';
 
 export async function getSolvenciasByProviderId(
@@ -22,10 +22,10 @@ export async function getSolvenciasByProviderId(
     verificado: solvencias.verificado,
     recibido: solvencias.recibido,
     id_usuario: solvencias.id_usuario,
-    usuario: usuarios.nombre,
+    usuario: users.name,
   };
 
-  const filterBySearch = buildSearchFilter(searchParams, [usuarios.nombre]);
+  const filterBySearch = buildSearchFilter(searchParams, [users.name]);
   const filterBySolvencia = buildFilterBySolvencia(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
 
@@ -33,10 +33,10 @@ export async function getSolvenciasByProviderId(
     const data = await db
       .select(selectFields)
       .from(solvencias)
-      .leftJoin(usuarios, eq(solvencias.id_usuario, usuarios.id))
+      .leftJoin(users, eq(solvencias.id_usuario, users.id))
       .leftJoin(proveedores, eq(solvencias.id_proveedor, proveedores.id))
       .where(and(filterBySearch, eq(solvencias.id_proveedor, id_proveedor)))
-      .groupBy(solvencias.id, usuarios.nombre, proveedores.id)
+      .groupBy(solvencias.id, users.name, proveedores.id)
       .having(filterBySolvencia)
       .orderBy(orderBy);
     return data;

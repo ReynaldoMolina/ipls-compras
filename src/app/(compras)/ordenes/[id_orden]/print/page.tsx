@@ -1,3 +1,4 @@
+import Header from '@/components/header/header';
 import { OrdenPdfViewer } from '@/components/order-pdf/order-pdf';
 import { getOrdenPdfById } from '@/fetch-data/orden-pdf';
 import { OrdenPdfProps, PageProps } from '@/types/types';
@@ -6,7 +7,7 @@ export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
   const { id_orden } = urlparams;
   return {
-    title: `Órden de compra ${id_orden}`,
+    title: `Orden de compra ${id_orden}`,
   };
 }
 
@@ -25,5 +26,10 @@ export default async function Page(props: PageProps) {
     detalle: [],
   };
 
-  return <OrdenPdfViewer register={ordenToPrint ?? emptyOrden} />;
+  return (
+    <>
+      <Header title={`Orden de compra ${id_orden}`} />
+      <OrdenPdfViewer register={ordenToPrint ?? emptyOrden} />;
+    </>
+  );
 }

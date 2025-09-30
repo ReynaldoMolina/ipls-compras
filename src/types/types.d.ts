@@ -64,7 +64,7 @@ export interface Solvencia {
   verificado: string | null;
   recibido: string | null;
   url: string | null;
-  id_usuario: number | null;
+  id_usuario: string | null;
 }
 
 export interface SolvenciaTable extends Solvencia {
@@ -106,7 +106,7 @@ export interface SolicitudesTable extends Solicitud {
 
 export interface SolicitudFormType extends Solicitud {
   id_entidad_academica: number | null;
-  id_usuario: number | null;
+  id_usuario: string | null;
   revisado_bodega: boolean | null;
 }
 
@@ -191,7 +191,7 @@ export interface Orden {
   id?: number;
   id_solicitud: number;
   fecha_creacion: string | null;
-  fecha_a_utilizar: string | null;
+  fecha_a_utilizar?: string | null;
 }
 
 export interface OrdenesTable extends Orden {

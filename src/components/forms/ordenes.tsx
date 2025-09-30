@@ -31,6 +31,7 @@ import FormTextArea from './elements/form-text-area';
 import { FormSelect } from './elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';
 import { createOrden, updateOrden } from '@/server-actions/ordenes';
+import { getCurrentDate } from '@/lib/get-current-date';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
@@ -51,6 +52,8 @@ export function OrdenForm({
   proveedores,
   ordenPdf,
 }: OrdenFormProps) {
+  const { currentDate } = getCurrentDate();
+
   const form = useForm<z.infer<typeof ordenesSchema>>({
     resolver: zodResolver(ordenesSchema),
     defaultValues: orden
@@ -67,7 +70,7 @@ export function OrdenForm({
         }
       : {
           id_solicitud: id_solicitud ?? undefined,
-          fecha_creacion: undefined,
+          fecha_creacion: currentDate,
           fecha_a_utilizar: undefined,
           id_proveedor: 0,
           id_estado: 1,

@@ -20,7 +20,7 @@ export const solvenciaSchema = z.object({
   verificado: z.string('Requerido'),
   recibido: z.string().nullable(),
   url: z.string().trim().nullable(),
-  id_usuario: z.number(),
+  id_usuario: z.string(),
 });
 
 export const usuarioSchema = z.object({
@@ -41,7 +41,7 @@ export const solicitudSchema = z.object({
   fecha: z.string('Requerido'),
   id_entidad_academica: z.number().min(1, 'Requerido'),
   year: z.number().min(1, 'Requerido'),
-  id_usuario: z.number().min(1, 'Requerido'),
+  id_usuario: z.string().min(1, 'Requerido'),
   revisado_bodega: z.boolean().nullable(),
 });
 
@@ -66,7 +66,7 @@ export const detalleSolicitudSchema = z.object({
 export const ordenesSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
   fecha_creacion: z.string('Requerido'),
-  fecha_a_utilizar: z.string('Requerido'),
+  fecha_a_utilizar: z.string().nullable(),
   id_proveedor: z.number().min(1, 'Requerido'),
   id_estado: z.number().min(1, 'Requerido'),
   numero_cotizacion: z.string().trim().nullable(),

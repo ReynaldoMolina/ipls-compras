@@ -22,6 +22,9 @@ import FormHeader from './elements/form-header';
 import FormOptions from './elements/form-options';
 import FormTextField from './elements/form-text-field';
 import { FormFooter } from './elements/form-footer';
+import { useUser } from '@/hooks/use-user';
+import { Input } from '../ui/input';
+import { getCurrentDate } from '@/lib/get-current-date';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
@@ -36,6 +39,9 @@ export function SolvenciaForm({
   solvencia,
   id_proveedor,
 }: SolvenciaFormProps) {
+  const { user } = useUser();
+  const { currentDate } = getCurrentDate();
+
   const form = useForm<z.infer<typeof solvenciaSchema>>({
     resolver: zodResolver(solvenciaSchema),
     defaultValues: solvencia
@@ -46,16 +52,16 @@ export function SolvenciaForm({
           verificado: solvencia.verificado ?? undefined,
           recibido: solvencia.recibido ?? null,
           url: solvencia.url ?? null,
-          id_usuario: solvencia.id_usuario ?? 1,
+          id_usuario: solvencia.id_usuario ?? '',
         }
       : {
           id_proveedor: id_proveedor,
           emitida: null,
           vence: null,
-          verificado: undefined,
+          verificado: currentDate,
           recibido: null,
           url: null,
-          id_usuario: 1,
+          id_usuario: user.id ?? '',
         },
   });
 
@@ -118,8 +124,13 @@ export function SolvenciaForm({
                 name="id_usuario"
                 label="Verificado por"
                 placeholder="Usuario"
+                hidden
                 disabled
               />
+              <FormItem>
+                <FormLabel>Verificado por</FormLabel>
+                <Input type="text" defaultValue={user.name ?? ''} disabled />
+              </FormItem>
             </FormFieldSet>
             <FormFieldSet name="info">
               <FormInputGroup>

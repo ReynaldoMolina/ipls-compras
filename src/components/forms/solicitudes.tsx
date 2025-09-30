@@ -24,6 +24,9 @@ import FormTextField from './elements/form-text-field';
 import { FormSwitch } from './elements/form-switch';
 import { FormLink, FormLinkGroup } from './elements/form-link';
 import { FormFooter } from './elements/form-footer';
+import { useUser } from '@/hooks/use-user';
+import { Input } from '../ui/input';
+import { getCurrentDate } from '@/lib/get-current-date';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -40,6 +43,9 @@ export function SolicitudForm({
   entidadesAcademicas,
   years,
 }: SolicitudFormProps) {
+  const { user } = useUser();
+  const { currentDate, currentYear } = getCurrentDate();
+
   const form = useForm<z.infer<typeof solicitudSchema>>({
     resolver: zodResolver(solicitudSchema),
     defaultValues: solicitud
@@ -47,14 +53,14 @@ export function SolicitudForm({
           fecha: solicitud.fecha ?? undefined,
           id_entidad_academica: solicitud.id_entidad_academica ?? 0,
           year: solicitud.year ?? 0,
-          id_usuario: solicitud.id_usuario ?? 0,
+          id_usuario: solicitud.id_usuario ?? '',
           revisado_bodega: solicitud.revisado_bodega ?? false,
         }
       : {
-          fecha: undefined,
+          fecha: currentDate,
           id_entidad_academica: 0,
-          year: 0,
-          id_usuario: 1,
+          year: currentYear,
+          id_usuario: user.id,
           revisado_bodega: false,
         },
   });
@@ -115,9 +121,13 @@ export function SolicitudForm({
                 control={form.control}
                 name="id_usuario"
                 label="Solicitado por"
-                placeholder="Nombre"
                 disabled
+                hidden
               />
+              <FormItem>
+                <FormLabel>Solicitado por</FormLabel>
+                <Input type="text" defaultValue={user.name ?? ''} disabled />
+              </FormItem>
               <FormSwitch
                 control={form.control}
                 name="revisado_bodega"

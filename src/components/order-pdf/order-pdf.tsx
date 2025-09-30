@@ -23,7 +23,7 @@ export function OrdenPdfViewer({ register }: { register: OrdenPdfProps }) {
   return (
     <PDFViewer className="h-screen">
       <Document
-        title={`Órden de compra ${register.id_orden}`}
+        title={`Orden de compra ${register.id_orden}`}
         author="IPLS - Administración"
       >
         <Page size="LETTER" style={styles.page}>

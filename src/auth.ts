@@ -3,6 +3,7 @@ import Google from 'next-auth/providers/google';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/database/db';
 import { accounts, users } from './database/schema/usuarios';
+import { Roles } from './types/types';
 
 // Export runtime Node only
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -18,8 +19,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     session: async ({ session, token, user }) => {
       if (session.user) {
+        session.user.id = (user?.id as string) ?? (token?.sub as string);
         session.user.role =
-          (user?.role as string) ?? (token?.role as string) ?? 'user';
+          (user?.role as string) ?? (token?.role as Roles) ?? 'sinverificar';
         session.user.activo =
           (user?.activo as boolean) ?? (token?.activo as boolean) ?? false;
       }
@@ -27,6 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     jwt: async ({ token, user }) => {
       if (user) {
+        token.sub = (user as User).id;
         token.role = (user as User).role ?? 'user';
         token.activo = (user as User).activo ?? false;
       }
