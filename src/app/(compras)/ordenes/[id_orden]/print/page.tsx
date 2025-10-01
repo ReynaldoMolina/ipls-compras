@@ -11,15 +11,12 @@ export async function generateMetadata(props: PageProps) {
   };
 }
 
-type PageProps = {
-  params: {
-    id_orden: string;
-  };
-};
+interface PageProps {
+  params: Promise<{ id_orden: string }>;
+}
 
-export default async function Page(props: PageProps) {
-  const params = props.params;
-  const id_orden = params.id_orden;
+export default async function Page({ params }: PageProps) {
+  const { id_orden } = await params;
   const ordenToPrint = await getOrdenPdfById(Number(id_orden));
 
   const emptyOrden: OrdenPdfProps = {
