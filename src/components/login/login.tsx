@@ -17,7 +17,6 @@ import {
 } from '../ui/form';
 import Link from 'next/link';
 import { loginWithGoogle } from '@/server-actions/auth';
-import { Hero } from './hero';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -105,9 +104,7 @@ export function LoginForm() {
               <span className="text-sm">Google</span>
             </Button>
           </form>
-          <div className="bg-muted relative hidden md:block">
-            <Hero />
-          </div>
+          <div className="bg-muted relative hidden md:block"></div>
         </CardContent>
       </Card>
     </Form>
