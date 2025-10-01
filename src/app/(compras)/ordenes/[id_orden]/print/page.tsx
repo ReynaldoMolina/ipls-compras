@@ -18,7 +18,7 @@ type PageProps = {
 };
 
 export default async function Page(props: PageProps) {
-  const params = await props.params;
+  const params = props.params;
   const id_orden = params.id_orden;
   const ordenToPrint = await getOrdenPdfById(Number(id_orden));
 

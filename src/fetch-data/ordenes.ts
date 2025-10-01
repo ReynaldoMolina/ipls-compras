@@ -120,8 +120,8 @@ export async function getOrdenesEstados() {
 }
 
 export async function getOrdenesAddToExistingModal(
-  searchParams: SearchParamsProps,
-  id_solicitud: number | undefined
+  searchParams: SearchParamsProps
+  // id_solicitud: number | undefined
 ) {
   const selectFields = {
     id: ordenes.id,
