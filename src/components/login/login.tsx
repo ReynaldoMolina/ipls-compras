@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import Hero from './hero';
 import { loginSchema } from '@/validation-schemas';
 import {
   Form,
@@ -18,6 +17,7 @@ import {
 } from '../ui/form';
 import Link from 'next/link';
 import { loginWithGoogle } from '@/server-actions/auth';
+import { Hero } from './hero';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
