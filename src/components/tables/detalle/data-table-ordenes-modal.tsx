@@ -20,7 +20,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
 import { Dispatch, useState } from 'react';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';

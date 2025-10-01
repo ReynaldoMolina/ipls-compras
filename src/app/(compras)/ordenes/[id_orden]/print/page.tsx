@@ -1,7 +1,7 @@
 import Header from '@/components/header/header';
 import { OrdenPdfViewer } from '@/components/order-pdf/order-pdf';
 import { getOrdenPdfById } from '@/fetch-data/orden-pdf';
-import { OrdenPdfProps, PageProps } from '@/types/types';
+import { OrdenPdfProps } from '@/types/types';
 
 export async function generateMetadata(props: PageProps) {
   const urlparams = await props.params;
@@ -10,6 +10,12 @@ export async function generateMetadata(props: PageProps) {
     title: `Orden de compra ${id_orden}`,
   };
 }
+
+type PageProps = {
+  params: {
+    id_orden: string;
+  };
+};
 
 export default async function Page(props: PageProps) {
   const params = await props.params;

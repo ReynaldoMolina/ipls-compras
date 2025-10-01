@@ -25,7 +25,7 @@ export function Header() {
   return (
     <View style={styles.header}>
       <View style={styles.logoContainer}>
-        <Image src="/logo-dark.png" style={styles.logo} />
+        <Image src="/logo-dark.png" style={styles.logo} alt="Logo" />
       </View>
 
       {/* header title */}

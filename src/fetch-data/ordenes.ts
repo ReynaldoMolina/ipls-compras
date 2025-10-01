@@ -131,9 +131,9 @@ export async function getOrdenesAddToExistingModal(
     estado: ordenes_estados.estado,
   };
 
-  const filterByIdSolicitud = buildOrdenesByIdSolicitud(
-    id_solicitud ?? undefined
-  );
+  // const filterByIdSolicitud = buildOrdenesByIdSolicitud(
+  //   id_solicitud ?? undefined
+  // );
   const filterByYear = buildFilterSolicitudesByYear(searchParams);
   const filterByOrderState = buildFilterByOrderState(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);

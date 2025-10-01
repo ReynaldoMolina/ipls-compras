@@ -4,9 +4,7 @@ import PageWrapper from '@/components/page-wrapper';
 import { getUserById } from '@/fetch-data/usuarios';
 import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props: PageProps) {
-  const urlparams = await props.params;
-  const { id } = urlparams;
+export async function generateMetadata() {
   return {
     title: `Editar usuario`,
   };

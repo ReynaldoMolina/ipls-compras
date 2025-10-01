@@ -6,7 +6,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { Proveedores } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
 
 export const columns: ColumnDef<Proveedores>[] = [
   {

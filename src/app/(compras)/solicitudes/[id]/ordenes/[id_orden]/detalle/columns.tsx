@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { OrdenDetalleTable, SolicitudDetalle } from '@/types/types';
+import { OrdenDetalleTable } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import {
   NumberIntegerCell,
