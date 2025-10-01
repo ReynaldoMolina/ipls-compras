@@ -119,7 +119,7 @@ export function ProveedorForm({
                   label="Correo"
                 />
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_departamento"
                   label="Departamento"
                   options={departamentos}
@@ -134,18 +134,18 @@ export function ProveedorForm({
 
             <FormFieldSet name="sector">
               <FormCombobox
-                form={form}
+                control={form.control}
                 name="id_sector"
                 label="Sector"
                 options={sectores}
-                updateParams
+                updateParam="sector"
+                resetField={() => form.setValue('id_subsector', 0)}
               />
               <FormCombobox
-                form={form}
+                control={form.control}
                 name="id_subsector"
                 label="Subsector"
                 options={subsectores}
-                resetOnOptionsChange
               />
             </FormFieldSet>
           </CardContent>

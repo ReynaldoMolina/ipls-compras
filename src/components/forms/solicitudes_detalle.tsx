@@ -123,13 +123,13 @@ export function SolicitudDetalleForm({
               </FormInputGroup>
               <FormInputGroup>
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_unidad_medida"
                   label="Unidad de medida"
                   options={selectOptions.unidadesMedida ?? []}
                 />
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_categoria"
                   label="Categoría"
                   options={selectOptions.categorias ?? []}
@@ -150,7 +150,7 @@ export function SolicitudDetalleForm({
                   options={prioridad}
                 />
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_estado"
                   label="Estado"
                   options={selectOptions.estados ?? []}
@@ -194,7 +194,7 @@ export function SolicitudDetalleForm({
               </FormInputGroup>
               <FormInputGroup>
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_ubicacion"
                   label="Ubicación"
                   options={selectOptions.ubicaciones ?? []}

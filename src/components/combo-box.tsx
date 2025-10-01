@@ -19,31 +19,24 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { FormControl } from './ui/form';
-import {
-  ControllerRenderProps,
-  FieldValues,
-  Path,
-  UseFormReturn,
-} from 'react-hook-form';
-import { useUpdateUrlParams } from './form-elements/update-params';
 import { ComboBoxData } from '@/types/types';
 
-interface ComboBoxProps<T extends FieldValues> {
-  field: ControllerRenderProps<T, Path<T>>;
+interface ComboBoxProps {
   options: ComboBoxData;
-  form: UseFormReturn<T>;
-  updateParams?: boolean;
-  resetOnOptionsChange?: boolean;
+  value: string;
+  onChange: (value: number) => void;
+  onParamUpdate?: (value: string) => void;
 }
 
-export function ComboBox<T extends FieldValues>({
-  field,
+export function ComboBox({
   options,
-  form,
-  updateParams = false,
-}: ComboBoxProps<T>) {
-  const setUrlParam = useUpdateUrlParams();
+  value,
+  onChange,
+  onParamUpdate,
+}: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
+
+  console.log(options.find((option) => option.value === String(value))?.label);
 
   return (
     // add modal={true} to allow scroll inside modal
@@ -55,12 +48,11 @@ export function ComboBox<T extends FieldValues>({
             role="combobox"
             className={cn(
               'w-full justify-between text-sm font-normal',
-              !field.value && 'text-muted-foreground'
+              !value && 'text-muted-foreground'
             )}
           >
-            {field.value
-              ? options.find((option) => option.value === String(field.value))
-                  ?.label
+            {value
+              ? options.find((option) => option.value === String(value))?.label
               : 'Selecciona una opción'}
             <ChevronsUpDown className="opacity-50 ml-auto" />
           </Button>
@@ -73,24 +65,21 @@ export function ComboBox<T extends FieldValues>({
           <CommandList>
             <CommandEmpty>No hay resultados</CommandEmpty>
             <CommandGroup>
-              {options.map((element) => (
+              {options.map((option) => (
                 <CommandItem
-                  key={element.value}
-                  value={element.label}
+                  value={option.label}
+                  key={option.value}
                   onSelect={() => {
-                    form.setValue(field.name, Number(element.value));
-                    if (updateParams) {
-                      setUrlParam('sector', element.value);
-                      form.setValue('id_subsector', 0);
-                    }
+                    onChange(Number(option.value));
+                    if (onParamUpdate) onParamUpdate(option.value);
                     setOpen(false);
                   }}
                 >
-                  {element.label}
+                  {option.label}
                   <Check
                     className={cn(
                       'ml-auto',
-                      element.value === String(field.value)
+                      option.value === String(value)
                         ? 'opacity-100'
                         : 'opacity-0'
                     )}

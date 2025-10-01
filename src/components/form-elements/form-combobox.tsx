@@ -1,5 +1,6 @@
-import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
+import { Control, FieldValues, Path } from 'react-hook-form';
 import {
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -7,38 +8,47 @@ import {
 } from '@/components/ui/form';
 import { ComboBox } from '@/components/combo-box';
 import { ComboBoxData } from '@/types/types';
+import { useUpdateUrlParams } from './update-params';
 
 type FormComboboxProps<T extends FieldValues> = {
+  control: Control<T>;
   name: Path<T>;
   label: string;
   options: ComboBoxData;
-  form: UseFormReturn<T>;
-  updateParams?: boolean;
-  resetOnOptionsChange?: boolean;
+  updateParam?: string;
+  resetField?: () => void;
 };
 
 export default function FormCombobox<T extends FieldValues>({
+  control,
   name,
   label,
   options,
-  form,
-  updateParams = false,
-  resetOnOptionsChange = false,
+  updateParam,
+  resetField,
 }: FormComboboxProps<T>) {
+  const setUrlParam = useUpdateUrlParams();
+
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <ComboBox
-            field={field}
-            options={options}
-            form={form}
-            updateParams={updateParams}
-            resetOnOptionsChange={resetOnOptionsChange}
-          />
+          <FormControl>
+            <ComboBox
+              options={options}
+              value={field.value}
+              onChange={field.onChange}
+              onParamUpdate={(value) => {
+                if (updateParam && resetField) {
+                  setUrlParam(updateParam, value);
+                  resetField();
+                }
+              }}
+            />
+          </FormControl>
           <FormMessage />
         </FormItem>
       )}

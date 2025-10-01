@@ -105,14 +105,14 @@ export function SolicitudForm({
                   )}
                 />
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="year"
                   label="Año"
                   options={years}
                 />
               </FormInputGroup>
               <FormCombobox
-                form={form}
+                control={form.control}
                 name="id_entidad_academica"
                 label="Carrera / curso / área"
                 options={entidadesAcademicas}

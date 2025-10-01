@@ -135,13 +135,13 @@ export function OrdenForm({
                 />
               </FormInputGroup>
               <FormCombobox
-                form={form}
+                control={form.control}
                 name="id_estado"
                 label="Estado"
                 options={estados}
               />
               <FormCombobox
-                form={form}
+                control={form.control}
                 name="id_proveedor"
                 label="Proveedor"
                 options={proveedores}

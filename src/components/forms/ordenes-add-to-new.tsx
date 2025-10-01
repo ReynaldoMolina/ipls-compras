@@ -137,7 +137,7 @@ export function OrdenNewFormModal<TData>({
                   />
                 </FormInputGroup>
                 <FormCombobox
-                  form={form}
+                  control={form.control}
                   name="id_proveedor"
                   label="Proveedor"
                   options={proveedores}
