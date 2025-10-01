@@ -24,27 +24,33 @@ export function defineAbilitiesFor(role: Roles) {
     createMongoAbility
   );
 
-  if (role === 'superadmin') {
+  if (role === 'superadmin' || role === 'administrador') {
     can('manage', 'all');
   }
 
-  if (role === 'administrador') {
-    can('manage', 'all');
-  }
-
-  if (role === 'capacitaciones') {
+  if (
+    role === 'capacitaciones' ||
+    role === 'bodega' ||
+    role === 'subdireccion' ||
+    role === 'personal'
+  ) {
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');
     can('read', 'OrdenDetalle');
   }
 
-  if (role === 'docente') {
-    can('read', 'Resumen');
+  if (role === 'compras') {
+    can('read', 'Solicitud');
+    can('read', 'SolicitudDetalle');
+    can('manage', 'Orden');
+    can('manage', 'OrdenDetalle');
+    can('manage', 'Proveedor');
+    can('manage', 'Solvencia');
   }
 
   if (role === 'sinverificar') {
-    cannot('read', 'Resumen');
+    cannot('manage', 'all');
   }
 
   return build();

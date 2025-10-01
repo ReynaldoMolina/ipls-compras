@@ -10,7 +10,10 @@ export type Roles =
   | 'superadmin'
   | 'administrador'
   | 'capacitaciones'
-  | 'docente'
+  | 'bodega'
+  | 'compras'
+  | 'subdireccion'
+  | 'personal'
   | 'sinverificar';
 
 export type SortOrder = 'asc' | 'desc';
