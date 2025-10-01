@@ -11,19 +11,19 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { solicitudSchema } from '@/validation-schemas';
-import { FormFieldSet } from './elements/form-fieldset';
+import { FormFieldSet } from '../form-elements/form-fieldset';
 import { ComboBoxData, FormAction, SolicitudFormType } from '@/types/types';
 import { createSolicitud, updateSolicitud } from '@/server-actions/solicitudes';
 import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
-import FormInputGroup from './elements/form-input-group';
-import FormHeader from './elements/form-header';
-import FormOptions from './elements/form-options';
-import FormCombobox from './elements/form-combobox';
-import FormTextField from './elements/form-text-field';
-import { FormSwitch } from './elements/form-switch';
-import { FormLink, FormLinkGroup } from './elements/form-link';
-import { FormFooter } from './elements/form-footer';
+import FormInputGroup from '../form-elements/form-input-group';
+import FormHeader from '../form-elements/form-header';
+import FormOptions from '../form-elements/form-options';
+import FormCombobox from '../form-elements/form-combobox';
+import FormTextField from '../form-elements/form-text-field';
+import { FormSwitch } from '../form-elements/form-switch';
+import { FormLink, FormLinkGroup } from '../form-elements/form-link';
+import { FormFooter } from '../form-elements/form-footer';
 import { useUser } from '@/hooks/use-user';
 import { Input } from '../ui/input';
 import { getCurrentDate } from '@/lib/get-current-date';

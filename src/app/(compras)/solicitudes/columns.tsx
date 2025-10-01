@@ -2,7 +2,6 @@
 
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import TableDate from '@/components/tables/date-cell';
 import {
   NumberCellWithValue,
   NumberFloatCell,
@@ -32,11 +31,6 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
     cell: TableId,
   },
   {
-    accessorKey: 'abreviacion',
-    header: ({ column }) => <SortButton column={column} label="Cod" />,
-    cell: DefaultCell,
-  },
-  {
     accessorKey: 'entidad_academica',
     header: ({ column }) => (
       <SortButton column={column} label="Carrera / curso / área" />
@@ -44,15 +38,14 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
     cell: DefaultCell,
     footer: 'Totales',
   },
-
   {
-    accessorKey: 'year',
-    header: ({ column }) => <SortButton column={column} label="Año" />,
+    accessorKey: 'abreviacion',
+    header: ({ column }) => <SortButton column={column} label="Abreviación" />,
     cell: DefaultCell,
   },
   {
-    accessorKey: 'revisado_bodega',
-    header: ({ column }) => <SortButton column={column} label="Revisado?" />,
+    accessorKey: 'year',
+    header: ({ column }) => <SortButton column={column} label="Año" />,
     cell: DefaultCell,
   },
   {

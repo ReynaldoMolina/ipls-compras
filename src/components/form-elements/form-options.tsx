@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { FormAction, OrdenPdfProps } from '@/types/types';
 import { Download, Ellipsis, Printer } from 'lucide-react';
-import FormDelete from '../../actionbar/delete-button';
+import FormDelete from '../delete-button';
 import { useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { OrdenPdf } from '@/components/order-pdf/order-pdf';

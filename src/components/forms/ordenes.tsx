@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { ordenesSchema } from '@/validation-schemas';
-import { FormFieldSet } from './elements/form-fieldset';
+import { FormFieldSet } from '../form-elements/form-fieldset';
 import {
   ComboBoxData,
   FormAction,
@@ -20,15 +20,15 @@ import {
 } from '@/types/types';
 import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
-import FormInputGroup from './elements/form-input-group';
-import FormHeader from './elements/form-header';
-import FormOptions from './elements/form-options';
-import FormCombobox from './elements/form-combobox';
-import FormTextField from './elements/form-text-field';
-import { FormLink, FormLinkGroup } from './elements/form-link';
-import { FormFooter } from './elements/form-footer';
-import FormTextArea from './elements/form-text-area';
-import { FormSelect } from './elements/form-select';
+import FormInputGroup from '../form-elements/form-input-group';
+import FormHeader from '../form-elements/form-header';
+import FormOptions from '../form-elements/form-options';
+import FormCombobox from '../form-elements/form-combobox';
+import FormTextField from '../form-elements/form-text-field';
+import { FormLink, FormLinkGroup } from '../form-elements/form-link';
+import { FormFooter } from '../form-elements/form-footer';
+import FormTextArea from '../form-elements/form-text-area';
+import { FormSelect } from '../form-elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';
 import { createOrden, updateOrden } from '@/server-actions/ordenes';
 import { getCurrentDate } from '@/lib/get-current-date';

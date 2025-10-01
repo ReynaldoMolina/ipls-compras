@@ -11,14 +11,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { ordenesSchema } from '@/validation-schemas';
-import { FormFieldSet } from './elements/form-fieldset';
+import { FormFieldSet } from '../form-elements/form-fieldset';
 import { DatePicker } from '../date-picker';
-import FormInputGroup from './elements/form-input-group';
-import FormCombobox from './elements/form-combobox';
-import FormTextField from './elements/form-text-field';
-import { FormFooterDialog } from './elements/form-footer';
-import FormTextArea from './elements/form-text-area';
-import { FormSelect } from './elements/form-select';
+import FormInputGroup from '../form-elements/form-input-group';
+import FormCombobox from '../form-elements/form-combobox';
+import FormTextField from '../form-elements/form-text-field';
+import { FormFooterDialog } from '../form-elements/form-footer';
+import FormTextArea from '../form-elements/form-text-area';
+import { FormSelect } from '../form-elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';
 
 import {

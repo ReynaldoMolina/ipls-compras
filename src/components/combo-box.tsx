@@ -25,7 +25,7 @@ import {
   Path,
   UseFormReturn,
 } from 'react-hook-form';
-import { useUpdateUrlParams } from './forms/elements/update-params';
+import { useUpdateUrlParams } from './form-elements/update-params';
 import { ComboBoxData } from '@/types/types';
 
 interface ComboBoxProps<T extends FieldValues> {

@@ -11,17 +11,17 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { usuarioSchema } from '@/validation-schemas';
-import FormInputGroup from './elements/form-input-group';
-import { FormFieldSet } from './elements/form-fieldset';
+import FormInputGroup from '../form-elements/form-input-group';
+import { FormFieldSet } from '../form-elements/form-fieldset';
 import { FormAction, Usuario } from '@/types/types';
 import { createUser, updateUser } from '@/server-actions/usuarios';
 import { Card, CardContent } from '../ui/card';
-import FormHeader from './elements/form-header';
-import FormTextField from './elements/form-text-field';
-import { FormFooter } from './elements/form-footer';
+import FormHeader from '../form-elements/form-header';
+import FormTextField from '../form-elements/form-text-field';
+import { FormFooter } from '../form-elements/form-footer';
 import { roles } from '../select-options-data';
-import { FormSwitch } from './elements/form-switch';
-import { FormSelect } from './elements/form-select';
+import { FormSwitch } from '../form-elements/form-switch';
+import { FormSelect } from '../form-elements/form-select';
 import { DatePicker } from '../date-picker';
 
 type UserFormProps = {

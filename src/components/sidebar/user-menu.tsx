@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronsUpDown, CircleUser } from 'lucide-react';
+import { ChevronsUpDown, Settings } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,8 +53,8 @@ export function UserMenu({ isMobile }: UserMenuProps) {
 
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <CircleUser />
-            Cuenta
+            <Settings />
+            Ajustes
           </DropdownMenuItem>
           <ChangeThemeSubMenu />
         </DropdownMenuGroup>

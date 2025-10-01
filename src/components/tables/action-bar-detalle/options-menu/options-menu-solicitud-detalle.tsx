@@ -19,7 +19,7 @@ import {
 } from '../submenus';
 import { prioridad } from '@/components/select-options-data';
 import { OptionsMenuCombobox } from '../options-menu-combobox';
-import DeleteButton from '@/components/actionbar/delete-button';
+import DeleteButton from '@/components/delete-button';
 
 interface OptionsMenuSolicitudDetalleProps<TData> {
   table: Table<TData>;
