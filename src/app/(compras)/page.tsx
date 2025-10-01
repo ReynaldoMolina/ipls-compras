@@ -1,12 +1,15 @@
 import ActionBar from '@/components/actionbar/action-bar';
-import Chart from '@/components/chart';
+import Chart from '@/components/chart/chart';
 import Header from '@/components/header/header';
 import { getResumenComparisonChartByEntidad } from '@/fetch-data/resumen';
-import { presupuestoChartConfig, comparisonChartConfig } from './chart-config';
 import { PageProps } from '@/types/types';
 import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 import { currentYear } from '@/components/select-options-data';
+import {
+  comparisonChartConfig,
+  presupuestoChartConfig,
+} from '@/components/chart/chart-config';
 
 const title = 'Resumen';
 

@@ -16,7 +16,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from './ui/card';
+} from '../ui/card';
 import { formatNumber } from '@/lib/formatters';
 
 interface ChartProps {
