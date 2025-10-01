@@ -1,5 +1,4 @@
 import { DataTable } from '@/components/tables/data-table';
-import { PageProps } from '@/types/types';
 import { columns } from './columns';
 import {
   getSolvenciasByProviderId,
@@ -9,22 +8,20 @@ import ActionBar from '@/components/actionbar/action-bar';
 import FilterButton from '@/components/actionbar/filter-button';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
+import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-  const { id } = params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Proveedor ${id} - Solvencias`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const id_proveedor = Number(params?.id);
+export default async function Page({ params, searchParams }: PageProps) {
+  const id_proveedor = (await params).id;
   const tableData = await getSolvenciasByProviderId(
     id_proveedor,
-    searchParams || {}
+    await searchParams
   );
   const years = await getUniqueYearsFromSolvencias();
 

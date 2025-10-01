@@ -7,7 +7,7 @@ import { OrdenDetalleFormType, OrdenDetalleTable } from '@/types/types';
 import { eq } from 'drizzle-orm';
 
 export async function getOrdenDetalleByOrdenId(
-  id_orden: number
+  id_orden: number | string | undefined
 ): Promise<OrdenDetalleTable[]> {
   const selectFields = {
     id: ordenes_detalle.id,
@@ -37,7 +37,7 @@ export async function getOrdenDetalleByOrdenId(
         categoria_productos,
         eq(solicitudes_detalle.id_categoria, categoria_productos.id)
       )
-      .where(eq(ordenes_detalle.id_orden, id_orden))
+      .where(eq(ordenes_detalle.id_orden, Number(id_orden)))
       .orderBy(ordenes_detalle.id);
     return data;
   } catch (error) {
@@ -49,7 +49,7 @@ export async function getOrdenDetalleByOrdenId(
 }
 
 export async function getOrdenDetalleById(
-  id: number
+  id: number | string | undefined
 ): Promise<OrdenDetalleFormType> {
   const selectFields = {
     id: ordenes_detalle.id,
@@ -70,7 +70,7 @@ export async function getOrdenDetalleById(
         solicitudes_detalle,
         eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
       )
-      .where(eq(ordenes_detalle.id, id))
+      .where(eq(ordenes_detalle.id, Number(id)))
       .orderBy(ordenes_detalle.id);
     return data[0];
   } catch (error) {

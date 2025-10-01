@@ -10,19 +10,15 @@ import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { SolicitudDetalleForm } from '@/components/forms/solicitudes_detalle';
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-  const { id, id_detalle } = params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id, id_detalle } = await params;
   return {
     title: `Solicitud ${id} - Detalle ${id_detalle}`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const id_solicitud = Number(params?.id);
-  const id_detalle = Number(params?.id_detalle);
-
+export default async function Page({ params }: PageProps) {
+  const { id, id_detalle } = await params;
   const detalle = await getSolicitudDetalleById(id_detalle);
 
   //selectOptions
@@ -33,12 +29,12 @@ export default async function Page(props: PageProps) {
 
   return (
     <>
-      <Header title={`Solicitud ${id_solicitud} - Detalle ${id_detalle}`} />
+      <Header title={`Solicitud ${id} - Detalle ${id_detalle}`} />
       <PageWrapper>
         <SolicitudDetalleForm
           action="edit"
           detalle={detalle}
-          id_solicitud={id_solicitud}
+          id_solicitud={Number(id)}
           selectOptions={{ unidadesMedida, estados, ubicaciones, categorias }}
         />
       </PageWrapper>

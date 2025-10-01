@@ -55,7 +55,9 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getProveedorById(id: number): Promise<ProveedorFormType> {
+export async function getProveedorById(
+  id: number | string
+): Promise<ProveedorFormType> {
   const selectFields = {
     id: proveedores.id,
     solvencia: max(solvencias.vence),
@@ -76,7 +78,7 @@ export async function getProveedorById(id: number): Promise<ProveedorFormType> {
       .select(selectFields)
       .from(proveedores)
       .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
-      .where(eq(proveedores.id, id))
+      .where(eq(proveedores.id, Number(id)))
       .groupBy(proveedores.id);
     return data[0];
   } catch (error) {

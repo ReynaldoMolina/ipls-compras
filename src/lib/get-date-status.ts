@@ -1,6 +1,6 @@
 import { DateStatus } from '@/types/types';
 
-export function getDateStatus(date: string | null): DateStatus {
+export function getDateStatus(date: string | null | undefined): DateStatus {
   if (!date) return 'empty';
 
   const [year, month, day] = date.split('-').map(Number);

@@ -6,17 +6,15 @@ import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { years } from '@/components/select-options-data';
 
-export async function generateMetadata(props: PageProps) {
-  const urlparams = await props.params;
-  const { id } = urlparams;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Solicitud ${id}`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const id = Number(params?.id);
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
   const solicitud = await getSolicitudById(id);
   const entidadesAcademicas = await getEntidadesAcademicas();
 

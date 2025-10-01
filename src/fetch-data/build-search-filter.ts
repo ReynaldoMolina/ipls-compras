@@ -2,10 +2,10 @@ import { SearchParamsProps } from '@/types/types';
 import { AnyColumn, ilike, or } from 'drizzle-orm';
 
 export function buildSearchFilter(
-  params: SearchParamsProps,
+  searchParams: SearchParamsProps,
   searchFields: AnyColumn[]
 ) {
-  const search: string = params?.search?.trim() || '';
+  const search: string = searchParams?.search?.trim() || '';
 
   if (!search) return undefined;
 

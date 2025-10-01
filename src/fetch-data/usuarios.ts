@@ -1,6 +1,6 @@
 import { db } from '@/database/db';
 import { users } from '@/database/schema/usuarios';
-import { SearchParamsProps, Usuario } from '@/types/types';
+import { SearchParamsProps, Usuario, UsuarioTable } from '@/types/types';
 import { eq, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
@@ -9,7 +9,9 @@ import {
   buildFilterUsuariosByActive,
 } from './build-filters';
 
-export async function getUsersTableData(searchParams: SearchParamsProps) {
+export async function getUsersTableData(
+  searchParams: SearchParamsProps
+): Promise<UsuarioTable[]> {
   const selectFields = {
     id: users.id,
     name: users.name,
@@ -54,7 +56,7 @@ export async function getUserById(id: string): Promise<Usuario> {
   }
 }
 
-export async function getUniqueRolsFromUsuarios() {
+export async function getUniqueRolesFromUsuarios() {
   try {
     const data = await db
       .selectDistinct({

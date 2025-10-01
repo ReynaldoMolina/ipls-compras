@@ -14,10 +14,9 @@ export const metadata = {
   title: 'Proveedores',
 };
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
+export default async function Page({ searchParams }: PageProps) {
   const proveedoresTableData = await getProveedoresTableData(
-    searchParams ?? {}
+    await searchParams
   );
   const departamentosOptions = await getUniqueDepartamentosFromProveedores();
 

@@ -1,25 +1,23 @@
-import { PageProps } from '@/types/types';
 import { SolvenciaForm } from '@/components/forms/solvencias';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
+import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-  const { id } = params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Proveedor ${id} - Nueva solvencia`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const id_proveedor = Number(params?.id);
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
 
   return (
     <>
-      <Header title={`Proveedor ${id_proveedor} - Nueva solvencia`} />
+      <Header title={`Proveedor ${id} - Nueva solvencia`} />
       <PageWrapper>
-        <SolvenciaForm action="create" id_proveedor={id_proveedor} />
+        <SolvenciaForm action="create" id_proveedor={Number(id)} />
       </PageWrapper>
     </>
   );

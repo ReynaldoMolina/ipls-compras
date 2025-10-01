@@ -12,11 +12,8 @@ export const metadata = {
   title: 'Nuevo proveedor',
 };
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const sectorId = searchParams?.sector
-    ? Number(searchParams.sector)
-    : undefined;
+export default async function Page({ searchParams }: PageProps) {
+  const sectorId = (await searchParams).sector;
   const departamentos = await getDepartamentos();
   const sectores = await getSectores();
   const subsectores = await getSubsectoresBySector(sectorId);

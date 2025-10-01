@@ -5,7 +5,7 @@ import { formatDate } from '@/lib/formatters';
 import { Badge } from '../ui/badge';
 import { getDateStatus } from '@/lib/get-date-status';
 
-export function DateStatusCell({ date }: { date: string | null }) {
+export function DateStatusCell({ date }: { date: string | null | undefined }) {
   const dateStatus = getDateStatus(date);
   const formattedDate = formatDate(date);
   const iconClass = 'size-4';

@@ -8,7 +8,7 @@ import { SolicitudDetalleFormType, SolicitudDetalleTable } from '@/types/types';
 import { asc, sql, eq } from 'drizzle-orm';
 
 export async function getSolicitudDetalleBySolicitudId(
-  id_solicitud: number
+  id_solicitud: number | string
 ): Promise<SolicitudDetalleTable[]> {
   const selectFields = {
     id: solicitudes_detalle.id,
@@ -61,13 +61,13 @@ export async function getSolicitudDetalleBySolicitudId(
 }
 
 export async function getSolicitudDetalleById(
-  id: number
+  id: number | string | undefined
 ): Promise<SolicitudDetalleFormType> {
   try {
     const data = await db
       .select()
       .from(solicitudes_detalle)
-      .where(eq(solicitudes_detalle.id, id))
+      .where(eq(solicitudes_detalle.id, Number(id)))
       .orderBy(solicitudes_detalle.id);
     return data[0];
   } catch (error) {

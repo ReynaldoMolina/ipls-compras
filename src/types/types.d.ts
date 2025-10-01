@@ -15,7 +15,7 @@ export type Roles =
 
 export type SortOrder = 'asc' | 'desc';
 
-export type SearchParamsProps = {
+export interface SearchParamsProps {
   search?: string;
   orderBy?: string;
   direction?: SortOrder;
@@ -27,7 +27,18 @@ export type SearchParamsProps = {
   year?: string;
   selected?: string;
   orden_estado?: string;
-};
+}
+
+export interface PageProps {
+  params: Promise<{
+    id: string;
+    id_solvencia?: string;
+    id_detalle?: string;
+    id_orden?: string;
+    id_orden_detalle?: string;
+  }>;
+  searchParams: Promise<SearchParamsProps>;
+}
 
 export type DateStatus = 'active' | 'due' | 'expired' | 'empty';
 
@@ -77,6 +88,14 @@ export interface SolvenciaTable extends Solvencia {
   usuario: string | null;
 }
 
+export interface UsuarioTable {
+  id?: string;
+  name: string | null;
+  email: string | null;
+  role: string | null;
+  activo: boolean | null;
+}
+
 export interface Usuario {
   id?: string;
   name: string | null;
@@ -87,15 +106,14 @@ export interface Usuario {
   activo: boolean | null;
 }
 
-export type UserType = {
-  name: string;
-  email: string;
-  image: string;
-};
+// export type UserType = {
+//   name: string;
+//   email: string;
+//   image: string;
+// };
 
 export interface Solicitud {
   id?: number;
-  fecha: string | null;
   year: number | null;
 }
 
@@ -109,6 +127,7 @@ export interface SolicitudesTable extends Solicitud {
 }
 
 export interface SolicitudFormType extends Solicitud {
+  fecha: string | null;
   id_entidad_academica: number | null;
   id_usuario: string | null;
   revisado_bodega: boolean | null;
@@ -164,17 +183,6 @@ export interface ChartData {
   entidad_academica: string | null;
   presupuesto: number;
   asignado?: number;
-}
-
-export interface PageProps {
-  params: {
-    id: string;
-    id_solvencia?: string;
-    id_detalle?: string;
-    id_orden?: string;
-    id_orden_detalle?: string;
-  };
-  searchParams?: SearchParamsProps;
 }
 
 export interface ActionsBarDetalleProps<TData> {

@@ -6,19 +6,15 @@ import { OrdenForm } from '@/components/forms/ordenes';
 import { getProveedores } from '@/fetch-data/form-select-options';
 import { getOrdenPdfById } from '@/fetch-data/orden-pdf';
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-  const { id, id_orden } = params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id, id_orden } = await params;
   return {
     title: `Solicitud ${id} - Orden ${id_orden}`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const id_solicitud = Number(params?.id);
-  const id_orden = Number(params?.id_orden);
-
+export default async function Page({ params }: PageProps) {
+  const { id, id_orden } = await params;
   const orden = await getOrdenById(id_orden);
   const estados = await getOrdenesEstados();
   const proveedores = await getProveedores();
@@ -36,12 +32,12 @@ export default async function Page(props: PageProps) {
 
   return (
     <>
-      <Header title={`Solicitud ${id_solicitud} - Orden ${id_orden}`} />
+      <Header title={`Solicitud ${id} - Orden ${id_orden}`} />
       <PageWrapper>
         <OrdenForm
           action="edit"
           orden={orden}
-          id_solicitud={id_solicitud}
+          id_solicitud={Number(id)}
           estados={estados}
           proveedores={proveedores}
           ordenPdf={ordenPdf ?? emptyOrden}

@@ -13,7 +13,6 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
     id: solicitudes.id,
     year: solicitudes.year,
     tipo: entidades_academicas.tipo,
-    revisado_bodega: solicitudes.revisado_bodega,
     entidad_academica: entidades_academicas.nombre,
     abreviacion: entidades_academicas.abreviacion,
     presupuestado: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
@@ -63,12 +62,14 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getSolicitudById(id: number): Promise<SolicitudFormType> {
+export async function getSolicitudById(
+  id: number | string
+): Promise<SolicitudFormType> {
   try {
     const data = await db
       .select()
       .from(solicitudes)
-      .where(eq(solicitudes.id, id));
+      .where(eq(solicitudes.id, Number(id)));
     return data[0];
   } catch (error) {
     console.error(error);

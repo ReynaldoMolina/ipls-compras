@@ -25,21 +25,21 @@ import { useEffect, useState } from 'react';
 import { DetalleSelectOptions } from '@/types/types';
 import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData, TValue, TModal> {
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
-  tableDataModal?: TData[];
+  tableDataModal?: TModal[];
   selectOptions?: DetalleSelectOptions;
   id_solicitud: number;
 }
 
-export function DataTableSolicitudesDetalle<TData, TValue>({
+export function DataTableSolicitudesDetalle<TData, TValue, TModal>({
   columns,
   tableData,
   tableDataModal,
   selectOptions,
   id_solicitud,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

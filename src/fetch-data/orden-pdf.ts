@@ -6,7 +6,7 @@ import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { unidades_medida } from '@/database/schema/unidades-medida';
 
-export async function getOrdenPdfById(id_orden: number | undefined) {
+export async function getOrdenPdfById(id_orden: number | string | undefined) {
   if (!id_orden) return null;
 
   try {
@@ -22,7 +22,7 @@ export async function getOrdenPdfById(id_orden: number | undefined) {
       })
       .from(ordenes)
       .leftJoin(proveedores, eq(ordenes.id_proveedor, proveedores.id))
-      .where(eq(ordenes.id, id_orden));
+      .where(eq(ordenes.id, Number(id_orden)));
 
     if (!orden) return null;
 
@@ -44,7 +44,7 @@ export async function getOrdenPdfById(id_orden: number | undefined) {
         unidades_medida,
         eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
       )
-      .where(eq(ordenes_detalle.id_orden, id_orden))
+      .where(eq(ordenes_detalle.id_orden, Number(id_orden)))
       .orderBy(ordenes_detalle.id);
 
     // Combine into single object

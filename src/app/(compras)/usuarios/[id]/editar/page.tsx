@@ -10,8 +10,8 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page(props: PageProps) {
-  const { id } = await props.params;
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
   const user = await getUserById(id);
 
   return (

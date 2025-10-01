@@ -1,15 +1,15 @@
 import { db } from '@/database/db';
 import { solvencias } from '@/database/schema/solvencias';
-import { SearchParamsProps } from '@/types/types';
 import { eq, and, desc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterBySolvencia } from './build-filters';
 import { users } from '@/database/schema/usuarios';
 import { proveedores } from '@/database/schema/proveedores';
+import { SearchParamsProps } from '@/types/types';
 
 export async function getSolvenciasByProviderId(
-  id_proveedor: number,
+  id_proveedor: number | string,
   searchParams: SearchParamsProps
 ) {
   const selectFields = {
@@ -35,7 +35,9 @@ export async function getSolvenciasByProviderId(
       .from(solvencias)
       .leftJoin(users, eq(solvencias.id_usuario, users.id))
       .leftJoin(proveedores, eq(solvencias.id_proveedor, proveedores.id))
-      .where(and(filterBySearch, eq(solvencias.id_proveedor, id_proveedor)))
+      .where(
+        and(filterBySearch, eq(solvencias.id_proveedor, Number(id_proveedor)))
+      )
       .groupBy(solvencias.id, users.name, proveedores.id)
       .having(filterBySolvencia)
       .orderBy(orderBy);
@@ -48,12 +50,14 @@ export async function getSolvenciasByProviderId(
   }
 }
 
-export async function getSolvenciaById(id: number) {
+export async function getSolvenciaById(id: number | string | undefined) {
+  if (!id) return;
+
   try {
     const data = await db
       .select()
       .from(solvencias)
-      .where(eq(solvencias.id, id));
+      .where(eq(solvencias.id, Number(id)));
     return data[0];
   } catch (error) {
     console.error(error);

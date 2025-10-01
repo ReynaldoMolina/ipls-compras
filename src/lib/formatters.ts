@@ -2,7 +2,8 @@ import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 export function formatDate(date: string | null | undefined) {
-  if (!date || date === null) return 'Sin fecha';
+  if (!date) return 'Sin fecha';
+
   const newDate = parse(date, 'yyyy-MM-dd', new Date());
   return format(newDate, 'dd/MMM/yyyy', { locale: es });
 }

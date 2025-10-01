@@ -2,7 +2,6 @@ import ActionBar from '@/components/actionbar/action-bar';
 import Chart from '@/components/chart/chart';
 import Header from '@/components/header/header';
 import { getResumenComparisonChartByEntidad } from '@/fetch-data/resumen';
-import { PageProps } from '@/types/types';
 import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 import { currentYear } from '@/components/select-options-data';
@@ -10,16 +9,14 @@ import {
   comparisonChartConfig,
   presupuestoChartConfig,
 } from '@/components/chart/chart-config';
-
-const title = 'Resumen';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
-  title: title,
+  title: 'Resumen',
 };
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const year = Number(searchParams?.year) || currentYear;
+export default async function Page({ searchParams }: PageProps) {
+  const year = Number((await searchParams).year) || currentYear;
   const years = await getUniqueYearsFromSolicitudes();
   const comparisonChartData = await getResumenComparisonChartByEntidad(year);
   const presupuestoChartData = comparisonChartData.map(

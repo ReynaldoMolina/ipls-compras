@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'; // to allow data refresh without full reload
 
 import { PageProps } from '@/types/types';
 import {
@@ -14,22 +14,16 @@ import { getProveedores } from '@/fetch-data/form-select-options';
 import { getOrdenesAddToExistingModal } from '@/fetch-data/ordenes';
 import { DataTableSolicitudesDetalle } from '@/components/tables/detalle/data-table-solicitudes-detalle';
 
-export async function generateMetadata(props: PageProps) {
-  const urlparams = await props.params;
-  const { id } = urlparams;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Solicitud ${id} - Detalle`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const id_solicitud = Number(params?.id);
-  const tableData = await getSolicitudDetalleBySolicitudId(
-    id_solicitud,
-    searchParams || {}
-  );
+export default async function Page({ params, searchParams }: PageProps) {
+  const id_solicitud = (await params).id;
+  const tableData = await getSolicitudDetalleBySolicitudId(id_solicitud);
 
   const unidadesMedida = await getUnidadesMedida();
   const estados = await getDetalleEstados();
@@ -37,8 +31,7 @@ export default async function Page(props: PageProps) {
   const proveedores = await getProveedores();
 
   const ordenesTableDataModal = await getOrdenesAddToExistingModal(
-    searchParams || {},
-    undefined
+    await searchParams
   );
 
   return (
@@ -50,7 +43,7 @@ export default async function Page(props: PageProps) {
           tableData={tableData}
           tableDataModal={ordenesTableDataModal}
           selectOptions={{ unidadesMedida, estados, categorias, proveedores }}
-          id_solicitud={id_solicitud}
+          id_solicitud={Number(id_solicitud)}
         />
       </PageWrapper>
     </>

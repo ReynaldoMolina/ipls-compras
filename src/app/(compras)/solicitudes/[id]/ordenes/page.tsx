@@ -8,28 +8,22 @@ import FilterButton from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 import { columns } from '@/app/(compras)/ordenes/columns';
 
-export async function generateMetadata(props: PageProps) {
-  const urlparams = await props.params;
-  const { id } = urlparams;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Solicitud ${id} - Órdenes de compra`,
   };
 }
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const id_solicitud = params.id;
-  const tableData = await getOrdenesTableData(
-    searchParams ?? {},
-    Number(id_solicitud)
-  );
+export default async function Page({ params, searchParams }: PageProps) {
+  const { id } = await params;
+  const tableData = await getOrdenesTableData(await searchParams, id);
   const years = await getUniqueYearsFromSolicitudes();
   const ordenesStates = await getOrdenesEstados();
 
   return (
     <>
-      <Header title={`Solicitud ${id_solicitud} - Órdenes de compra`} />
+      <Header title={`Solicitud ${id} - Órdenes de compra`} />
       <PageWrapper>
         <ActionBar allowNew={false}>
           <FilterButton filterOptions={{ years, ordenesStates }} />

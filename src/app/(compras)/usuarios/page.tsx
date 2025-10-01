@@ -1,7 +1,7 @@
 import ActionBar from '@/components/actionbar/action-bar';
 import { columns } from './columns';
 import {
-  getUniqueRolsFromUsuarios,
+  getUniqueRolesFromUsuarios,
   getUsersTableData,
 } from '@/fetch-data/usuarios';
 import FilterButton from '@/components/actionbar/filter-button';
@@ -15,16 +15,15 @@ export const metadata = {
   title: 'Usuarios',
 };
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const tableData = await getUsersTableData(searchParams || {});
-  const userRoles = await getUniqueRolsFromUsuarios();
+export default async function Page({ searchParams }: PageProps) {
+  const tableData = await getUsersTableData(await searchParams);
+  const userRoles = await getUniqueRolesFromUsuarios();
 
   return (
     <>
       <Header title="Usuarios" showBackIcon={false} />
       <PageWrapper>
-        <ActionBar>
+        <ActionBar allowNew={false}>
           <FilterButton filterOptions={{ userStates, userRoles }} />
         </ActionBar>
         <DataTable columns={columns} data={tableData} />

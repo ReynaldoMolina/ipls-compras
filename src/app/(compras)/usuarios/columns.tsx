@@ -4,10 +4,10 @@ import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import TableBool from '@/components/tables/bool-cell';
 import DefaultCell from '@/components/tables/default-cell';
-import { Usuario } from '@/types/types';
+import { UsuarioTable } from '@/types/types';
 import { EditCell } from '@/components/tables/edit-cell';
 
-export const columns: ColumnDef<Usuario>[] = [
+export const columns: ColumnDef<UsuarioTable>[] = [
   {
     id: 'actions',
     header: 'Edit',

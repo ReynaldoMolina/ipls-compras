@@ -17,7 +17,7 @@ import { ordenes_estados } from '@/database/schema/ordenes-estados';
 
 export async function getOrdenesTableData(
   searchParams: SearchParamsProps,
-  id_solicitud: number | undefined
+  id_solicitud?: number | string | undefined
 ) {
   const selectFields = {
     id: ordenes.id,
@@ -44,9 +44,7 @@ export async function getOrdenesTableData(
     entidades_academicas.nombre,
   ]);
 
-  const filterByIdSolicitud = buildOrdenesByIdSolicitud(
-    id_solicitud ?? undefined
-  );
+  const filterByIdSolicitud = buildOrdenesByIdSolicitud(id_solicitud);
   const filterByYear = buildFilterSolicitudesByYear(searchParams);
   const filterByOrderState = buildFilterByOrderState(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
@@ -91,9 +89,14 @@ export async function getOrdenesTableData(
   }
 }
 
-export async function getOrdenById(id: number): Promise<OrdenFormType> {
+export async function getOrdenById(
+  id: number | string | undefined
+): Promise<OrdenFormType> {
   try {
-    const data = await db.select().from(ordenes).where(eq(ordenes.id, id));
+    const data = await db
+      .select()
+      .from(ordenes)
+      .where(eq(ordenes.id, Number(id)));
     return data[0];
   } catch (error) {
     console.error(error);

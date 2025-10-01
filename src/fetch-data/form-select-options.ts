@@ -42,7 +42,9 @@ export async function getSectores() {
   }
 }
 
-export async function getSubsectoresBySector(sectorId: number | undefined) {
+export async function getSubsectoresBySector(
+  sectorId: number | string | undefined
+) {
   if (!sectorId) {
     return [{ value: '', label: 'Selecciona un sector' }];
   }
@@ -52,7 +54,7 @@ export async function getSubsectoresBySector(sectorId: number | undefined) {
       label: subsectores.subsector,
     })
     .from(subsectores)
-    .where(eq(subsectores.id_sector, sectorId));
+    .where(eq(subsectores.id_sector, Number(sectorId)));
 }
 
 export async function getEntidadesAcademicas() {
