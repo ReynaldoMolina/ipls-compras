@@ -3,11 +3,7 @@ import { categoria_productos } from '@/database/schema/categoria_productos';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
 import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { unidades_medida } from '@/database/schema/unidades-medida';
-import {
-  OrdenDetalleFormType,
-  OrdenDetalleTable,
-  SolicitudDetalleFormType,
-} from '@/types/types';
+import { OrdenDetalleFormType, OrdenDetalleTable } from '@/types/types';
 import { eq } from 'drizzle-orm';
 
 export async function getOrdenDetalleByOrdenId(
@@ -80,7 +76,7 @@ export async function getOrdenDetalleById(
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudo obtener el detalle de la solicitud, por favor intenta de nuevo'
+      'No se pudo obtener el detalle de la orden, por favor intenta de nuevo'
     );
   }
 }

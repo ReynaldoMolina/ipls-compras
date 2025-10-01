@@ -37,7 +37,7 @@ export async function getUsersTableData(searchParams: SearchParamsProps) {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los users, por favor intenta de nuevo.'
+      'No se pudieron obtener los usuarios, por favor intenta de nuevo.'
     );
   }
 }
@@ -48,7 +48,9 @@ export async function getUserById(id: string): Promise<Usuario> {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudo obtener el users, por favor intenta de nuevo');
+    throw new Error(
+      'No se pudo obtener el usuarios, por favor intenta de nuevo'
+    );
   }
 }
 
@@ -65,7 +67,7 @@ export async function getUniqueRolsFromUsuarios() {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los roles únicos desde los users, por favor intenta de nuevo'
+      'No se pudieron obtener los roles únicos desde los usuarios, por favor intenta de nuevo'
     );
   }
 }

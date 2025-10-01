@@ -8,7 +8,7 @@ import { solicitudes } from '@/database/schema/solicitudes';
 import { entidades_academicas } from '@/database/schema/entidades-academicas';
 import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 
-export async function getSolicitudesTableData(params: SearchParamsProps) {
+export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
   const selectFields = {
     id: solicitudes.id,
     year: solicitudes.year,
@@ -27,12 +27,12 @@ export async function getSolicitudesTableData(params: SearchParamsProps) {
     `,
   };
 
-  const filterBySearch = buildSearchFilter(params, [
+  const filterBySearch = buildSearchFilter(searchParams, [
     entidades_academicas.nombre,
   ]);
 
-  const filterByYear = buildFilterSolicitudesByYear(params);
-  const orderBy = buildOrderByFragment(params, selectFields);
+  const filterByYear = buildFilterSolicitudesByYear(searchParams);
+  const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {
     const data = await db

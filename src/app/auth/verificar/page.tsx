@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Frown } from 'lucide-react';
+import { ArrowLeft, Smile } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
@@ -10,11 +10,11 @@ export default function Page() {
   return (
     <section className="flex flex-col items-center justify-center gap-10 h-screen">
       <div className="flex flex-col items-center gap-2 max-w-md">
-        <Frown className="size-10" />
-        <h1 className="font-semibold text-lg">Lo sentimos</h1>
+        <Smile className="size-10" />
+        <h1 className="font-semibold text-lg">Verificación en proceso</h1>
         <span className="text-sm text-muted-foreground text-center text-pretty">
-          Tu cuenta aún no ha sido verificada por el administrador. Por favor,
-          espera a que se complete la revisión.
+          Tu cuenta está pendiente de verificación por parte del administrador.
+          Recibirás acceso una vez aprobada.
         </span>
       </div>
       <div className="flex items-center gap-2 max-w-md">

@@ -4,16 +4,11 @@ import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
 import { solicitudes_estados } from '@/database/schema/solicitudes-estados';
 import { ubicaciones } from '@/database/schema/ubicaciones';
 import { unidades_medida } from '@/database/schema/unidades-medida';
-import {
-  SearchParamsProps,
-  SolicitudDetalleFormType,
-  SolicitudDetalleTable,
-} from '@/types/types';
+import { SolicitudDetalleFormType, SolicitudDetalleTable } from '@/types/types';
 import { asc, sql, eq } from 'drizzle-orm';
 
 export async function getSolicitudDetalleBySolicitudId(
-  id_solicitud: number,
-  searchParams: SearchParamsProps
+  id_solicitud: number
 ): Promise<SolicitudDetalleTable[]> {
   const selectFields = {
     id: solicitudes_detalle.id,

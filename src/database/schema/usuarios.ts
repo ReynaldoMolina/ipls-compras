@@ -23,8 +23,8 @@ export const users = pgTable('user', {
   email: text('email').unique(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
-  role: text().notNull().default('user'),
-  activo: boolean().notNull().default(false),
+  role: text().notNull().default('sinverificar'),
+  activo: boolean().notNull().default(true),
 });
 
 export const accounts = pgTable(
