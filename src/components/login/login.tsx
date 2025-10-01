@@ -17,7 +17,7 @@ import {
 } from '../ui/form';
 import Link from 'next/link';
 import { loginWithGoogle } from '@/server-actions/auth';
-import { Hero } from './jero';
+import { Hero } from './hero';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
