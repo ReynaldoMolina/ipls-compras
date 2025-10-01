@@ -1,7 +1,7 @@
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
-const publicRoutes = ['/login', '/sin-verificar', '/cuenta-inactiva']; // add more public routes if needed
+const publicRoutes = ['/auth/login', '/auth/inactivo', '/auth/verificar']; // add more public routes if needed
 
 export async function middleware(req: Request) {
   const { pathname } = new URL(req.url);
@@ -15,13 +15,13 @@ export async function middleware(req: Request) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
   if (!token) {
-    return NextResponse.redirect(new URL('/login', req.url));
+    return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
   if (token.activo === false) {
-    return NextResponse.redirect(new URL('/cuenta-inactiva', req.url));
+    return NextResponse.redirect(new URL('/auth/inactivo', req.url));
   } else if (token.role === 'sinverificar') {
-    return NextResponse.redirect(new URL('/sin-verificar', req.url));
+    return NextResponse.redirect(new URL('/auth/verificar', req.url));
   }
 
   return NextResponse.next();

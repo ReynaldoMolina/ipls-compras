@@ -3,7 +3,7 @@ import { ArrowLeft, Frown } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Cuenta sin verificar',
+  title: 'Cuenta inactiva',
 };
 
 export default function Page() {
@@ -13,13 +13,13 @@ export default function Page() {
         <Frown className="size-10" />
         <h1 className="font-semibold text-lg">Lo sentimos</h1>
         <span className="text-sm text-muted-foreground text-center text-pretty">
-          Tu cuenta aún no ha sido verificada por el administrador. Por favor,
-          espera a que se complete la revisión.
+          Tu cuenta ha sido desactivada. Si crees que se trata de un error, por
+          favor contacta al administrador.
         </span>
       </div>
       <div className="flex items-center gap-2 max-w-md">
         <Button asChild>
-          <Link href="/login">
+          <Link href="/auth/login">
             <ArrowLeft />
             Regresar
           </Link>
