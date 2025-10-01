@@ -6,7 +6,12 @@ export type PageId =
   | 'Usuario'
   | 'empty';
 
-export type Roles = 'superadmin' | 'administrador' | 'docente' | 'sinverificar';
+export type Roles =
+  | 'superadmin'
+  | 'administrador'
+  | 'capacitaciones'
+  | 'docente'
+  | 'sinverificar';
 
 export type SortOrder = 'asc' | 'desc';
 

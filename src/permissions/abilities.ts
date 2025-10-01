@@ -29,14 +29,14 @@ export function defineAbilitiesFor(role: Roles) {
   }
 
   if (role === 'administrador') {
-    can('manage', 'Orden');
-    can('manage', 'OrdenDetalle');
-    can('manage', 'Proveedor');
-    can('read', 'Resumen');
-    can('manage', 'Solvencia');
+    can('manage', 'all');
+  }
+
+  if (role === 'capacitaciones') {
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
-    cannot('delete', 'Usuario');
+    can('read', 'Orden');
+    can('read', 'OrdenDetalle');
   }
 
   if (role === 'docente') {
