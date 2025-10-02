@@ -46,7 +46,7 @@ export function LoginForm() {
                 Ingresa a tu cuenta de IPLS Compras
               </span>
             </div>
-            <FormField
+            {/* <FormField
               control={form.control}
               name="correo"
               render={({ field }) => (
@@ -87,7 +87,7 @@ export function LoginForm() {
               <span className="bg-card text-muted-foreground relative z-10 px-2">
                 O ingresa con
               </span>
-            </div>
+            </div> */}
             <Button
               variant="outline"
               type="button"
@@ -102,7 +102,7 @@ export function LoginForm() {
                   fill="currentColor"
                 />
               </svg>
-              <span className="text-sm">Google</span>
+              <span className="text-sm">Iniciar sesión con Google</span>
             </Button>
           </form>
           <div className="bg-muted relative hidden md:block">

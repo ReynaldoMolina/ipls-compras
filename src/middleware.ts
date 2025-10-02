@@ -12,7 +12,7 @@ export async function middleware(req: Request) {
   }
 
   // check token
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
