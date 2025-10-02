@@ -24,7 +24,7 @@ import { FormHeader } from '../form-elements/form-header';
 import { FormOptions } from '../form-elements/form-options';
 import { FormFooter } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
-import { prioridad } from '../select-options-data';
+import { prioridad } from '../../lib/select-options-data';
 
 interface SolicitudDetalleFormProps {
   action: FormAction;

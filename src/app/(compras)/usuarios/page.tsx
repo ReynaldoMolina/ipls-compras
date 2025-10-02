@@ -9,7 +9,7 @@ import { DataTable } from '@/components/tables/data-table';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
-import { userStates } from '@/components/select-options-data';
+import { userStates } from '@/lib/select-options-data';
 
 export const metadata = {
   title: 'Usuarios',

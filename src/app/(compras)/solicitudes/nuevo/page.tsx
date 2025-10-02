@@ -2,7 +2,7 @@ import { SolicitudForm } from '@/components/forms/solicitudes';
 import { getEntidadesAcademicas } from '@/fetch-data/form-select-options';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
-import { years } from '@/components/select-options-data';
+import { years } from '@/lib/select-options-data';
 
 export const metadata = {
   title: 'Nueva solicitud',

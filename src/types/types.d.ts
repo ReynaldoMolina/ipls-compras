@@ -6,16 +6,6 @@ export type PageId =
   | 'Usuario'
   | 'empty';
 
-// export type Roles =
-//   | 'superadmin'
-//   | 'administrador'
-//   | 'capacitaciones'
-//   | 'bodega'
-//   | 'compras'
-//   | 'subdireccion'
-//   | 'personal'
-//   | 'sinverificar';
-
 export type SortOrder = 'asc' | 'desc';
 
 export interface SearchParamsProps {

@@ -19,7 +19,7 @@ import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
 import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooter } from '../form-elements/form-footer';
-import { roles } from '../select-options-data';
+import { roles } from '../../lib/select-options-data';
 import { FormSwitch } from '../form-elements/form-switch';
 import { FormSelect } from '../form-elements/form-select';
 import { DatePicker } from '../date-picker';

@@ -4,7 +4,7 @@ import { PageProps } from '@/types/types';
 import { getSolicitudById } from '@/fetch-data/solicitudes';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
-import { years } from '@/components/select-options-data';
+import { years } from '@/lib/select-options-data';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;

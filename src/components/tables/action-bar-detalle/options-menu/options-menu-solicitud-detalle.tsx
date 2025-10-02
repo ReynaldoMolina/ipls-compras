@@ -17,7 +17,7 @@ import {
   GroupBySubMenu,
   PrioridadSubMenu,
 } from '../submenus';
-import { prioridad } from '@/components/select-options-data';
+import { prioridad } from '@/lib/select-options-data';
 import { OptionsMenuCombobox } from '../options-menu-combobox';
 import { DeleteButton } from '@/components/delete-button';
 

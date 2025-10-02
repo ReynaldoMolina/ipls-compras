@@ -19,7 +19,7 @@ import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooterDialog } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
 import { FormSelect } from '../form-elements/form-select';
-import { monedas, terminosDePago } from '../select-options-data';
+import { monedas, terminosDePago } from '../../lib/select-options-data';
 
 import {
   Dialog,

@@ -42,16 +42,3 @@ export function useUrlParams() {
 
   return { setCheckBoxParam, setRadioParam, getParam };
 }
-
-// Load saved filters from localStorage when no params are present
-// useEffect(() => {
-//   if (searchParams.toString()) return;
-
-//   const saved = localStorage.getItem(`filters:${pageKey}`);
-//   if (saved) {
-//     router.replace(`?${saved}`, { scroll: false });
-//   }
-// }, [searchParams, router, pageKey]);
-
-// Persist to localStorage
-// localStorage.setItem(`filters:${pageKey}`, query);
