@@ -12,18 +12,21 @@ export async function middleware(req: Request) {
   }
 
   // check token
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  console.log('TOKEN in middleware:', token);
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+    secureCookie: process.env.NODE_ENV === 'production' ? true : false,
+  });
 
-  // if (!token) {
-  //   return NextResponse.redirect(new URL('/auth/login', req.url));
-  // }
+  if (!token) {
+    return NextResponse.redirect(new URL('/auth/login', req.url));
+  }
 
-  // if (token.activo === false) {
-  //   return NextResponse.redirect(new URL('/auth/inactivo', req.url));
-  // } else if (token.role === 'sinverificar') {
-  //   return NextResponse.redirect(new URL('/auth/verificar', req.url));
-  // }
+  if (token.activo === false) {
+    return NextResponse.redirect(new URL('/auth/inactivo', req.url));
+  } else if (token.role === 'sinverificar') {
+    return NextResponse.redirect(new URL('/auth/verificar', req.url));
+  }
 
   return NextResponse.next();
 }
@@ -31,6 +34,6 @@ export async function middleware(req: Request) {
 export const config = {
   matcher: [
     // Exclude next-auth, static files, images, favicon, and all file extensions
-    '/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
   ],
 };
