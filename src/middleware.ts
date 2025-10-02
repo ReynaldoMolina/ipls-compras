@@ -6,6 +6,9 @@ const publicRoutes = ['/auth/login', '/auth/inactivo', '/auth/verificar']; // ad
 export async function middleware(req: Request) {
   const { pathname } = new URL(req.url);
 
+  console.log('PATH:', pathname);
+  console.log('COOKIES:', req.headers.get('cookie'));
+
   // allow public routes
   if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
@@ -14,7 +17,7 @@ export async function middleware(req: Request) {
   // check token
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  console.log('HOLA', token);
+  console.log('TOKEN:', token);
 
   if (!token) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
@@ -31,6 +34,6 @@ export async function middleware(req: Request) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
+    '/((?!api/auth|api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
   ],
 };

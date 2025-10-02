@@ -18,6 +18,7 @@ import {
 import Link from 'next/link';
 import { loginWithGoogle } from '@/server-actions/auth';
 import { Hero } from './hero';
+import Image from 'next/image';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -38,7 +39,7 @@ export function LoginForm() {
         <CardContent className="grid p-0 md:grid-cols-2">
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-6 p-6 md:p-8 mb-0"
+            className="flex flex-col gap-6 p-6 md:p-8 mb-0 justify-center items-center"
           >
             <div className="flex flex-col items-center text-center">
               <h1 className="text-lg font-bold">Bienvenido</h1>
@@ -46,6 +47,7 @@ export function LoginForm() {
                 Ingresa a tu cuenta de IPLS Compras
               </span>
             </div>
+
             {/* <FormField
               control={form.control}
               name="correo"
