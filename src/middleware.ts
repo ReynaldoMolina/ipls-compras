@@ -1,13 +1,10 @@
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
-const publicRoutes = ['/auth/login', '/auth/inactivo', '/auth/verificar']; // add more public routes if needed
+const publicRoutes = ['/auth/login', '/auth/inactivo', '/auth/verificar'];
 
 export async function middleware(req: Request) {
   const { pathname } = new URL(req.url);
-
-  console.log('PATH:', pathname);
-  console.log('COOKIES:', req.headers.get('cookie'));
 
   // allow public routes
   if (publicRoutes.includes(pathname)) {
@@ -16,8 +13,7 @@ export async function middleware(req: Request) {
 
   // check token
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-
-  console.log('TOKEN:', token);
+  console.log('TOKEN in middleware:', token);
 
   if (!token) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
@@ -34,6 +30,7 @@ export async function middleware(req: Request) {
 
 export const config = {
   matcher: [
-    '/((?!api/auth|api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
+    // Exclude next-auth, static files, images, favicon, and all file extensions
+    '/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)',
   ],
 };
