@@ -15,15 +15,15 @@ export async function middleware(req: Request) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   console.log('TOKEN in middleware:', token);
 
-  if (!token) {
-    return NextResponse.redirect(new URL('/auth/login', req.url));
-  }
+  // if (!token) {
+  //   return NextResponse.redirect(new URL('/auth/login', req.url));
+  // }
 
-  if (token.activo === false) {
-    return NextResponse.redirect(new URL('/auth/inactivo', req.url));
-  } else if (token.role === 'sinverificar') {
-    return NextResponse.redirect(new URL('/auth/verificar', req.url));
-  }
+  // if (token.activo === false) {
+  //   return NextResponse.redirect(new URL('/auth/inactivo', req.url));
+  // } else if (token.role === 'sinverificar') {
+  //   return NextResponse.redirect(new URL('/auth/verificar', req.url));
+  // }
 
   return NextResponse.next();
 }
