@@ -9,7 +9,7 @@ import { Roles } from './permissions/roles';
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   adapter: DrizzleAdapter(db, { usersTable: users, accountsTable: accounts }),
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
   },
