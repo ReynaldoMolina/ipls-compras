@@ -110,7 +110,7 @@ export function DataTableOrdenesModal<TData, TValue>({
         </TableBody>
       </Table>
 
-      <DialogFooter className="flex gap-2">
+      <DialogFooter>
         <Button
           type="button"
           variant="secondary"

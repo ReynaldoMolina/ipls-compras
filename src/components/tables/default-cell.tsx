@@ -6,7 +6,7 @@ export default function DefaultCell<TData, TValue>({
   const value = getValue();
 
   return (
-    <span className="whitespace-nowrap cursor-default">
+    <span className="whitespace-pre cursor-default">
       {value !== null && value !== undefined ? String(value) : ''}
     </span>
   );

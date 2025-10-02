@@ -90,7 +90,7 @@ export function SolicitudDetalleForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-2xl mx-auto">
-          <FormHeader action={action} name="detalle" noun="m">
+          <FormHeader action={action} name="producto o servicio" noun="m">
             <FormOptions action={action} />
           </FormHeader>
           <CardContent>

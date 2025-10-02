@@ -6,7 +6,7 @@ import { solicitudes } from '@/database/schema/solicitudes';
 
 export async function getResumenComparisonChartByEntidad(year: number) {
   const selectFields = {
-    entidad_academica: entidades_academicas.abreviacion,
+    entidad_academica: entidades_academicas.nombre,
     presupuesto: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
     asignado: sql<number>`COALESCE(SUM(${solicitudes_detalle.precio_compra}), 0) + COALESCE(SUM(${solicitudes_detalle.precio_bodega}), 0)`,
   };
@@ -27,7 +27,7 @@ export async function getResumenComparisonChartByEntidad(year: number) {
       .groupBy(
         solicitudes.id,
         entidades_academicas.tipo,
-        entidades_academicas.abreviacion
+        entidades_academicas.nombre
       );
     // .orderBy(orderBy);
     return data;

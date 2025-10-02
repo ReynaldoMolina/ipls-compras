@@ -10,7 +10,7 @@ interface FormLinkProps {
 
 export function FormLink({ href, label }: FormLinkProps) {
   return (
-    <Button asChild size="sm" variant="outline">
+    <Button size="sm" variant="outline" asChild>
       <Link href={href} className="inline-flex gap-2">
         {label}
         <ChevronRight className="size-4 ml-auto" />
@@ -26,5 +26,5 @@ interface FormLinkGroupProps {
 
 export function FormLinkGroup({ action, children }: FormLinkGroupProps) {
   if (action === 'create') return null;
-  return <div className="flex flex-col gap-2">{children}</div>;
+  return <div className="flex flex-col md:flex-row gap-2">{children}</div>;
 }

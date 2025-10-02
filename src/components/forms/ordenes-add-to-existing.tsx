@@ -14,11 +14,11 @@ import { Table } from '@tanstack/react-table';
 import { DataTableOrdenesModal } from '../tables/detalle/data-table-ordenes-modal';
 import { columns } from '@/app/(compras)/solicitudes/[id]/detalle/modal-columns';
 
-interface OrdenFormProps<TData> {
+interface OrdenFormProps<TData extends { id: number | string }> {
   table: Table<TData>;
 }
 
-export function OrdenExistingFormModal<TData>({
+export function OrdenExistingFormModal<TData extends { id: number }>({
   table,
 }: OrdenFormProps<TData>) {
   const [open, setOpen] = useState(false);

@@ -54,19 +54,16 @@ interface GroupBySubMenuProps {
 
 export function GroupBySubMenu({ grouped, setGrouped }: GroupBySubMenuProps) {
   return (
-    <DropdownMenuSub>
-      <DropdownMenuSubTrigger>Agrupar por</DropdownMenuSubTrigger>
-      <DropdownMenuPortal>
-        <DropdownMenuSubContent>
-          <DropdownMenuCheckboxItem
-            checked={grouped}
-            onCheckedChange={setGrouped}
-          >
-            Categoría
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuSubContent>
-      </DropdownMenuPortal>
-    </DropdownMenuSub>
+    // <DropdownMenuSub>
+    //   <DropdownMenuSubTrigger>Agrupar por</DropdownMenuSubTrigger>
+    //   <DropdownMenuPortal>
+    //     <DropdownMenuSubContent>
+    <DropdownMenuCheckboxItem checked={grouped} onCheckedChange={setGrouped}>
+      Agrupar por categoría
+    </DropdownMenuCheckboxItem>
+    //     </DropdownMenuSubContent>
+    //   </DropdownMenuPortal>
+    // </DropdownMenuSub>
   );
 }
 

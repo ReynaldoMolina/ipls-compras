@@ -37,12 +37,12 @@ import { getCurrentDate } from '@/lib/get-current-date';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
-interface OrdenFormProps<TData> {
+interface OrdenFormProps<TData extends { id: number }> {
   id_solicitud: number;
   table: Table<TData>;
 }
 
-export function OrdenNewFormModal<TData>({
+export function OrdenNewFormModal<TData extends { id: number }>({
   id_solicitud,
   table,
 }: OrdenFormProps<TData>) {
