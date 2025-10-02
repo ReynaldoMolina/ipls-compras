@@ -12,16 +12,15 @@ export async function middleware(req: Request) {
   }
 
   // check token
-  const cookieKey =
-    process.env.NODE_ENV === 'production'
-      ? '__Secure-authjs.session-token'
-      : 'authjs.session-token';
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
-    salt: cookieKey,
-    cookieName: cookieKey,
+    secureCookie:
+      process.env.NODE_ENV === 'production' &&
+      process.env.NEXTAUTH_URL?.startsWith('https://'),
   });
+
+  console.log('TOKEN:', token);
 
   if (!token) {
     return NextResponse.redirect(new URL('/auth/login', req.url));

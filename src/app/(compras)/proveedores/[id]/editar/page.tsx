@@ -1,6 +1,6 @@
 import { ProveedorForm } from '@/components/forms/proveedor';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import {
   getDepartamentos,
   getSectores,

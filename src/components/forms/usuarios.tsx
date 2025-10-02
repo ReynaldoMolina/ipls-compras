@@ -11,13 +11,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { usuarioSchema } from '@/validation-schemas';
-import FormInputGroup from '../form-elements/form-input-group';
+import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { FormAction } from '@/types/types';
 import { updateUser } from '@/server-actions/usuarios';
 import { Card, CardContent } from '../ui/card';
-import FormHeader from '../form-elements/form-header';
-import FormTextField from '../form-elements/form-text-field';
+import { FormHeader } from '../form-elements/form-header';
+import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooter } from '../form-elements/form-footer';
 import { roles } from '../select-options-data';
 import { FormSwitch } from '../form-elements/form-switch';

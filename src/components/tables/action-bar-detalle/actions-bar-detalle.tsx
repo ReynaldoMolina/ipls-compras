@@ -2,7 +2,7 @@ import { ActionsBarDetalleProps } from '@/types/types';
 import { OptionsMenu } from './options-menu';
 import { SearchInput } from './search-input';
 import { FilterButtonDetalle } from './filter-button-detalle';
-import NewButton from '@/components/actionbar/new-button';
+import { NewButton } from '@/components/actionbar/new-button';
 
 export function ActionsBarDetalle<TData>({
   table,

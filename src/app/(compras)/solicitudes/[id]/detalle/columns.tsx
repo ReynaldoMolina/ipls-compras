@@ -13,7 +13,7 @@ import {
   CheckBoxCellHeader,
 } from '@/components/tables/checkbox-cell';
 import { sumColumn } from '@/lib/sum-column';
-import DefaultCell from '@/components/tables/default-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<SolicitudDetalleTable>[] = [

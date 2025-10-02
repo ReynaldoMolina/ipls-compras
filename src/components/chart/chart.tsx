@@ -27,7 +27,7 @@ interface ChartProps {
   dataKeyX?: string;
 }
 
-export default function Chart({
+export function Chart({
   chartData,
   chartConfig,
   title = 'Gráfico',

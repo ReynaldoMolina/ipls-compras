@@ -6,16 +6,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { detalleOrdenSchema } from '@/validation-schemas';
 import { Form } from '@/components/ui/form';
-import FormTextField from '@/components/form-elements/form-text-field';
-import FormInputGroup from '@/components/form-elements/form-input-group';
+import { FormTextField } from '@/components/form-elements/form-text-field';
+import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
-import FormHeader from '../form-elements/form-header';
+import { FormHeader } from '../form-elements/form-header';
 import { FormFooter } from '../form-elements/form-footer';
-import FormTextArea from '../form-elements/form-text-area';
+import { FormTextArea } from '../form-elements/form-text-area';
 import { updateOrdenDetalleById } from '@/server-actions/ordenes-detalle';
-import FormTextReadOnly from '../form-elements/form-text-readonly';
-import FormTextAreaReadOnly from '../form-elements/form-text-area-readonly';
+import { FormTextReadOnly } from '../form-elements/form-text-readonly';
+import { FormTextAreaReadOnly } from '../form-elements/form-text-area-readonly';
 
 interface OrdenDetalleFormProps {
   action: FormAction;

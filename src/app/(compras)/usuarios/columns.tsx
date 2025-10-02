@@ -2,8 +2,8 @@
 
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import TableBool from '@/components/tables/bool-cell';
-import DefaultCell from '@/components/tables/default-cell';
+import { BoolCell } from '@/components/tables/bool-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { UsuarioTable } from '@/types/types';
 import { EditCell } from '@/components/tables/edit-cell';
 
@@ -31,6 +31,6 @@ export const columns: ColumnDef<UsuarioTable>[] = [
   {
     accessorKey: 'activo',
     header: ({ column }) => <SortButton column={column} label="Estado" />,
-    cell: ({ cell }) => <TableBool value={cell.getValue() as boolean | null} />,
+    cell: ({ cell }) => <BoolCell value={cell.getValue() as boolean | null} />,
   },
 ];

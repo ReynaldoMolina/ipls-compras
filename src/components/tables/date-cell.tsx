@@ -3,7 +3,7 @@ import { CellContext } from '@tanstack/react-table';
 import { Calendar } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
-export default function DateCell<TData, TValue>({
+export function DateCell<TData, TValue>({
   getValue,
 }: CellContext<TData, TValue>) {
   const value = getValue();

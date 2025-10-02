@@ -7,7 +7,7 @@ type TextFieldProps = {
   type?: 'text' | 'number';
 };
 
-export default function FormTextReadOnly({
+export function FormTextReadOnly({
   value,
   label,
   type = 'text',

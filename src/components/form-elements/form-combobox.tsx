@@ -19,7 +19,7 @@ type FormComboboxProps<T extends FieldValues> = {
   resetField?: () => void;
 };
 
-export default function FormCombobox<T extends FieldValues>({
+export function FormCombobox<T extends FieldValues>({
   control,
   name,
   label,

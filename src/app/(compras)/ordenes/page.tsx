@@ -1,11 +1,11 @@
-import ActionBar from '@/components/actionbar/action-bar';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { ActionBar } from '@/components/actionbar/action-bar';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { DataTable } from '@/components/tables/data-table';
 import { PageProps } from '@/types/types';
 import { columns } from './columns';
 import { getOrdenesEstados, getOrdenesTableData } from '@/fetch-data/ordenes';
-import FilterButton from '@/components/actionbar/filter-button';
+import { FilterButton } from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 
 const title = 'Órdenes de compra';

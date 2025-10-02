@@ -4,10 +4,10 @@ import {
   getSolvenciasByProviderId,
   getUniqueYearsFromSolvencias,
 } from '@/fetch-data/solvencias';
-import ActionBar from '@/components/actionbar/action-bar';
-import FilterButton from '@/components/actionbar/filter-button';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { ActionBar } from '@/components/actionbar/action-bar';
+import { FilterButton } from '@/components/actionbar/filter-button';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {

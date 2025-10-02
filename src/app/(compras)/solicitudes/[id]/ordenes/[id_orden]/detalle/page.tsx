@@ -1,6 +1,6 @@
 import { OrdenDetalleTable, PageProps } from '@/types/types';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { columns } from './columns';
 import { getOrdenDetalleByOrdenId } from '@/fetch-data/ordenes-detalle';
 import { DataTableOrdenDetalle } from '@/components/tables/detalle/data-table-orden-detalle';

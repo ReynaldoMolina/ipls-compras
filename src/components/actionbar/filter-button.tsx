@@ -23,7 +23,7 @@ interface FilterButtonProps {
   filterOptions: FilterOptions;
 }
 
-export default function FilterButton({ filterOptions }: FilterButtonProps) {
+export function FilterButton({ filterOptions }: FilterButtonProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const filterMenu = getFilterMenuByPath(pathname, filterOptions);

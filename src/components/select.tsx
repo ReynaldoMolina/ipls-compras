@@ -14,7 +14,7 @@ interface SelectProps<T extends FieldValues> {
   options: SelectOptions[];
 }
 
-export default function SelectField<T extends FieldValues>({
+export function SelectField<T extends FieldValues>({
   field,
   options,
 }: SelectProps<T>) {

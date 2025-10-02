@@ -15,7 +15,7 @@ type TextAreaProps<T extends FieldValues> = {
   placeholder?: string;
 };
 
-export default function FormTextArea<T extends FieldValues>({
+export function FormTextArea<T extends FieldValues>({
   control,
   name,
   label,

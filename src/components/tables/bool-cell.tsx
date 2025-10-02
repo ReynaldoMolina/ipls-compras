@@ -3,7 +3,7 @@ import { Badge } from '../ui/badge';
 
 const iconStyle = 'size-4';
 
-export default function BoolCell({ value }: { value: boolean | null }) {
+export function BoolCell({ value }: { value: boolean | null }) {
   if (value === null) {
     return (
       <Badge variant="outline" className="inline-flex gap-1">

@@ -13,11 +13,11 @@ import {
 import { ordenesSchema } from '@/validation-schemas';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { DatePicker } from '../date-picker';
-import FormInputGroup from '../form-elements/form-input-group';
-import FormCombobox from '../form-elements/form-combobox';
-import FormTextField from '../form-elements/form-text-field';
+import { FormInputGroup } from '../form-elements/form-input-group';
+import { FormCombobox } from '../form-elements/form-combobox';
+import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooterDialog } from '../form-elements/form-footer';
-import FormTextArea from '../form-elements/form-text-area';
+import { FormTextArea } from '../form-elements/form-text-area';
 import { FormSelect } from '../form-elements/form-select';
 import { monedas, terminosDePago } from '../select-options-data';
 

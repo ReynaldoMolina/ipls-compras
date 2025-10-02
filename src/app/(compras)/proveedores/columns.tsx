@@ -4,7 +4,7 @@ import { DateStatusCell } from '@/components/tables/date-status-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
-import DefaultCell from '@/components/tables/default-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { Proveedores } from '@/types/types';
 
 export const columns: ColumnDef<Proveedores>[] = [

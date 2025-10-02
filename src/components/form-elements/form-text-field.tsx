@@ -18,7 +18,7 @@ type TextFieldProps<T extends FieldValues> = {
   hidden?: boolean;
 };
 
-export default function FormTextField<T extends FieldValues>({
+export function FormTextField<T extends FieldValues>({
   control,
   name,
   label,

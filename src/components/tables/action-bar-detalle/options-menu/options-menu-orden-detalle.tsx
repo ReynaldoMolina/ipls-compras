@@ -7,7 +7,7 @@ import {
 import { Table } from '@tanstack/react-table';
 import { Dispatch, SetStateAction } from 'react';
 import { GroupBySubMenu } from '../submenus';
-import DeleteButton from '@/components/delete-button';
+import { DeleteButton } from '@/components/delete-button';
 import { deleteOrdenDetalleByIds } from '@/server-actions/ordenes-detalle';
 import { useRouter } from 'next/navigation';
 

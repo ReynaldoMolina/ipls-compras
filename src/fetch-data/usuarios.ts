@@ -9,7 +9,6 @@ import {
   buildFilterUsuariosByActive,
 } from './build-filters';
 import { User } from 'next-auth';
-import { Roles } from '@/permissions/roles';
 
 export async function getUsersTableData(
   searchParams: SearchParamsProps

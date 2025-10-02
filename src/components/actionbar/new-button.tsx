@@ -9,7 +9,7 @@ interface NewButtonProps {
   isDetalle?: boolean;
 }
 
-export default function NewButton({ isDetalle = false }: NewButtonProps) {
+export function NewButton({ isDetalle = false }: NewButtonProps) {
   const pathname = usePathname();
 
   return (

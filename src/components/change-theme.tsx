@@ -7,7 +7,7 @@ import {
 } from './ui/dropdown-menu';
 import { Sun, Moon, Monitor } from 'lucide-react';
 
-export default function ChangeTheme() {
+export function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
   return (

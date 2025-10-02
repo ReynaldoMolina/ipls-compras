@@ -1,4 +1,4 @@
-import SelectField from '@/components/select';
+import { SelectField } from '@/components/select';
 import {
   FormField,
   FormItem,

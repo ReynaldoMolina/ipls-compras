@@ -3,7 +3,7 @@ import { OrdenPdfProps, OrdenPdfDetalleProps } from '@/types/types';
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import React from 'react';
 
-export default function Table({ register }: { register: OrdenPdfProps }) {
+export function Table({ register }: { register: OrdenPdfProps }) {
   return (
     <View>
       <TableInfo register={register} />

@@ -10,9 +10,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { detalleSolicitudSchema } from '@/validation-schemas';
 import { Form } from '@/components/ui/form';
-import FormTextField from '@/components/form-elements/form-text-field';
-import FormInputGroup from '@/components/form-elements/form-input-group';
-import FormCombobox from '@/components/form-elements/form-combobox';
+import { FormTextField } from '@/components/form-elements/form-text-field';
+import { FormInputGroup } from '@/components/form-elements/form-input-group';
+import { FormCombobox } from '@/components/form-elements/form-combobox';
 import { FormSelect } from '@/components/form-elements/form-select';
 import {
   createSolicitudDetalle,
@@ -20,10 +20,10 @@ import {
 } from '@/server-actions/solicitudes-detalle';
 import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
-import FormHeader from '../form-elements/form-header';
-import FormOptions from '../form-elements/form-options';
+import { FormHeader } from '../form-elements/form-header';
+import { FormOptions } from '../form-elements/form-options';
 import { FormFooter } from '../form-elements/form-footer';
-import FormTextArea from '../form-elements/form-text-area';
+import { FormTextArea } from '../form-elements/form-text-area';
 import { prioridad } from '../select-options-data';
 
 interface SolicitudDetalleFormProps {

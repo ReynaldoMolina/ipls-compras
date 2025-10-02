@@ -1,13 +1,13 @@
-import ActionBar from '@/components/actionbar/action-bar';
+import { ActionBar } from '@/components/actionbar/action-bar';
 import { columns } from './columns';
 import {
   getUniqueRolesFromUsuarios,
   getUsersTableData,
 } from '@/fetch-data/usuarios';
-import FilterButton from '@/components/actionbar/filter-button';
+import { FilterButton } from '@/components/actionbar/filter-button';
 import { DataTable } from '@/components/tables/data-table';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
 import { userStates } from '@/components/select-options-data';
 

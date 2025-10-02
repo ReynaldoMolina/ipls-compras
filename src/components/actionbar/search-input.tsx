@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Button } from '../ui/button';
 
-export default function SearchInput() {
+export function SearchInput() {
   const searchParams = useSearchParams();
   const [searchText, setSearchText] = useState(
     searchParams.get('search')?.toString() || ''

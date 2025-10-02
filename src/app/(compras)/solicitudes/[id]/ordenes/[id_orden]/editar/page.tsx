@@ -1,6 +1,6 @@
 import { OrdenPdfProps, PageProps } from '@/types/types';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { getOrdenById, getOrdenesEstados } from '@/fetch-data/ordenes';
 import { OrdenForm } from '@/components/forms/ordenes';
 import { getProveedores } from '@/fetch-data/form-select-options';

@@ -1,6 +1,6 @@
 import { logOut } from '@/server-actions/auth';
 import { Contrast, LogOut } from 'lucide-react';
-import ChangeTheme from '../change-theme';
+import { ChangeTheme } from '../change-theme';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenuItem,

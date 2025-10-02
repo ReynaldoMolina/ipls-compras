@@ -5,16 +5,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { providerSchema } from '@/validation-schemas';
-import FormInputGroup from '../form-elements/form-input-group';
+import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { FormFooter } from '../form-elements/form-footer';
 import { ComboBoxData, FormAction, ProveedorFormType } from '@/types/types';
 import { createProvider, updateProvider } from '@/server-actions/providers';
 import { Card, CardContent } from '../ui/card';
-import FormHeader from '../form-elements/form-header';
-import FormTextField from '../form-elements/form-text-field';
-import FormCombobox from '../form-elements/form-combobox';
-import FormOptions from '../form-elements/form-options';
+import { FormHeader } from '../form-elements/form-header';
+import { FormTextField } from '../form-elements/form-text-field';
+import { FormCombobox } from '../form-elements/form-combobox';
+import { FormOptions } from '../form-elements/form-options';
 import { FormLink, FormLinkGroup } from '../form-elements/form-link';
 
 interface ProveedorFormProps {

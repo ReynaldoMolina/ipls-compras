@@ -1,7 +1,7 @@
 import { getSolvenciaById } from '@/fetch-data/solvencias';
 import { SolvenciaForm } from '@/components/forms/solvencias';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {

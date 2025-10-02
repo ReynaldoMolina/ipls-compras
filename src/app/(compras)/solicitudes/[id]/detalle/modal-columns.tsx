@@ -3,8 +3,8 @@
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { OrdenesModal } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
-import DefaultCell from '@/components/tables/default-cell';
+import { IdCell } from '@/components/tables/id-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
 
 export const columns: ColumnDef<OrdenesModal>[] = [
@@ -17,7 +17,7 @@ export const columns: ColumnDef<OrdenesModal>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
+    cell: IdCell,
   },
 
   {
@@ -30,7 +30,7 @@ export const columns: ColumnDef<OrdenesModal>[] = [
   {
     accessorKey: 'id_solicitud',
     header: ({ column }) => <SortButton column={column} label="Solicitud" />,
-    cell: TableId,
+    cell: IdCell,
   },
   {
     accessorKey: 'year',

@@ -7,8 +7,8 @@ import {
   NumberFloatCell,
 } from '@/components/tables/number-cell';
 import { SolicitudesTable } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
-import DefaultCell from '@/components/tables/default-cell';
+import { IdCell } from '@/components/tables/id-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
 
@@ -28,7 +28,7 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
+    cell: IdCell,
   },
   {
     accessorKey: 'entidad_academica',

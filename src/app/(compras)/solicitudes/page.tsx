@@ -1,6 +1,6 @@
-import ActionBar from '@/components/actionbar/action-bar';
-import Header from '@/components//header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { ActionBar } from '@/components/actionbar/action-bar';
+import { Header } from '@/components//header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { columns } from './columns';
 import { DataTable } from '../../../components/tables/data-table';
 import { PageProps } from '@/types/types';
@@ -8,7 +8,7 @@ import {
   getSolicitudesTableData,
   getUniqueYearsFromSolicitudes,
 } from '@/fetch-data/solicitudes';
-import FilterButton from '@/components/actionbar/filter-button';
+import { FilterButton } from '@/components/actionbar/filter-button';
 
 const title = 'Solicitudes de compra';
 

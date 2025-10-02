@@ -6,7 +6,7 @@ type TextAreaProps = {
   label: string;
 };
 
-export default function FormTextAreaReadOnly({ value, label }: TextAreaProps) {
+export function FormTextAreaReadOnly({ value, label }: TextAreaProps) {
   return (
     <FormItem>
       <FormLabel>{label}</FormLabel>

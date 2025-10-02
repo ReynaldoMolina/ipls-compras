@@ -2,7 +2,7 @@ import { FormAction } from '@/types/types';
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import React from 'react';
 
-export default function FormHeader({
+export function FormHeader({
   children,
   action,
   name,

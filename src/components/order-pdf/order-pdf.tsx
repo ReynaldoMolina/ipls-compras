@@ -5,7 +5,7 @@ import { Document, Page, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 import { Header } from './header';
 import { OrdenPdfProps } from '@/types/types';
 import { Title } from './title';
-import Table from './table';
+import { Table } from './table';
 import { Footer } from './footer';
 
 // Create styles

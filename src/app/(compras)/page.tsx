@@ -1,8 +1,8 @@
-import ActionBar from '@/components/actionbar/action-bar';
-import Chart from '@/components/chart/chart';
-import Header from '@/components/header/header';
+import { ActionBar } from '@/components/actionbar/action-bar';
+import { Chart } from '@/components/chart/chart';
+import { Header } from '@/components/header/header';
 import { getResumenComparisonChartByEntidad } from '@/fetch-data/resumen';
-import FilterButton from '@/components/actionbar/filter-button';
+import { FilterButton } from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
 import { currentYear } from '@/components/select-options-data';
 import {

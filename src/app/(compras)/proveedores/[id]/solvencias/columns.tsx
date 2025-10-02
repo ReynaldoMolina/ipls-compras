@@ -3,9 +3,9 @@
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { SolvenciaTable } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
-import DefaultCell from '@/components/tables/default-cell';
-import DateCell from '@/components/tables/date-cell';
+import { IdCell } from '@/components/tables/id-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
+import { DateCell } from '@/components/tables/date-cell';
 import { DateStatusCell } from '@/components/tables/date-status-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
@@ -22,7 +22,7 @@ export const columns: ColumnDef<SolvenciaTable>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
+    cell: IdCell,
   },
   {
     accessorKey: 'nombre_comercial',

@@ -2,14 +2,14 @@
 
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import TableDate from '@/components/tables/date-cell';
+import { DateCell } from '@/components/tables/date-cell';
 import {
   NumberCellWithValue,
   NumberFloatCell,
 } from '@/components/tables/number-cell';
 import { OrdenesTable } from '@/types/types';
-import TableId from '@/components/tables/id-cell';
-import DefaultCell from '@/components/tables/default-cell';
+import { IdCell } from '@/components/tables/id-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
 import { DateStatusCell } from '@/components/tables/date-status-cell';
@@ -34,7 +34,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
-    cell: TableId,
+    cell: IdCell,
   },
 
   {
@@ -48,7 +48,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
   {
     accessorKey: 'id_solicitud',
     header: ({ column }) => <SortButton column={column} label="Solicitud" />,
-    cell: TableId,
+    cell: IdCell,
   },
   {
     accessorKey: 'year',
@@ -60,7 +60,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Fecha creación" />
     ),
-    cell: TableDate,
+    cell: DateCell,
   },
   {
     accessorKey: 'fecha_a_utilizar',

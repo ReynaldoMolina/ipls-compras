@@ -3,22 +3,12 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { loginSchema } from '@/validation-schemas';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '../ui/form';
-import Link from 'next/link';
+import { Form } from '../ui/form';
 import { loginWithGoogle } from '@/server-actions/auth';
 import { Hero } from './hero';
-import Image from 'next/image';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({

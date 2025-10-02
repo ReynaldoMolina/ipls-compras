@@ -7,8 +7,8 @@ import {
   getSolicitudDetalleBySolicitudId,
   getUnidadesMedida,
 } from '@/fetch-data/solicitudes-detalle';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { columns } from './columns';
 import { getProveedores } from '@/fetch-data/form-select-options';
 import { getOrdenesAddToExistingModal } from '@/fetch-data/ordenes';

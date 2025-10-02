@@ -20,7 +20,7 @@ interface DeleteButtonProps {
   disabled?: boolean;
 }
 
-export default function DeleteButton({
+export function DeleteButton({
   setOpen,
   count,
   handleDelete,

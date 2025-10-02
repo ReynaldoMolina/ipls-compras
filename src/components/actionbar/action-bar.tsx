@@ -1,5 +1,5 @@
-import SearchInput from './search-input';
-import NewButton from './new-button';
+import { SearchInput } from './search-input';
+import { NewButton } from './new-button';
 
 interface ActionBarProps {
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ interface ActionBarProps {
   allowNew?: boolean;
 }
 
-export default function ActionBar({
+export function ActionBar({
   children,
   allowSearch = true,
   allowNew = true,

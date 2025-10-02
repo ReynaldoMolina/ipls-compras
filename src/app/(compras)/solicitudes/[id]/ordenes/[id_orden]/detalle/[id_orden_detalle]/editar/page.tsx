@@ -1,6 +1,6 @@
 import { PageProps } from '@/types/types';
-import Header from '@/components/header/header';
-import PageWrapper from '@/components/page-wrapper';
+import { Header } from '@/components/header/header';
+import { PageWrapper } from '@/components/page-wrapper';
 import { OrdenDetalleForm } from '@/components/forms/ordenes_detalle';
 import { getOrdenDetalleById } from '@/fetch-data/ordenes-detalle';
 

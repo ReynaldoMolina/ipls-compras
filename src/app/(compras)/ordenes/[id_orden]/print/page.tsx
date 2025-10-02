@@ -1,4 +1,4 @@
-import Header from '@/components/header/header';
+import { Header } from '@/components/header/header';
 import { OrdenPdfViewer } from '@/components/order-pdf/order-pdf';
 import { getOrdenPdfById } from '@/fetch-data/orden-pdf';
 import { OrdenPdfProps, PageProps } from '@/types/types';

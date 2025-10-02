@@ -6,10 +6,7 @@ interface FormInputGroupProps {
   className?: string;
 }
 
-export default function FormInputGroup({
-  children,
-  className,
-}: FormInputGroupProps) {
+export function FormInputGroup({ children, className }: FormInputGroupProps) {
   return (
     <div className={cn('flex flex-col md:flex-row gap-5 w-full', className)}>
       {children}
