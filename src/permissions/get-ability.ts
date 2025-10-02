@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { defineAbilitiesFor } from './abilities';
-import { Roles } from '@/types/types';
+import { Roles } from './roles';
 
 export async function getAbility() {
   const session = await auth();

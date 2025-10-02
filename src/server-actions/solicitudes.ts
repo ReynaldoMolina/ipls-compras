@@ -1,14 +1,14 @@
 'use server';
 
 import { db } from '@/database/db';
-import { PrevState, Solicitud } from '@/types/types';
+import { SolicitudFormType } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
 import { solicitudes } from '@/database/schema/solicitudes';
 
 export async function createSolicitud(
-  prevState: PrevState | undefined,
-  data: Solicitud
+  prevState: SolicitudFormType | undefined,
+  data: SolicitudFormType
 ) {
   try {
     await db.insert(solicitudes).values(data);
@@ -21,8 +21,8 @@ export async function createSolicitud(
 
 export async function updateSolicitud(
   id: number | undefined,
-  prevState: PrevState,
-  data: Solicitud
+  prevState: SolicitudFormType | undefined,
+  data: SolicitudFormType
 ) {
   if (!id) return;
   try {

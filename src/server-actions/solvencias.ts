@@ -1,13 +1,13 @@
 'use server';
 
 import { db } from '@/database/db';
-import { PrevState, Solvencia } from '@/types/types';
+import { Solvencia } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
 import { solvencias } from '@/database/schema/solvencias';
 import { eq } from 'drizzle-orm';
 
 export async function createSolvencia(
-  prevState: PrevState | undefined,
+  prevState: Solvencia | undefined,
   data: Solvencia,
   id_proveedor: number
 ) {
@@ -22,7 +22,7 @@ export async function createSolvencia(
 
 export async function updateSolvencia(
   id: number | undefined,
-  prevState: PrevState,
+  prevState: Solvencia | undefined,
   data: Solvencia,
   id_proveedor: number
 ) {

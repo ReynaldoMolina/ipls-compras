@@ -21,12 +21,12 @@ import { prioridad } from '@/components/select-options-data';
 import { OptionsMenuCombobox } from '../options-menu-combobox';
 import DeleteButton from '@/components/delete-button';
 
-interface OptionsMenuSolicitudDetalleProps<TData> {
+interface OptionsMenuSolicitudDetalleProps<TData extends { id: number }> {
   table: Table<TData>;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function OptionsMenuSolicitudDetalle<TData>({
+export function OptionsMenuSolicitudDetalle<TData extends { id: number }>({
   table,
   setOpen,
 }: OptionsMenuSolicitudDetalleProps<TData>) {

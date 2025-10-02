@@ -6,19 +6,9 @@ import { users } from '@/database/schema/usuarios';
 import { eq } from 'drizzle-orm';
 import { User } from 'next-auth';
 
-export async function createUser(prevState: PrevState | undefined, data: User) {
-  try {
-    await db.insert(users).values(data);
-  } catch (error) {
-    console.error(error);
-    return { ...prevState, message: 'Error creating user' };
-  }
-  await goBackTo('/usuarios');
-}
-
 export async function updateUser(
   id: string | undefined,
-  prevState: PrevState,
+  prevState: User | undefined,
   data: User
 ) {
   if (!id) return;

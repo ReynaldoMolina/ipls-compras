@@ -49,7 +49,7 @@ export async function getSolicitudDetalleBySolicitudId(
         categoria_productos,
         eq(solicitudes_detalle.id_categoria, categoria_productos.id)
       )
-      .where(eq(solicitudes_detalle.id_solicitud, id_solicitud))
+      .where(eq(solicitudes_detalle.id_solicitud, Number(id_solicitud)))
       .orderBy(solicitudes_detalle.id);
     return data;
   } catch (error) {

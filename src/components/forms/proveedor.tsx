@@ -65,7 +65,7 @@ export function ProveedorForm({
     if (action === 'create') {
       createProvider(undefined, values);
     } else if (action === 'edit' && provider) {
-      updateProvider(provider.id, { message: undefined }, values);
+      updateProvider(provider.id, undefined, values);
     }
   }
 

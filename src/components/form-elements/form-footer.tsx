@@ -32,7 +32,7 @@ export function FormFooterDialog({
   setOpen,
 }: FormFooterDialogProps) {
   return (
-    <DialogFooter className="flex gap-2">
+    <DialogFooter>
       <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
         Cancelar
       </Button>

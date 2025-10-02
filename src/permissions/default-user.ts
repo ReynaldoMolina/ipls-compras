@@ -5,6 +5,6 @@ export const defaultUser: User = {
   name: 'Usuario',
   image: '/logo.png',
   email: 'usuario@ipls-lasalle.org',
-  role: 'docente',
+  role: 'personal',
   activo: false,
 };

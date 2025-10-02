@@ -1,14 +1,14 @@
 'use server';
 
 import { db } from '@/database/db';
-import { PrevState, Provider } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
 import { proveedores } from '@/database/schema/proveedores';
 import { eq } from 'drizzle-orm';
+import { ProveedorFormType } from '@/types/types';
 
 export async function createProvider(
-  prevState: PrevState | undefined,
-  data: Provider
+  prevState: ProveedorFormType | undefined,
+  data: ProveedorFormType
 ) {
   try {
     await db.insert(proveedores).values(data);
@@ -21,8 +21,8 @@ export async function createProvider(
 
 export async function updateProvider(
   id: number | undefined,
-  prevState: PrevState,
-  data: Provider
+  prevState: ProveedorFormType | undefined,
+  data: ProveedorFormType
 ) {
   if (!id) return;
   try {

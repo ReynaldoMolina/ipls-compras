@@ -67,13 +67,13 @@ export function GroupBySubMenu({ grouped, setGrouped }: GroupBySubMenuProps) {
   );
 }
 
-interface AddToOrderSubMenuProps<TData> {
+interface AddToOrderSubMenuProps<TData extends { id: number }> {
   id_solicitud: number;
   table: Table<TData>;
   disabled?: boolean;
 }
 
-export function AddToOrderSubMenu<TData>({
+export function AddToOrderSubMenu<TData extends { id: number }>({
   id_solicitud,
   table,
   disabled,

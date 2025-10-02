@@ -13,8 +13,8 @@ import {
 import { usuarioSchema } from '@/validation-schemas';
 import FormInputGroup from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
-import { FormAction, Usuario } from '@/types/types';
-import { createUser, updateUser } from '@/server-actions/usuarios';
+import { FormAction } from '@/types/types';
+import { updateUser } from '@/server-actions/usuarios';
 import { Card, CardContent } from '../ui/card';
 import FormHeader from '../form-elements/form-header';
 import FormTextField from '../form-elements/form-text-field';
@@ -23,10 +23,11 @@ import { roles } from '../select-options-data';
 import { FormSwitch } from '../form-elements/form-switch';
 import { FormSelect } from '../form-elements/form-select';
 import { DatePicker } from '../date-picker';
+import { User } from 'next-auth';
 
 type UserFormProps = {
   action: FormAction;
-  user?: Usuario;
+  user?: User;
 };
 
 export function UserForm({ action, user }: UserFormProps) {
@@ -34,28 +35,28 @@ export function UserForm({ action, user }: UserFormProps) {
     resolver: zodResolver(usuarioSchema),
     defaultValues: user
       ? {
+          id: user.id ?? '',
           name: user.name ?? '',
           email: user.email ?? '',
-          emailVerified: user.emailVerified ?? null,
+          emailVerified: user.emailVerified ?? undefined,
           image: user.image ?? '',
-          role: user.role ?? '',
+          role: user.role ?? 'sinverificar',
           activo: user.activo ?? false,
         }
       : {
+          id: '',
           name: '',
           email: '',
-          emailVerified: null,
+          emailVerified: undefined,
           image: '',
-          role: '',
+          role: 'sinverificar',
           activo: false,
         },
   });
 
   function onSubmit(values: z.infer<typeof usuarioSchema>) {
-    if (action === 'create') {
-      createUser(undefined, values);
-    } else if (action === 'edit' && user) {
-      updateUser(user.id, { message: undefined }, values);
+    if (user) {
+      updateUser(user.id, undefined, values);
     }
   }
 
@@ -66,6 +67,13 @@ export function UserForm({ action, user }: UserFormProps) {
           <FormHeader action={action} name="usuario" noun="m" />
           <CardContent>
             <FormFieldSet name="info">
+              <FormTextField
+                control={form.control}
+                name="id"
+                label="Id"
+                disabled
+                hidden
+              />
               <FormTextField
                 control={form.control}
                 name="name"

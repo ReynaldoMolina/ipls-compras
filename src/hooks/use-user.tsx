@@ -18,7 +18,7 @@ export function UserProvider({
   user: User;
   children: React.ReactNode;
 }) {
-  const ability = defineAbilitiesFor(user.role ?? 'noverificado');
+  const ability = defineAbilitiesFor(user.role ?? 'sinverificar');
 
   return (
     <UserContext.Provider value={{ ability, user }}>

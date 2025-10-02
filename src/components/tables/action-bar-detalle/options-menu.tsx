@@ -12,12 +12,12 @@ import { useState } from 'react';
 import { OptionsMenuSolicitudDetalle } from './options-menu/options-menu-solicitud-detalle';
 import { OptionsMenuOrdenDetalle } from './options-menu/options-menu-orden-detalle';
 
-interface OptionsMenuProps<TData> {
+interface OptionsMenuProps<TData extends { id: number }> {
   table: Table<TData>;
   tableName: 'orden' | 'solicitud' | 'ordenmodal';
 }
 
-export function OptionsMenu<TData>({
+export function OptionsMenu<TData extends { id: number }>({
   table,
   tableName,
 }: OptionsMenuProps<TData>) {

@@ -1,4 +1,4 @@
-import { SidebarItem } from '@/components/sidebar/app-sidebar';
+import { SidebarItem } from '@/components/sidebar/sidebar-items';
 
 export function getActiveSidebarOption(pathname: string, items: SidebarItem[]) {
   const segments = pathname.split('/').filter(Boolean);

@@ -23,9 +23,9 @@ import {
 
 import { useEffect, useState } from 'react';
 import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
-import { DetalleSelectOptions } from '@/types/types';
+import { DetalleSelectOptions, OrdenDetalleTable } from '@/types/types';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends OrdenDetalleTable, TValue> {
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
   selectOptions?: DetalleSelectOptions;
@@ -33,7 +33,7 @@ interface DataTableProps<TData, TValue> {
   id_orden: number;
 }
 
-export function DataTableOrdenDetalle<TData, TValue>({
+export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
   columns,
   tableData,
   selectOptions,

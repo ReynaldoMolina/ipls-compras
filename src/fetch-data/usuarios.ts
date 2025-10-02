@@ -1,6 +1,6 @@
 import { db } from '@/database/db';
 import { users } from '@/database/schema/usuarios';
-import { SearchParamsProps, Usuario, UsuarioTable } from '@/types/types';
+import { SearchParamsProps, UsuarioTable } from '@/types/types';
 import { eq, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
@@ -8,6 +8,8 @@ import {
   buildFilterUsuariosByRol,
   buildFilterUsuariosByActive,
 } from './build-filters';
+import { User } from 'next-auth';
+import { Roles } from '@/permissions/roles';
 
 export async function getUsersTableData(
   searchParams: SearchParamsProps
@@ -35,6 +37,7 @@ export async function getUsersTableData(
       .from(users)
       .where(and(filterBySearch, filterUsuariosByRol, filterUsuariosByActive))
       .orderBy(orderFragment);
+
     return data;
   } catch (error) {
     console.error(error);
@@ -44,7 +47,7 @@ export async function getUsersTableData(
   }
 }
 
-export async function getUserById(id: string): Promise<Usuario> {
+export async function getUserById(id: string): Promise<User> {
   try {
     const [data] = await db.select().from(users).where(eq(users.id, id));
     return data;

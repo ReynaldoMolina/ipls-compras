@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { SolicitudDetalle } from '@/types/types';
+import { SolicitudDetalleTable } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import {
   NumberIntegerCell,
@@ -16,7 +16,7 @@ import { sumColumn } from '@/lib/sum-column';
 import DefaultCell from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
-export const columns: ColumnDef<SolicitudDetalle>[] = [
+export const columns: ColumnDef<SolicitudDetalleTable>[] = [
   {
     id: 'select',
     header: CheckBoxCellHeader,

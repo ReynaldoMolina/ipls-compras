@@ -4,14 +4,14 @@ export function Hero() {
   return (
     <div className="flex flex-col gap-10 p-10 w-full justify-center items-center bg-brand-blue h-full">
       <Image
-        src="/images/logo-blanco.png"
+        src="/logo-blanco.png"
         width={90}
         height={50}
         className="w-25 text-white text-sm text-center"
         alt="Logo"
       />
       <Image
-        src="/images/login.png"
+        src="/login.png"
         width={500}
         height={269}
         className="w-full max-w-60 text-white text-sm text-center"

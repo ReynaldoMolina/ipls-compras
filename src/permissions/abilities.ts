@@ -1,9 +1,9 @@
-import { Roles } from '@/types/types';
 import {
   AbilityBuilder,
   createMongoAbility,
   MongoAbility,
 } from '@casl/ability';
+import { Roles } from './roles';
 
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete';
 export type Subjects =

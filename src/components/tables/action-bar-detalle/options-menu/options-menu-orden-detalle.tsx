@@ -11,12 +11,12 @@ import DeleteButton from '@/components/delete-button';
 import { deleteOrdenDetalleByIds } from '@/server-actions/ordenes-detalle';
 import { useRouter } from 'next/navigation';
 
-interface OptionsMenuOrdenDetalleProps<TData> {
+interface OptionsMenuOrdenDetalleProps<TData extends { id: number }> {
   table: Table<TData>;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function OptionsMenuOrdenDetalle<TData>({
+export function OptionsMenuOrdenDetalle<TData extends { id: number }>({
   table,
   setOpen,
 }: OptionsMenuOrdenDetalleProps<TData>) {

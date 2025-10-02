@@ -2,7 +2,7 @@
 
 import { db } from '@/database/db';
 import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
-import { OrdenDetalleFormType, OrdenesModal } from '@/types/types';
+import { OrdenDetalleType, OrdenesModal } from '@/types/types';
 import { eq, inArray } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { goBackTo } from './go-back-to-list';
@@ -59,7 +59,7 @@ export async function addToExistingOrdenDetalleBySelectedIds(
 
 export async function updateOrdenDetalleById(
   id: number | undefined,
-  data: OrdenDetalleFormType
+  data: OrdenDetalleType
 ) {
   if (!id) return;
   try {

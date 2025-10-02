@@ -2,12 +2,12 @@
 
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import { OrdenesTable } from '@/types/types';
+import { OrdenesModal } from '@/types/types';
 import TableId from '@/components/tables/id-cell';
 import DefaultCell from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
 
-export const columns: ColumnDef<OrdenesTable>[] = [
+export const columns: ColumnDef<OrdenesModal>[] = [
   {
     id: 'select',
     header: '',

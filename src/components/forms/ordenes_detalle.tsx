@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { detalleOrdenSchema } from '@/validation-schemas';
-import { Form, FormItem, FormLabel } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import FormTextField from '@/components/form-elements/form-text-field';
 import FormInputGroup from '@/components/form-elements/form-input-group';
 import { FormFieldSet } from '@/components/form-elements/form-fieldset';
@@ -13,8 +13,9 @@ import { Card, CardContent } from '../ui/card';
 import FormHeader from '../form-elements/form-header';
 import { FormFooter } from '../form-elements/form-footer';
 import FormTextArea from '../form-elements/form-text-area';
-import { Input } from '../ui/input';
 import { updateOrdenDetalleById } from '@/server-actions/ordenes-detalle';
+import FormTextReadOnly from '../form-elements/form-text-readonly';
+import FormTextAreaReadOnly from '../form-elements/form-text-area-readonly';
 
 interface OrdenDetalleFormProps {
   action: FormAction;
@@ -59,37 +60,27 @@ export function OrdenDetalleForm({ action, detalle }: OrdenDetalleFormProps) {
               <FormInputGroup className="hidden">
                 <FormTextField
                   control={form.control}
-                  name="id_orden"
-                  label="Id orden"
-                  hidden
-                  disabled
-                />
-                <FormTextField
-                  control={form.control}
                   name="id_solicitud_detalle"
                   label="Id solicitud detalle"
                   hidden
                   disabled
                 />
+                <FormTextField
+                  control={form.control}
+                  name="id_orden"
+                  label="Id orden"
+                  hidden
+                  disabled
+                />
               </FormInputGroup>
-              <FormItem>
-                <FormLabel>Producto o servicio</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Producto o servicio"
-                  value={detalle?.producto_servicio ?? ''}
-                  disabled
-                />
-              </FormItem>
-              <FormItem>
-                <FormLabel>Cantidad solicitud</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Cantidad solicitud"
-                  value={detalle?.cantidad_solicitud ?? ''}
-                  disabled
-                />
-              </FormItem>
+              <FormTextAreaReadOnly
+                value={detalle?.producto_servicio}
+                label="Producto o servicio"
+              />
+              <FormTextReadOnly
+                value={detalle?.cantidad_solicitud}
+                label="Cantidad solicitud"
+              />
               <FormInputGroup className="flex-row">
                 <FormTextField
                   control={form.control}

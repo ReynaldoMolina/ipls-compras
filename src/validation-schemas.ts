@@ -24,9 +24,10 @@ export const solvenciaSchema = z.object({
 });
 
 export const usuarioSchema = z.object({
+  id: z.string(),
   name: z.string(),
   email: z.string(),
-  emailVerified: z.date().nullable(),
+  emailVerified: z.date().optional(),
   image: z.string(),
   role: z.string().min(1, 'Requerido'),
   activo: z.boolean('Requerido'),

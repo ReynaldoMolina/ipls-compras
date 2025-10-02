@@ -69,7 +69,7 @@ export function SolicitudForm({
     if (action === 'create') {
       createSolicitud(undefined, values);
     } else if (action === 'edit' && solicitud) {
-      updateSolicitud(solicitud?.id, { message: undefined }, values);
+      updateSolicitud(solicitud?.id, undefined, values);
     }
   }
 

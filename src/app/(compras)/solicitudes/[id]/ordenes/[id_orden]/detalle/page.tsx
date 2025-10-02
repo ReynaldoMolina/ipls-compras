@@ -1,4 +1,4 @@
-import { PageProps } from '@/types/types';
+import { OrdenDetalleTable, PageProps } from '@/types/types';
 import Header from '@/components/header/header';
 import PageWrapper from '@/components/page-wrapper';
 import { columns } from './columns';
@@ -20,7 +20,7 @@ export default async function Page({ params }: PageProps) {
     <>
       <Header title={`Solicitud ${id} - Orden ${id_orden} - Detalle`} />
       <PageWrapper>
-        <DataTableOrdenDetalle
+        <DataTableOrdenDetalle<OrdenDetalleTable, undefined>
           columns={columns}
           tableData={tableData}
           id_solicitud={Number(id)}

@@ -24,21 +24,22 @@ import { Dispatch, useState } from 'react';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { addToExistingOrdenDetalleBySelectedIds } from '@/server-actions/ordenes-detalle';
+import { OrdenesModal } from '@/types/types';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends OrdenesModal, TValue> {
   columns: ColumnDef<TData, TValue>[];
   tableData: TData[];
   selectedRowsIds: number[];
   setOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function DataTableOrdenesModal<TData, TValue>({
+export function DataTableOrdenesModal<TData extends OrdenesModal, TValue>({
   columns,
   tableData,
   selectedRowsIds,
   setOpen,
 }: DataTableProps<TData, TValue>) {
-  const [data, setData] = useState(tableData || []);
+  const [data] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});

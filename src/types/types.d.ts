@@ -6,15 +6,15 @@ export type PageId =
   | 'Usuario'
   | 'empty';
 
-export type Roles =
-  | 'superadmin'
-  | 'administrador'
-  | 'capacitaciones'
-  | 'bodega'
-  | 'compras'
-  | 'subdireccion'
-  | 'personal'
-  | 'sinverificar';
+// export type Roles =
+//   | 'superadmin'
+//   | 'administrador'
+//   | 'capacitaciones'
+//   | 'bodega'
+//   | 'compras'
+//   | 'subdireccion'
+//   | 'personal'
+//   | 'sinverificar';
 
 export type SortOrder = 'asc' | 'desc';
 
@@ -80,13 +80,14 @@ export interface Solvencia {
   id_proveedor: number;
   emitida: string | null;
   vence: string | null;
-  verificado: string | null;
+  verificado: string;
   recibido: string | null;
   url: string | null;
-  id_usuario: string | null;
+  id_usuario: string;
 }
 
 export interface SolvenciaTable extends Solvencia {
+  verificado: string | null;
   nombre_comercial: string | null;
   usuario: string | null;
 }
@@ -95,7 +96,7 @@ export interface UsuarioTable {
   id?: string;
   name: string | null;
   email: string | null;
-  role: string | null;
+  role: Roles | null;
   activo: boolean | null;
 }
 
@@ -105,19 +106,13 @@ export interface Usuario {
   email: string | null;
   emailVerified: Date | null;
   image: string | null;
-  role: string | null;
+  role: Roles | null;
   activo: boolean | null;
 }
 
-// export type UserType = {
-//   name: string;
-//   email: string;
-//   image: string;
-// };
-
 export interface Solicitud {
   id?: number;
-  year: number | null;
+  year: number;
 }
 
 export interface SolicitudesTable extends Solicitud {
@@ -130,9 +125,9 @@ export interface SolicitudesTable extends Solicitud {
 }
 
 export interface SolicitudFormType extends Solicitud {
-  fecha: string | null;
-  id_entidad_academica: number | null;
-  id_usuario: string | null;
+  fecha: string;
+  id_entidad_academica: number;
+  id_usuario: string;
   revisado_bodega: boolean | null;
 }
 
@@ -205,7 +200,7 @@ export interface DetalleSelectOptions {
 export interface Orden {
   id?: number;
   id_solicitud: number;
-  fecha_creacion: string | null;
+  fecha_creacion: string;
   fecha_a_utilizar?: string | null;
 }
 
@@ -220,6 +215,7 @@ export interface OrdenesTable extends Orden {
 }
 
 export interface OrdenesModal extends Orden {
+  id: number;
   entidad_academica: string | null;
   year: number | null;
   estado: string | null;
@@ -246,15 +242,18 @@ export interface OrdenDetalleTable {
   observaciones: string | null;
 }
 
-export interface OrdenDetalleFormType {
-  id: number;
-  id_orden: number | null;
-  id_solicitud_detalle: number | null;
-  producto_servicio: string | null;
-  cantidad_solicitud: number | null;
+export interface OrdenDetalleType {
+  id?: number;
+  id_orden: number;
+  id_solicitud_detalle: number;
   cantidad: number;
   precio_real: number | null;
   observaciones: string | null;
+}
+
+export interface OrdenDetalleFormType extends OrdenDetalleType {
+  producto_servicio: string | null;
+  cantidad_solicitud: number | null;
 }
 
 export interface OrdenPdfProps {

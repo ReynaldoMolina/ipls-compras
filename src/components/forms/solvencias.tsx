@@ -69,12 +69,7 @@ export function SolvenciaForm({
     if (action === 'create') {
       createSolvencia(undefined, values, id_proveedor);
     } else if (action === 'edit' && solvencia) {
-      updateSolvencia(
-        solvencia.id,
-        { message: undefined },
-        values,
-        id_proveedor
-      );
+      updateSolvencia(solvencia.id, undefined, values, id_proveedor);
     }
   }
 
