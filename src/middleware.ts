@@ -20,7 +20,7 @@ export async function middleware(req: Request) {
       process.env.NEXTAUTH_URL?.startsWith('https://'),
   });
 
-  console.log('TOKEN:', token);
+  console.log('TOKEN:', token?.activo);
 
   if (!token) {
     return NextResponse.redirect(new URL('/auth/login', req.url));

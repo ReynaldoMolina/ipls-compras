@@ -6,23 +6,18 @@ import { goBackTo } from './go-back-to-list';
 import { solvencias } from '@/database/schema/solvencias';
 import { eq } from 'drizzle-orm';
 
-export async function createSolvencia(
-  prevState: Solvencia | undefined,
-  data: Solvencia,
-  id_proveedor: number
-) {
+export async function createSolvencia(data: Solvencia, id_proveedor: number) {
   try {
     await db.insert(solvencias).values(data);
   } catch (error) {
     console.error(error);
-    return { ...prevState, message: 'Error creating solvencia' };
+    return { message: 'Error creating solvencia' };
   }
   await goBackTo(`/proveedores/${id_proveedor}/solvencias`);
 }
 
 export async function updateSolvencia(
   id: number | undefined,
-  prevState: Solvencia | undefined,
   data: Solvencia,
   id_proveedor: number
 ) {

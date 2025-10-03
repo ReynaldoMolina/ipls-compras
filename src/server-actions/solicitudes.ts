@@ -6,22 +6,18 @@ import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
 import { solicitudes } from '@/database/schema/solicitudes';
 
-export async function createSolicitud(
-  prevState: SolicitudFormType | undefined,
-  data: SolicitudFormType
-) {
+export async function createSolicitud(data: SolicitudFormType) {
   try {
     await db.insert(solicitudes).values(data);
   } catch (error) {
     console.error(error);
-    return { ...prevState, message: 'Error creating solicitud' };
+    return { message: 'Error creating solicitud' };
   }
   await goBackTo('/solicitudes');
 }
 
 export async function updateSolicitud(
   id: number | undefined,
-  prevState: SolicitudFormType | undefined,
   data: SolicitudFormType
 ) {
   if (!id) return;

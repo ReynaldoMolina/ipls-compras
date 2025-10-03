@@ -6,22 +6,18 @@ import { proveedores } from '@/database/schema/proveedores';
 import { eq } from 'drizzle-orm';
 import { ProveedorFormType } from '@/types/types';
 
-export async function createProvider(
-  prevState: ProveedorFormType | undefined,
-  data: ProveedorFormType
-) {
+export async function createProvider(data: ProveedorFormType) {
   try {
     await db.insert(proveedores).values(data);
   } catch (error) {
     console.error(error);
-    return { ...prevState, message: 'Error creating provider' };
+    return { message: 'Error creating provider' };
   }
   await goBackTo('/proveedores');
 }
 
 export async function updateProvider(
   id: number | undefined,
-  prevState: ProveedorFormType | undefined,
   data: ProveedorFormType
 ) {
   if (!id) return;

@@ -8,10 +8,7 @@ import { ordenes } from '@/database/schema/ordenes';
 import { createOrdenDetalleBySelectedIds } from './ordenes-detalle';
 import { redirect } from 'next/navigation';
 
-export async function createOrden(
-  // prevState: PrevState | undefined,
-  data: OrdenFormType
-) {
+export async function createOrden(data: OrdenFormType) {
   try {
     await db.insert(ordenes).values(data);
   } catch (error) {
@@ -21,11 +18,7 @@ export async function createOrden(
   await goBackTo('/ordenes');
 }
 
-export async function updateOrden(
-  id: number | undefined,
-  // prevState: PrevState,
-  data: OrdenFormType
-) {
+export async function updateOrden(id: number | undefined, data: OrdenFormType) {
   if (!id) return;
   try {
     await db.update(ordenes).set(data).where(eq(ordenes.id, id));

@@ -67,9 +67,9 @@ export function SolvenciaForm({
 
   function onSubmit(values: z.infer<typeof solvenciaSchema>) {
     if (action === 'create') {
-      createSolvencia(undefined, values, id_proveedor);
+      createSolvencia(values, id_proveedor);
     } else if (action === 'edit' && solvencia) {
-      updateSolvencia(solvencia.id, undefined, values, id_proveedor);
+      updateSolvencia(solvencia.id, values, id_proveedor);
     }
   }
 

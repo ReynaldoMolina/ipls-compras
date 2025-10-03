@@ -63,9 +63,9 @@ export function ProveedorForm({
 
   function onSubmit(values: z.infer<typeof providerSchema>) {
     if (action === 'create') {
-      createProvider(undefined, values);
+      createProvider(values);
     } else if (action === 'edit' && provider) {
-      updateProvider(provider.id, undefined, values);
+      updateProvider(provider.id, values);
     }
   }
 

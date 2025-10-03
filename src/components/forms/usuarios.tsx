@@ -56,7 +56,7 @@ export function UserForm({ action, user }: UserFormProps) {
 
   function onSubmit(values: z.infer<typeof usuarioSchema>) {
     if (user) {
-      updateUser(user.id, undefined, values);
+      updateUser(user.id, values);
     }
   }
 

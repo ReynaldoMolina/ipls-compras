@@ -67,9 +67,9 @@ export function SolicitudForm({
 
   function onSubmit(values: z.infer<typeof solicitudSchema>) {
     if (action === 'create') {
-      createSolicitud(undefined, values);
+      createSolicitud(values);
     } else if (action === 'edit' && solicitud) {
-      updateSolicitud(solicitud?.id, undefined, values);
+      updateSolicitud(solicitud?.id, values);
     }
   }
 

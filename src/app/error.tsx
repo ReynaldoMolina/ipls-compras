@@ -28,7 +28,7 @@ export default function Error({
         </span>
       </div>
       <div className="flex items-center gap-2 max-w-md">
-        <Button variant="secondary" onClick={() => reset()} asChild>
+        <Button variant="secondary" asChild>
           <Link href="/">
             <House />
             Inicio

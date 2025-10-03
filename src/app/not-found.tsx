@@ -24,7 +24,7 @@ export default function NotFound() {
         <Button asChild>
           <Link href="/">
             <ArrowLeft />
-            Regresar
+            Ir a inicio
           </Link>
         </Button>
       </div>
