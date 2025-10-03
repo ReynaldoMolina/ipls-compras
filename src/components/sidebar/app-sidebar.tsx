@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import Logo from '@/icons/logo.svg';
+// import Logo from '@/icons/logo.svg';
 import Link from 'next/link';
 
 import { usePathname } from 'next/navigation';
@@ -22,6 +22,7 @@ import { UserMenu } from './user-menu';
 import { sidebarItems } from './sidebar-items';
 import { Can } from '@casl/react';
 import { useUser } from '@/hooks/use-user';
+import { Frown } from 'lucide-react';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -36,7 +37,8 @@ export function AppSidebar() {
           href="/"
           className="flex gap-2 items-center rounded-md hover:bg-sidebar-accent p-2"
         >
-          <Logo className="size-7" />
+          {/* <Logo className="size-7" /> */}
+          <Frown className="size-7" />
           <span className="font-semibold text-sm">IPLS Compras</span>
         </Link>
       </SidebarHeader>
