@@ -19,12 +19,12 @@ import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
-import { FormOptions } from '../form-elements/form-options';
 import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooter } from '../form-elements/form-footer';
 import { useUser } from '@/hooks/use-user';
 import { Input } from '../ui/input';
 import { getCurrentDate } from '@/lib/get-current-date';
+import { startTransition, useActionState } from 'react';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
@@ -67,9 +67,10 @@ export function SolvenciaForm({
 
   function onSubmit(values: z.infer<typeof solvenciaSchema>) {
     if (action === 'create') {
-      createSolvencia(values, id_proveedor);
-    } else if (action === 'edit' && solvencia) {
-      updateSolvencia(solvencia.id, values, id_proveedor);
+      createSolvencia({ id_proveedor, values });
+    }
+    if (action === 'edit' && solvencia) {
+      updateSolvencia({ id: solvencia.id, values, id_proveedor });
     }
   }
 

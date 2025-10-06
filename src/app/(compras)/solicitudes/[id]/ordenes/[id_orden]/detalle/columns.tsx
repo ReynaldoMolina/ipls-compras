@@ -46,6 +46,7 @@ export const columns: ColumnDef<OrdenDetalleTable>[] = [
     ),
     cell: DefaultCell,
     footer: 'Totales',
+    maxSize: 100,
   },
   {
     accessorKey: 'cantidad',

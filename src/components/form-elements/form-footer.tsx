@@ -4,12 +4,14 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { FormAction } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { Dispatch } from 'react';
+import { LoadingIcon } from '../loading/LoadingIcon';
 
 interface FormFooterProps {
   action: FormAction;
+  isPending?: boolean;
 }
 
-export function FormFooter({ action }: FormFooterProps) {
+export function FormFooter({ action, isPending = false }: FormFooterProps) {
   const router = useRouter();
 
   return (
@@ -17,7 +19,15 @@ export function FormFooter({ action }: FormFooterProps) {
       <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button type="submit">{action === 'create' ? 'Crear' : 'Guardar'}</Button>
+      <Button type="submit" className="w-25" disabled={isPending}>
+        {isPending ? (
+          <LoadingIcon />
+        ) : action === 'create' ? (
+          'Crear'
+        ) : (
+          'Guardar'
+        )}
+      </Button>
     </CardFooter>
   );
 }

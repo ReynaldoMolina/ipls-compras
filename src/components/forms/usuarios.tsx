@@ -24,6 +24,7 @@ import { FormSelect } from '../form-elements/form-select';
 import { DatePicker } from '../date-picker';
 import { User } from 'next-auth';
 import { rolesOptions } from '@/permissions/roles';
+import { startTransition, useActionState } from 'react';
 
 type UserFormProps = {
   action: FormAction;
@@ -54,10 +55,14 @@ export function UserForm({ action, user }: UserFormProps) {
         },
   });
 
+  const [state, formAction, isPending] = useActionState(updateUser, {
+    message: '',
+  });
+
   function onSubmit(values: z.infer<typeof usuarioSchema>) {
-    if (user) {
-      updateUser(user.id, values);
-    }
+    startTransition(() => {
+      formAction({ id_usuario: user?.id, values });
+    });
   }
 
   return (
@@ -122,7 +127,7 @@ export function UserForm({ action, user }: UserFormProps) {
               </FormInputGroup>
             </FormFieldSet>
           </CardContent>
-          <FormFooter action={action} />
+          <FormFooter action={action} isPending={isPending} />
         </Card>
       </form>
     </Form>

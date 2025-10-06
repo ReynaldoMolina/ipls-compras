@@ -6,27 +6,43 @@ import { goBackTo } from './go-back-to-list';
 import { solvencias } from '@/database/schema/solvencias';
 import { eq } from 'drizzle-orm';
 
-export async function createSolvencia(data: Solvencia, id_proveedor: number) {
+interface CreateSolvenciaProps {
+  id_proveedor: number;
+  values: Solvencia;
+}
+
+export async function createSolvencia(
+  // prevState: unknown,
+  data: CreateSolvenciaProps
+) {
   try {
-    await db.insert(solvencias).values(data);
+    await db.insert(solvencias).values(data.values);
   } catch (error) {
     console.error(error);
     return { message: 'Error creating solvencia' };
   }
-  await goBackTo(`/proveedores/${id_proveedor}/solvencias`);
+  await goBackTo(`/proveedores/${data.id_proveedor}/solvencias`);
+}
+
+interface UpdateSolvenciaProps {
+  id: number | undefined;
+  values: Solvencia;
+  id_proveedor: number;
 }
 
 export async function updateSolvencia(
-  id: number | undefined,
-  data: Solvencia,
-  id_proveedor: number
+  // prevState: unknown,
+  data: UpdateSolvenciaProps
 ) {
-  if (!id) return;
+  if (!data.id) return;
   try {
-    await db.update(solvencias).set(data).where(eq(solvencias.id, id));
+    await db
+      .update(solvencias)
+      .set(data.values)
+      .where(eq(solvencias.id, data.id));
   } catch (error) {
     console.error(error);
     return error;
   }
-  await goBackTo(`/proveedores/${id_proveedor}/solvencias`);
+  await goBackTo(`/proveedores/${data.id_proveedor}/solvencias`);
 }

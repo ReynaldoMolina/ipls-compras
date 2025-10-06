@@ -36,10 +36,10 @@ export function AppSidebar() {
           className="flex gap-2 items-center rounded-md hover:bg-sidebar-accent p-2"
         >
           <Image
-            src="/logo-blanco.png"
-            width={90}
-            height={50}
-            className="w-17 text-white text-sm text-center"
+            src="/favicon.ico"
+            width={48}
+            height={48}
+            className="w-6 text-white text-sm text-center"
             alt="Logo"
           />
           <span className="font-semibold text-sm">IPLS Compras</span>
