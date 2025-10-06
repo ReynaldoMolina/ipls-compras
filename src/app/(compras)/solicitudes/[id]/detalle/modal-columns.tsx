@@ -1,6 +1,5 @@
 'use client';
 
-import { SortButtonClient } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { OrdenesModal } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';

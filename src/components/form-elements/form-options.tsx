@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { FormAction, OrdenPdfProps } from '@/types/types';
 import { Download, Ellipsis, Printer } from 'lucide-react';
-import { DeleteButton } from '../delete-button';
+// import { DeleteButton } from '../delete-button';
 import { useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { OrdenPdf } from '@/components/order-pdf/order-pdf';
@@ -35,19 +35,17 @@ export function FormOptions({ action, register }: FormOptionsProps) {
         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {register && <OrdenOptions register={register} />}
-        <DeleteButton
+        {/* <DeleteButton
           setOpen={setOpen}
           count={1}
           handleDelete={() => alert('borrado test')}
-        />
+        /> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
 function OrdenOptions({ register }: { register: OrdenPdfProps }) {
-  console.log(register);
-
   return (
     <>
       <DropdownMenuItem asChild>

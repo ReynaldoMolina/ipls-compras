@@ -22,7 +22,6 @@ import { Card, CardContent } from '../ui/card';
 import { DatePicker } from '../date-picker';
 import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormHeader } from '../form-elements/form-header';
-import { FormOptions } from '../form-elements/form-options';
 import { FormCombobox } from '../form-elements/form-combobox';
 import { FormTextField } from '../form-elements/form-text-field';
 import { FormLink, FormLinkGroup } from '../form-elements/form-link';
@@ -32,6 +31,7 @@ import { FormSelect } from '../form-elements/form-select';
 import { monedas, terminosDePago } from '../../lib/select-options-data';
 import { createOrden, updateOrden } from '@/server-actions/ordenes';
 import { getCurrentDate } from '@/lib/get-current-date';
+import { FormOptions } from '../form-elements/form-options';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
@@ -93,7 +93,9 @@ export function OrdenForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-3xl mx-auto">
-          <FormHeader action={action} name="orden" noun="f" />
+          <FormHeader action={action} name="orden" noun="f">
+            <FormOptions action={action} register={ordenPdf} />
+          </FormHeader>
           <CardContent>
             <FormLinkGroup action={action}>
               <FormLink
