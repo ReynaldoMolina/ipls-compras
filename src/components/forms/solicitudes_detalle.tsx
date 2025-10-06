@@ -21,11 +21,9 @@ import {
 import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
-import { FormOptions } from '../form-elements/form-options';
 import { FormFooter } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
 import { prioridad } from '../../lib/select-options-data';
-import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
 import { useUser } from '@/hooks/use-user';
 
 interface SolicitudDetalleFormProps {
@@ -50,16 +48,16 @@ export function SolicitudDetalleForm({
       ? {
           id_solicitud: detalle.id_solicitud ?? id_solicitud,
           producto_servicio: detalle.producto_servicio ?? '',
-          cantidad: detalle.cantidad ?? 0,
+          cantidad: detalle.cantidad ?? undefined,
           id_unidad_medida: detalle.id_unidad_medida ?? 0,
-          precio: detalle.precio ?? 0,
+          precio: detalle.precio ?? undefined,
           observaciones: detalle.observaciones ?? '',
           prioridad: detalle.prioridad ?? '',
-          comprado: detalle.comprado ?? null,
-          recibido: detalle.recibido ?? null,
-          precio_compra: detalle.precio_compra ?? null,
-          entrega_bodega: detalle.entrega_bodega ?? null,
-          precio_bodega: detalle.precio_bodega ?? null,
+          comprado: detalle.comprado ?? undefined,
+          recibido: detalle.recibido ?? undefined,
+          precio_compra: detalle.precio_compra ?? undefined,
+          entrega_bodega: detalle.entrega_bodega ?? undefined,
+          precio_bodega: detalle.precio_bodega ?? undefined,
           id_estado: detalle.id_estado ?? null,
           id_ubicacion: detalle.id_ubicacion ?? null,
           id_categoria: detalle.id_categoria ?? 0,
@@ -67,16 +65,16 @@ export function SolicitudDetalleForm({
       : {
           id_solicitud: id_solicitud,
           producto_servicio: '',
-          cantidad: 0,
+          cantidad: undefined,
           id_unidad_medida: 0,
-          precio: 0,
+          precio: undefined,
           observaciones: '',
           prioridad: '',
-          comprado: null,
-          recibido: null,
-          precio_compra: null,
-          entrega_bodega: null,
-          precio_bodega: null,
+          comprado: undefined,
+          recibido: undefined,
+          precio_compra: undefined,
+          entrega_bodega: undefined,
+          precio_bodega: undefined,
           id_estado: null,
           id_ubicacion: null,
           id_categoria: 0,
