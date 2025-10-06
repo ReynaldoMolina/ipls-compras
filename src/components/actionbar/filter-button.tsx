@@ -60,7 +60,7 @@ function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
     return <UsuariosFilters {...filterOptions} />;
   }
 
-  if (pathname === '/') {
+  if (pathname === '/resumen') {
     return <ResumenFilters {...filterOptions} />;
   }
 

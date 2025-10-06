@@ -12,6 +12,7 @@ export const columns: ColumnDef<UsuarioTable>[] = [
     id: 'actions',
     header: 'Edit',
     cell: ({ row }) => <EditCell href={`/usuarios/${row.original.id}`} />,
+    size: 50,
   },
   {
     accessorKey: 'name',

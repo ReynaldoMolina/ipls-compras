@@ -10,12 +10,20 @@ import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
 import { userStates } from '@/lib/select-options-data';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: 'Usuarios',
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  const { ability } = await getUserAndPermissions();
+
+  if (ability.cannot('read', 'Usuario')) {
+    notFound();
+  }
+
   const tableData = await getUsersTableData(await searchParams);
   const userRoles = await getUniqueRolesFromUsuarios();
 

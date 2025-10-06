@@ -19,21 +19,20 @@ export type Subjects =
 
 export type AppAbility = MongoAbility<[Actions, Subjects]>;
 
-export function defineAbilitiesFor(role: Roles) {
+export function defineAbilitiesFor(role: Roles | undefined) {
   const { can, cannot, build } = new AbilityBuilder<AppAbility>(
     createMongoAbility
   );
+
+  if (!role) {
+    cannot('manage', 'all');
+  }
 
   if (role === 'superadmin' || role === 'administrador') {
     can('manage', 'all');
   }
 
-  if (
-    role === 'capacitaciones' ||
-    role === 'bodega' ||
-    role === 'subdireccion' ||
-    role === 'personal'
-  ) {
+  if (role === 'bodega') {
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');
@@ -47,6 +46,27 @@ export function defineAbilitiesFor(role: Roles) {
     can('manage', 'OrdenDetalle');
     can('manage', 'Proveedor');
     can('manage', 'Solvencia');
+  }
+
+  if (role === 'capacitaciones') {
+    can('manage', 'Solicitud');
+    can('manage', 'SolicitudDetalle');
+    can('read', 'Orden');
+    can('read', 'OrdenDetalle');
+  }
+
+  if (role === 'subdireccion') {
+    can('manage', 'Solicitud');
+    can('manage', 'SolicitudDetalle');
+    can('read', 'Orden');
+    can('read', 'OrdenDetalle');
+  }
+
+  if (role === 'personal') {
+    can('manage', 'Solicitud');
+    can('manage', 'SolicitudDetalle');
+    can('read', 'Orden');
+    can('read', 'OrdenDetalle');
   }
 
   if (role === 'sinverificar') {

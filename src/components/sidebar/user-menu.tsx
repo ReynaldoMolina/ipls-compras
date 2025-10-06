@@ -33,7 +33,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
               src={user.image ?? '/default-avatar.png'}
               alt={user.name ?? 'Usuario'}
             />
-            <AvatarFallback className="rounded-lg">U</AvatarFallback>
+            <AvatarFallback className="rounded-lg">LS</AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-medium">{user.name}</span>

@@ -19,11 +19,11 @@ import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
 import { FormTextField } from '../form-elements/form-text-field';
 import { FormFooter } from '../form-elements/form-footer';
-import { roles } from '../../lib/select-options-data';
 import { FormSwitch } from '../form-elements/form-switch';
 import { FormSelect } from '../form-elements/form-select';
 import { DatePicker } from '../date-picker';
 import { User } from 'next-auth';
+import { rolesOptions } from '@/permissions/roles';
 
 type UserFormProps = {
   action: FormAction;
@@ -111,7 +111,7 @@ export function UserForm({ action, user }: UserFormProps) {
                   control={form.control}
                   name="role"
                   label="Rol"
-                  options={roles}
+                  options={rolesOptions}
                 />
                 <FormSwitch
                   control={form.control}

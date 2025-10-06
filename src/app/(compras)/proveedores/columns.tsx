@@ -22,12 +22,8 @@ export const columns: ColumnDef<Proveedores>[] = [
         </div>
       );
     },
+    size: 70,
   },
-  // {
-  //   accessorKey: 'id',
-  //   header: ({ column }) => <SortButton column={column} label="Id" />,
-  //   cell: TableId,
-  // },
   {
     accessorKey: 'nombre_comercial',
     header: ({ column }) => (

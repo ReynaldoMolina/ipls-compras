@@ -18,7 +18,7 @@ export const sidebarItems: SidebarItem[] = [
   {
     id: 'Resumen',
     title: 'Resumen',
-    url: '/',
+    url: '/resumen',
     icon: ChartColumn,
   },
   {

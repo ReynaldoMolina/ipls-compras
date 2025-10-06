@@ -30,11 +30,13 @@ export const columns: ColumnDef<OrdenesTable>[] = [
         </div>
       );
     },
+    size: 70,
   },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: IdCell,
+    size: 50,
   },
 
   {
@@ -49,11 +51,13 @@ export const columns: ColumnDef<OrdenesTable>[] = [
     accessorKey: 'id_solicitud',
     header: ({ column }) => <SortButton column={column} label="Solicitud" />,
     cell: IdCell,
+    size: 100,
   },
   {
     accessorKey: 'year',
     header: ({ column }) => <SortButton column={column} label="Año" />,
     cell: DefaultCell,
+    size: 80,
   },
   {
     accessorKey: 'fecha_creacion',
@@ -61,6 +65,7 @@ export const columns: ColumnDef<OrdenesTable>[] = [
       <SortButton column={column} label="Fecha creación" />
     ),
     cell: DateCell,
+    size: 120,
   },
   {
     accessorKey: 'fecha_a_utilizar',
@@ -68,23 +73,13 @@ export const columns: ColumnDef<OrdenesTable>[] = [
       <SortButton column={column} label="Fecha a utilizar" />
     ),
     cell: ({ row }) => <DateStatusCell date={row.original.fecha_a_utilizar} />,
+    size: 120,
   },
   {
     accessorKey: 'estado',
     header: ({ column }) => <SortButton column={column} label="Estado" />,
     cell: DefaultCell,
   },
-  // {
-  //   accessorKey: 'presupuestado',
-  //   header: ({ column }) => (
-  //     <SortButton column={column} label="Presupuestado" />
-  //   ),
-  //   cell: NumberFloatCell,
-  //   footer: ({ table }) => {
-  //     const total = sumColumn(table, 'presupuestado');
-  //     return <NumberCellWithValue value={total} />;
-  //   },
-  // },
   {
     accessorKey: 'asignado',
     header: ({ column }) => <SortButton column={column} label="Total" />,
@@ -93,14 +88,6 @@ export const columns: ColumnDef<OrdenesTable>[] = [
       const total = sumColumn(table, 'asignado');
       return <NumberCellWithValue value={total} />;
     },
+    size: 140,
   },
-  // {
-  //   accessorKey: 'restante',
-  //   header: ({ column }) => <SortButton column={column} label="Restante" />,
-  //   cell: NumberFloatCell,
-  //   footer: ({ table }) => {
-  //     const total = sumColumn(table, 'restante');
-  //     return <NumberCellWithValue value={total} />;
-  //   },
-  // },
 ];

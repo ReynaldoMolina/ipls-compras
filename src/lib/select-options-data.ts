@@ -28,25 +28,6 @@ export const userStates = [
   },
 ];
 
-export const roles = [
-  {
-    value: 'superadmin',
-    label: 'Super admin',
-  },
-  {
-    value: 'administrador',
-    label: 'Administrador',
-  },
-  {
-    value: 'docente',
-    label: 'Docente',
-  },
-  {
-    value: 'sinverificar',
-    label: 'Sin verificar',
-  },
-];
-
 export const prioridad = [
   {
     value: 'I semestre',

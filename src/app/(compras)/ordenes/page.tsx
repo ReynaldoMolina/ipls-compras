@@ -7,6 +7,8 @@ import { columns } from './columns';
 import { getOrdenesEstados, getOrdenesTableData } from '@/fetch-data/ordenes';
 import { FilterButton } from '@/components/actionbar/filter-button';
 import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { notFound } from 'next/navigation';
 
 const title = 'Órdenes de compra';
 
@@ -15,6 +17,10 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  const { ability } = await getUserAndPermissions();
+
+  if (ability.cannot('read', 'Orden')) notFound();
+
   const tableData = await getOrdenesTableData(await searchParams, undefined);
   const years = await getUniqueYearsFromSolicitudes();
   const ordenesStates = await getOrdenesEstados();

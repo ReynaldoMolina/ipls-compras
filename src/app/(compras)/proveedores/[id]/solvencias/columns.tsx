@@ -18,11 +18,13 @@ export const columns: ColumnDef<SolvenciaTable>[] = [
         href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}`}
       />
     ),
+    size: 50,
   },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: IdCell,
+    size: 50,
   },
   {
     accessorKey: 'nombre_comercial',

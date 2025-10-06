@@ -24,11 +24,13 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
         </div>
       );
     },
+    size: 70,
   },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: IdCell,
+    size: 50,
   },
   {
     accessorKey: 'entidad_academica',
@@ -47,6 +49,7 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
     accessorKey: 'year',
     header: ({ column }) => <SortButton column={column} label="Año" />,
     cell: DefaultCell,
+    size: 80,
   },
   {
     accessorKey: 'presupuestado',
@@ -58,6 +61,7 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
       const total = sumColumn(table, 'presupuestado');
       return <NumberCellWithValue value={total} />;
     },
+    size: 140,
   },
   {
     accessorKey: 'asignado',
@@ -67,6 +71,7 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
       const total = sumColumn(table, 'asignado');
       return <NumberCellWithValue value={total} />;
     },
+    size: 140,
   },
   {
     accessorKey: 'restante',
@@ -76,5 +81,6 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
       const total = sumColumn(table, 'restante');
       return <NumberCellWithValue value={total} />;
     },
+    size: 140,
   },
 ];

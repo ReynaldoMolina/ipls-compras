@@ -1,9 +1,8 @@
 import { cookies } from 'next/headers';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { UserProvider } from '@/hooks/use-user';
-import { auth } from '@/auth';
-import { defaultUser } from '@/permissions/default-user';
 import { AppSidebar } from '@/components/sidebar/app-sidebar';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
 
 export default async function Layout({
   children,
@@ -12,8 +11,7 @@ export default async function Layout({
 }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
-  const session = await auth();
-  const user = session?.user ?? defaultUser;
+  const { user } = await getUserAndPermissions();
 
   return (
     <UserProvider user={user}>
