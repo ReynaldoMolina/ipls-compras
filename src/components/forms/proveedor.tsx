@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
-import { providerSchema } from '@/validation-schemas';
+import { providerSchema } from '@/components/forms/validation/validation-schemas';
 import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { FormFooter } from '../form-elements/form-footer';
@@ -73,9 +73,7 @@ export function ProveedorForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="mx-auto max-w-3xl">
-          <FormHeader action={action} name="proveedor" noun="m">
-            <FormOptions action={action} />
-          </FormHeader>
+          <FormHeader action={action} name="proveedor" noun="m" />
           <CardContent>
             <FormLinkGroup action={action}>
               <FormLink

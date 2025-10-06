@@ -13,7 +13,6 @@ type TextFieldProps<T extends FieldValues> = {
   name: Path<T>;
   label: string;
   placeholder?: string;
-  type?: 'text' | 'number';
   disabled?: boolean;
   hidden?: boolean;
 };
@@ -23,7 +22,6 @@ export function FormTextField<T extends FieldValues>({
   name,
   label,
   placeholder,
-  type = 'text',
   disabled = false,
   hidden = false,
 }: TextFieldProps<T>) {
@@ -36,15 +34,11 @@ export function FormTextField<T extends FieldValues>({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              type={type}
+              type="text"
               placeholder={placeholder ?? label}
               {...field}
               value={field.value ?? ''}
-              onChange={(e) =>
-                field.onChange(
-                  type === 'number' ? Number(e.target.value) : e.target.value
-                )
-              }
+              onChange={(e) => field.onChange(e.target.value)}
               disabled={disabled}
             />
           </FormControl>

@@ -14,6 +14,7 @@ export type Subjects =
   | 'Solvencia'
   | 'Solicitud'
   | 'SolicitudDetalle'
+  | 'SolicitudBodega'
   | 'Usuario'
   | 'all';
 
@@ -35,6 +36,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   if (role === 'bodega') {
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
+    can('manage', 'SolicitudBodega');
     can('read', 'Orden');
     can('read', 'OrdenDetalle');
   }

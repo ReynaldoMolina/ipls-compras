@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { solvenciaSchema } from '@/validation-schemas';
+import { solvenciaSchema } from '@/components/forms/validation/validation-schemas';
 import { FormAction, Solvencia } from '@/types/types';
 import { createSolvencia, updateSolvencia } from '@/server-actions/solvencias';
 import { DatePicker } from '../date-picker';
@@ -77,9 +77,7 @@ export function SolvenciaForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-2xl mx-auto">
-          <FormHeader action={action} name="solvencia" noun="f">
-            <FormOptions action={action} />
-          </FormHeader>
+          <FormHeader action={action} name="solvencia" noun="f" />
           <CardContent>
             <FormFieldSet name="verification">
               <FormTextField

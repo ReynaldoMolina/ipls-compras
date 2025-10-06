@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ordenesSchema } from '@/validation-schemas';
+import { ordenesSchema } from '@/components/forms/validation/validation-schemas';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import {
   ComboBoxData,
@@ -93,9 +93,7 @@ export function OrdenForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-3xl mx-auto">
-          <FormHeader action={action} name="orden" noun="f">
-            <FormOptions action={action} register={ordenPdf} />
-          </FormHeader>
+          <FormHeader action={action} name="orden" noun="f" />
           <CardContent>
             <FormLinkGroup action={action}>
               <FormLink

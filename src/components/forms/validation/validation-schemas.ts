@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { zNumberMin, zNumberNullable } from './zod-helper';
 
 export const providerSchema = z.object({
   nombre_comercial: z.string().trim().min(1, 'Requerido'),
@@ -49,16 +50,16 @@ export const solicitudSchema = z.object({
 export const detalleSolicitudSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
   producto_servicio: z.string().trim().min(1, 'Requerido'),
-  cantidad: z.number().min(1, 'Requerido'),
+  cantidad: zNumberMin(),
   id_unidad_medida: z.number().min(1, 'Requerido'),
-  precio: z.number().min(1, 'Requerido'),
+  precio: zNumberMin(),
   observaciones: z.string().trim().nullable(),
   prioridad: z.string().nullable(),
-  comprado: z.number().nullable(),
-  recibido: z.number().nullable(),
-  precio_compra: z.number().nullable(),
-  entrega_bodega: z.number().nullable(),
-  precio_bodega: z.number().nullable(),
+  comprado: zNumberNullable(),
+  recibido: zNumberNullable(),
+  precio_compra: zNumberNullable(),
+  entrega_bodega: zNumberNullable(),
+  precio_bodega: zNumberNullable(),
   id_estado: z.number().nullable(),
   id_ubicacion: z.number().nullable(),
   id_categoria: z.number().min(1, 'Requerido'),
@@ -79,7 +80,7 @@ export const ordenesSchema = z.object({
 export const detalleOrdenSchema = z.object({
   id_orden: z.number().min(1, 'Requerido'),
   id_solicitud_detalle: z.number().min(1, 'Requerido'),
-  cantidad: z.number().min(1, 'Requerido'),
-  precio_real: z.number().min(1, 'Requerido'),
+  cantidad: zNumberMin(),
+  precio_real: zNumberMin(),
   observaciones: z.string().trim().nullable(),
 });

@@ -9,12 +9,18 @@ import { FilterButton } from '@/components/actionbar/filter-button';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: 'Proveedores',
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  const { ability } = await getUserAndPermissions();
+
+  if (ability.cannot('read', 'Proveedor')) notFound();
+
   const proveedoresTableData = await getProveedoresTableData(
     await searchParams
   );

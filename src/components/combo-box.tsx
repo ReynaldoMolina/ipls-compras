@@ -24,6 +24,7 @@ import { ComboBoxData } from '@/types/types';
 interface ComboBoxProps {
   options: ComboBoxData;
   value: string;
+  disabled?: boolean;
   onChange: (value: number) => void;
   onParamUpdate?: (value: string) => void;
 }
@@ -31,6 +32,7 @@ interface ComboBoxProps {
 export function ComboBox({
   options,
   value,
+  disabled = false,
   onChange,
   onParamUpdate,
 }: ComboBoxProps) {
@@ -46,6 +48,7 @@ export function ComboBox({
           <Button
             variant="outline"
             role="combobox"
+            disabled={disabled}
             className={cn(
               'w-full justify-between text-sm font-normal',
               !value && 'text-muted-foreground'

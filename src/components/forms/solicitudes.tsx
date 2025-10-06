@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { solicitudSchema } from '@/validation-schemas';
+import { solicitudSchema } from '@/components/forms/validation/validation-schemas';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { ComboBoxData, FormAction, SolicitudFormType } from '@/types/types';
 import { createSolicitud, updateSolicitud } from '@/server-actions/solicitudes';
@@ -77,9 +77,7 @@ export function SolicitudForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-3xl mx-auto">
-          <FormHeader action={action} name="solicitud" noun="f">
-            <FormOptions action={action} />
-          </FormHeader>
+          <FormHeader action={action} name="solicitud" noun="f" />
           <CardContent>
             <FormLinkGroup action={action}>
               <FormLink

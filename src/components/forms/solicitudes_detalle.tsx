@@ -8,7 +8,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { detalleSolicitudSchema } from '@/validation-schemas';
+import { detalleSolicitudSchema } from '@/components/forms/validation/validation-schemas';
 import { Form } from '@/components/ui/form';
 import { FormTextField } from '@/components/form-elements/form-text-field';
 import { FormInputGroup } from '@/components/form-elements/form-input-group';
@@ -25,6 +25,8 @@ import { FormOptions } from '../form-elements/form-options';
 import { FormFooter } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
 import { prioridad } from '../../lib/select-options-data';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { useUser } from '@/hooks/use-user';
 
 interface SolicitudDetalleFormProps {
   action: FormAction;
@@ -39,6 +41,9 @@ export function SolicitudDetalleForm({
   id_solicitud,
   selectOptions,
 }: SolicitudDetalleFormProps) {
+  const { ability } = useUser();
+  const canNotUpdateBodega = ability.cannot('update', 'SolicitudBodega');
+
   const form = useForm<z.infer<typeof detalleSolicitudSchema>>({
     resolver: zodResolver(detalleSolicitudSchema),
     defaultValues: detalle
@@ -90,9 +95,7 @@ export function SolicitudDetalleForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="max-w-2xl mx-auto">
-          <FormHeader action={action} name="producto o servicio" noun="m">
-            <FormOptions action={action} />
-          </FormHeader>
+          <FormHeader action={action} name="producto o servicio" noun="m" />
           <CardContent>
             <FormFieldSet name="info">
               <FormTextField
@@ -112,13 +115,11 @@ export function SolicitudDetalleForm({
                   control={form.control}
                   name="cantidad"
                   label="Cantidad"
-                  type="number"
                 />
                 <FormTextField
                   control={form.control}
                   name="precio"
                   label="Precio"
-                  type="number"
                 />
               </FormInputGroup>
               <FormInputGroup>
@@ -163,19 +164,19 @@ export function SolicitudDetalleForm({
                   control={form.control}
                   name="comprado"
                   label="Comprado"
-                  type="number"
+                  disabled={canNotUpdateBodega}
                 />
                 <FormTextField
                   control={form.control}
                   name="recibido"
                   label="Recibido"
-                  type="number"
+                  disabled={canNotUpdateBodega}
                 />
                 <FormTextField
                   control={form.control}
                   name="precio_compra"
                   label="Precio compra"
-                  type="number"
+                  disabled={canNotUpdateBodega}
                 />
               </FormInputGroup>
               <FormInputGroup className="flex-row">
@@ -183,13 +184,13 @@ export function SolicitudDetalleForm({
                   control={form.control}
                   name="entrega_bodega"
                   label="Entrega bodega"
-                  type="number"
+                  disabled={canNotUpdateBodega}
                 />
                 <FormTextField
                   control={form.control}
                   name="precio_bodega"
                   label="Precio bodega"
-                  type="number"
+                  disabled={canNotUpdateBodega}
                 />
               </FormInputGroup>
               <FormInputGroup>
@@ -198,6 +199,7 @@ export function SolicitudDetalleForm({
                   name="id_ubicacion"
                   label="Ubicación"
                   options={selectOptions.ubicaciones ?? []}
+                  disabled={canNotUpdateBodega}
                 />
               </FormInputGroup>
             </FormFieldSet>

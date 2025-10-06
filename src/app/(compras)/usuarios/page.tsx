@@ -20,9 +20,7 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   const { ability } = await getUserAndPermissions();
 
-  if (ability.cannot('read', 'Usuario')) {
-    notFound();
-  }
+  if (ability.cannot('read', 'Usuario')) notFound();
 
   const tableData = await getUsersTableData(await searchParams);
   const userRoles = await getUniqueRolesFromUsuarios();

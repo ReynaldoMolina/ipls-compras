@@ -10,12 +10,18 @@ import {
   presupuestoChartConfig,
 } from '@/components/chart/chart-config';
 import { PageProps } from '@/types/types';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: 'Resumen',
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  const { ability } = await getUserAndPermissions();
+
+  if (ability.cannot('read', 'Resumen')) notFound();
+
   const year = Number((await searchParams).year) || currentYear;
   const years = await getUniqueYearsFromSolicitudes();
   const comparisonChartData = await getResumenComparisonChartByEntidad(year);

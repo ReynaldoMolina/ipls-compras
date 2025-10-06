@@ -4,7 +4,7 @@ import { FormAction, OrdenDetalleFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { detalleOrdenSchema } from '@/validation-schemas';
+import { detalleOrdenSchema } from '@/components/forms/validation/validation-schemas';
 import { Form } from '@/components/ui/form';
 import { FormTextField } from '@/components/form-elements/form-text-field';
 import { FormInputGroup } from '@/components/form-elements/form-input-group';
@@ -86,13 +86,11 @@ export function OrdenDetalleForm({ action, detalle }: OrdenDetalleFormProps) {
                   control={form.control}
                   name="cantidad"
                   label="Cantidad"
-                  type="number"
                 />
                 <FormTextField
                   control={form.control}
                   name="precio_real"
                   label="Precio real"
-                  type="number"
                 />
               </FormInputGroup>
               <FormTextArea

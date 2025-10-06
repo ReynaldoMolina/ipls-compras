@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { usuarioSchema } from '@/validation-schemas';
+import { usuarioSchema } from '@/components/forms/validation/validation-schemas';
 import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { FormAction } from '@/types/types';

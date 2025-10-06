@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { loginSchema } from '@/validation-schemas';
+import { loginSchema } from '@/components/forms/validation/validation-schemas';
 import { Form } from '../ui/form';
 import { loginWithGoogle } from '@/server-actions/auth';
 import { Hero } from './hero';

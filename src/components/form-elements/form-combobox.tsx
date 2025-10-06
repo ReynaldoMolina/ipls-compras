@@ -14,6 +14,7 @@ type FormComboboxProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label: string;
+  disabled?: boolean;
   options: ComboBoxData;
   updateParam?: string;
   resetField?: () => void;
@@ -23,6 +24,7 @@ export function FormCombobox<T extends FieldValues>({
   control,
   name,
   label,
+  disabled = false,
   options,
   updateParam,
   resetField,
@@ -41,6 +43,7 @@ export function FormCombobox<T extends FieldValues>({
               options={options}
               value={field.value}
               onChange={field.onChange}
+              disabled={disabled}
               onParamUpdate={(value) => {
                 if (updateParam && resetField) {
                   setUrlParam(updateParam, value);

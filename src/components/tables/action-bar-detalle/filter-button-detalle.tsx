@@ -3,7 +3,7 @@ import { Filter } from 'lucide-react';
 
 export function FilterButtonDetalle() {
   return (
-    <Button variant="outline" onClick={() => alert('Filtrar test')}>
+    <Button variant="outline" disabled>
       <Filter />
       <span className="hidden sm:flex">Filtrar</span>
     </Button>

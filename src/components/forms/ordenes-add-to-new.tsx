@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ordenesSchema } from '@/validation-schemas';
+import { ordenesSchema } from '@/components/forms/validation/validation-schemas';
 import { FormFieldSet } from '../form-elements/form-fieldset';
 import { DatePicker } from '../date-picker';
 import { FormInputGroup } from '../form-elements/form-input-group';
