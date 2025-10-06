@@ -96,3 +96,22 @@ export async function getUniqueYearsFromSolicitudes() {
     );
   }
 }
+
+export async function getEntidadAcademicaBySolicitudId(
+  id: number | string
+): Promise<number> {
+  try {
+    const [data] = await db
+      .select({
+        id_entidad_academica: solicitudes.id_entidad_academica,
+      })
+      .from(solicitudes)
+      .where(eq(solicitudes.id, Number(id)));
+    return data.id_entidad_academica;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener la entidad academica de la solicitud, por favor intenta de nuevo'
+    );
+  }
+}

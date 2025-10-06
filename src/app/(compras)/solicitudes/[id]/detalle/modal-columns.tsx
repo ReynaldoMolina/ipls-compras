@@ -1,6 +1,6 @@
 'use client';
 
-import { SortButton } from '@/components/tables/sort-button';
+import { SortButtonClient } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { OrdenesModal } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
@@ -16,30 +16,28 @@ export const columns: ColumnDef<OrdenesModal>[] = [
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => <SortButton column={column} label="Id" />,
+    header: 'Id',
     cell: IdCell,
   },
 
   {
     accessorKey: 'entidad_academica',
-    header: ({ column }) => (
-      <SortButton column={column} label="Carrera / curso / área" />
-    ),
+    header: 'Carrera / curso / área',
     cell: DefaultCell,
   },
   {
     accessorKey: 'id_solicitud',
-    header: ({ column }) => <SortButton column={column} label="Solicitud" />,
+    header: 'Solicitud',
     cell: IdCell,
   },
   {
     accessorKey: 'year',
-    header: ({ column }) => <SortButton column={column} label="Año" />,
+    header: 'Año',
     cell: DefaultCell,
   },
   {
     accessorKey: 'estado',
-    header: ({ column }) => <SortButton column={column} label="Estado" />,
+    header: 'Estado',
     cell: DefaultCell,
   },
 ];

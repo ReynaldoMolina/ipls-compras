@@ -13,6 +13,7 @@ import { columns } from './columns';
 import { getProveedores } from '@/fetch-data/form-select-options';
 import { getOrdenesAddToExistingModal } from '@/fetch-data/ordenes';
 import { DataTableSolicitudesDetalle } from '@/components/tables/detalle/data-table-solicitudes-detalle';
+import { getEntidadAcademicaBySolicitudId } from '@/fetch-data/solicitudes';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const id_solicitud = (await params).id;
   const tableData = await getSolicitudDetalleBySolicitudId(id_solicitud);
 
@@ -30,9 +31,10 @@ export default async function Page({ params, searchParams }: PageProps) {
   const categorias = await getDetalleCategorias();
   const proveedores = await getProveedores();
 
-  const ordenesTableDataModal = await getOrdenesAddToExistingModal(
-    await searchParams
-  );
+  const id_entidad_academica =
+    await getEntidadAcademicaBySolicitudId(id_solicitud);
+  const ordenesTableDataModal =
+    await getOrdenesAddToExistingModal(id_entidad_academica);
 
   return (
     <>
@@ -44,6 +46,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           tableDataModal={ordenesTableDataModal}
           selectOptions={{ unidadesMedida, estados, categorias, proveedores }}
           id_solicitud={Number(id_solicitud)}
+          id_entidad_academica={Number(id_entidad_academica)}
         />
       </PageWrapper>
     </>

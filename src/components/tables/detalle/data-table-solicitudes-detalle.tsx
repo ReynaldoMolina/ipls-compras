@@ -31,6 +31,7 @@ interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
   tableDataModal?: TModal[];
   selectOptions?: DetalleSelectOptions;
   id_solicitud: number;
+  id_entidad_academica: number;
 }
 
 export function DataTableSolicitudesDetalle<
@@ -43,6 +44,7 @@ export function DataTableSolicitudesDetalle<
   tableDataModal,
   selectOptions,
   id_solicitud,
+  id_entidad_academica,
 }: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -71,6 +73,7 @@ export function DataTableSolicitudesDetalle<
     meta: {
       selectOptions,
       id_solicitud,
+      id_entidad_academica,
       setGrouped,
       grouped,
       tableDataModal,

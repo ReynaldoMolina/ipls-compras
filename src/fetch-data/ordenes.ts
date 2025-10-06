@@ -123,8 +123,7 @@ export async function getOrdenesEstados() {
 }
 
 export async function getOrdenesAddToExistingModal(
-  searchParams: SearchParamsProps
-  // id_solicitud: number | undefined
+  id_entidad_academica: number | undefined
 ) {
   const selectFields = {
     id: ordenes.id,
@@ -133,13 +132,6 @@ export async function getOrdenesAddToExistingModal(
     year: solicitudes.year,
     estado: ordenes_estados.estado,
   };
-
-  // const filterByIdSolicitud = buildOrdenesByIdSolicitud(
-  //   id_solicitud ?? undefined
-  // );
-  const filterByYear = buildFilterSolicitudesByYear(searchParams);
-  const filterByOrderState = buildFilterByOrderState(searchParams);
-  const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {
     const data = await db
@@ -156,14 +148,7 @@ export async function getOrdenesAddToExistingModal(
         eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
       )
       .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
-      .where(
-        and(
-          // filterBySearch,
-          filterByYear,
-          // filterByIdSolicitud,
-          filterByOrderState
-        )
-      )
+      .where(eq(solicitudes.id_entidad_academica, Number(id_entidad_academica)))
       .groupBy(
         ordenes.id,
         solicitudes.year,
@@ -171,7 +156,7 @@ export async function getOrdenesAddToExistingModal(
         entidades_academicas.tipo,
         ordenes_estados.estado
       )
-      .orderBy(orderBy);
+      .orderBy(ordenes.id);
     return data;
   } catch (error) {
     console.error(error);
