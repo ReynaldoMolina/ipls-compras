@@ -3,7 +3,7 @@ import { columns } from './columns';
 import {
   getSolvenciasByProviderId,
   getUniqueYearsFromSolvencias,
-} from '@/fetch-data/solvencias';
+} from '@/fetch-data/proveedor-solvencia';
 import { ActionBar } from '@/components/actionbar/action-bar';
 import { FilterButton } from '@/components/actionbar/filter-button';
 import { Header } from '@/components/header/header';

@@ -2,7 +2,7 @@ import { EditarProductoForm } from '@/components/forms/producto/editar';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { getProductById } from '@/fetch-data/productos';
-import { getUnidadesMedida } from '@/fetch-data/solicitudes-detalle';
+import { getUnidadesMedida } from '@/fetch-data/presupuesto-detalle';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {

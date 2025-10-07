@@ -10,9 +10,9 @@ import {
 import { Filter } from 'lucide-react';
 import {
   OrdenesFilters,
+  PresupuestosFilters,
   ProvidersFilters,
   ResumenFilters,
-  SolicitudesFilters,
   SolvenciasFilters,
   UsuariosFilters,
 } from './filter/filter-menu';
@@ -64,8 +64,8 @@ function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
     return <ResumenFilters {...filterOptions} />;
   }
 
-  if (pathname === '/solicitudes') {
-    return <SolicitudesFilters {...filterOptions} />;
+  if (pathname === '/presupuestos') {
+    return <PresupuestosFilters {...filterOptions} />;
   }
 
   if (

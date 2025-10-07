@@ -32,7 +32,7 @@ import React, { useState } from 'react';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '../ui/button';
 import { Table } from '@tanstack/react-table';
-import { createOrdenFromSelectedIds } from '@/server-actions/ordenes';
+import { createOrdenFromSelectedIds } from '@/server-actions/orden';
 import { getCurrentDate } from '@/lib/get-current-date';
 
 type OrdenFormValues = z.infer<typeof ordenesSchema>;

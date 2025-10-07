@@ -2,7 +2,7 @@ import NextAuth, { User } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/database/db';
-import { accounts, users } from './database/schema/usuarios';
+import { accounts, users } from './database/schema/user';
 import { Roles } from './permissions/roles';
 
 // Export runtime Node only

@@ -7,7 +7,7 @@ import { providerSchema } from '@/components/forms/validation/validation-schemas
 import { DetalleSelectOptions, ProveedorFormType } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { ProveedorForm } from './form';
-import { updateProvider } from '@/server-actions/providers';
+import { updateProvider } from '@/server-actions/proveedor';
 
 interface EditarProveedorFormProps {
   proveedor: ProveedorFormType;

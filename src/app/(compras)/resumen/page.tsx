@@ -3,7 +3,7 @@ import { Chart } from '@/components/chart/chart';
 import { Header } from '@/components/header/header';
 import { getResumenComparisonChartByEntidad } from '@/fetch-data/resumen';
 import { FilterButton } from '@/components/actionbar/filter-button';
-import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
+import { getUniqueYearsFromSolicitudes } from '@/fetch-data/presupuesto';
 import { currentYear } from '@/lib/select-options-data';
 import {
   comparisonChartConfig,

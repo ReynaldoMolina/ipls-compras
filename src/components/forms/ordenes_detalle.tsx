@@ -13,7 +13,7 @@ import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
 import { FormFooter } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
-import { updateOrdenDetalleById } from '@/server-actions/ordenes-detalle';
+import { updateOrdenDetalleById } from '@/server-actions/orden-detalle';
 import { FormTextReadOnly } from '../form-elements/form-text-readonly';
 import { FormTextAreaReadOnly } from '../form-elements/form-text-area-readonly';
 

@@ -6,7 +6,7 @@ import {
   getSectores,
   getSubsectoresBySector,
 } from '@/fetch-data/form-select-options';
-import { getProveedorById } from '@/fetch-data/proveedores';
+import { getProveedorById } from '@/fetch-data/proveedor';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {

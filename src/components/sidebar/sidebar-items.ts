@@ -1,8 +1,8 @@
 import { PageId } from '@/types/types';
 import {
   ChartColumn,
+  ChartPie,
   ListCheck,
-  Package,
   ShoppingCart,
   Truck,
   Users,
@@ -20,25 +20,25 @@ export const sidebarItems: SidebarItem[] = [
     id: 'Solicitud',
     title: 'Solicitudes de compra',
     url: '/solicitudes',
-    icon: ShoppingCart,
+    icon: ListCheck,
   },
   {
     id: 'Orden',
     title: 'Órdenes de compra',
     url: '/ordenes',
-    icon: ListCheck,
+    icon: ShoppingCart,
+  },
+  {
+    id: 'Presupuestos',
+    title: 'Presupuestos',
+    url: '/presupuestos',
+    icon: ChartPie,
   },
   {
     id: 'Proveedor',
     title: 'Proveedores',
     url: '/proveedores',
     icon: Truck,
-  },
-  {
-    id: 'Productos',
-    title: 'Productos',
-    url: '/productos',
-    icon: Package,
   },
   {
     id: 'Resumen',

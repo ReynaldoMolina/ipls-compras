@@ -29,7 +29,7 @@ import { FormFooter } from '../form-elements/form-footer';
 import { FormTextArea } from '../form-elements/form-text-area';
 import { FormSelect } from '../form-elements/form-select';
 import { monedas, terminosDePago } from '../../lib/select-options-data';
-import { createOrden, updateOrden } from '@/server-actions/ordenes';
+import { createOrden, updateOrden } from '@/server-actions/orden';
 import { getCurrentDate } from '@/lib/get-current-date';
 import { FormOptions } from '../form-elements/form-options';
 

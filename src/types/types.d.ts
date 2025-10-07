@@ -1,10 +1,10 @@
 export type PageId =
   | 'Resumen'
-  | 'Productos'
   | 'Solicitud'
   | 'Orden'
   | 'Proveedor'
   | 'Usuario'
+  | 'Presupuestos'
   | 'empty';
 
 export type SortOrder = 'asc' | 'desc';
@@ -46,10 +46,11 @@ interface Proveedor {
   correo?: string | null;
 }
 
-export interface Proveedores extends Proveedor {
+export interface ProveedorTable extends Proveedor {
   solvencia: string | null;
   departamento?: string | null;
 }
+
 export interface ProveedorFormType extends Proveedor {
   contacto_principal?: string | null;
   id_departamento: number;
@@ -60,12 +61,6 @@ export interface ProveedorFormType extends Proveedor {
 }
 
 export type FormAction = 'create' | 'edit';
-
-export interface FormProps {
-  action: FormAction;
-  data?: ProveedorForm;
-  id?: number;
-}
 
 export interface Solvencia {
   id?: number;
@@ -102,54 +97,40 @@ export interface Usuario {
   activo: boolean | null;
 }
 
-export interface Solicitud {
+export interface Presupuesto {
   id?: number;
   year: number;
 }
 
-export interface SolicitudesTable extends Solicitud {
+export interface PresupuestoTable extends Presupuesto {
   tipo: string | null;
   entidad_academica: string | null;
-  abreviacion: string | null;
   presupuestado: number | null;
-  asignado: number | null;
-  restante: number | null;
 }
 
-export interface SolicitudFormType extends Solicitud {
-  fecha: string;
+export interface PresupuestoFormType extends Presupuesto {
   id_entidad_academica: number;
-  id_usuario: string;
-  revisado_bodega: boolean | null;
 }
 
-export interface SolicitudDetalle {
+export interface PresupuestoDetalle {
   id?: number;
-  id_solicitud: number;
+  id_presupuesto: number;
   producto_servicio: string;
   cantidad: number;
-  precio: number;
+  precio_sugerido: number;
   observaciones?: string | null;
   prioridad?: string | null;
-  comprado?: number | null;
-  recibido?: number | null;
-  precio_compra?: number | null;
-  entrega_bodega?: number | null;
-  precio_bodega?: number | null;
-  id_estado?: number | null;
 }
 
-export interface SolicitudDetalleFormType extends SolicitudDetalle {
-  id_unidad_medida: number;
-  id_ubicacion?: number | null;
-  id_categoria?: number | null;
-}
-
-export interface SolicitudDetalleTable extends SolicitudDetalle {
+export interface PresupuestoDetalleTable extends PresupuestoDetalle {
   unidad_medida: string | null;
   estado?: string | null;
-  ubicacion?: string | null;
   categoria?: string | null;
+}
+
+export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
+  id_unidad_medida: number;
+  id_categoria?: number | null;
 }
 
 export type SelectOptions = {
@@ -158,14 +139,12 @@ export type SelectOptions = {
 };
 
 export type FilterOptions = {
-  departamentosOptions?: SelectOptions[];
+  departamento?: SelectOptions[];
   years?: SelectOptions[];
   userStates?: SelectOptions[];
   userRoles?: SelectOptions[];
-  ordenesStates?: SelectOptions[];
+  ordenState?: SelectOptions[];
 };
-
-export type ComboBoxData = SelectOptions[];
 
 export type EditedRows = Record<string, boolean>;
 
@@ -175,21 +154,21 @@ export interface ChartData {
   asignado?: number;
 }
 
-export interface ActionsBarDetalleProps<TData> {
-  table: Table<TData>;
-  tableName: 'orden' | 'solicitud' | 'ordenmodal';
-  allowNew?: boolean;
-}
+// export interface ActionsBarDetalleProps<TData> {
+//   table: Table<TData>;
+//   tableName: 'orden' | 'solicitud' | 'ordenmodal';
+//   allowNew?: boolean;
+// }
 
-export interface DetalleSelectOptions {
-  unidadesMedida?: ComboBoxData;
-  estados?: ComboBoxData;
-  ubicaciones?: ComboBoxData;
-  categorias?: ComboBoxData;
-  proveedores?: ComboBoxData;
-  departamentos?: ComboBoxData;
-  sectores?: ComboBoxData;
-  subsectores?: ComboBoxData;
+export interface FormSelectOptions {
+  unidadesMedida?: SelectOptions[];
+  estados?: SelectOptions[];
+  ubicaciones?: SelectOptions[];
+  categorias?: SelectOptions[];
+  proveedores?: SelectOptions[];
+  departamentos?: SelectOptions[];
+  sectores?: SelectOptions[];
+  subsectores?: SelectOptions[];
 }
 
 export interface Orden {
@@ -199,7 +178,7 @@ export interface Orden {
   fecha_a_utilizar?: string | null;
 }
 
-export interface OrdenesTable extends Orden {
+export interface OrdenTable extends Orden {
   entidad_academica: string | null;
   year: number | null;
   estado: string | null;
@@ -209,7 +188,7 @@ export interface OrdenesTable extends Orden {
   restante: number;
 }
 
-export interface OrdenesModal extends Orden {
+export interface OrdenModal extends Orden {
   id: number;
   entidad_academica: string | null;
   year: number | null;
@@ -267,16 +246,4 @@ export interface OrdenPdfDetalleProps {
   unidad_medida: string | null;
   producto_servicio: string | null;
   precio_real: number;
-}
-
-export interface ProductosTable {
-  id: number;
-  nombre_producto: string | null;
-  unidad_medida: string | null;
-}
-
-export interface ProductoFormType {
-  id?: number;
-  nombre_producto: string;
-  id_unidad_medida: number;
 }

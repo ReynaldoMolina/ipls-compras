@@ -8,7 +8,7 @@ import { Table } from '@tanstack/react-table';
 import { Dispatch, SetStateAction } from 'react';
 import { GroupBySubMenu } from '../submenus';
 import { DeleteButton } from '@/components/delete-button';
-import { deleteOrdenDetalleByIds } from '@/server-actions/ordenes-detalle';
+import { deleteOrdenDetalleByIds } from '@/server-actions/orden-detalle';
 import { useRouter } from 'next/navigation';
 
 interface OptionsMenuOrdenDetalleProps<TData extends { id: number }> {

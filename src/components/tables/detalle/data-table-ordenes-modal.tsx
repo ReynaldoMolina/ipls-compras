@@ -23,7 +23,7 @@ import {
 import { Dispatch, useState } from 'react';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { addToExistingOrdenDetalleBySelectedIds } from '@/server-actions/ordenes-detalle';
+import { addToExistingOrdenDetalleBySelectedIds } from '@/server-actions/orden-detalle';
 import { OrdenesModal } from '@/types/types';
 
 interface DataTableProps<TData extends OrdenesModal, TValue> {

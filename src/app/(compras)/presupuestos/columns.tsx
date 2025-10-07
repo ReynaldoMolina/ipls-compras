@@ -1,0 +1,86 @@
+'use client';
+
+import { SortButton } from '@/components/tables/sort-button';
+import { ColumnDef } from '@tanstack/react-table';
+import {
+  NumberCellWithValue,
+  NumberFloatCell,
+} from '@/components/tables/number-cell';
+import { SolicitudesTable } from '@/types/types';
+import { IdCell } from '@/components/tables/id-cell';
+import { DefaultCell } from '@/components/tables/default-cell';
+import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
+import { sumColumn } from '@/lib/sum-column';
+
+export const columns: ColumnDef<SolicitudesTable>[] = [
+  {
+    id: 'actions',
+    header: 'Acciones',
+    cell: ({ row }) => {
+      return (
+        <div className="inline-flex gap-1">
+          <EditCell href={`/solicitudes/${row.original.id}`} />
+          <GoToListCell href={`/solicitudes/${row.original.id}/detalle`} />
+        </div>
+      );
+    },
+    size: 70,
+  },
+  {
+    accessorKey: 'id',
+    header: ({ column }) => <SortButton column={column} label="Id" />,
+    cell: IdCell,
+    size: 50,
+  },
+  {
+    accessorKey: 'entidad_academica',
+    header: ({ column }) => (
+      <SortButton column={column} label="Carrera / curso / área" />
+    ),
+    cell: DefaultCell,
+    footer: 'Totales',
+  },
+  {
+    accessorKey: 'abreviacion',
+    header: ({ column }) => <SortButton column={column} label="Abreviación" />,
+    cell: DefaultCell,
+  },
+  {
+    accessorKey: 'year',
+    header: ({ column }) => <SortButton column={column} label="Año" />,
+    cell: DefaultCell,
+    size: 80,
+  },
+  {
+    accessorKey: 'presupuestado',
+    header: ({ column }) => (
+      <SortButton column={column} label="Presupuestado" />
+    ),
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'presupuestado');
+      return <NumberCellWithValue value={total} />;
+    },
+    size: 140,
+  },
+  {
+    accessorKey: 'asignado',
+    header: ({ column }) => <SortButton column={column} label="Asignado" />,
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'asignado');
+      return <NumberCellWithValue value={total} />;
+    },
+    size: 140,
+  },
+  {
+    accessorKey: 'restante',
+    header: ({ column }) => <SortButton column={column} label="Restante" />,
+    cell: NumberFloatCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'restante');
+      return <NumberCellWithValue value={total} />;
+    },
+    size: 140,
+  },
+];

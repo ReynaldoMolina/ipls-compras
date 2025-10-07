@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { providerSchema } from '@/components/forms/validation/validation-schemas';
 import { DetalleSelectOptions } from '@/types/types';
 import { startTransition, useActionState } from 'react';
-import { createProvider } from '@/server-actions/providers';
+import { createProvider } from '@/server-actions/proveedor';
 import { ProveedorForm } from './form';
 
 interface NuevoProveedorFormProps {

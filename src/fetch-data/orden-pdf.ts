@@ -1,10 +1,10 @@
 import { db } from '@/database/db';
 import { eq } from 'drizzle-orm';
-import { ordenes } from '@/database/schema/ordenes';
-import { proveedores } from '@/database/schema/proveedores';
-import { ordenes_detalle } from '@/database/schema/ordenes-detalle';
-import { solicitudes_detalle } from '@/database/schema/solicitudes-detalle';
-import { unidades_medida } from '@/database/schema/unidades-medida';
+import { ordenes } from '@/database/schema/orden';
+import { proveedores } from '@/database/schema/proveedor';
+import { ordenes_detalle } from '@/database/schema/orden-detalle';
+import { solicitudes_detalle } from '@/database/schema/presupuesto-detalle';
+import { unidades_medida } from '@/database/schema/unidad-medida';
 
 export async function getOrdenPdfById(id_orden: number | string | undefined) {
   if (!id_orden) return null;

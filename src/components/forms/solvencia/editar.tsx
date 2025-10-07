@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { solvenciaSchema } from '@/components/forms/validation/validation-schemas';
 import { Solvencia } from '@/types/types';
-import { updateSolvencia } from '@/server-actions/solvencias';
+import { updateSolvencia } from '@/server-actions/proveedor-solvencia';
 import { startTransition, useActionState } from 'react';
 import { SolvenciaForm } from './form';
 

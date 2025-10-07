@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { solvenciaSchema } from '@/components/forms/validation/validation-schemas';
-import { createSolvencia } from '@/server-actions/solvencias';
+import { createSolvencia } from '@/server-actions/proveedor-solvencia';
 import { useUser } from '@/hooks/use-user';
 import { getCurrentDate } from '@/lib/get-current-date';
 import { startTransition, useActionState } from 'react';

@@ -1,7 +1,7 @@
 import { NuevoProductoForm } from '@/components/forms/producto/nuevo';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
-import { getUnidadesMedida } from '@/fetch-data/solicitudes-detalle';
+import { getUnidadesMedida } from '@/fetch-data/presupuesto-detalle';
 
 export const metadata = {
   title: 'Nuevo producto',

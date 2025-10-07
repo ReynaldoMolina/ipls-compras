@@ -13,7 +13,7 @@ import {
 import { usuarioSchema } from '@/components/forms/validation/validation-schemas';
 import { FormInputGroup } from '../form-elements/form-input-group';
 import { FormFieldSet } from '../form-elements/form-fieldset';
-import { updateUser } from '@/server-actions/usuarios';
+import { updateUser } from '@/server-actions/usuario';
 import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';
 import { FormTextField } from '../form-elements/form-text-field';

@@ -1,4 +1,4 @@
-import { getSolvenciaById } from '@/fetch-data/solvencias';
+import { getSolvenciaById } from '@/fetch-data/proveedor-solvencia';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';

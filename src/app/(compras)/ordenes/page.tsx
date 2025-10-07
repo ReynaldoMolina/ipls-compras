@@ -4,9 +4,9 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { DataTable } from '@/components/tables/data-table';
 import { PageProps } from '@/types/types';
 import { columns } from './columns';
-import { getOrdenesEstados, getOrdenesTableData } from '@/fetch-data/ordenes';
+import { getOrdenesEstados, getOrdenesTableData } from '@/fetch-data/orden';
 import { FilterButton } from '@/components/actionbar/filter-button';
-import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitudes';
+import { getUniqueYearsFromSolicitudes } from '@/fetch-data/presupuesto';
 import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
 import { notFound } from 'next/navigation';
 

@@ -1,6 +1,11 @@
 'use client';
 
-import { Calendar, Check, ClockAlert, X } from 'lucide-react';
+import {
+  Calendar,
+  CalendarCheck,
+  CalendarClock,
+  CalendarX,
+} from 'lucide-react';
 import { formatDate } from '@/lib/formatters';
 import { Badge } from '../ui/badge';
 import { getDateStatus } from '@/lib/get-date-status';
@@ -14,17 +19,17 @@ const statusConfig = {
   active: {
     bg: 'bg-date-active',
     title: 'Activa',
-    icon: <Check className={iconClass} />,
+    icon: <CalendarCheck className={iconClass} />,
   },
   due: {
     bg: 'bg-date-due',
     title: 'Vence hoy',
-    icon: <ClockAlert className={iconClass} />,
+    icon: <CalendarClock className={iconClass} />,
   },
   expired: {
     bg: 'bg-date-warning',
     title: 'Vencida',
-    icon: <X className={iconClass} />,
+    icon: <CalendarX className={iconClass} />,
   },
   empty: {
     bg: 'text-muted-foreground',
@@ -36,25 +41,24 @@ const statusConfig = {
 interface DateStatusCellProps {
   date: string | null | undefined;
   id_proveedor: number | undefined;
+  type?: 'link' | 'default';
 }
 
-export function DateStatusCell({ date, id_proveedor }: DateStatusCellProps) {
+export function DateStatusCell({
+  date,
+  id_proveedor,
+  type = 'default',
+}: DateStatusCellProps) {
   const dateStatus = getDateStatus(date);
   const formattedDate = formatDate(date);
 
   if (dateStatus === 'empty')
-    return (
-      <DateBadge
-        dateStatus={dateStatus}
-        formattedDate={formattedDate}
-        id_proveedor={id_proveedor}
-      />
-    );
+    return <DateBadge dateStatus={dateStatus} formattedDate={formattedDate} />;
 
   return (
     <Tooltip>
       <TooltipTrigger>
-        <DateBadge
+        <DateBadgeLink
           dateStatus={dateStatus}
           formattedDate={formattedDate}
           id_proveedor={id_proveedor}
@@ -70,10 +74,10 @@ export function DateStatusCell({ date, id_proveedor }: DateStatusCellProps) {
 interface DateBadgeProps {
   dateStatus: DateStatus;
   formattedDate: string;
-  id_proveedor: number | undefined;
+  id_proveedor?: number | undefined;
 }
 
-function DateBadge({
+function DateBadgeLink({
   dateStatus,
   formattedDate,
   id_proveedor,
@@ -82,11 +86,23 @@ function DateBadge({
     <Badge variant="outline" className={statusConfig[dateStatus].bg}>
       <Link
         href={`/proveedores/${id_proveedor}/solvencias`}
-        className="inline-flex gap-1 whitespace-nowrap font-normal hover:underline"
+        className="inline-flex items-center gap-1 whitespace-nowrap font-normal hover:underline"
       >
         {statusConfig[dateStatus].icon}
         {formattedDate}
       </Link>
+    </Badge>
+  );
+}
+
+function DateBadge({ dateStatus, formattedDate }: DateBadgeProps) {
+  return (
+    <Badge
+      variant="outline"
+      className={`${statusConfig[dateStatus].bg} inline-flex items-center gap-1 whitespace-nowrap font-normal cursor-default`}
+    >
+      {statusConfig[dateStatus].icon}
+      {formattedDate}
     </Badge>
   );
 }

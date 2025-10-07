@@ -57,7 +57,7 @@ export function UsuariosFilters(filterOptions: FilterOptions) {
   );
 }
 
-export function SolicitudesFilters(filterOptions: FilterOptions) {
+export function PresupuestosFilters(filterOptions: FilterOptions) {
   return (
     <>
       <FilterCheckBox

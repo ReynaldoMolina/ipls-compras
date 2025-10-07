@@ -8,7 +8,7 @@ import {
   deleteSolicitudDetalleByIds,
   SolicitudDetalleColumn,
   updateSolicitudDetalleColumnByIds,
-} from '@/server-actions/solicitudes-detalle';
+} from '@/server-actions/solicitud-detalle';
 import { Table } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';

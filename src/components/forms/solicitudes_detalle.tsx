@@ -17,7 +17,7 @@ import { FormSelect } from '@/components/form-elements/form-select';
 import {
   createSolicitudDetalle,
   updateSolicitudDetalle,
-} from '@/server-actions/solicitudes-detalle';
+} from '@/server-actions/solicitud-detalle';
 import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { Card, CardContent } from '../ui/card';
 import { FormHeader } from '../form-elements/form-header';

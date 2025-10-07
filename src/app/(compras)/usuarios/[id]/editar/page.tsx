@@ -1,7 +1,7 @@
 import { UserForm } from '@/components/forms/usuarios';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
-import { getUserById } from '@/fetch-data/usuarios';
+import { getUserById } from '@/fetch-data/usuario';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata() {

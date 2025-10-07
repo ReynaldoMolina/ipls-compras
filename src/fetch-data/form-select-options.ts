@@ -1,8 +1,8 @@
 import { db } from '@/database/db';
-import { departamentos } from '@/database/schema/departamentos';
-import { entidades_academicas } from '@/database/schema/entidades-academicas';
-import { proveedores } from '@/database/schema/proveedores';
-import { sectores } from '@/database/schema/sectores';
+import { departamentos } from '@/database/schema/departamento';
+import { entidades_academicas } from '@/database/schema/entidad-academica';
+import { proveedores } from '@/database/schema/proveedor';
+import { sectores } from '@/database/schema/proveedor-sector';
 import { subsectores } from '@/database/schema/subsectores';
 import { asc, eq, sql } from 'drizzle-orm';
 
