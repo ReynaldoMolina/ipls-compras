@@ -56,7 +56,7 @@ export function SignOut() {
         type="button"
         variant="ghost"
         size="sm"
-        className="w-full justify-start focus-visible:ring-0"
+        className="w-full justify-start focus-visible:ring-0 gap-0 font-normal"
         onClick={() =>
           startTransition(() => {
             logOut();

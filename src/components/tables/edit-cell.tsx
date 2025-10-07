@@ -5,18 +5,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export function EditCell({ href }: { href: string }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button asChild variant="outline" size="table">
-          <Link href={`${href}/editar`}>
-            <Pencil className="size-3.5" />
-          </Link>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Editar</p>
-      </TooltipContent>
-    </Tooltip>
+    <Button asChild variant="outline" size="table">
+      <Link href={`${href}/editar`}>
+        <Pencil className="size-3.5" />
+      </Link>
+    </Button>
   );
 }
 

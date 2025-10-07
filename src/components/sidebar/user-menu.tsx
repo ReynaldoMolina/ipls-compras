@@ -55,10 +55,10 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <Settings />
             Ajustes
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <ChangeThemeSubMenu />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

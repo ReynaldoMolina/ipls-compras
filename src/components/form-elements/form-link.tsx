@@ -11,7 +11,7 @@ interface FormLinkProps {
 export function FormLink({ href, label }: FormLinkProps) {
   return (
     <Button size="sm" variant="outline" asChild>
-      <Link href={href} className="inline-flex gap-2">
+      <Link href={href} className="inline-flex gap-2 hover:underline">
         {label}
         <ChevronRight className="size-4 ml-auto" />
       </Link>

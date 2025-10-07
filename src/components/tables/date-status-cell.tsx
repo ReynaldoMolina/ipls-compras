@@ -82,7 +82,7 @@ function DateBadge({
     <Badge variant="outline" className={statusConfig[dateStatus].bg}>
       <Link
         href={`/proveedores/${id_proveedor}/solvencias`}
-        className="inline-flex gap-1 whitespace-nowrap font-normal"
+        className="inline-flex gap-1 whitespace-nowrap font-normal hover:underline"
       >
         {statusConfig[dateStatus].icon}
         {formattedDate}
