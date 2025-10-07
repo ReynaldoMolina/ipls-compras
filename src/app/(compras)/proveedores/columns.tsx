@@ -9,20 +9,12 @@ import { Proveedores } from '@/types/types';
 
 export const columns: ColumnDef<Proveedores>[] = [
   {
-    id: 'actions',
-    header: 'Acciones',
+    id: 'edit',
+    header: 'Editar',
     cell: ({ row }) => {
-      return (
-        <div className="inline-flex gap-1">
-          <EditCell href={`/proveedores/${row.original.id}`} />
-          <GoToListCell
-            href={`/proveedores/${row.original.id}/solvencias`}
-            label="Solvencias"
-          />
-        </div>
-      );
+      return <EditCell href={`/proveedores/${row.original.id}`} />;
     },
-    size: 70,
+    size: 50,
   },
   {
     accessorKey: 'nombre_comercial',
@@ -34,7 +26,12 @@ export const columns: ColumnDef<Proveedores>[] = [
   {
     accessorKey: 'solvencia',
     header: ({ column }) => <SortButton column={column} label="Solvencia" />,
-    cell: ({ row }) => <DateStatusCell date={row.original.solvencia} />,
+    cell: ({ row }) => (
+      <DateStatusCell
+        date={row.original.solvencia}
+        id_proveedor={row.original.id}
+      />
+    ),
   },
   {
     accessorKey: 'ruc',

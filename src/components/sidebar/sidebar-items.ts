@@ -17,18 +17,6 @@ export interface SidebarItem {
 
 export const sidebarItems: SidebarItem[] = [
   {
-    id: 'Resumen',
-    title: 'Resumen',
-    url: '/resumen',
-    icon: ChartColumn,
-  },
-  {
-    id: 'Productos',
-    title: 'Productos',
-    url: '/productos',
-    icon: Package,
-  },
-  {
     id: 'Solicitud',
     title: 'Solicitudes de compra',
     url: '/solicitudes',
@@ -45,6 +33,18 @@ export const sidebarItems: SidebarItem[] = [
     title: 'Proveedores',
     url: '/proveedores',
     icon: Truck,
+  },
+  {
+    id: 'Productos',
+    title: 'Productos',
+    url: '/productos',
+    icon: Package,
+  },
+  {
+    id: 'Resumen',
+    title: 'Resumen',
+    url: '/resumen',
+    icon: ChartColumn,
   },
   {
     id: 'Usuario',
