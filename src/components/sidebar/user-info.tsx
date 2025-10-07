@@ -11,6 +11,8 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { User } from 'next-auth';
+import { useTransition } from 'react';
+import { LoadingIcon } from '../loading/LoadingIcon';
 
 export function UserInfo({ user }: { user: User }) {
   return (
@@ -46,23 +48,25 @@ export function ChangeThemeSubMenu() {
 }
 
 export function SignOut() {
+  const [isPending, startTransition] = useTransition();
+
   return (
-    <form
-      action={async () => {
-        await logOut();
-      }}
-    >
-      <DropdownMenuItem asChild>
-        <Button
-          type="submit"
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start focus-visible:ring-0"
-        >
-          <LogOut />
-          Cerrar sesión
-        </Button>
-      </DropdownMenuItem>
-    </form>
+    <DropdownMenuItem asChild>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        className="w-full justify-start focus-visible:ring-0"
+        onClick={() =>
+          startTransition(() => {
+            logOut();
+          })
+        }
+        disabled={isPending}
+      >
+        <LogOut className="mr-2" />
+        {isPending ? <LoadingIcon /> : 'Cerrar sesión'}
+      </Button>
+    </DropdownMenuItem>
   );
 }
