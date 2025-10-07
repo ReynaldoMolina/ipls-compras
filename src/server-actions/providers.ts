@@ -6,9 +6,16 @@ import { proveedores } from '@/database/schema/proveedores';
 import { eq } from 'drizzle-orm';
 import { ProveedorFormType } from '@/types/types';
 
-export async function createProvider(data: ProveedorFormType) {
+interface CreateProviderProps {
+  values: ProveedorFormType;
+}
+
+export async function createProvider(
+  prevState: unknown,
+  data: CreateProviderProps
+) {
   try {
-    await db.insert(proveedores).values(data);
+    await db.insert(proveedores).values(data.values);
   } catch (error) {
     console.error(error);
     return { message: 'Error creating provider' };
@@ -16,13 +23,22 @@ export async function createProvider(data: ProveedorFormType) {
   await goBackTo('/proveedores');
 }
 
+interface UpdateProviderProps {
+  id: number | undefined;
+  values: ProveedorFormType;
+}
+
 export async function updateProvider(
-  id: number | undefined,
-  data: ProveedorFormType
+  prevState: unknown,
+  data: UpdateProviderProps
 ) {
-  if (!id) return;
+  if (!data.id) return;
+
   try {
-    await db.update(proveedores).set(data).where(eq(proveedores.id, id));
+    await db
+      .update(proveedores)
+      .set(data.values)
+      .where(eq(proveedores.id, Number(data.id)));
   } catch (error) {
     console.error(error);
     return error;

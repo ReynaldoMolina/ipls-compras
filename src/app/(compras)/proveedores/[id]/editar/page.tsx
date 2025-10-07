@@ -1,4 +1,4 @@
-import { ProveedorForm } from '@/components/forms/proveedor';
+import { EditarProveedorForm } from '@/components/forms/proveedor/editar';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import {
@@ -31,12 +31,9 @@ export default async function Page({ params, searchParams }: PageProps) {
     <>
       <Header title={`Proveedor ${id}`} />
       <PageWrapper>
-        <ProveedorForm
-          action="edit"
-          provider={provider}
-          departamentos={departamentos}
-          sectores={sectores}
-          subsectores={subsectores}
+        <EditarProveedorForm
+          proveedor={provider}
+          selectOptions={{ departamentos, sectores, subsectores }}
         />
       </PageWrapper>
     </>

@@ -1,73 +1,38 @@
 'use client';
 
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { providerSchema } from '@/components/forms/validation/validation-schemas';
-import { FormInputGroup } from '../form-elements/form-input-group';
-import { FormFieldSet } from '../form-elements/form-fieldset';
-import { FormFooter } from '../form-elements/form-footer';
-import { ComboBoxData, FormAction, ProveedorFormType } from '@/types/types';
-import { createProvider, updateProvider } from '@/server-actions/providers';
-import { Card, CardContent } from '../ui/card';
-import { FormHeader } from '../form-elements/form-header';
-import { FormTextField } from '../form-elements/form-text-field';
-import { FormCombobox } from '../form-elements/form-combobox';
-import { FormLink, FormLinkGroup } from '../form-elements/form-link';
+import { FormInputGroup } from '../../form-elements/form-input-group';
+import { FormFieldSet } from '../../form-elements/form-fieldset';
+import { FormFooter } from '../../form-elements/form-footer';
+import { DetalleSelectOptions, FormAction } from '@/types/types';
+import { Card, CardContent } from '../../ui/card';
+import { FormHeader } from '../../form-elements/form-header';
+import { FormTextField } from '../../form-elements/form-text-field';
+import { FormCombobox } from '../../form-elements/form-combobox';
+import { FormLink, FormLinkGroup } from '../../form-elements/form-link';
+import { UseFormReturn } from 'react-hook-form';
+
+type ProveedorFormValues = z.infer<typeof providerSchema>;
 
 interface ProveedorFormProps {
   action: FormAction;
-  provider?: ProveedorFormType;
-  departamentos: ComboBoxData;
-  sectores: ComboBoxData;
-  subsectores: ComboBoxData;
+  id_proveedor?: number;
+  form: UseFormReturn<ProveedorFormValues>;
+  onSubmit: (values: ProveedorFormValues) => void;
+  selectOptions: DetalleSelectOptions;
+  isPending: boolean;
 }
 
 export function ProveedorForm({
   action,
-  provider,
-  departamentos,
-  sectores,
-  subsectores,
+  id_proveedor,
+  form,
+  onSubmit,
+  selectOptions,
+  isPending,
 }: ProveedorFormProps) {
-  const form = useForm<z.infer<typeof providerSchema>>({
-    resolver: zodResolver(providerSchema),
-    defaultValues: provider
-      ? {
-          nombre_comercial: provider.nombre_comercial ?? '',
-          razon_social: provider.razon_social ?? '',
-          ruc: provider.ruc ?? '',
-          contacto_principal: provider.contacto_principal ?? '',
-          telefono: provider.telefono ?? '',
-          correo: provider.correo ?? '',
-          id_departamento: provider.id_departamento ?? 0,
-          direccion: provider.direccion ?? '',
-          id_sector: provider.id_sector ?? 0,
-          id_subsector: provider.id_subsector ?? 0,
-        }
-      : {
-          nombre_comercial: '',
-          razon_social: '',
-          ruc: '',
-          contacto_principal: '',
-          telefono: '',
-          correo: '',
-          id_departamento: 0,
-          direccion: '',
-          id_sector: 0,
-          id_subsector: 0,
-        },
-  });
-
-  function onSubmit(values: z.infer<typeof providerSchema>) {
-    if (action === 'create') {
-      createProvider(values);
-    } else if (action === 'edit' && provider) {
-      updateProvider(provider.id, values);
-    }
-  }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -76,7 +41,7 @@ export function ProveedorForm({
           <CardContent>
             <FormLinkGroup action={action}>
               <FormLink
-                href={`/proveedores/${provider?.id}/solvencias`}
+                href={`/proveedores/${id_proveedor}/solvencias`}
                 label="Ir a solvencias"
               />
             </FormLinkGroup>
@@ -119,7 +84,7 @@ export function ProveedorForm({
                   control={form.control}
                   name="id_departamento"
                   label="Departamento"
-                  options={departamentos}
+                  options={selectOptions.departamentos ?? []}
                 />
               </FormInputGroup>
               <FormTextField
@@ -134,7 +99,7 @@ export function ProveedorForm({
                 control={form.control}
                 name="id_sector"
                 label="Sector"
-                options={sectores}
+                options={selectOptions.sectores ?? []}
                 updateParam="sector"
                 resetField={() => form.setValue('id_subsector', 0)}
               />
@@ -142,11 +107,11 @@ export function ProveedorForm({
                 control={form.control}
                 name="id_subsector"
                 label="Subsector"
-                options={subsectores}
+                options={selectOptions.subsectores ?? []}
               />
             </FormFieldSet>
           </CardContent>
-          <FormFooter action={action} />
+          <FormFooter action={action} isPending={isPending} />
         </Card>
       </form>
     </Form>

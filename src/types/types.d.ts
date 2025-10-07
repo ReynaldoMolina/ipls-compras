@@ -187,6 +187,9 @@ export interface DetalleSelectOptions {
   ubicaciones?: ComboBoxData;
   categorias?: ComboBoxData;
   proveedores?: ComboBoxData;
+  departamentos?: ComboBoxData;
+  sectores?: ComboBoxData;
+  subsectores?: ComboBoxData;
 }
 
 export interface Orden {
