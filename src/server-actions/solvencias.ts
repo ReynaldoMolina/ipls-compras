@@ -12,7 +12,7 @@ interface CreateSolvenciaProps {
 }
 
 export async function createSolvencia(
-  // prevState: unknown,
+  prevState: unknown,
   data: CreateSolvenciaProps
 ) {
   try {
@@ -27,14 +27,15 @@ export async function createSolvencia(
 interface UpdateSolvenciaProps {
   id: number | undefined;
   values: Solvencia;
-  id_proveedor: number;
+  id_proveedor: number | undefined;
 }
 
 export async function updateSolvencia(
-  // prevState: unknown,
+  prevState: unknown,
   data: UpdateSolvenciaProps
 ) {
-  if (!data.id) return;
+  if (!data.id || !data.id_proveedor) return;
+
   try {
     await db
       .update(solvencias)

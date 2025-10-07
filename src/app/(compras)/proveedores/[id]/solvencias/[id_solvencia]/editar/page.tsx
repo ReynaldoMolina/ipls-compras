@@ -1,8 +1,8 @@
 import { getSolvenciaById } from '@/fetch-data/solvencias';
-import { SolvenciaForm } from '@/components/forms/solvencias';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
+import { EditarSolvenciaForm } from '@/components/forms/solvencia/editar';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id, id_solvencia } = await params;
@@ -13,17 +13,13 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function Page({ params }: PageProps) {
   const { id, id_solvencia } = await params;
-  const data = await getSolvenciaById(id_solvencia);
+  const solvencia = await getSolvenciaById(id_solvencia);
 
   return (
     <>
       <Header title={`Proveedor ${id} - Solvencia ${id_solvencia}`} />
       <PageWrapper>
-        <SolvenciaForm
-          action="edit"
-          solvencia={data}
-          id_proveedor={Number(id)}
-        />
+        <EditarSolvenciaForm solvencia={solvencia} />
       </PageWrapper>
     </>
   );

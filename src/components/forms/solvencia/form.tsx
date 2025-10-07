@@ -1,7 +1,6 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 
 import {
@@ -12,66 +11,33 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { solvenciaSchema } from '@/components/forms/validation/validation-schemas';
-import { FormAction, Solvencia } from '@/types/types';
-import { createSolvencia, updateSolvencia } from '@/server-actions/solvencias';
-import { DatePicker } from '../date-picker';
-import { FormInputGroup } from '../form-elements/form-input-group';
-import { FormFieldSet } from '../form-elements/form-fieldset';
-import { Card, CardContent } from '../ui/card';
-import { FormHeader } from '../form-elements/form-header';
-import { FormTextField } from '../form-elements/form-text-field';
-import { FormFooter } from '../form-elements/form-footer';
+import { FormAction } from '@/types/types';
 import { useUser } from '@/hooks/use-user';
-import { Input } from '../ui/input';
-import { getCurrentDate } from '@/lib/get-current-date';
+import { Card, CardContent } from '@/components/ui/card';
+import { FormHeader } from '@/components/form-elements/form-header';
+import { FormFieldSet } from '@/components/form-elements/form-fieldset';
+import { FormTextField } from '@/components/form-elements/form-text-field';
+import { FormInputGroup } from '@/components/form-elements/form-input-group';
+import { DatePicker } from '@/components/date-picker';
+import { Input } from '@/components/ui/input';
+import { FormFooter } from '@/components/form-elements/form-footer';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
 interface SolvenciaFormProps {
   action: FormAction;
-  solvencia?: Solvencia;
-  id_proveedor: number;
+  form: UseFormReturn<SolvenciaFormValues>;
+  onSubmit: (values: SolvenciaFormValues) => void;
+  isPending: boolean;
 }
 
 export function SolvenciaForm({
   action,
-  solvencia,
-  id_proveedor,
+  form,
+  onSubmit,
+  isPending,
 }: SolvenciaFormProps) {
   const { user } = useUser();
-  const { currentDate } = getCurrentDate();
-
-  const form = useForm<z.infer<typeof solvenciaSchema>>({
-    resolver: zodResolver(solvenciaSchema),
-    defaultValues: solvencia
-      ? {
-          id_proveedor: solvencia.id_proveedor,
-          emitida: solvencia.emitida ?? null,
-          vence: solvencia.vence ?? null,
-          verificado: solvencia.verificado ?? undefined,
-          recibido: solvencia.recibido ?? null,
-          url: solvencia.url ?? null,
-          id_usuario: solvencia.id_usuario ?? '',
-        }
-      : {
-          id_proveedor: id_proveedor,
-          emitida: null,
-          vence: null,
-          verificado: currentDate,
-          recibido: null,
-          url: null,
-          id_usuario: user.id ?? '',
-        },
-  });
-
-  function onSubmit(values: z.infer<typeof solvenciaSchema>) {
-    if (action === 'create') {
-      createSolvencia({ id_proveedor, values });
-    }
-    if (action === 'edit' && solvencia) {
-      updateSolvencia({ id: solvencia.id, values, id_proveedor });
-    }
-  }
 
   return (
     <Form {...form}>
@@ -158,7 +124,7 @@ export function SolvenciaForm({
               />
             </FormFieldSet>
           </CardContent>
-          <FormFooter action={action} />
+          <FormFooter action={action} isPending={isPending} />
         </Card>
       </form>
     </Form>

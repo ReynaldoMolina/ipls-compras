@@ -1,4 +1,4 @@
-import { SolvenciaForm } from '@/components/forms/solvencias';
+import { NuevaSolvenciaForm } from '@/components/forms/solvencia/nuevo';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { PageProps } from '@/types/types';
@@ -17,7 +17,7 @@ export default async function Page({ params }: PageProps) {
     <>
       <Header title={`Proveedor ${id} - Nueva solvencia`} />
       <PageWrapper>
-        <SolvenciaForm action="create" id_proveedor={Number(id)} />
+        <NuevaSolvenciaForm id_proveedor={Number(id)} />
       </PageWrapper>
     </>
   );
