@@ -15,7 +15,7 @@ export function ActionBar({
   return (
     <div className="inline-flex gap-2">
       {allowSearch && <SearchInput />}
-      <div className="inline-flex gap-2 ml-auto">
+      <div className="inline-flex gap-2">
         {children}
         {allowNew && <NewButton />}
       </div>
