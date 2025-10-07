@@ -84,3 +84,8 @@ export const detalleOrdenSchema = z.object({
   precio_real: zNumberMin(),
   observaciones: z.string().trim().nullable(),
 });
+
+export const productoSchema = z.object({
+  nombre_producto: z.string().trim().min(1, 'Requerido'),
+  id_unidad_medida: z.number().min(1, 'Requerido'),
+});

@@ -16,6 +16,7 @@ export type Subjects =
   | 'SolicitudDetalle'
   | 'SolicitudBodega'
   | 'Usuario'
+  | 'Producto'
   | 'all';
 
 export type AppAbility = MongoAbility<[Actions, Subjects]>;
@@ -34,6 +35,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   }
 
   if (role === 'bodega') {
+    can('manage', 'Producto');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('manage', 'SolicitudBodega');
@@ -42,6 +44,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   }
 
   if (role === 'compras') {
+    can('manage', 'Producto');
     can('read', 'Solicitud');
     can('read', 'SolicitudDetalle');
     can('manage', 'Orden');
@@ -51,6 +54,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   }
 
   if (role === 'capacitaciones') {
+    can('manage', 'Producto');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');
@@ -58,6 +62,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   }
 
   if (role === 'subdireccion') {
+    can('manage', 'Producto');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');
@@ -65,6 +70,7 @@ export function defineAbilitiesFor(role: Roles | undefined) {
   }
 
   if (role === 'personal') {
+    can('manage', 'Producto');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');

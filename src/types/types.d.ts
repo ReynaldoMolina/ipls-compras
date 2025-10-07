@@ -1,5 +1,6 @@
 export type PageId =
   | 'Resumen'
+  | 'Productos'
   | 'Solicitud'
   | 'Orden'
   | 'Proveedor'
@@ -29,6 +30,7 @@ export interface PageProps {
     id_detalle?: string;
     id_orden?: string;
     id_orden_detalle?: string;
+    id_producto?: string;
   }>;
   searchParams: Promise<SearchParamsProps>;
 }
@@ -262,4 +264,16 @@ export interface OrdenPdfDetalleProps {
   unidad_medida: string | null;
   producto_servicio: string | null;
   precio_real: number;
+}
+
+export interface ProductosTable {
+  id: number;
+  nombre_producto: string | null;
+  unidad_medida: string | null;
+}
+
+export interface ProductoFormType {
+  id?: number;
+  nombre_producto: string;
+  id_unidad_medida: number;
 }

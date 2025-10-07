@@ -38,8 +38,6 @@ export function ComboBox({
 }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
 
-  console.log(options.find((option) => option.value === String(value))?.label);
-
   return (
     // add modal={true} to allow scroll inside modal
     <Popover open={open} onOpenChange={setOpen} modal={true}>

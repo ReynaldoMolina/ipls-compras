@@ -2,6 +2,7 @@ import { PageId } from '@/types/types';
 import {
   ChartColumn,
   ListCheck,
+  Package,
   ShoppingCart,
   Truck,
   Users,
@@ -20,6 +21,12 @@ export const sidebarItems: SidebarItem[] = [
     title: 'Resumen',
     url: '/resumen',
     icon: ChartColumn,
+  },
+  {
+    id: 'Productos',
+    title: 'Productos',
+    url: '/productos',
+    icon: Package,
   },
   {
     id: 'Solicitud',
