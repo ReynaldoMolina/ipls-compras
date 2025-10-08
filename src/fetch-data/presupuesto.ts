@@ -4,7 +4,7 @@ import { eq, and, sql, desc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterPresupuestosByYear } from './build-filter';
-import { presupuestos } from '@/database/schema/presupuesto';
+import { presupuesto } from '@/database/schema/presupuesto';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 
@@ -12,8 +12,8 @@ export async function getPresupuestosTableData(
   searchParams: SearchParamsProps
 ) {
   const selectFields = {
-    id: presupuestos.id,
-    year: presupuestos.year,
+    id: presupuesto.id,
+    year: presupuesto.year,
     tipo: entidad_academica.tipo,
     entidad_academica: entidad_academica.nombre,
     presupuestado: sql<number>`SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio_sugerido})`,
@@ -35,27 +35,23 @@ export async function getPresupuestosTableData(
   try {
     const data = await db
       .select(selectFields)
-      .from(presupuestos)
+      .from(presupuesto)
       .leftJoin(
         entidad_academica,
-        eq(presupuestos.id_entidad_academica, entidad_academica.id)
+        eq(presupuesto.id_entidad_academica, entidad_academica.id)
       )
       .leftJoin(
         presupuesto_detalle,
-        eq(presupuestos.id, presupuesto_detalle.id_presupuesto)
+        eq(presupuesto.id, presupuesto_detalle.id_presupuesto)
       )
       .where(and(filterBySearch, filterByYear))
-      .groupBy(
-        presupuestos.id,
-        entidad_academica.tipo,
-        entidad_academica.nombre
-      )
+      .groupBy(presupuesto.id, entidad_academica.tipo, entidad_academica.nombre)
       .orderBy(orderBy);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener las presupuestos, por favor intenta de nuevo.'
+      'No se pudieron obtener las presupuesto, por favor intenta de nuevo.'
     );
   }
 }
@@ -66,8 +62,8 @@ export async function getPresupuestoById(
   try {
     const data = await db
       .select()
-      .from(presupuestos)
-      .where(eq(presupuestos.id, Number(id)));
+      .from(presupuesto)
+      .where(eq(presupuesto.id, Number(id)));
     return data[0];
   } catch (error) {
     console.error(error);
@@ -81,16 +77,16 @@ export async function getUniqueYearsFromPresupuestos() {
   try {
     const data = await db
       .selectDistinct({
-        year: presupuestos.year,
+        year: presupuesto.year,
       })
-      .from(presupuestos)
-      .orderBy(desc(presupuestos.year));
+      .from(presupuesto)
+      .orderBy(desc(presupuesto.year));
 
     return data.map((e) => ({ value: String(e.year), label: String(e.year) }));
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los años únicos desde las presupuestos, por favor intenta de nuevo'
+      'No se pudieron obtener los años únicos desde las presupuesto, por favor intenta de nuevo'
     );
   }
 }
@@ -101,10 +97,10 @@ export async function getEntidadAcademicaByPresupuestoId(
   try {
     const [data] = await db
       .select({
-        id_entidad_academica: presupuestos.id_entidad_academica,
+        id_entidad_academica: presupuesto.id_entidad_academica,
       })
-      .from(presupuestos)
-      .where(eq(presupuestos.id, Number(id)));
+      .from(presupuesto)
+      .where(eq(presupuesto.id, Number(id)));
     return data.id_entidad_academica;
   } catch (error) {
     console.error(error);

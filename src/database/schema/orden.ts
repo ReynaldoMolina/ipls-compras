@@ -1,14 +1,20 @@
-import { date, integer, pgTable, real, text } from 'drizzle-orm/pg-core';
-import { orden_estado } from './orden-estado';
-import { presupuesto } from './presupuesto';
+import {
+  boolean,
+  date,
+  integer,
+  pgTable,
+  real,
+  text,
+} from 'drizzle-orm/pg-core';
+import { solicitud } from './solicitud';
 import { proveedor } from './proveedor';
-import { boolean } from 'zod';
+import { orden_estado } from './orden-estado';
 
 export const orden = pgTable('orden', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   id_solicitud: integer()
     .notNull()
-    .references(() => presupuesto.id),
+    .references(() => solicitud.id),
   fecha_creacion: date().notNull(),
   fecha_a_utilizar: date(),
   id_proveedor: integer().references(() => proveedor.id),

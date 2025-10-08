@@ -1,7 +1,7 @@
 import { integer, pgTable, real, text } from 'drizzle-orm/pg-core';
-import { unidad_medida } from './unidad-medida';
-import { presupuesto } from './presupuesto';
 import { categoria_producto } from './categoria_producto';
+import { presupuesto } from './presupuesto';
+import { unidad_medida } from './unidad-medida';
 
 export const presupuesto_detalle = pgTable('presupuesto_detalle', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

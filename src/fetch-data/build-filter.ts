@@ -1,7 +1,7 @@
-import { ordenes } from '@/database/schema/orden';
-import { proveedores } from '@/database/schema/proveedor';
-import { presupuestos } from '@/database/schema/presupuesto';
-import { solvencias } from '@/database/schema/proveedor-solvencia';
+import { orden } from '@/database/schema/orden';
+import { proveedor } from '@/database/schema/proveedor';
+import { presupuesto } from '@/database/schema/presupuesto';
+import { proveedor_solvencia } from '@/database/schema/proveedor-solvencia';
 import { users } from '@/database/schema/user';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
@@ -13,7 +13,7 @@ export function buildFilterProveedoresByDepartamento(
     searchParams.departamento?.split(',').filter(Boolean).map(Number) ?? [];
 
   return departamentos.length > 0
-    ? inArray(proveedores.id_departamento, departamentos)
+    ? inArray(proveedor.id_departamento, departamentos)
     : undefined;
 }
 
@@ -22,10 +22,10 @@ export function buildFilterBySolvencia(searchParams: SearchParamsProps) {
     searchParams.solvencia?.split(',').filter(Boolean) ?? [];
 
   const solvenciaMap: Record<string, SQL | undefined> = {
-    activa: gt(max(solvencias.vence), sql`CURRENT_DATE`),
-    por_vencer: eq(max(solvencias.vence), sql`CURRENT_DATE`),
-    vencida: lt(max(solvencias.vence), sql`CURRENT_DATE`),
-    sin_solvencia: isNull(max(solvencias.vence)),
+    activa: gt(max(proveedor_solvencia.vence), sql`CURRENT_DATE`),
+    por_vencer: eq(max(proveedor_solvencia.vence), sql`CURRENT_DATE`),
+    vencida: lt(max(proveedor_solvencia.vence), sql`CURRENT_DATE`),
+    sin_solvencia: isNull(max(proveedor_solvencia.vence)),
   };
 
   const solvenciaConditions = solvenciaValues
@@ -62,20 +62,20 @@ export function buildFilterUsuariosByActive(searchParams: SearchParamsProps) {
 export function buildFilterPresupuestosByYear(searchParams: SearchParamsProps) {
   const years = searchParams.year?.split(',').filter(Boolean) ?? [];
   const mappedYears = years.map((year) => Number(year));
-  return years.length > 0 ? inArray(presupuestos.year, mappedYears) : undefined;
+  return years.length > 0 ? inArray(presupuesto.year, mappedYears) : undefined;
 }
 
 export function buildOrdenesByIdSolicitud(
   id_solicitud: number | string | undefined
 ) {
   if (!id_solicitud || id_solicitud === null) return undefined;
-  return eq(ordenes.id_solicitud, Number(id_solicitud));
+  return eq(orden.id_solicitud, Number(id_solicitud));
 }
 
 export function buildFilterByOrderState(searchParams: SearchParamsProps) {
   const estados = searchParams.orden_estado?.split(',').filter(Boolean) ?? [];
   const mappedEstados = estados.map((estado) => Number(estado));
   return estados.length > 0
-    ? inArray(ordenes.id_estado, mappedEstados)
+    ? inArray(orden.id_estado, mappedEstados)
     : undefined;
 }

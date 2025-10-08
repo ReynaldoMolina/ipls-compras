@@ -6,7 +6,7 @@ import { providerSchema } from '@/components/forms/validation/validation-schemas
 import { FormInputGroup } from '../../form-elements/form-input-group';
 import { FormFieldSet } from '../../form-elements/form-fieldset';
 import { FormFooter } from '../../form-elements/form-footer';
-import { DetalleSelectOptions, FormAction } from '@/types/types';
+import { FormSelectOptions, FormAction } from '@/types/types';
 import { Card, CardContent } from '../../ui/card';
 import { FormHeader } from '../../form-elements/form-header';
 import { FormTextField } from '../../form-elements/form-text-field';
@@ -21,7 +21,7 @@ interface ProveedorFormProps {
   id_proveedor?: number;
   form: UseFormReturn<ProveedorFormValues>;
   onSubmit: (values: ProveedorFormValues) => void;
-  selectOptions: DetalleSelectOptions;
+  selectOptions: FormSelectOptions;
   isPending: boolean;
 }
 
@@ -42,7 +42,7 @@ export function ProveedorForm({
             <FormLinkGroup action={action}>
               <FormLink
                 href={`/proveedores/${id_proveedor}/solvencias`}
-                label="Ir a solvencias"
+                label="Solvencias"
               />
             </FormLinkGroup>
             <FormFieldSet name="info">

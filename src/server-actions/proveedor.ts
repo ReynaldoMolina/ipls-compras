@@ -2,7 +2,7 @@
 
 import { db } from '@/database/db';
 import { goBackTo } from './go-back-to-list';
-import { proveedores } from '@/database/schema/proveedor';
+import { proveedor } from '@/database/schema/proveedor';
 import { eq } from 'drizzle-orm';
 import { ProveedorFormType } from '@/types/types';
 
@@ -15,7 +15,7 @@ export async function createProvider(
   data: CreateProviderProps
 ) {
   try {
-    await db.insert(proveedores).values(data.values);
+    await db.insert(proveedor).values(data.values);
   } catch (error) {
     console.error(error);
     return { message: 'Error creating provider' };
@@ -36,9 +36,9 @@ export async function updateProvider(
 
   try {
     await db
-      .update(proveedores)
+      .update(proveedor)
       .set(data.values)
-      .where(eq(proveedores.id, Number(data.id)));
+      .where(eq(proveedor.id, Number(data.id)));
   } catch (error) {
     console.error(error);
     return error;

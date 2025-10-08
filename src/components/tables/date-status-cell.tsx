@@ -40,7 +40,7 @@ const statusConfig = {
 
 interface DateStatusCellProps {
   date: string | null | undefined;
-  id_proveedor: number | undefined;
+  id_proveedor?: number | undefined;
   type?: 'link' | 'default';
 }
 

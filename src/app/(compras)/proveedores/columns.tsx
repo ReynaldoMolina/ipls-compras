@@ -3,18 +3,17 @@
 import { DateStatusCell } from '@/components/tables/date-status-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
+import { EditCell } from '@/components/tables/edit-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
-import { Proveedores } from '@/types/types';
+import { ProveedorTable } from '@/types/types';
 
-export const columns: ColumnDef<Proveedores>[] = [
+export const columns: ColumnDef<ProveedorTable>[] = [
   {
     id: 'edit',
-    header: 'Editar',
     cell: ({ row }) => {
       return <EditCell href={`/proveedores/${row.original.id}`} />;
     },
-    size: 50,
+    size: 40,
   },
   {
     accessorKey: 'nombre_comercial',

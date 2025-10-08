@@ -5,7 +5,7 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { years } from '@/lib/select-options-data';
 
 export const metadata = {
-  title: 'Nueva solicitud',
+  title: 'Nuevo presupuesto',
 };
 
 export default async function Page() {
@@ -13,7 +13,7 @@ export default async function Page() {
 
   return (
     <>
-      <Header title="Nueva solicitud" />
+      <Header title="Nuevo presupuesto" />
       <PageWrapper>
         <SolicitudForm
           action="create"

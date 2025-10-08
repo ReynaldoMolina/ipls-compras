@@ -39,6 +39,14 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'Ingresa una contraseña'),
 });
 
+export const presupuestoSchema = z.object({
+  fecha: z.string('Requerido'),
+  id_entidad_academica: z.number().min(1, 'Requerido'),
+  year: z.number().min(1, 'Requerido'),
+  id_usuario: z.string().min(1, 'Requerido'),
+  revisado_bodega: z.boolean().nullable(),
+});
+
 export const solicitudSchema = z.object({
   fecha: z.string('Requerido'),
   id_entidad_academica: z.number().min(1, 'Requerido'),

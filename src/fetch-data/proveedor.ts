@@ -1,7 +1,7 @@
 import { db } from '@/database/db';
-import { proveedores } from '@/database/schema/proveedor';
-import { solvencias } from '@/database/schema/proveedor-solvencia';
-import { departamentos } from '@/database/schema/departamento';
+import { proveedor } from '@/database/schema/proveedor';
+import { proveedor_solvencia } from '@/database/schema/proveedor-solvencia';
+import { departamento } from '@/database/schema/departamento';
 import { ProveedorFormType, SearchParamsProps } from '@/types/types';
 import { eq, max, and, asc, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
@@ -13,17 +13,17 @@ import {
 
 export async function getProveedoresTableData(searchParams: SearchParamsProps) {
   const selectFields = {
-    id: proveedores.id,
-    solvencia: max(solvencias.vence),
-    nombre_comercial: proveedores.nombre_comercial,
-    ruc: proveedores.ruc,
-    telefono: proveedores.telefono,
-    departamento: departamentos.departamento,
+    id: proveedor.id,
+    solvencia: max(proveedor_solvencia.vence),
+    nombre_comercial: proveedor.nombre_comercial,
+    ruc: proveedor.ruc,
+    telefono: proveedor.telefono,
+    departamento: departamento.nombre,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [
-    proveedores.nombre_comercial,
-    proveedores.ruc,
+    proveedor.nombre_comercial,
+    proveedor.ruc,
   ]);
 
   const filterByDepartamento =
@@ -36,21 +36,21 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
   try {
     const data = await db
       .select(selectFields)
-      .from(proveedores)
-      .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
+      .from(proveedor)
       .leftJoin(
-        departamentos,
-        eq(proveedores.id_departamento, departamentos.id)
+        proveedor_solvencia,
+        eq(proveedor.id, proveedor_solvencia.id_proveedor)
       )
+      .leftJoin(departamento, eq(proveedor.id_departamento, departamento.id))
       .where(and(filterBySearch, filterByDepartamento))
-      .groupBy(proveedores.id, departamentos.departamento)
+      .groupBy(proveedor.id, departamento.nombre)
       .having(filterBySolvencia)
       .orderBy(orderBy);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los datos de la tabla proveedores, por favor intenta de nuevo.'
+      'No se pudieron obtener los datos de la tabla proveedor, por favor intenta de nuevo.'
     );
   }
 }
@@ -59,27 +59,30 @@ export async function getProveedorById(
   id: number | string
 ): Promise<ProveedorFormType> {
   const selectFields = {
-    id: proveedores.id,
-    solvencia: max(solvencias.vence),
-    nombre_comercial: proveedores.nombre_comercial,
-    razon_social: proveedores.razon_social,
-    ruc: proveedores.ruc,
-    contacto_principal: proveedores.contacto_principal,
-    telefono: proveedores.telefono,
-    correo: proveedores.correo,
-    id_departamento: proveedores.id_departamento,
-    direccion: proveedores.direccion,
-    id_sector: proveedores.id_sector,
-    id_subsector: proveedores.id_subsector,
+    id: proveedor.id,
+    solvencia: max(proveedor_solvencia.vence),
+    nombre_comercial: proveedor.nombre_comercial,
+    razon_social: proveedor.razon_social,
+    ruc: proveedor.ruc,
+    contacto_principal: proveedor.contacto_principal,
+    telefono: proveedor.telefono,
+    correo: proveedor.correo,
+    id_departamento: proveedor.id_departamento,
+    direccion: proveedor.direccion,
+    id_sector: proveedor.id_sector,
+    id_subsector: proveedor.id_subsector,
   };
 
   try {
     const data = await db
       .select(selectFields)
-      .from(proveedores)
-      .leftJoin(solvencias, eq(proveedores.id, solvencias.id_proveedor))
-      .where(eq(proveedores.id, Number(id)))
-      .groupBy(proveedores.id);
+      .from(proveedor)
+      .leftJoin(
+        proveedor_solvencia,
+        eq(proveedor.id, proveedor_solvencia.id_proveedor)
+      )
+      .where(eq(proveedor.id, Number(id)))
+      .groupBy(proveedor.id);
     return data[0];
   } catch (error) {
     console.error(error);
@@ -93,20 +96,17 @@ export async function getUniqueDepartamentosFromProveedores() {
   try {
     const data = await db
       .selectDistinct({
-        value: sql<string>`CAST(${departamentos.id} AS TEXT)`,
-        label: departamentos.departamento,
+        value: sql<string>`CAST(${departamento.id} AS TEXT)`,
+        label: departamento.nombre,
       })
-      .from(proveedores)
-      .innerJoin(
-        departamentos,
-        eq(proveedores.id_departamento, departamentos.id)
-      )
-      .orderBy(asc(departamentos.departamento));
+      .from(proveedor)
+      .innerJoin(departamento, eq(proveedor.id_departamento, departamento.id))
+      .orderBy(asc(departamento.nombre));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los departamentos únicos desde los proveedores, por favor intenta de nuevo'
+      'No se pudieron obtener los departamento únicos desde los proveedor, por favor intenta de nuevo'
     );
   }
 }

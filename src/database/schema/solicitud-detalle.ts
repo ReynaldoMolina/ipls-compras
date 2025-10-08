@@ -1,6 +1,6 @@
 import { integer, pgTable, real, text } from 'drizzle-orm/pg-core';
-import { unidad_medida } from './unidad-medida';
 import { solicitud } from './solicitud';
+import { unidad_medida } from './unidad-medida';
 
 export const solicitud_detalle = pgTable('solicitud_detalle', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

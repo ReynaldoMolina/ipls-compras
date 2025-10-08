@@ -139,7 +139,7 @@ export type SelectOptions = {
 };
 
 export type FilterOptions = {
-  departamento?: SelectOptions[];
+  departamentos?: SelectOptions[];
   years?: SelectOptions[];
   userStates?: SelectOptions[];
   userRoles?: SelectOptions[];
@@ -169,6 +169,8 @@ export interface FormSelectOptions {
   departamentos?: SelectOptions[];
   sectores?: SelectOptions[];
   subsectores?: SelectOptions[];
+  years?: SelectOptions[];
+  entidadesAcademicas?: SelectOptions[];
 }
 
 export interface Orden {

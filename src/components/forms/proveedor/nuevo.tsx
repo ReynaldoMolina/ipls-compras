@@ -4,13 +4,13 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { providerSchema } from '@/components/forms/validation/validation-schemas';
-import { DetalleSelectOptions } from '@/types/types';
+import { FormSelectOptions } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { createProvider } from '@/server-actions/proveedor';
 import { ProveedorForm } from './form';
 
 interface NuevoProveedorFormProps {
-  selectOptions: DetalleSelectOptions;
+  selectOptions: FormSelectOptions;
 }
 
 export function NuevoProveedorForm({ selectOptions }: NuevoProveedorFormProps) {

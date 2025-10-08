@@ -13,7 +13,7 @@ export function ProvidersFilters(filterOptions: FilterOptions) {
       />
       <FilterCheckBox
         label="Departamentos"
-        options={filterOptions?.departamentosOptions}
+        options={filterOptions?.departamentos}
         paramKey="departamento"
       />
     </>
@@ -79,7 +79,7 @@ export function OrdenesFilters(filterOptions: FilterOptions) {
       />
       <FilterCheckBox
         label="Estado"
-        options={filterOptions.ordenesStates}
+        options={filterOptions.ordenState}
         paramKey="orden_estado"
       />
     </>

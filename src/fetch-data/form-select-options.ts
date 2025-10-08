@@ -1,25 +1,25 @@
 import { db } from '@/database/db';
-import { departamentos } from '@/database/schema/departamento';
-import { entidades_academicas } from '@/database/schema/entidad-academica';
-import { proveedores } from '@/database/schema/proveedor';
-import { sectores } from '@/database/schema/proveedor-sector';
-import { subsectores } from '@/database/schema/subsectores';
+import { departamento } from '@/database/schema/departamento';
+import { entidad_academica } from '@/database/schema/entidad-academica';
+import { proveedor } from '@/database/schema/proveedor';
+import { proveedor_sector } from '@/database/schema/proveedor-sector';
+import { proveedor_subsector } from '@/database/schema/proveedor-subsector';
 import { asc, eq, sql } from 'drizzle-orm';
 
 export async function getDepartamentos() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${departamentos.id} AS TEXT)`,
-        label: departamentos.departamento,
+        value: sql<string>`CAST(${departamento.id} AS TEXT)`,
+        label: departamento.nombre,
       })
-      .from(departamentos)
-      .orderBy(asc(departamentos.departamento));
+      .from(departamento)
+      .orderBy(asc(departamento.nombre));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los departamentos, por favor intenta de nuevo'
+      'No se pudieron obtener los departamento, por favor intenta de nuevo'
     );
   }
 }
@@ -28,16 +28,16 @@ export async function getSectores() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${sectores.id} AS TEXT)`,
-        label: sectores.sector,
+        value: sql<string>`CAST(${proveedor_sector.id} AS TEXT)`,
+        label: proveedor_sector.nombre,
       })
-      .from(sectores)
-      .orderBy(asc(sectores.sector));
+      .from(proveedor_sector)
+      .orderBy(asc(proveedor_sector.nombre));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los sectores, por favor intenta de nuevo'
+      'No se pudieron obtener los proveedor_sector, por favor intenta de nuevo'
     );
   }
 }
@@ -50,22 +50,22 @@ export async function getSubsectoresBySector(
   }
   return db
     .select({
-      value: sql<string>`CAST(${subsectores.id} AS TEXT)`,
-      label: subsectores.subsector,
+      value: sql<string>`CAST(${proveedor_subsector.id} AS TEXT)`,
+      label: proveedor_subsector.nombre,
     })
-    .from(subsectores)
-    .where(eq(subsectores.id_sector, Number(sectorId)));
+    .from(proveedor_subsector)
+    .where(eq(proveedor_subsector.id_sector, Number(sectorId)));
 }
 
 export async function getEntidadesAcademicas() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${entidades_academicas.id} AS TEXT)`,
-        label: entidades_academicas.nombre,
+        value: sql<string>`CAST(${entidad_academica.id} AS TEXT)`,
+        label: entidad_academica.nombre,
       })
-      .from(entidades_academicas)
-      .orderBy(asc(entidades_academicas.nombre));
+      .from(entidad_academica)
+      .orderBy(asc(entidad_academica.nombre));
     return data;
   } catch (error) {
     console.error(error);
@@ -79,16 +79,16 @@ export async function getProveedores() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${proveedores.id} AS TEXT)`,
-        label: proveedores.nombre_comercial,
+        value: sql<string>`CAST(${proveedor.id} AS TEXT)`,
+        label: proveedor.nombre_comercial,
       })
-      .from(proveedores)
-      .orderBy(asc(proveedores.nombre_comercial));
+      .from(proveedor)
+      .orderBy(asc(proveedor.nombre_comercial));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los proveedores, por favor intenta de nuevo'
+      'No se pudieron obtener los proveedor, por favor intenta de nuevo'
     );
   }
 }

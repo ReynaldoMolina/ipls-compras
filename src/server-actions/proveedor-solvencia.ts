@@ -3,7 +3,7 @@
 import { db } from '@/database/db';
 import { Solvencia } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
-import { solvencias } from '@/database/schema/proveedor-solvencia';
+import { proveedor_solvencia } from '@/database/schema/proveedor-solvencia';
 import { eq } from 'drizzle-orm';
 
 interface CreateSolvenciaProps {
@@ -16,7 +16,7 @@ export async function createSolvencia(
   data: CreateSolvenciaProps
 ) {
   try {
-    await db.insert(solvencias).values(data.values);
+    await db.insert(proveedor_solvencia).values(data.values);
   } catch (error) {
     console.error(error);
     return { message: 'Error creating solvencia' };
@@ -38,9 +38,9 @@ export async function updateSolvencia(
 
   try {
     await db
-      .update(solvencias)
+      .update(proveedor_solvencia)
       .set(data.values)
-      .where(eq(solvencias.id, data.id));
+      .where(eq(proveedor_solvencia.id, data.id));
   } catch (error) {
     console.error(error);
     return error;
