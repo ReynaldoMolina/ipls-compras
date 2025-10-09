@@ -5,6 +5,7 @@ import { FormAction } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { Dispatch } from 'react';
 import { Spinner } from '../ui/spinner';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 interface FormFooterProps {
   action: FormAction;
@@ -42,7 +43,8 @@ export function FormFooter({
   );
 }
 
-interface FormFooterDialogProps {
+interface FormFooterDialogProps<TData extends FieldValues> {
+  form: UseFormReturn<TData>;
   action?: 'create' | 'add';
   label?: string;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -50,24 +52,27 @@ interface FormFooterDialogProps {
   isPending: boolean;
 }
 
-export function FormFooterDialog({
+export function FormFooterDialog<TData extends FieldValues>({
+  form,
   action = 'create',
   label,
   setOpen,
   onSubmit,
   isPending,
-}: FormFooterDialogProps) {
+}: FormFooterDialogProps<TData>) {
   return (
-    <DialogFooter className="border-t pt-6">
-      <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
-        Cancelar
-      </Button>
+    <DialogFooter className="border-t pt-6 space-x-2">
       <Button
         type="button"
-        onClick={onSubmit}
-        className="w-25"
-        disabled={isPending}
+        variant="secondary"
+        onClick={() => {
+          form.reset();
+          setOpen(false);
+        }}
       >
+        Cancelar
+      </Button>
+      <Button type="button" onClick={onSubmit} disabled={isPending}>
         {isPending ? (
           <>
             <Spinner />

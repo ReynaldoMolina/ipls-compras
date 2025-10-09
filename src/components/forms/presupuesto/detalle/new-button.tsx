@@ -25,6 +25,7 @@ import { createPresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooterDialog } from '@/components/form-elements/form-footer';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface NuevoPresupuestoDetalleForm<TData> {
   table: Table<TData>;
@@ -34,6 +35,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
   table,
 }: NuevoPresupuestoDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const id_presupuesto = table.options.meta?.id_presupuesto;
   const selectOptions = table.options.meta?.selectOptions;
@@ -47,6 +49,8 @@ export function NuevoPresupuestoDetalleForm<TData>({
       id_unidad_medida: 0,
       precio_sugerido: undefined,
       id_categoria: 0,
+      prioridad: '',
+      observacion: '',
     },
   });
 
@@ -66,9 +70,9 @@ export function NuevoPresupuestoDetalleForm<TData>({
 
   useEffect(() => {
     if (state.success) {
-      setOpen(false);
       form.reset();
       toast(state.message);
+      router.refresh();
     }
   }, [state, form]);
 
@@ -95,6 +99,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
           >
             <PresupuestoDetalleForm form={form} selectOptions={selectOptions} />
             <FormFooterDialog
+              form={form}
               setOpen={setOpen}
               label="Agregar"
               onSubmit={form.handleSubmit(onSubmit)}

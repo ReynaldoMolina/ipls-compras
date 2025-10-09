@@ -51,6 +51,8 @@ export const detallePresupuestoSchema = z.object({
   id_unidad_medida: z.number().min(1, 'Requerido'),
   precio_sugerido: zNumberMin(),
   id_categoria: z.number().min(1, 'Requerido'),
+  prioridad: z.string().nullable(),
+  observacion: z.string().nullable(),
 });
 
 export const solicitudSchema = z.object({

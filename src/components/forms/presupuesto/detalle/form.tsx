@@ -8,7 +8,14 @@ import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormCombobox } from '@/components/form-elements/form-combobox';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
-import { FieldGroup, FieldSet } from '@/components/ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field';
+import { FormSelect } from '@/components/form-elements/form-select';
+import { prioridad } from '@/lib/select-options-data';
 
 type PresupuestoDetalleFormValue = z.infer<typeof detallePresupuestoSchema>;
 
@@ -49,17 +56,33 @@ export function PresupuestoDetalleForm({
             label="Precio sugerido"
           />
         </FormInputGroup>
-        <FormCombobox
+        <FormInputGroup>
+          <FormCombobox
+            control={form.control}
+            name="id_unidad_medida"
+            label="Unidad de medida"
+            options={selectOptions.unidadesMedida ?? []}
+          />
+          <FormCombobox
+            control={form.control}
+            name="id_categoria"
+            label="Categoría"
+            options={selectOptions.categorias ?? []}
+          />
+        </FormInputGroup>
+      </FieldSet>
+      <FieldSeparator />
+      <FieldSet>
+        <FormSelect
           control={form.control}
-          name="id_unidad_medida"
-          label="Unidad de medida"
-          options={selectOptions.unidadesMedida ?? []}
+          name="prioridad"
+          label="Prioridad"
+          options={prioridad}
         />
-        <FormCombobox
+        <FormTextArea
           control={form.control}
-          name="id_categoria"
-          label="Categoría"
-          options={selectOptions.categorias ?? []}
+          name="observacion"
+          label="Observación"
         />
       </FieldSet>
     </FieldGroup>

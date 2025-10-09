@@ -16,16 +16,16 @@ export async function createPresupuestoDetalle(
   data: CreatePresupuestoDetalle
 ) {
   if (!data.values) {
-    return { success: false, message: 'Missing data' };
+    return { success: false, message: 'Faltan datos por ingresar.' };
   }
 
   try {
     await db.insert(presupuesto_detalle).values(data.values);
 
-    return { success: true, message: 'Detalle agregado correctamente' };
+    return { success: true, message: 'Producto agregado correctamente.' };
   } catch (error) {
     console.error(error);
-    return { success: false, message: 'Error creating solicitud detalle' };
+    return { success: false, message: 'Error creando el producto.' };
   }
 }
 

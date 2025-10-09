@@ -92,8 +92,8 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     size: 130,
   },
   {
-    accessorKey: 'observaciones',
-    header: 'Observaciones',
+    accessorKey: 'observacion',
+    header: 'Observación',
     cell: DefaultCell,
   },
 ];
