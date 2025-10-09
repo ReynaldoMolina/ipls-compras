@@ -11,12 +11,11 @@ import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
-import { Pencil } from 'lucide-react';
 
 export const columns: ColumnDef<PresupuestoTable>[] = [
   {
     id: 'edit',
-    header: 'Editar',
+    header: 'Edit',
     cell: ({ row }) => {
       return <EditCell href={`/presupuestos/${row.original.id}`} />;
     },

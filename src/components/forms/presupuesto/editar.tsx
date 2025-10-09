@@ -46,8 +46,11 @@ export function EditarPresupuestoForm({
   }
 
   return (
-    <Tabs defaultValue="productos">
-      <TabsList>
+    <Tabs
+      defaultValue="productos"
+      className="flex flex-col p-3 overflow-y-auto"
+    >
+      <TabsList className="w-fit">
         <TabsTrigger value="info">Editar información</TabsTrigger>
         <TabsTrigger value="productos">Lista de productos</TabsTrigger>
       </TabsList>
@@ -60,7 +63,10 @@ export function EditarPresupuestoForm({
           isPending={isPending}
         />
       </TabsContent>
-      <TabsContent value="productos" className="overflow-auto space-y-3">
+      <TabsContent
+        value="productos"
+        className="space-y-3 flex flex-col overflow-y-auto"
+      >
         <DataTablePresupuesto
           columns={columns}
           tableData={presupuesto_detalle}

@@ -6,15 +6,9 @@ import z from 'zod';
 import { FormTextField } from '@/components/form-elements/form-text-field';
 import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormCombobox } from '@/components/form-elements/form-combobox';
-import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from '@/components/ui/field';
+import { FieldGroup, FieldSet } from '@/components/ui/field';
 
 type PresupuestoDetalleFormValue = z.infer<typeof detallePresupuestoSchema>;
 

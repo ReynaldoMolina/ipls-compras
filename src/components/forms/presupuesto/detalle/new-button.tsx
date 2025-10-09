@@ -68,7 +68,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
     if (state.success) {
       setOpen(false);
       form.reset();
-      toast('El producto ha sido agregado.');
+      toast(state.message);
     }
   }, [state.success, form]);
 

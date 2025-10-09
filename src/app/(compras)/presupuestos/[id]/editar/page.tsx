@@ -36,13 +36,11 @@ export default async function Page({ params }: PageProps) {
       <Header
         title={`Presupuestos / ${presupuesto.entidad_academica} - ${presupuesto.year}`}
       />
-      <PageWrapper>
-        <EditarPresupuestoForm
-          presupuesto={presupuesto}
-          presupuesto_detalle={presupuesto_detalle}
-          selectOptions={{ entidadesAcademicas, categorias, unidadesMedida }}
-        />
-      </PageWrapper>
+      <EditarPresupuestoForm
+        presupuesto={presupuesto}
+        presupuesto_detalle={presupuesto_detalle}
+        selectOptions={{ entidadesAcademicas, categorias, unidadesMedida }}
+      />
     </>
   );
 }
