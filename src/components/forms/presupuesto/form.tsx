@@ -1,116 +1,67 @@
 'use client';
 
-import { z } from 'zod';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { useUser } from '@/hooks/use-user';
-import {
-  FormAction,
-  FormSelectOptions,
-  PresupuestoFormType,
-} from '@/types/types';
-import { UseFormReturn } from 'react-hook-form';
+import { FormAction, FormSelectOptions } from '@/types/types';
+import { Form } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
 import { FormHeader } from '@/components/form-elements/form-header';
-import { FormLink, FormLinkGroup } from '@/components/form-elements/form-link';
-import { FormFieldSet } from '@/components/form-elements/form-fieldset';
-import { FormInputGroup } from '@/components/form-elements/form-input-group';
-import { DatePicker } from '@/components/date-picker';
 import { FormCombobox } from '@/components/form-elements/form-combobox';
-import { FormTextField } from '@/components/form-elements/form-text-field';
-import { Input } from '@/components/ui/input';
-import { FormSwitch } from '@/components/form-elements/form-switch';
+import { years } from '@/lib/select-options-data';
 import { FormFooter } from '@/components/form-elements/form-footer';
+import { FieldDescription, FieldLegend, FieldSet } from '@/components/ui/field';
 import { presupuestoSchema } from '../validation/validation-schemas';
+import z from 'zod';
+import { UseFormReturn } from 'react-hook-form';
 
 type PresupuestoFormValues = z.infer<typeof presupuestoSchema>;
 
 interface PresupuestoFormProps {
   action: FormAction;
   form: UseFormReturn<PresupuestoFormValues>;
-  onSubmit: () => void;
-  isPending?: boolean;
-  presupuesto?: PresupuestoFormType;
+  onSubmit: (values: PresupuestoFormValues) => void;
   selectOptions: FormSelectOptions;
+  isPending: boolean;
+  label?: string;
 }
 
 export function PresupuestoForm({
   action,
   form,
   onSubmit,
-  isPending = false,
-  presupuesto,
   selectOptions,
+  isPending,
+  label,
 }: PresupuestoFormProps) {
-  const { user } = useUser();
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <Card className="max-w-3xl mx-auto">
-          <FormHeader action={action} name="presupuesto" noun="f" />
+          <FormHeader
+            action={action}
+            name="presupuesto"
+            noun="m"
+            label={label?.toLocaleLowerCase()}
+          />
           <CardContent>
-            <FormLinkGroup action={action}>
-              <FormLink
-                href={`/solicitudes/${presupuesto?.id}/detalle`}
-                label="Ver lista de productos"
-              />
-              <FormLink
-                href={`/solicitudes/${presupuesto?.id}/ordenes`}
-                label="Ver órdenes de compra"
-              />
-            </FormLinkGroup>
-            <FormFieldSet name="info">
-              <FormInputGroup>
-                <FormField
-                  control={form.control}
-                  name="fecha"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Fecha presupuesto</FormLabel>
-                      <DatePicker<PresupuestoFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormCombobox
-                  control={form.control}
-                  name="year"
-                  label="Año"
-                  options={selectOptions.years}
-                />
-              </FormInputGroup>
+            <FieldSet>
+              <FieldLegend>Información básica</FieldLegend>
+              <FieldDescription>
+                Completa los datos principales del presupuesto.
+              </FieldDescription>
               <FormCombobox
                 control={form.control}
                 name="id_entidad_academica"
-                label="Carrera / curso / área"
+                label="Carrera / curso"
                 options={selectOptions.entidadesAcademicas}
               />
-              <FormTextField
+              <FormCombobox
                 control={form.control}
-                name="id_usuario"
-                label="Solicitado por"
-                disabled
-                hidden
+                name="year"
+                label="Año"
+                options={years}
               />
-              <FormItem>
-                <FormLabel>Solicitado por</FormLabel>
-                <Input type="text" defaultValue={user.name ?? ''} disabled />
-              </FormItem>
-              <FormSwitch
-                control={form.control}
-                name="revisado_bodega"
-                label="Estado"
-                description="¿Revisado por bodega?"
-              />
-            </FormFieldSet>
+            </FieldSet>
           </CardContent>
-          <FormFooter action={action} isPending={isPending} />
+          <FormFooter action={action} isPending={isPending} label={label} />
         </Card>
       </form>
     </Form>

@@ -14,6 +14,5 @@ export const presupuesto_detalle = pgTable('presupuesto_detalle', {
     .notNull()
     .references(() => unidad_medida.id),
   precio_sugerido: real().notNull(),
-  observaciones: text(),
   id_categoria: integer().references(() => categoria_producto.id),
 });

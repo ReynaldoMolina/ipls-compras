@@ -4,24 +4,34 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { FormAction } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { Dispatch } from 'react';
-import { LoadingIcon } from '../loading/LoadingIcon';
+import { Spinner } from '../ui/spinner';
 
 interface FormFooterProps {
   action: FormAction;
+  label?: string;
   isPending?: boolean;
 }
 
-export function FormFooter({ action, isPending = false }: FormFooterProps) {
+export function FormFooter({
+  action,
+  label,
+  isPending = false,
+}: FormFooterProps) {
   const router = useRouter();
 
   return (
-    <CardFooter className="flex gap-2">
+    <CardFooter className="border-t">
       <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button type="submit" className="w-25" disabled={isPending}>
+      <Button type="submit" disabled={isPending}>
         {isPending ? (
-          <LoadingIcon />
+          <>
+            <Spinner />
+            Procesando
+          </>
+        ) : label ? (
+          label
         ) : action === 'create' ? (
           'Crear'
         ) : (
@@ -34,19 +44,43 @@ export function FormFooter({ action, isPending = false }: FormFooterProps) {
 
 interface FormFooterDialogProps {
   action?: 'create' | 'add';
+  label?: string;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
+  onSubmit: () => void;
+  isPending: boolean;
 }
 
 export function FormFooterDialog({
   action = 'create',
+  label,
   setOpen,
+  onSubmit,
+  isPending,
 }: FormFooterDialogProps) {
   return (
-    <DialogFooter>
+    <DialogFooter className="border-t pt-6">
       <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
         Cancelar
       </Button>
-      <Button type="submit">{action === 'create' ? 'Crear' : 'Agregar'}</Button>
+      <Button
+        type="button"
+        onClick={onSubmit}
+        className="w-25"
+        disabled={isPending}
+      >
+        {isPending ? (
+          <>
+            <Spinner />
+            Procesando
+          </>
+        ) : label ? (
+          label
+        ) : action === 'create' ? (
+          'Crear'
+        ) : (
+          'Guardar'
+        )}
+      </Button>
     </DialogFooter>
   );
 }

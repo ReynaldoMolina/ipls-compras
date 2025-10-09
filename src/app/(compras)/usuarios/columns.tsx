@@ -9,8 +9,8 @@ import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<UsuarioTable>[] = [
   {
-    id: 'actions',
-    header: 'Edit',
+    id: 'edit',
+    header: 'Editar',
     cell: ({ row }) => <EditCell href={`/usuarios/${row.original.id}`} />,
     size: 50,
   },

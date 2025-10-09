@@ -10,26 +10,13 @@ import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
 import { OptionsMenuSolicitudDetalle } from './options-menu/options-menu-solicitud-detalle';
-import { OptionsMenuOrdenDetalle } from './options-menu/options-menu-orden-detalle';
-import { PresupuestoDetalleTable } from '@/types/types';
 
-interface OptionsMenuProps<TData extends PresupuestoDetalleTable> {
+interface OptionsMenuProps<TData> {
   table: Table<TData>;
-  tableName: 'orden' | 'solicitud' | 'ordenmodal' | 'presupuesto';
 }
 
-export function OptionsMenu<TData extends PresupuestoDetalleTable>({
-  table,
-  tableName,
-}: OptionsMenuProps<TData>) {
+export function OptionsMenu<TData>({ table }: OptionsMenuProps<TData>) {
   const [open, setOpen] = useState(false);
-
-  const optionsMenu = {
-    orden: <OptionsMenuOrdenDetalle table={table} setOpen={setOpen} />,
-    solicitud: <OptionsMenuSolicitudDetalle table={table} setOpen={setOpen} />,
-    ordenmodal: <></>,
-    presupuesto: <></>,
-  };
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -41,7 +28,7 @@ export function OptionsMenu<TData extends PresupuestoDetalleTable>({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="flex flex-col gap-3">
-        {optionsMenu[tableName]}
+        <OptionsMenuSolicitudDetalle table={table} setOpen={setOpen} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

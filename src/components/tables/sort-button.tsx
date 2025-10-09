@@ -20,6 +20,7 @@ export function SortButton<TData, TValue>({
 
   return (
     <Button
+      type="button"
       variant="ghost"
       className={buttonStyle}
       onClick={() => setSort(column.id)}
@@ -38,6 +39,7 @@ export function SortButtonClient<TData, TValue>({
 }: SortButtonProps<TData, TValue>) {
   return (
     <Button
+      type="button"
       variant="ghost"
       className={buttonStyle}
       onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}

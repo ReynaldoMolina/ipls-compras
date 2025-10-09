@@ -1,6 +1,7 @@
 import { DataTable } from '@/components/tables/data-table';
 import { columns } from './columns';
 import {
+  getSolvenciaProveedorInfoById,
   getSolvenciasByProviderId,
   getUniqueYearsFromSolvencias,
 } from '@/fetch-data/proveedor-solvencia';
@@ -12,13 +13,16 @@ import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
+  const proveedor = await getSolvenciaProveedorInfoById(id);
+
   return {
-    title: `Proveedor ${id} - Solvencias`,
+    title: `Solvencias / ${proveedor?.nombre_comercial}`,
   };
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
   const id_proveedor = (await params).id;
+  const proveedor = await getSolvenciaProveedorInfoById(id_proveedor);
   const tableData = await getSolvenciasByProviderId(
     id_proveedor,
     await searchParams
@@ -27,7 +31,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   return (
     <>
-      <Header title={`Proveedor ${id_proveedor} - Solvencias`} />
+      <Header title={`Solvencias / ${proveedor?.nombre_comercial}`} />
       <PageWrapper>
         <ActionBar>
           <FilterButton filterOptions={{ years }} />

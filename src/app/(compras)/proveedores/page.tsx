@@ -24,14 +24,14 @@ export default async function Page({ searchParams }: PageProps) {
   const proveedoresTableData = await getProveedoresTableData(
     await searchParams
   );
-  const departamentosOptions = await getUniqueDepartamentosFromProveedores();
+  const departamentos = await getUniqueDepartamentosFromProveedores();
 
   return (
     <>
       <Header title="Proveedores" showBackIcon={false} />
       <PageWrapper>
         <ActionBar>
-          <FilterButton filterOptions={{ departamentosOptions }} />
+          <FilterButton filterOptions={{ departamentos }} />
         </ActionBar>
         <DataTable columns={columns} data={proveedoresTableData} />
       </PageWrapper>

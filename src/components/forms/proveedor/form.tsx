@@ -4,15 +4,32 @@ import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import { providerSchema } from '@/components/forms/validation/validation-schemas';
 import { FormInputGroup } from '../../form-elements/form-input-group';
-import { FormFieldSet } from '../../form-elements/form-fieldset';
 import { FormFooter } from '../../form-elements/form-footer';
 import { FormSelectOptions, FormAction } from '@/types/types';
 import { Card, CardContent } from '../../ui/card';
 import { FormHeader } from '../../form-elements/form-header';
 import { FormTextField } from '../../form-elements/form-text-field';
 import { FormCombobox } from '../../form-elements/form-combobox';
-import { FormLink, FormLinkGroup } from '../../form-elements/form-link';
 import { UseFormReturn } from 'react-hook-form';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { CalendarDays } from 'lucide-react';
+import { FormTextArea } from '@/components/form-elements/form-text-area';
 
 type ProveedorFormValues = z.infer<typeof providerSchema>;
 
@@ -39,77 +56,110 @@ export function ProveedorForm({
         <Card className="mx-auto max-w-3xl">
           <FormHeader action={action} name="proveedor" noun="m" />
           <CardContent>
-            <FormLinkGroup action={action}>
-              <FormLink
-                href={`/proveedores/${id_proveedor}/solvencias`}
-                label="Solvencias"
-              />
-            </FormLinkGroup>
-            <FormFieldSet name="info">
-              <FormTextField
-                control={form.control}
-                name="nombre_comercial"
-                label="Nombre comercial"
-              />
-              <FormInputGroup>
+            <FieldGroup>
+              <FieldSet>
+                <Item variant="outline">
+                  <ItemMedia variant="icon">
+                    <CalendarDays />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>Solvencias</ItemTitle>
+                    <ItemDescription>
+                      Revisa y actualiza las solvencias.
+                    </ItemDescription>
+                  </ItemContent>
+                  <ItemActions>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={`/proveedores/${id_proveedor}/solvencias`}>
+                        Abrir
+                      </Link>
+                    </Button>
+                  </ItemActions>
+                </Item>
+              </FieldSet>
+              <FieldSet>
+                <FieldLegend>Información</FieldLegend>
+                <FieldDescription>
+                  Datos básicos del proveedor.
+                </FieldDescription>
                 <FormTextField
                   control={form.control}
-                  name="razon_social"
-                  label="Razón social"
+                  name="nombre_comercial"
+                  label="Nombre comercial"
                 />
-                <FormTextField control={form.control} name="ruc" label="RUC" />
-              </FormInputGroup>
-            </FormFieldSet>
+                <FormInputGroup>
+                  <FormTextField
+                    control={form.control}
+                    name="razon_social"
+                    label="Razón social"
+                  />
+                  <FormTextField
+                    control={form.control}
+                    name="ruc"
+                    label="RUC"
+                  />
+                </FormInputGroup>
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Contacto</FieldLegend>
+                <FieldDescription>
+                  Datos para contactar al proveedor.
+                </FieldDescription>
 
-            <FormFieldSet name="contact">
-              <FormInputGroup>
-                <FormTextField
+                <FormInputGroup>
+                  <FormTextField
+                    control={form.control}
+                    name="contacto_principal"
+                    label="Nombre"
+                  />
+                  <FormTextField
+                    control={form.control}
+                    name="telefono"
+                    label="Teléfono"
+                  />
+                </FormInputGroup>
+                <FormInputGroup>
+                  <FormTextField
+                    control={form.control}
+                    name="correo"
+                    label="Correo"
+                  />
+                  <FormCombobox
+                    control={form.control}
+                    name="id_departamento"
+                    label="Departamento"
+                    options={selectOptions.departamentos ?? []}
+                  />
+                </FormInputGroup>
+                <FormTextArea
                   control={form.control}
-                  name="contacto_principal"
-                  label="Nombre"
+                  name="direccion"
+                  label="Dirección"
                 />
-                <FormTextField
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Sector</FieldLegend>
+                <FieldDescription>
+                  Clasificación según su actividad comercial.
+                </FieldDescription>
+                <FormCombobox
                   control={form.control}
-                  name="telefono"
-                  label="Teléfono"
-                />
-              </FormInputGroup>
-              <FormInputGroup>
-                <FormTextField
-                  control={form.control}
-                  name="correo"
-                  label="Correo"
+                  name="id_sector"
+                  label="Sector"
+                  options={selectOptions.sectores ?? []}
+                  updateParam="sector"
+                  resetField={() => form.setValue('id_subsector', 0)}
                 />
                 <FormCombobox
                   control={form.control}
-                  name="id_departamento"
-                  label="Departamento"
-                  options={selectOptions.departamentos ?? []}
+                  name="id_subsector"
+                  label="Subsector"
+                  options={selectOptions.subsectores ?? []}
                 />
-              </FormInputGroup>
-              <FormTextField
-                control={form.control}
-                name="direccion"
-                label="Dirección"
-              />
-            </FormFieldSet>
-
-            <FormFieldSet name="sector">
-              <FormCombobox
-                control={form.control}
-                name="id_sector"
-                label="Sector"
-                options={selectOptions.sectores ?? []}
-                updateParam="sector"
-                resetField={() => form.setValue('id_subsector', 0)}
-              />
-              <FormCombobox
-                control={form.control}
-                name="id_subsector"
-                label="Subsector"
-                options={selectOptions.subsectores ?? []}
-              />
-            </FormFieldSet>
+              </FieldSet>
+            </FieldGroup>
           </CardContent>
           <FormFooter action={action} isPending={isPending} />
         </Card>

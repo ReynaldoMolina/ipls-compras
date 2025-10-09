@@ -1,74 +1,57 @@
 import { db } from '@/database/db';
-import { categoria_productos } from '@/database/schema/categoria_producto';
-import { solicitudes_detalle } from '@/database/schema/presupuesto-detalle';
-import { solicitudes_estados } from '@/database/schema/solicitudes-estados';
-import { ubicaciones } from '@/database/schema/ubicaciones';
-import { unidades_medida } from '@/database/schema/unidad-medida';
-import { SolicitudDetalleFormType, SolicitudDetalleTable } from '@/types/types';
+import { categoria_producto } from '@/database/schema/categoria_producto';
+import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
+import { unidad_medida } from '@/database/schema/unidad-medida';
+import {
+  PresupuestoDetalleFormType,
+  PresupuestoDetalleTable,
+} from '@/types/types';
 import { asc, sql, eq } from 'drizzle-orm';
 
-export async function getSolicitudDetalleBySolicitudId(
-  id_solicitud: number | string
-): Promise<SolicitudDetalleTable[]> {
+export async function getPresupuestoDetalleByPresupuestoId(
+  id_presupuesto: number | string
+): Promise<PresupuestoDetalleTable[]> {
   const selectFields = {
-    id: solicitudes_detalle.id,
-    id_solicitud: solicitudes_detalle.id_solicitud,
-    producto_servicio: solicitudes_detalle.producto_servicio,
-    cantidad: solicitudes_detalle.cantidad,
-    unidad_medida: unidades_medida.unidad_medida,
-    precio: solicitudes_detalle.precio,
-    observaciones: solicitudes_detalle.observaciones,
-    prioridad: solicitudes_detalle.prioridad,
-    id_estado: solicitudes_detalle.id_estado,
-    estado: solicitudes_estados.estado,
-    comprado: solicitudes_detalle.comprado,
-    recibido: solicitudes_detalle.recibido,
-    precio_compra: solicitudes_detalle.precio_compra,
-    entrega_bodega: solicitudes_detalle.entrega_bodega,
-    precio_bodega: solicitudes_detalle.precio_bodega,
-    ubicacion: ubicaciones.ubicacion,
-    categoria: categoria_productos.categoria,
+    id: presupuesto_detalle.id,
+    id_presupuesto: presupuesto_detalle.id_presupuesto,
+    producto_servicio: presupuesto_detalle.producto_servicio,
+    cantidad: presupuesto_detalle.cantidad,
+    unidad_medida: unidad_medida.nombre,
+    precio_sugerido: presupuesto_detalle.precio_sugerido,
+    categoria: categoria_producto.nombre,
   };
   try {
     const data = await db
       .select(selectFields)
-      .from(solicitudes_detalle)
+      .from(presupuesto_detalle)
       .leftJoin(
-        unidades_medida,
-        eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
+        unidad_medida,
+        eq(presupuesto_detalle.id_unidad_medida, unidad_medida.id)
       )
       .leftJoin(
-        solicitudes_estados,
-        eq(solicitudes_detalle.id_estado, solicitudes_estados.id)
+        categoria_producto,
+        eq(presupuesto_detalle.id_categoria, categoria_producto.id)
       )
-      .leftJoin(
-        ubicaciones,
-        eq(solicitudes_detalle.id_ubicacion, ubicaciones.id)
-      )
-      .leftJoin(
-        categoria_productos,
-        eq(solicitudes_detalle.id_categoria, categoria_productos.id)
-      )
-      .where(eq(solicitudes_detalle.id_solicitud, Number(id_solicitud)))
-      .orderBy(solicitudes_detalle.id);
+      .where(eq(presupuesto_detalle.id_presupuesto, Number(id_presupuesto)))
+      .orderBy(presupuesto_detalle.id);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudo obtener el detalle de la solicitud, por favor intenta de nuevo'
+      'No se pudo obtener el detalle del presupuesto, por favor intenta de nuevo'
     );
   }
 }
 
-export async function getSolicitudDetalleById(
+export async function getPresupuestoDetalleById(
   id: number | string | undefined
-): Promise<SolicitudDetalleFormType> {
+): Promise<PresupuestoDetalleFormType> {
   try {
     const data = await db
       .select()
-      .from(solicitudes_detalle)
-      .where(eq(solicitudes_detalle.id, Number(id)))
-      .orderBy(solicitudes_detalle.id);
+      .from(presupuesto_detalle)
+      .where(eq(presupuesto_detalle.id, Number(id)))
+      .orderBy(presupuesto_detalle.id);
     return data[0];
   } catch (error) {
     console.error(error);
@@ -82,11 +65,11 @@ export async function getUnidadesMedida() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${unidades_medida.id} AS TEXT)`,
-        label: unidades_medida.unidad_medida,
+        value: sql<string>`CAST(${unidad_medida.id} AS TEXT)`,
+        label: unidad_medida.nombre,
       })
-      .from(unidades_medida)
-      .orderBy(asc(unidades_medida.unidad_medida));
+      .from(unidad_medida)
+      .orderBy(asc(unidad_medida.nombre));
     return data;
   } catch (error) {
     console.error(error);
@@ -96,51 +79,15 @@ export async function getUnidadesMedida() {
   }
 }
 
-export async function getDetalleEstados() {
-  try {
-    const data = await db
-      .select({
-        value: sql<string>`CAST(${solicitudes_estados.id} AS TEXT)`,
-        label: solicitudes_estados.estado,
-      })
-      .from(solicitudes_estados)
-      .orderBy(asc(solicitudes_estados.estado));
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudieron obtener los estados, por favor intenta de nuevo'
-    );
-  }
-}
-
-export async function getDetalleUbicaciones() {
-  try {
-    const data = await db
-      .select({
-        value: sql<string>`CAST(${ubicaciones.id} AS TEXT)`,
-        label: ubicaciones.ubicacion,
-      })
-      .from(ubicaciones)
-      .orderBy(asc(ubicaciones.ubicacion));
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudieron obtener las ubicaciones, por favor intenta de nuevo'
-    );
-  }
-}
-
 export async function getDetalleCategorias() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${categoria_productos.id} AS TEXT)`,
-        label: categoria_productos.categoria,
+        value: sql<string>`CAST(${categoria_producto.id} AS TEXT)`,
+        label: categoria_producto.nombre,
       })
-      .from(categoria_productos)
-      .orderBy(asc(categoria_productos.categoria));
+      .from(categoria_producto)
+      .orderBy(asc(categoria_producto.nombre));
     return data;
   } catch (error) {
     console.error(error);

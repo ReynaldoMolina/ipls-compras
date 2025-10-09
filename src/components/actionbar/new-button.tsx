@@ -17,7 +17,7 @@ export function NewButton({ isDetalle = false }: NewButtonProps) {
       <Link href={`${pathname}/nuevo`}>
         <Plus />
         <span className="hidden sm:inline-flex">
-          {isDetalle ? 'Agregar' : 'Nuevo'}
+          {isDetalle ? 'Agregar producto' : 'Nuevo'}
         </span>
       </Link>
     </Button>

@@ -37,7 +37,6 @@ export function FormTextArea<T extends FieldValues>({
                 el.style.height = 'auto';
                 el.style.height = `${el.scrollHeight}px`;
               }}
-              className="overflow-y-auto"
             />
           </FormControl>
           <FormMessage />

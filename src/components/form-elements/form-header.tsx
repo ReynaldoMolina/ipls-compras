@@ -7,20 +7,22 @@ export function FormHeader({
   action,
   name,
   noun,
+  label,
 }: {
   children?: React.ReactNode;
   action: FormAction;
   name: string;
   noun: 'm' | 'f';
+  label?: string;
 }) {
   const article = noun === 'm' ? 'del' : 'de la';
   const verb =
     action === 'create' ? (noun === 'm' ? 'Nuevo' : 'Nueva') : 'Editar';
   const instruction = action === 'create' ? 'Ingresa' : 'Edita';
-  const button = action === 'create' ? 'crear' : 'guardar';
+  const button = label ? label : action === 'create' ? 'crear' : 'guardar';
 
   return (
-    <CardHeader>
+    <CardHeader className="border-b">
       <div className="inline-flex flex-col space-y-1.5">
         <CardTitle>
           {verb} {name}

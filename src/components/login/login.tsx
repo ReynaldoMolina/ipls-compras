@@ -10,7 +10,7 @@ import { Form } from '../ui/form';
 import { loginWithGoogle } from '@/server-actions/auth';
 import { Hero } from './hero';
 import { useTransition } from 'react';
-import { LoadingIcon } from '../loading/LoadingIcon';
+import { Spinner } from '../ui/spinner';
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -46,7 +46,7 @@ export function LoginForm() {
               disabled={isPending}
             >
               {isPending ? (
-                <LoadingIcon />
+                <Spinner />
               ) : (
                 <>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

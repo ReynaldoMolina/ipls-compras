@@ -9,7 +9,9 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const entidadesAcademicas = await getEntidadesAcademicas();
+  const entidadesAcademicas = await getEntidadesAcademicas({
+    tipo: 'especialidad',
+  });
 
   return (
     <>

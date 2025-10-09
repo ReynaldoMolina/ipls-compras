@@ -12,6 +12,7 @@ import { EditCell } from '@/components/tables/edit-cell';
 export const columns: ColumnDef<SolvenciaTable>[] = [
   {
     id: 'edit',
+    header: 'Editar',
     cell: ({ row }) => (
       <EditCell
         href={`/proveedores/${row.original.id_proveedor}/solvencias/${row.original.id}`}

@@ -13,9 +13,9 @@ export async function getPresupuestosTableData(
 ) {
   const selectFields = {
     id: presupuesto.id,
+    entidad_academica: entidad_academica.nombre,
     year: presupuesto.year,
     tipo: entidad_academica.tipo,
-    entidad_academica: entidad_academica.nombre,
     presupuestado: sql<number>`SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio_sugerido})`,
     // restante: sql<number>`
     //   SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio})
@@ -61,8 +61,17 @@ export async function getPresupuestoById(
 ): Promise<PresupuestoFormType> {
   try {
     const data = await db
-      .select()
+      .select({
+        id: presupuesto.id,
+        year: presupuesto.year,
+        id_entidad_academica: presupuesto.id_entidad_academica,
+        entidad_academica: entidad_academica.nombre,
+      })
       .from(presupuesto)
+      .leftJoin(
+        entidad_academica,
+        eq(presupuesto.id_entidad_academica, entidad_academica.id)
+      )
       .where(eq(presupuesto.id, Number(id)));
     return data[0];
   } catch (error) {

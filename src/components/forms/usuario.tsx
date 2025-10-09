@@ -24,6 +24,13 @@ import { DatePicker } from '../date-picker';
 import { User } from 'next-auth';
 import { rolesOptions } from '@/permissions/roles';
 import { startTransition, useActionState } from 'react';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../ui/field';
 
 type UserFormProps = {
   user?: User;
@@ -44,6 +51,7 @@ export function UserForm({ user }: UserFormProps) {
   });
 
   const [state, formAction, isPending] = useActionState(updateUser, {
+    success: false,
     message: '',
   });
 
@@ -59,61 +67,70 @@ export function UserForm({ user }: UserFormProps) {
         <Card className="max-w-2xl mx-auto">
           <FormHeader action="edit" name="usuario" noun="m" />
           <CardContent>
-            <FormFieldSet name="info">
-              <FormTextField
-                control={form.control}
-                name="id"
-                label="Id"
-                disabled
-                hidden
-              />
-              <FormTextField
-                control={form.control}
-                name="name"
-                label="Nombre"
-                disabled
-              />
-              <FormTextField
-                control={form.control}
-                name="email"
-                label="Correo"
-                disabled
-              />
-              <FormField
-                control={form.control}
-                name="emailVerified"
-                render={({ field }) => (
-                  <FormItem className="hidden">
-                    <FormLabel>Verificado el</FormLabel>
-                    <DatePicker field={field} disabled />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormTextField
-                control={form.control}
-                name="image"
-                label="Imagen"
-                disabled
-                hidden
-              />
-            </FormFieldSet>
-            <FormFieldSet name="permissions">
-              <FormInputGroup>
-                <FormSelect
+            <FieldGroup>
+              <FieldSet>
+                <FieldLegend>Información</FieldLegend>
+                <FieldDescription>Datos básicos del usuario.</FieldDescription>
+                <FormTextField
                   control={form.control}
-                  name="role"
-                  label="Rol"
-                  options={rolesOptions}
+                  name="id"
+                  label="Id"
+                  disabled
+                  hidden
                 />
-                <FormSwitch
+                <FormTextField
                   control={form.control}
-                  name="activo"
-                  label="Estado"
-                  description="¿El usuario está activo?"
+                  name="name"
+                  label="Nombre"
+                  disabled
                 />
-              </FormInputGroup>
-            </FormFieldSet>
+                <FormTextField
+                  control={form.control}
+                  name="email"
+                  label="Correo"
+                  disabled
+                />
+                <FormField
+                  control={form.control}
+                  name="emailVerified"
+                  render={({ field }) => (
+                    <FormItem className="hidden">
+                      <FormLabel>Verificado el</FormLabel>
+                      <DatePicker field={field} disabled />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormTextField
+                  control={form.control}
+                  name="image"
+                  label="Imagen"
+                  disabled
+                  hidden
+                />
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Permisos</FieldLegend>
+                <FieldDescription>
+                  Gestiona los permisos y roles del usuario.
+                </FieldDescription>
+                <FormInputGroup>
+                  <FormSelect
+                    control={form.control}
+                    name="role"
+                    label="Rol"
+                    options={rolesOptions}
+                  />
+                  <FormSwitch
+                    control={form.control}
+                    name="activo"
+                    label="Estado"
+                    description="¿El usuario está activo?"
+                  />
+                </FormInputGroup>
+              </FieldSet>
+            </FieldGroup>
           </CardContent>
           <FormFooter action="edit" isPending={isPending} />
         </Card>

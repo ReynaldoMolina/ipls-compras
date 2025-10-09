@@ -53,6 +53,27 @@ export async function getSolvenciasByProviderId(
   }
 }
 
+export async function getSolvenciaProveedorInfoById(
+  id: number | string | undefined
+) {
+  if (!id) return;
+
+  try {
+    const [data] = await db
+      .select({
+        nombre_comercial: proveedor.nombre_comercial,
+      })
+      .from(proveedor)
+      .where(eq(proveedor.id, Number(id)));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el nombre del proveedor, por favor intenta de nuevo.'
+    );
+  }
+}
+
 export async function getSolvenciaById(id: number | string | undefined) {
   if (!id) return;
 

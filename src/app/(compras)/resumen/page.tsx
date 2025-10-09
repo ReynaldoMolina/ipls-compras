@@ -3,11 +3,11 @@ import { Chart } from '@/components/chart/chart';
 import { Header } from '@/components/header/header';
 import { getResumenComparisonChartByEntidad } from '@/fetch-data/resumen';
 import { FilterButton } from '@/components/actionbar/filter-button';
-import { getUniqueYearsFromSolicitudes } from '@/fetch-data/presupuesto';
+import { getUniqueYearsFromPresupuestos } from '@/fetch-data/presupuesto';
 import { currentYear } from '@/lib/select-options-data';
 import {
   comparisonChartConfig,
-  presupuestoChartConfig,
+  // presupuestoChartConfig,
 } from '@/components/chart/chart-config';
 import { PageProps } from '@/types/types';
 import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
@@ -23,11 +23,11 @@ export default async function Page({ searchParams }: PageProps) {
   if (ability.cannot('read', 'Resumen')) notFound();
 
   const year = Number((await searchParams).year) || currentYear;
-  const years = await getUniqueYearsFromSolicitudes();
+  const years = await getUniqueYearsFromPresupuestos();
   const comparisonChartData = await getResumenComparisonChartByEntidad(year);
-  const presupuestoChartData = comparisonChartData.map(
-    ({ asignado, ...rest }) => rest
-  );
+  // const presupuestoChartData = comparisonChartData.map(
+  //   ({ asignado, ...rest }) => rest
+  // );
 
   return (
     <>
@@ -37,12 +37,12 @@ export default async function Page({ searchParams }: PageProps) {
           <FilterButton filterOptions={{ years }} />
         </ActionBar>
         <div className="flex flex-1 flex-col xl:flex-row gap-3 w-full overflow-x-auto">
-          <Chart
+          {/* <Chart
             chartData={presupuestoChartData}
             chartConfig={presupuestoChartConfig}
             title="Presupuesto general por especialidades"
             description={`Año ${year}`}
-          />
+          /> */}
           <Chart
             chartData={comparisonChartData}
             chartConfig={comparisonChartConfig}

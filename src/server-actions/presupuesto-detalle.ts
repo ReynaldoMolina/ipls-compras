@@ -2,36 +2,45 @@
 
 import { db } from '@/database/db';
 import { goBackTo } from './go-back-to-list';
-import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
+import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 import { eq, inArray } from 'drizzle-orm';
-import { SolicitudDetalleFormType } from '@/types/types';
 import { revalidatePath } from 'next/cache';
+import { PresupuestoDetalleFormType } from '@/types/types';
 
-export async function createSolicitudDetalle(
-  data: SolicitudDetalleFormType,
-  idSolicitud: number
+interface CreatePresupuestoDetalle {
+  values: PresupuestoDetalleFormType;
+}
+
+export async function createPresupuestoDetalle(
+  prevState: unknown,
+  data: CreatePresupuestoDetalle
 ) {
+  if (!data.values) {
+    return { success: false, message: 'Missing data' };
+  }
+
   try {
-    await db.insert(solicitud_detalle).values(data);
+    await db.insert(presupuesto_detalle).values(data.values);
+
+    return { success: true, message: 'Detalle agregado correctamente' };
   } catch (error) {
     console.error(error);
-    return { message: 'Error creating solicitud detalle' };
+    return { success: false, message: 'Error creating solicitud detalle' };
   }
-  await goBackTo(`/solicitudes/${idSolicitud}/detalle`);
 }
 
 export async function updateSolicitudDetalle(
   id: number | undefined,
-  data: SolicitudDetalleFormType,
+  data: PresupuestoDetalleFormType,
   id_solicitud: number
 ) {
   if (!id) return;
 
   try {
     await db
-      .update(solicitud_detalle)
+      .update(presupuesto_detalle)
       .set(data)
-      .where(eq(solicitud_detalle.id, id));
+      .where(eq(presupuesto_detalle.id, id));
   } catch (error) {
     console.error(error);
     return error;
@@ -40,7 +49,7 @@ export async function updateSolicitudDetalle(
 }
 
 export type SolicitudDetalleColumn =
-  keyof typeof solicitud_detalle.$inferInsert;
+  keyof typeof presupuesto_detalle.$inferInsert;
 
 export async function updateSolicitudDetalleColumnByIds(
   ids: number[],
@@ -51,9 +60,9 @@ export async function updateSolicitudDetalleColumnByIds(
 
   try {
     await db
-      .update(solicitud_detalle)
+      .update(presupuesto_detalle)
       .set({ [column]: value })
-      .where(inArray(solicitud_detalle.id, ids));
+      .where(inArray(presupuesto_detalle.id, ids));
   } catch (error) {
     console.error(error);
     return error;
@@ -68,8 +77,8 @@ export async function deleteSolicitudDetalleByIds(
 
   try {
     await db
-      .delete(solicitud_detalle)
-      .where(inArray(solicitud_detalle.id, ids));
+      .delete(presupuesto_detalle)
+      .where(inArray(presupuesto_detalle.id, ids));
   } catch (error) {
     console.error(error);
     return error;

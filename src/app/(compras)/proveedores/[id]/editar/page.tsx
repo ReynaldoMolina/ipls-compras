@@ -11,8 +11,10 @@ import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
+  const provider = await getProveedorById(id);
+
   return {
-    title: `Proveedor ${id}`,
+    title: `${provider.nombre_comercial}`,
   };
 }
 
@@ -29,7 +31,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   return (
     <>
-      <Header title={`Proveedor ${id}`} />
+      <Header title={provider.nombre_comercial} />
       <PageWrapper>
         <EditarProveedorForm
           proveedor={provider}

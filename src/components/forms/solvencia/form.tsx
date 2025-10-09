@@ -21,6 +21,13 @@ import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { DatePicker } from '@/components/date-picker';
 import { Input } from '@/components/ui/input';
 import { FormFooter } from '@/components/form-elements/form-footer';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field';
 
 type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
 
@@ -42,87 +49,98 @@ export function SolvenciaForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-2xl mx-auto">
+        <Card className="max-w-3xl mx-auto">
           <FormHeader action={action} name="solvencia" noun="f" />
           <CardContent>
-            <FormFieldSet name="verification">
-              <FormTextField
-                control={form.control}
-                name="id_proveedor"
-                label="Id proveedor"
-                placeholder="Id proveedor"
-                hidden
-                disabled
-              />
-              <FormInputGroup>
-                <FormField
+            <FieldGroup>
+              <FieldSet>
+                <FieldLegend>Verificación</FieldLegend>
+                <FieldDescription>
+                  Indica cuándo se verificó y se recibió la información fiscal.
+                </FieldDescription>
+                <FormTextField
                   control={form.control}
-                  name="verificado"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Verificado el</FormLabel>
-                      <DatePicker<SolvenciaFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name="id_proveedor"
+                  label="Id proveedor"
+                  placeholder="Id proveedor"
+                  hidden
+                  disabled
                 />
-                <FormField
+                <FormInputGroup>
+                  <FormField
+                    control={form.control}
+                    name="verificado"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Verificado el</FormLabel>
+                        <DatePicker<SolvenciaFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="recibido"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Recibido el</FormLabel>
+                        <DatePicker<SolvenciaFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </FormInputGroup>
+                <FormTextField
                   control={form.control}
-                  name="recibido"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Recibido el</FormLabel>
-                      <DatePicker<SolvenciaFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name="id_usuario"
+                  label="Verificado por"
+                  placeholder="Usuario"
+                  hidden
+                  disabled
                 />
-              </FormInputGroup>
-              <FormTextField
-                control={form.control}
-                name="id_usuario"
-                label="Verificado por"
-                placeholder="Usuario"
-                hidden
-                disabled
-              />
-              <FormItem>
-                <FormLabel>Verificado por</FormLabel>
-                <Input type="text" defaultValue={user.name ?? ''} disabled />
-              </FormItem>
-            </FormFieldSet>
-            <FormFieldSet name="info">
-              <FormInputGroup>
-                <FormField
+                <FormItem>
+                  <FormLabel>Verificado por</FormLabel>
+                  <Input type="text" defaultValue={user.name ?? ''} disabled />
+                </FormItem>
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Información</FieldLegend>
+                <FieldDescription>
+                  Registra las fechas de emisión y vencimiento de la solvencia.
+                </FieldDescription>
+                <FormInputGroup>
+                  <FormField
+                    control={form.control}
+                    name="emitida"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Emitida el</FormLabel>
+                        <DatePicker<SolvenciaFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="vence"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Vence el</FormLabel>
+                        <DatePicker<SolvenciaFormValues> field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </FormInputGroup>
+                <FormTextField
                   control={form.control}
-                  name="emitida"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Emitida el</FormLabel>
-                      <DatePicker<SolvenciaFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name="url"
+                  label="Url"
+                  placeholder="Url"
                 />
-                <FormField
-                  control={form.control}
-                  name="vence"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Vence el</FormLabel>
-                      <DatePicker<SolvenciaFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </FormInputGroup>
-              <FormTextField
-                control={form.control}
-                name="url"
-                label="Url"
-                placeholder="Url"
-              />
-            </FormFieldSet>
+              </FieldSet>
+            </FieldGroup>
           </CardContent>
           <FormFooter action={action} isPending={isPending} />
         </Card>

@@ -6,6 +6,7 @@ declare module '@tanstack/react-table' {
     selectOptions?: DetalleSelectOptions | undefined;
     id_solicitud?: number;
     id_orden?: number;
+    id_presupuesto?: number;
     grouped?: boolean;
     setGrouped?: Dispatch<SetStateAction<boolean>>;
     tableDataModal?: TModal[];

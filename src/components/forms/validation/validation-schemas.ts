@@ -40,11 +40,17 @@ export const loginSchema = z.object({
 });
 
 export const presupuestoSchema = z.object({
-  fecha: z.string('Requerido'),
   id_entidad_academica: z.number().min(1, 'Requerido'),
   year: z.number().min(1, 'Requerido'),
-  id_usuario: z.string().min(1, 'Requerido'),
-  revisado_bodega: z.boolean().nullable(),
+});
+
+export const detallePresupuestoSchema = z.object({
+  id_presupuesto: z.number().min(1, 'Requerido'),
+  producto_servicio: z.string().trim().min(1, 'Requerido'),
+  cantidad: zNumberMin(),
+  id_unidad_medida: z.number().min(1, 'Requerido'),
+  precio_sugerido: zNumberMin(),
+  id_categoria: z.number().min(1, 'Requerido'),
 });
 
 export const solicitudSchema = z.object({

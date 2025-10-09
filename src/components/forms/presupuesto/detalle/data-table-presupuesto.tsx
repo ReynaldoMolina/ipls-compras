@@ -22,24 +22,32 @@ import {
 } from '@/components/ui/table';
 
 import { useEffect, useState } from 'react';
-import { ActionsBarDetalle } from '../action-bar-detalle/action-bar-detalle';
-import { DetalleSelectOptions, OrdenDetalleTable } from '@/types/types';
+import { FormSelectOptions, PresupuestoDetalleTable } from '@/types/types';
+import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
 
-interface DataTableProps<TData extends OrdenDetalleTable, TValue> {
+interface DataTableProps<
+  TData extends PresupuestoDetalleTable,
+  TValue,
+  TModal,
+> {
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
-  selectOptions?: DetalleSelectOptions;
-  id_solicitud: number;
-  id_orden: number;
+  tableDataModal?: TModal[];
+  selectOptions?: FormSelectOptions;
+  id_presupuesto: number;
 }
 
-export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
+export function DataTablePresupuesto<
+  TData extends PresupuestoDetalleTable,
+  TValue,
+  TModal,
+>({
   columns,
   tableData,
+  tableDataModal,
   selectOptions,
-  id_solicitud,
-  id_orden,
-}: DataTableProps<TData, TValue>) {
+  id_presupuesto,
+}: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -66,31 +74,48 @@ export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
     },
     meta: {
       selectOptions,
-      id_solicitud,
-      id_orden,
+      id_presupuesto,
       setGrouped,
       grouped,
+      tableDataModal,
     },
   });
 
+  const colorMap: Record<string, string> = {
+    1: 'bg-date-due hover:bg-date-due-hover/80 data-[state=selected]:bg-date-due-hover',
+    2: 'bg-date-warning hover:bg-date-warning-hover/80 data-[state=selected]:bg-date-warning-hover',
+    3: 'bg-date-active hover:bg-date-active-hover/80 data-[state=selected]:bg-date-active-hover',
+  };
+
   return (
     <>
-      <ActionsBarDetalle table={table} tableName="orden" allowNew={false} />
+      <ActionsBarDetalle table={table} />
 
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              ))}
+              {headerGroup.headers.map((header) => {
+                const size = header.getSize();
+                const maxSize = header.column.columnDef.maxSize;
+
+                return (
+                  <TableHead
+                    key={header.id}
+                    style={{
+                      width: size !== 150 ? header.getSize() : undefined,
+                      maxWidth: maxSize ? maxSize : undefined,
+                    }}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                );
+              })}
             </TableRow>
           ))}
         </TableHeader>
@@ -99,7 +124,7 @@ export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
           <TableBody>
             <TableRow className="hover:bg-transparent">
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No hay resultados
+                No hay resultados.
               </TableCell>
             </TableRow>
           </TableBody>
@@ -137,6 +162,7 @@ export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
+                      className={colorMap[String(row.original.id_estado)]}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
@@ -159,12 +185,27 @@ export function DataTableOrdenDetalle<TData extends OrdenDetalleTable, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
+                className={colorMap[String(row.original.id_estado)]}
               >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+                {row.getVisibleCells().map((cell) => {
+                  const size = cell.column.getSize();
+                  const maxSize = cell.column.columnDef.maxSize;
+
+                  return (
+                    <TableCell
+                      key={cell.id}
+                      style={{
+                        width: size !== 150 ? cell.column.getSize() : undefined,
+                        maxWidth: maxSize ? maxSize : undefined,
+                      }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>

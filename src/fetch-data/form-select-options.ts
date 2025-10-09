@@ -57,7 +57,13 @@ export async function getSubsectoresBySector(
     .where(eq(proveedor_subsector.id_sector, Number(sectorId)));
 }
 
-export async function getEntidadesAcademicas() {
+interface EntidadesAcademicas {
+  tipo?: 'especialidad' | 'curso' | 'area';
+}
+
+export async function getEntidadesAcademicas({ tipo }: EntidadesAcademicas) {
+  const filterByTipo = tipo ? eq(entidad_academica.tipo, tipo) : undefined;
+
   try {
     const data = await db
       .select({
@@ -65,6 +71,7 @@ export async function getEntidadesAcademicas() {
         label: entidad_academica.nombre,
       })
       .from(entidad_academica)
+      .where(filterByTipo)
       .orderBy(asc(entidad_academica.nombre));
     return data;
   } catch (error) {

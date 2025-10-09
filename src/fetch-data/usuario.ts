@@ -53,7 +53,25 @@ export async function getUserById(id: string): Promise<User> {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudo obtener el usuarios, por favor intenta de nuevo'
+      'No se pudo obtener el usuario, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getUserInfoById(id: string): Promise<User> {
+  try {
+    const [data] = await db
+      .select({
+        id: users.id,
+        name: users.name,
+      })
+      .from(users)
+      .where(eq(users.id, id));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener el usuario, por favor intenta de nuevo'
     );
   }
 }

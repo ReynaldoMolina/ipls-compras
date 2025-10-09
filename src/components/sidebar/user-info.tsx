@@ -12,7 +12,6 @@ import {
 import { Button } from '../ui/button';
 import { User } from 'next-auth';
 import { useTransition } from 'react';
-import { LoadingIcon } from '../loading/LoadingIcon';
 
 export function UserInfo({ user }: { user: User }) {
   return (
@@ -65,7 +64,7 @@ export function SignOut() {
         disabled={isPending}
       >
         <LogOut className="mr-2" />
-        {isPending ? <LoadingIcon /> : 'Cerrar sesión'}
+        Cerrar sesión
       </Button>
     </DropdownMenuItem>
   );

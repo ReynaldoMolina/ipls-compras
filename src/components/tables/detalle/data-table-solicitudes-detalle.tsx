@@ -23,7 +23,7 @@ import {
 
 import { useEffect, useState } from 'react';
 import { DetalleSelectOptions, SolicitudDetalleTable } from '@/types/types';
-import { ActionsBarDetalle } from '../action-bar-detalle/actions-bar-detalle';
+import { ActionsBarDetalle } from '../action-bar-detalle/action-bar-detalle';
 
 interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
   columns: ColumnDef<TData, TValue>[];

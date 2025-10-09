@@ -1,25 +1,22 @@
-import { SolicitudForm } from '@/components/forms/solicitudes';
 import { getEntidadesAcademicas } from '@/fetch-data/form-select-options';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
-import { years } from '@/lib/select-options-data';
+import { NuevoPresupuestoForm } from '@/components/forms/presupuesto/nuevo';
 
 export const metadata = {
   title: 'Nuevo presupuesto',
 };
 
 export default async function Page() {
-  const entidadesAcademicas = await getEntidadesAcademicas();
+  const entidadesAcademicas = await getEntidadesAcademicas({
+    tipo: 'especialidad',
+  });
 
   return (
     <>
       <Header title="Nuevo presupuesto" />
       <PageWrapper>
-        <SolicitudForm
-          action="create"
-          entidadesAcademicas={entidadesAcademicas}
-          years={years}
-        />
+        <NuevoPresupuestoForm selectOptions={{ entidadesAcademicas }} />
       </PageWrapper>
     </>
   );

@@ -3,129 +3,48 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { useUser } from '@/hooks/use-user';
 import { getCurrentDate } from '@/lib/get-current-date';
-import {
-  FormAction,
-  FormSelectOptions,
-  PresupuestoFormType,
-  SelectOptions,
-} from '@/types/types';
+import { FormSelectOptions } from '@/types/types';
+import { presupuestoSchema } from '../validation/validation-schemas';
+import { startTransition, useActionState } from 'react';
+import { createPresupuesto } from '@/server-actions/presupuesto';
+import { PresupuestoForm } from './form';
 
-type SolicitudFormValues = z.infer<typeof solicitudSchema>;
-
-interface SolicitudFormProps {
-  action: FormAction;
-  solicitud?: PresupuestoFormType;
+interface NuevoPresupuestoFormProps {
   selectOptions: FormSelectOptions;
 }
 
-export function PresupuestoForm({
-  action,
-  solicitud,
+export function NuevoPresupuestoForm({
   selectOptions,
-}: SolicitudFormProps) {
-  const { user } = useUser();
-  const { currentDate, currentYear } = getCurrentDate();
+}: NuevoPresupuestoFormProps) {
+  const { currentYear } = getCurrentDate();
 
-  const form = useForm<z.infer<typeof solicitudSchema>>({
-    resolver: zodResolver(solicitudSchema),
-    defaultValues: solicitud
-      ? {
-          fecha: solicitud.fecha ?? undefined,
-          id_entidad_academica: solicitud.id_entidad_academica ?? 0,
-          year: solicitud.year ?? 0,
-          id_usuario: solicitud.id_usuario ?? '',
-          revisado_bodega: solicitud.revisado_bodega ?? false,
-        }
-      : {
-          fecha: currentDate,
-          id_entidad_academica: 0,
-          year: currentYear,
-          id_usuario: user.id,
-          revisado_bodega: false,
-        },
+  const form = useForm<z.infer<typeof presupuestoSchema>>({
+    resolver: zodResolver(presupuestoSchema),
+    defaultValues: {
+      id_entidad_academica: 0,
+      year: currentYear,
+    },
   });
 
-  function onSubmit(values: z.infer<typeof solicitudSchema>) {
-    if (action === 'create') {
-      createSolicitud(values);
-    } else if (action === 'edit' && solicitud) {
-      updateSolicitud(solicitud?.id, values);
-    }
+  const [state, formAction, isPending] = useActionState(createPresupuesto, {
+    message: '',
+  });
+
+  function onSubmit(values: z.infer<typeof presupuestoSchema>) {
+    startTransition(() => {
+      formAction({ values });
+    });
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="max-w-3xl mx-auto">
-          <FormHeader action={action} name="solicitud" noun="f" />
-          <CardContent>
-            <FormLinkGroup action={action}>
-              <FormLink
-                href={`/solicitudes/${solicitud?.id}/detalle`}
-                label="Ver lista de productos"
-              />
-              <FormLink
-                href={`/solicitudes/${solicitud?.id}/ordenes`}
-                label="Ver órdenes de compra"
-              />
-            </FormLinkGroup>
-            <FormFieldSet name="info">
-              <FormInputGroup>
-                <FormField
-                  control={form.control}
-                  name="fecha"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Fecha solicitud</FormLabel>
-                      <DatePicker<SolicitudFormValues> field={field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormCombobox
-                  control={form.control}
-                  name="year"
-                  label="Año"
-                  options={selectOptions.years}
-                />
-              </FormInputGroup>
-              <FormCombobox
-                control={form.control}
-                name="id_entidad_academica"
-                label="Carrera / curso / área"
-                options={selectOptions.entidadesAcademicas}
-              />
-              <FormTextField
-                control={form.control}
-                name="id_usuario"
-                label="Solicitado por"
-                disabled
-                hidden
-              />
-              <FormItem>
-                <FormLabel>Solicitado por</FormLabel>
-                <Input type="text" defaultValue={user.name ?? ''} disabled />
-              </FormItem>
-              <FormSwitch
-                control={form.control}
-                name="revisado_bodega"
-                label="Estado"
-                description="¿Revisado por bodega?"
-              />
-            </FormFieldSet>
-          </CardContent>
-          <FormFooter action={action} />
-        </Card>
-      </form>
-    </Form>
+    <PresupuestoForm
+      action="create"
+      form={form}
+      onSubmit={onSubmit}
+      selectOptions={selectOptions}
+      isPending={isPending}
+      label="Siguiente"
+    />
   );
 }

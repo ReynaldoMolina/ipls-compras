@@ -110,6 +110,7 @@ export interface PresupuestoTable extends Presupuesto {
 
 export interface PresupuestoFormType extends Presupuesto {
   id_entidad_academica: number;
+  entidad_academica?: string | null;
 }
 
 export interface PresupuestoDetalle {
@@ -118,13 +119,10 @@ export interface PresupuestoDetalle {
   producto_servicio: string;
   cantidad: number;
   precio_sugerido: number;
-  observaciones?: string | null;
-  prioridad?: string | null;
 }
 
 export interface PresupuestoDetalleTable extends PresupuestoDetalle {
   unidad_medida: string | null;
-  estado?: string | null;
   categoria?: string | null;
 }
 
@@ -153,12 +151,6 @@ export interface ChartData {
   presupuesto: number;
   asignado?: number;
 }
-
-// export interface ActionsBarDetalleProps<TData> {
-//   table: Table<TData>;
-//   tableName: 'orden' | 'solicitud' | 'ordenmodal';
-//   allowNew?: boolean;
-// }
 
 export interface FormSelectOptions {
   unidadesMedida?: SelectOptions[];

@@ -4,29 +4,29 @@ import { db } from '@/database/db';
 import { OrdenFormType } from '@/types/types';
 import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
-import { ordenes } from '@/database/schema/orden';
+import { orden } from '@/database/schema/orden';
 import { createOrdenDetalleBySelectedIds } from './orden-detalle';
 import { redirect } from 'next/navigation';
 
 export async function createOrden(data: OrdenFormType) {
   try {
-    await db.insert(ordenes).values(data);
+    await db.insert(orden).values(data);
   } catch (error) {
     console.error(error);
     throw new Error('Error creando la orden');
   }
-  await goBackTo('/ordenes');
+  await goBackTo('/orden');
 }
 
 export async function updateOrden(id: number | undefined, data: OrdenFormType) {
   if (!id) return;
   try {
-    await db.update(ordenes).set(data).where(eq(ordenes.id, id));
+    await db.update(orden).set(data).where(eq(orden.id, id));
   } catch (error) {
     console.error(error);
     return error;
   }
-  await goBackTo('/ordenes');
+  await goBackTo('/orden');
 }
 
 type OrdenReturning = { id: number; id_solicitud: number };
@@ -35,18 +35,18 @@ export async function createOrdenFromSelectedIds(
   data: OrdenFormType,
   selectedRowsIds: number[]
 ) {
-  let orden: OrdenReturning[];
+  let returningOrden: OrdenReturning;
   try {
-    orden = await db
-      .insert(ordenes)
+    [returningOrden] = await db
+      .insert(orden)
       .values(data)
-      .returning({ id: ordenes.id, id_solicitud: ordenes.id_solicitud });
-    await createOrdenDetalleBySelectedIds(selectedRowsIds, orden[0]);
+      .returning({ id: orden.id, id_solicitud: orden.id_solicitud });
+    await createOrdenDetalleBySelectedIds(selectedRowsIds, returningOrden);
   } catch (error) {
     console.error(error);
     throw new Error('Error creando la orden');
   }
   redirect(
-    `/solicitudes/${orden[0].id_solicitud}/ordenes/${orden[0].id}/detalle`
+    `/solicitudes/${returningOrden.id_solicitud}/ordenes/${returningOrden.id}/detalle`
   );
 }

@@ -10,13 +10,14 @@ import { GroupBySubMenu } from '../submenus';
 import { DeleteButton } from '@/components/delete-button';
 import { deleteOrdenDetalleByIds } from '@/server-actions/orden-detalle';
 import { useRouter } from 'next/navigation';
+import { PresupuestoDetalleTable } from '@/types/types';
 
-interface OptionsMenuOrdenDetalleProps<TData extends { id: number }> {
+interface OptionsMenuOrdenDetalleProps<TData extends PresupuestoDetalleTable> {
   table: Table<TData>;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function OptionsMenuOrdenDetalle<TData extends { id: number }>({
+export function OptionsMenuOrdenDetalle<TData extends PresupuestoDetalleTable>({
   table,
   setOpen,
 }: OptionsMenuOrdenDetalleProps<TData>) {

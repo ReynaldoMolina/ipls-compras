@@ -10,6 +10,7 @@ import { ProveedorTable } from '@/types/types';
 export const columns: ColumnDef<ProveedorTable>[] = [
   {
     id: 'edit',
+    header: 'Editar',
     cell: ({ row }) => {
       return <EditCell href={`/proveedores/${row.original.id}`} />;
     },

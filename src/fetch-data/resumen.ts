@@ -1,33 +1,33 @@
 import { db } from '@/database/db';
 import { eq, sql } from 'drizzle-orm';
-import { entidades_academicas } from '@/database/schema/entidad-academica';
-import { solicitudes_detalle } from '@/database/schema/presupuesto-detalle';
-import { solicitudes } from '@/database/schema/presupuesto';
+import { entidad_academica } from '@/database/schema/entidad-academica';
+import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
+import { presupuesto } from '@/database/schema/presupuesto';
 
 export async function getResumenComparisonChartByEntidad(year: number) {
   const selectFields = {
-    entidad_academica: entidades_academicas.abreviacion,
-    presupuesto: sql<number>`SUM(${solicitudes_detalle.cantidad} * ${solicitudes_detalle.precio})`,
-    asignado: sql<number>`COALESCE(SUM(${solicitudes_detalle.precio_compra}), 0) + COALESCE(SUM(${solicitudes_detalle.precio_bodega}), 0)`,
+    entidad_academica: entidad_academica.abreviacion,
+    presupuesto: sql<number>`SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio_sugerido})`,
+    // asignado: sql<number>`COALESCE(SUM(${presupuesto_detalle.precio_sugerido}), 0) + COALESCE(SUM(${presupuesto_detalle.precio_bodega}), 0)`,
   };
 
   try {
     const data = await db
       .select(selectFields)
-      .from(solicitudes)
+      .from(presupuesto)
       .leftJoin(
-        entidades_academicas,
-        eq(solicitudes.id_entidad_academica, entidades_academicas.id)
+        entidad_academica,
+        eq(presupuesto.id_entidad_academica, entidad_academica.id)
       )
       .leftJoin(
-        solicitudes_detalle,
-        eq(solicitudes.id, solicitudes_detalle.id_solicitud)
+        presupuesto_detalle,
+        eq(presupuesto.id, presupuesto_detalle.id_presupuesto)
       )
-      .where(eq(solicitudes.year, year))
+      .where(eq(presupuesto.year, year))
       .groupBy(
-        solicitudes.id,
-        entidades_academicas.tipo,
-        entidades_academicas.abreviacion
+        presupuesto.id,
+        entidad_academica.tipo,
+        entidad_academica.abreviacion
       );
     // .orderBy(orderBy);
     return data;

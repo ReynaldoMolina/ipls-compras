@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { ordenes_detalle } from '@/database/schema/orden-detalle';
+import { orden_detalle } from '@/database/schema/orden-detalle';
 import { OrdenDetalleType, OrdenesModal } from '@/types/types';
 import { eq, inArray } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
@@ -26,7 +26,7 @@ export async function createOrdenDetalleBySelectedIds(
       observaciones: '',
     }));
 
-    await db.insert(ordenes_detalle).values(data);
+    await db.insert(orden_detalle).values(data);
   } catch (error) {
     console.error(error);
     throw new Error('Error creando el detalle de la orden');
@@ -48,7 +48,7 @@ export async function addToExistingOrdenDetalleBySelectedIds(
       observaciones: '',
     }));
 
-    await db.insert(ordenes_detalle).values(data);
+    await db.insert(orden_detalle).values(data);
   } catch (error) {
     console.error(error);
     throw new Error('Error creando el detalle de la orden');
@@ -63,10 +63,7 @@ export async function updateOrdenDetalleById(
 ) {
   if (!id) return;
   try {
-    await db
-      .update(ordenes_detalle)
-      .set(data)
-      .where(eq(ordenes_detalle.id, id));
+    await db.update(orden_detalle).set(data).where(eq(orden_detalle.id, id));
   } catch (error) {
     console.error(error);
     return error;
@@ -82,7 +79,7 @@ export async function deleteOrdenDetalleByIds(
   if (ids?.length === 0 || !id_orden) return;
 
   try {
-    await db.delete(ordenes_detalle).where(inArray(ordenes_detalle.id, ids));
+    await db.delete(orden_detalle).where(inArray(orden_detalle.id, ids));
   } catch (error) {
     console.error(error);
     return error;
