@@ -15,7 +15,7 @@ import { DateStatus } from '@/types/types';
 
 const iconClass = 'size-4';
 
-const statusConfig = {
+export const dateStatusConfig = {
   active: {
     bg: 'bg-date-active',
     title: 'Activa',
@@ -38,22 +38,26 @@ const statusConfig = {
   },
 };
 
-interface DateStatusCellProps {
+interface DateSolvenciaCellProps {
   date: string | null | undefined;
   id_proveedor?: number | undefined;
-  type?: 'link' | 'default';
 }
 
-export function DateStatusCell({
+export function DateSolvenciaCell({
   date,
   id_proveedor,
-  type = 'default',
-}: DateStatusCellProps) {
+}: DateSolvenciaCellProps) {
   const dateStatus = getDateStatus(date);
   const formattedDate = formatDate(date);
 
   if (dateStatus === 'empty')
-    return <DateBadge dateStatus={dateStatus} formattedDate={formattedDate} />;
+    return (
+      <DateBadgeLink
+        dateStatus={dateStatus}
+        formattedDate={formattedDate}
+        id_proveedor={id_proveedor}
+      />
+    );
 
   return (
     <Tooltip>
@@ -65,44 +69,32 @@ export function DateStatusCell({
         />
       </TooltipTrigger>
       <TooltipContent>
-        <p>{statusConfig[dateStatus].title}</p>
+        <p>{dateStatusConfig[dateStatus].title}</p>
       </TooltipContent>
     </Tooltip>
   );
 }
 
-interface DateBadgeProps {
+interface DateBadgeLinkProps {
   dateStatus: DateStatus;
   formattedDate: string;
-  id_proveedor?: number | undefined;
+  id_proveedor: number | undefined;
 }
 
 function DateBadgeLink({
   dateStatus,
   formattedDate,
   id_proveedor,
-}: DateBadgeProps) {
+}: DateBadgeLinkProps) {
   return (
-    <Badge variant="outline" className={statusConfig[dateStatus].bg}>
+    <Badge variant="outline" className={dateStatusConfig[dateStatus].bg}>
       <Link
         href={`/proveedores/${id_proveedor}/solvencias`}
         className="inline-flex items-center gap-1 whitespace-nowrap font-normal hover:underline"
       >
-        {statusConfig[dateStatus].icon}
+        {dateStatusConfig[dateStatus].icon}
         {formattedDate}
       </Link>
-    </Badge>
-  );
-}
-
-function DateBadge({ dateStatus, formattedDate }: DateBadgeProps) {
-  return (
-    <Badge
-      variant="outline"
-      className={`${statusConfig[dateStatus].bg} inline-flex items-center gap-1 whitespace-nowrap font-normal cursor-default`}
-    >
-      {statusConfig[dateStatus].icon}
-      {formattedDate}
     </Badge>
   );
 }

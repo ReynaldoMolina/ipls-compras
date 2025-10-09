@@ -3,7 +3,6 @@ export const dynamic = 'force-dynamic'; // to allow data refresh without full re
 import { getEntidadesAcademicas } from '@/fetch-data/form-select-options';
 import { PageProps } from '@/types/types';
 import { Header } from '@/components/header/header';
-import { PageWrapper } from '@/components/page-wrapper';
 import { EditarPresupuestoForm } from '@/components/forms/presupuesto/editar';
 import { getPresupuestoById } from '@/fetch-data/presupuesto';
 import {

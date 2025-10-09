@@ -70,7 +70,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
       form.reset();
       toast(state.message);
     }
-  }, [state.success, form]);
+  }, [state, form]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

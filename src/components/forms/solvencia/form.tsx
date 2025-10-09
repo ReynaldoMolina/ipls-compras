@@ -15,7 +15,6 @@ import { FormAction } from '@/types/types';
 import { useUser } from '@/hooks/use-user';
 import { Card, CardContent } from '@/components/ui/card';
 import { FormHeader } from '@/components/form-elements/form-header';
-import { FormFieldSet } from '@/components/form-elements/form-fieldset';
 import { FormTextField } from '@/components/form-elements/form-text-field';
 import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { DatePicker } from '@/components/date-picker';

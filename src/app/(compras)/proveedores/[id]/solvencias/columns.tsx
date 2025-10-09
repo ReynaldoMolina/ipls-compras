@@ -5,8 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { SolvenciaTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
-import { DateCell } from '@/components/tables/date-cell';
-import { DateStatusCell } from '@/components/tables/date-status-cell';
+import { DateCell, DateStatusCell } from '@/components/tables/date-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<SolvenciaTable>[] = [
@@ -51,7 +50,7 @@ export const columns: ColumnDef<SolvenciaTable>[] = [
   {
     accessorKey: 'vence',
     header: ({ column }) => <SortButton column={column} label="Vence" />,
-    cell: ({ row }) => <DateStatusCell date={row.original.vence} />,
+    cell: DateStatusCell,
   },
   {
     accessorKey: 'url',

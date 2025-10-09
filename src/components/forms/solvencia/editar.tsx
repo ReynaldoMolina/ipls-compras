@@ -9,8 +9,6 @@ import { updateSolvencia } from '@/server-actions/proveedor-solvencia';
 import { startTransition, useActionState } from 'react';
 import { SolvenciaForm } from './form';
 
-type SolvenciaFormValues = z.infer<typeof solvenciaSchema>;
-
 interface EditarSolvenciaFormProps {
   solvencia?: Solvencia;
 }

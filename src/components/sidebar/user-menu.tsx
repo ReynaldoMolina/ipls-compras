@@ -1,11 +1,10 @@
 'use client';
 
-import { ChevronsUpDown, Settings } from 'lucide-react';
+import { ChevronsUpDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';

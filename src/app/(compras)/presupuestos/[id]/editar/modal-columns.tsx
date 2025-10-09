@@ -1,12 +1,12 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { OrdenesModal } from '@/types/types';
+import { OrdenModal } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
 
-export const columns: ColumnDef<OrdenesModal>[] = [
+export const columns: ColumnDef<OrdenModal>[] = [
   {
     id: 'select',
     header: '',

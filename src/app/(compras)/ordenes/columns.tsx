@@ -7,14 +7,14 @@ import {
   NumberCellWithValue,
   NumberFloatCell,
 } from '@/components/tables/number-cell';
-import { OrdenesTable } from '@/types/types';
+import { OrdenTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
-import { DateStatusCell } from '@/components/tables/date-status-cell';
+import { DateStatusCell } from '@/components/tables/date-solvencia-cell';
 
-export const columns: ColumnDef<OrdenesTable>[] = [
+export const columns: ColumnDef<OrdenTable>[] = [
   {
     id: 'actions',
     header: 'Acciones',

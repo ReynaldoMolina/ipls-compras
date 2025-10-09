@@ -1,6 +1,6 @@
 'use client';
 
-import { DateStatusCell } from '@/components/tables/date-status-cell';
+import { DateSolvenciaCell } from '@/components/tables/date-solvencia-cell';
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditCell } from '@/components/tables/edit-cell';
@@ -27,7 +27,7 @@ export const columns: ColumnDef<ProveedorTable>[] = [
     accessorKey: 'solvencia',
     header: ({ column }) => <SortButton column={column} label="Solvencia" />,
     cell: ({ row }) => (
-      <DateStatusCell
+      <DateSolvenciaCell
         date={row.original.solvencia}
         id_proveedor={row.original.id}
       />

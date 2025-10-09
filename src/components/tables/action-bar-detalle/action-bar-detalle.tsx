@@ -1,6 +1,5 @@
 import { OptionsMenu } from './options-menu';
 import { SearchInput } from './search-input';
-import { FilterButtonDetalle } from './filter-button-detalle';
 import { NewButton } from '@/components/actionbar/new-button';
 import { Table } from '@tanstack/react-table';
 
