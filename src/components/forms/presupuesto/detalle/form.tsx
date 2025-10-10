@@ -8,12 +8,7 @@ import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormCombobox } from '@/components/form-elements/form-combobox';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldSeparator,
-  FieldSet,
-} from '@/components/ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { FormSelect } from '@/components/form-elements/form-select';
 import { prioridad } from '@/lib/select-options-data';
 

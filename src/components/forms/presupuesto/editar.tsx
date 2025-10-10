@@ -11,7 +11,7 @@ import {
 import { presupuestoSchema } from '../validation/validation-schemas';
 import { startTransition, useActionState } from 'react';
 import { updatePresupuesto } from '@/server-actions/presupuesto';
-import { columns } from '@/app/(compras)/presupuestos/[id]/editar/columns';
+import { columns } from '@/app/(compras)/presupuestos/[id]/columns';
 import { DataTablePresupuesto } from '@/components/forms/presupuesto/detalle/data-table-presupuesto';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PresupuestoForm } from './form';

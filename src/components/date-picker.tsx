@@ -66,6 +66,7 @@ export function DatePicker<T extends FieldValues>({
             setOpen(false);
           }}
           captionLayout="dropdown"
+          locale={es}
         />
       </PopoverContent>
     </Popover>

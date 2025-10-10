@@ -119,6 +119,8 @@ export interface PresupuestoDetalle {
   producto_servicio: string;
   cantidad: number;
   precio_sugerido: number;
+  prioridad: string | null;
+  observacion: string | null;
 }
 
 export interface PresupuestoDetalleTable extends PresupuestoDetalle {

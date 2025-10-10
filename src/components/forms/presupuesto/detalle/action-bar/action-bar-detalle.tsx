@@ -1,7 +1,7 @@
 import { OptionsMenu } from './options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
-import { NuevoPresupuestoDetalleForm } from '../new-button';
+import { NuevoPresupuestoDetalleForm } from '../nuevo';
 
 interface ActionsBarDetalleProps<TData> {
   table: Table<TData>;

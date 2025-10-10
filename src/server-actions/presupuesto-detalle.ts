@@ -29,29 +29,35 @@ export async function createPresupuestoDetalle(
   }
 }
 
-export async function updateSolicitudDetalle(
-  id: number | undefined,
-  data: PresupuestoDetalleFormType,
-  id_solicitud: number
+interface UpdatePresupuestoDetalle {
+  id: number | string | undefined;
+  values: PresupuestoDetalleFormType;
+}
+
+export async function updatePresupuestoDetalle(
+  prevState: unknown,
+  data: UpdatePresupuestoDetalle
 ) {
-  if (!id) return;
+  if (!data.id) return;
 
   try {
     await db
       .update(presupuesto_detalle)
-      .set(data)
-      .where(eq(presupuesto_detalle.id, id));
+      .set(data.values)
+      .where(eq(presupuesto_detalle.id, Number(data.id)));
+
+    return { success: true, message: 'Producto actualizado correctamente.' };
   } catch (error) {
     console.error(error);
-    return error;
+    return { success: false, message: 'Error actualizando el producto.' };
   }
-  await goBackTo(`/solicitudes/${id_solicitud}/detalle`);
+  // await goBackTo(`/solicitudes/${id_solicitud}/detalle`);
 }
 
 export type SolicitudDetalleColumn =
   keyof typeof presupuesto_detalle.$inferInsert;
 
-export async function updateSolicitudDetalleColumnByIds(
+export async function updatePresupuestoDetalleColumnByIds(
   ids: number[],
   column: SolicitudDetalleColumn,
   value: number | string
@@ -69,7 +75,7 @@ export async function updateSolicitudDetalleColumnByIds(
   }
 }
 
-export async function deleteSolicitudDetalleByIds(
+export async function deletePresupuestoDetalleByIds(
   ids: number[],
   id_solicitud?: number
 ) {

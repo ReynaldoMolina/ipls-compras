@@ -3,7 +3,7 @@ import { ArrowLeft, Frown } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Cuenta inactiva',
+  title: 'Página no disponible',
 };
 
 export default function NotFound() {

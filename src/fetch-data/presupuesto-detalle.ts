@@ -19,6 +19,8 @@ export async function getPresupuestoDetalleByPresupuestoId(
     unidad_medida: unidad_medida.nombre,
     precio_sugerido: presupuesto_detalle.precio_sugerido,
     categoria: categoria_producto.nombre,
+    prioridad: presupuesto_detalle.prioridad,
+    observacion: presupuesto_detalle.observacion,
   };
   try {
     const data = await db

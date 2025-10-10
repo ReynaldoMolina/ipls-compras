@@ -11,7 +11,19 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { User } from 'next-auth';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../ui/alert-dialog';
+import { Spinner } from '../ui/spinner';
 
 export function UserInfo({ user }: { user: User }) {
   return (
@@ -48,24 +60,45 @@ export function ChangeThemeSubMenu() {
 
 export function SignOut() {
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
   return (
     <DropdownMenuItem asChild>
-      <Button
-        type="button"
-        variant="ghost"
-        size="sm"
-        className="w-full justify-start focus-visible:ring-0 gap-0 font-normal"
-        onClick={() =>
-          startTransition(() => {
-            logOut();
-          })
-        }
-        disabled={isPending}
-      >
-        <LogOut className="mr-2" />
-        Cerrar sesión
-      </Button>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start focus-visible:ring-0 gap-0 font-normal"
+          >
+            <LogOut className="mr-2" />
+            Cerrar sesión
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cerrar sesión</AlertDialogTitle>
+            <AlertDialogDescription>
+              ¿Estás seguro de que deseas cerrar tu sesión actual?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isPending}
+              onClick={() =>
+                startTransition(() => {
+                  logOut();
+                })
+              }
+            >
+              {isPending && <Spinner />}
+              Continuar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </DropdownMenuItem>
   );
 }

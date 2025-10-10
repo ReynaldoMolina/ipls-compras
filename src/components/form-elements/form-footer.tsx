@@ -45,7 +45,7 @@ export function FormFooter({
 
 interface FormFooterDialogProps<TData extends FieldValues> {
   form: UseFormReturn<TData>;
-  action?: 'create' | 'add';
+  action?: FormAction;
   label?: string;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
   onSubmit: () => void;
