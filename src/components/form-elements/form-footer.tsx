@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Dispatch } from 'react';
 import { Spinner } from '../ui/spinner';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 interface FormFooterProps {
   action: FormAction;
@@ -62,16 +63,11 @@ export function FormFooterDialog<TData extends FieldValues>({
 }: FormFooterDialogProps<TData>) {
   return (
     <DialogFooter className="border-t pt-6 space-x-2">
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={() => {
-          form.reset();
-          setOpen(false);
-        }}
-      >
-        Cancelar
-      </Button>
+      <DialogClose asChild>
+        <Button type="button" variant="secondary" onClick={() => form.reset()}>
+          Cancelar
+        </Button>
+      </DialogClose>
       <Button type="button" onClick={onSubmit} disabled={isPending}>
         {isPending ? (
           <>

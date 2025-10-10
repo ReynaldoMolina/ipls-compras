@@ -6,8 +6,12 @@ import { z } from 'zod';
 import { solvenciaSchema } from '@/components/forms/validation/validation-schemas';
 import { Solvencia } from '@/types/types';
 import { updateSolvencia } from '@/server-actions/proveedor-solvencia';
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
 import { SolvenciaForm } from './form';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface EditarSolvenciaFormProps {
   solvencia?: Solvencia;
@@ -27,9 +31,10 @@ export function EditarSolvenciaForm({ solvencia }: EditarSolvenciaFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateSolvencia, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateSolvencia,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof solvenciaSchema>) {
     startTransition(() => {
@@ -40,6 +45,8 @@ export function EditarSolvenciaForm({ solvencia }: EditarSolvenciaFormProps) {
       });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <SolvenciaForm

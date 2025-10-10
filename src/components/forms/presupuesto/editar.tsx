@@ -15,6 +15,8 @@ import { columns } from '@/app/(compras)/presupuestos/[id]/columns';
 import { DataTablePresupuesto } from '@/components/forms/presupuesto/detalle/data-table-presupuesto';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PresupuestoForm } from './form';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface EditarPresupuestoFormProps {
   presupuesto: PresupuestoFormType;
@@ -35,15 +37,18 @@ export function EditarPresupuestoForm({
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updatePresupuesto, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updatePresupuesto,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof presupuestoSchema>) {
     startTransition(() => {
       formAction({ id: presupuesto.id, values });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <Tabs

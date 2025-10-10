@@ -2,9 +2,15 @@
 
 import { db } from '@/database/db';
 import { PresupuestoFormType } from '@/types/types';
-import { goBackTo } from './go-back-to-list';
 import { eq } from 'drizzle-orm';
 import { presupuesto } from '@/database/schema/presupuesto';
+import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
 
 interface CreatePresupuesto {
   values: PresupuestoFormType;
@@ -21,11 +27,13 @@ export async function createPresupuesto(
       .insert(presupuesto)
       .values(data.values)
       .returning({ id: presupuesto.id });
+
+    revalidatePath(`/presupuestos/${returningId.id}/editar`);
+    return stateCreateSuccess;
   } catch (error) {
     console.error(error);
-    return { message: 'Error creating solicitud' };
+    return stateCreateError;
   }
-  await goBackTo(`/presupuestos/${returningId.id}/editar`);
 }
 
 interface UpdatePresupuesto {
@@ -44,9 +52,11 @@ export async function updatePresupuesto(
       .update(presupuesto)
       .set(data.values)
       .where(eq(presupuesto.id, Number(data.id)));
+
+    revalidatePath('/presupuestos');
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateUpdateError;
   }
-  await goBackTo('/presupuestos');
 }

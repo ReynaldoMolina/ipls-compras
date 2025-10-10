@@ -243,3 +243,9 @@ export interface OrdenPdfDetalleProps {
   producto_servicio: string | null;
   precio_real: number;
 }
+
+export interface ServerActionState {
+  success?: boolean;
+  title?: string;
+  description?: string;
+}

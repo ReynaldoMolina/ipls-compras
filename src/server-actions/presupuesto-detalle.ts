@@ -1,14 +1,20 @@
 'use server';
 
 import { db } from '@/database/db';
-import { goBackTo } from './go-back-to-list';
 import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 import { eq, inArray } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { PresupuestoDetalleFormType } from '@/types/types';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
 
 interface CreatePresupuestoDetalle {
   values: PresupuestoDetalleFormType;
+  id_presupuesto: number | string | undefined;
 }
 
 export async function createPresupuestoDetalle(
@@ -22,16 +28,18 @@ export async function createPresupuestoDetalle(
   try {
     await db.insert(presupuesto_detalle).values(data.values);
 
-    return { success: true, message: 'Producto agregado correctamente.' };
+    revalidatePath(`/presupuestos/${data.id_presupuesto}`);
+    return stateCreateSuccess;
   } catch (error) {
     console.error(error);
-    return { success: false, message: 'Error creando el producto.' };
+    return stateCreateError;
   }
 }
 
 interface UpdatePresupuestoDetalle {
   id: number | string | undefined;
   values: PresupuestoDetalleFormType;
+  id_presupuesto: number | string | undefined;
 }
 
 export async function updatePresupuestoDetalle(
@@ -46,12 +54,12 @@ export async function updatePresupuestoDetalle(
       .set(data.values)
       .where(eq(presupuesto_detalle.id, Number(data.id)));
 
-    return { success: true, message: 'Producto actualizado correctamente.' };
+    revalidatePath(`/presupuestos/${data.id_presupuesto}`);
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    return { success: false, message: 'Error actualizando el producto.' };
+    return stateUpdateError;
   }
-  // await goBackTo(`/solicitudes/${id_solicitud}/detalle`);
 }
 
 export type SolicitudDetalleColumn =

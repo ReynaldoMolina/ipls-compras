@@ -1,10 +1,16 @@
 'use server';
 
 import { db } from '@/database/db';
-import { goBackTo } from './go-back-to-list';
 import { proveedor } from '@/database/schema/proveedor';
 import { eq } from 'drizzle-orm';
 import { ProveedorFormType } from '@/types/types';
+import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
 
 interface CreateProviderProps {
   values: ProveedorFormType;
@@ -16,11 +22,13 @@ export async function createProvider(
 ) {
   try {
     await db.insert(proveedor).values(data.values);
+
+    revalidatePath('/proveedores');
+    return stateCreateSuccess;
   } catch (error) {
     console.error(error);
-    return { message: 'Error creating provider' };
+    return stateCreateError;
   }
-  await goBackTo('/proveedores');
 }
 
 interface UpdateProviderProps {
@@ -39,9 +47,11 @@ export async function updateProvider(
       .update(proveedor)
       .set(data.values)
       .where(eq(proveedor.id, Number(data.id)));
+
+    revalidatePath('/proveedores');
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateUpdateError;
   }
-  await goBackTo('/proveedores');
 }

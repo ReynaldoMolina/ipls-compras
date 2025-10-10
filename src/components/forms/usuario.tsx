@@ -30,6 +30,8 @@ import {
   FieldSeparator,
   FieldSet,
 } from '../ui/field';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 type UserFormProps = {
   user?: User;
@@ -49,16 +51,18 @@ export function UserForm({ user }: UserFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateUser, {
-    success: false,
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateUser,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof usuarioSchema>) {
     startTransition(() => {
       formAction({ id_usuario: user?.id, values });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <Form {...form}>

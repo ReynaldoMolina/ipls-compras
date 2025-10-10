@@ -86,6 +86,7 @@ export function SignOut() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction
+              className="bg-destructive hover:bg-destructive/90"
               disabled={isPending}
               onClick={() =>
                 startTransition(() => {
@@ -94,7 +95,7 @@ export function SignOut() {
               }
             >
               {isPending && <Spinner />}
-              Continuar
+              Cerrar sesión
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

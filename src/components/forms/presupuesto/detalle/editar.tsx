@@ -3,18 +3,18 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import React, { startTransition, useActionState, useEffect } from 'react';
+import React, { startTransition, useActionState } from 'react';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 
 import { PresupuestoDetalleForm } from './form';
 import { updatePresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooter } from '@/components/form-elements/form-footer';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 import { FormSelectOptions, PresupuestoDetalleFormType } from '@/types/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { FormHeader } from '@/components/form-elements/form-header';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface EditarPresupuestoDetalleForm {
   detalle: PresupuestoDetalleFormType;
@@ -25,8 +25,6 @@ export function EditarPresupuestoDetalleForm({
   detalle,
   selectOptions,
 }: EditarPresupuestoDetalleForm) {
-  const router = useRouter();
-
   const form = useForm<z.infer<typeof detallePresupuestoSchema>>({
     resolver: zodResolver(detallePresupuestoSchema),
     defaultValues: {
@@ -43,25 +41,20 @@ export function EditarPresupuestoDetalleForm({
 
   const [state, formAction, isPending] = useActionState(
     updatePresupuestoDetalle,
-    {
-      success: false,
-      message: '',
-    }
+    stateDefault
   );
 
   function onSubmit(values: z.infer<typeof detallePresupuestoSchema>) {
     startTransition(() => {
-      formAction({ id: detalle.id, values });
+      formAction({
+        id: detalle.id,
+        values,
+        id_presupuesto: detalle.id_presupuesto,
+      });
     });
   }
 
-  useEffect(() => {
-    if (state?.success) {
-      form.reset();
-      toast(state.message);
-      router.refresh();
-    }
-  }, [state, form]);
+  useServerActionFeedback(state);
 
   return (
     <Form {...form}>

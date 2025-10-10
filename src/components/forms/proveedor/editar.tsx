@@ -8,6 +8,8 @@ import { FormSelectOptions, ProveedorFormType } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { ProveedorForm } from './form';
 import { updateProvider } from '@/server-actions/proveedor';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface EditarProveedorFormProps {
   proveedor: ProveedorFormType;
@@ -34,15 +36,18 @@ export function EditarProveedorForm({
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateProvider, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateProvider,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof providerSchema>) {
     startTransition(() => {
       formAction({ id: proveedor.id, values });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <ProveedorForm

@@ -3,14 +3,13 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import React, { startTransition, useActionState, useEffect } from 'react';
+import React, { startTransition, useActionState } from 'react';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 
 import { PresupuestoDetalleForm } from './form';
 import { updatePresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooterDialog } from '@/components/form-elements/form-footer';
-import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { FormSelectOptions, PresupuestoDetalleFormType } from '@/types/types';
 import {
@@ -20,6 +19,8 @@ import {
   DialogHeader,
 } from '@/components/ui/dialog';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface EditarPresupuestoDetalleForm {
   detalle: PresupuestoDetalleFormType;
@@ -48,25 +49,20 @@ export function EditarPresupuestoDetalleFormDialog({
 
   const [state, formAction, isPending] = useActionState(
     updatePresupuestoDetalle,
-    {
-      success: false,
-      message: '',
-    }
+    stateDefault
   );
 
   function onSubmit(values: z.infer<typeof detallePresupuestoSchema>) {
     startTransition(() => {
-      formAction({ id: detalle.id, values });
+      formAction({
+        id: detalle.id,
+        values,
+        id_presupuesto: detalle.id_presupuesto,
+      });
     });
   }
 
-  useEffect(() => {
-    if (state?.success) {
-      form.reset();
-      toast(state.message);
-      router.refresh();
-    }
-  }, [state, form]);
+  useServerActionFeedback(state, { back: true });
 
   return (
     <Form {...form}>
@@ -74,7 +70,12 @@ export function EditarPresupuestoDetalleFormDialog({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5"
       >
-        <Dialog open>
+        <Dialog
+          open={true}
+          onOpenChange={(open) => {
+            if (!open) router.back();
+          }}
+        >
           <DialogContent className="w-full max-w-2xl max-h-[95%] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Editar detalle</DialogTitle>

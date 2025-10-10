@@ -7,8 +7,12 @@ import { solvenciaSchema } from '@/components/forms/validation/validation-schema
 import { createSolvencia } from '@/server-actions/proveedor-solvencia';
 import { useUser } from '@/hooks/use-user';
 import { getCurrentDate } from '@/lib/get-current-date';
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
 import { SolvenciaForm } from './form';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface NuevaSolvenciaFormProps {
   id_proveedor: number;
@@ -31,15 +35,18 @@ export function NuevaSolvenciaForm({ id_proveedor }: NuevaSolvenciaFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(createSolvencia, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    createSolvencia,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof solvenciaSchema>) {
     startTransition(() => {
       formAction({ id_proveedor, values });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <SolvenciaForm

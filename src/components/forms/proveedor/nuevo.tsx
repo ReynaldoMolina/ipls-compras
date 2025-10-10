@@ -8,6 +8,8 @@ import { FormSelectOptions } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { createProvider } from '@/server-actions/proveedor';
 import { ProveedorForm } from './form';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 
 interface NuevoProveedorFormProps {
   selectOptions: FormSelectOptions;
@@ -30,15 +32,18 @@ export function NuevoProveedorForm({ selectOptions }: NuevoProveedorFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(createProvider, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    createProvider,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof providerSchema>) {
     startTransition(() => {
       formAction({ values });
     });
   }
+
+  useServerActionFeedback(state, { back: true });
 
   return (
     <ProveedorForm

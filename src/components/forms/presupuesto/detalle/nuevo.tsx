@@ -3,12 +3,7 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import React, {
-  startTransition,
-  useActionState,
-  useEffect,
-  useState,
-} from 'react';
+import React, { startTransition, useActionState, useState } from 'react';
 import { DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
 import { Table } from '@tanstack/react-table';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
@@ -24,8 +19,8 @@ import { PresupuestoDetalleForm } from './form';
 import { createPresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooterDialog } from '@/components/form-elements/form-footer';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
+import { stateDefault } from '@/server-actions/statusMessages';
 
 interface NuevoPresupuestoDetalleForm<TData> {
   table: Table<TData>;
@@ -35,8 +30,6 @@ export function NuevoPresupuestoDetalleForm<TData>({
   table,
 }: NuevoPresupuestoDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-
   const id_presupuesto = table.options.meta?.id_presupuesto;
   const selectOptions = table.options.meta?.selectOptions;
 
@@ -56,25 +49,16 @@ export function NuevoPresupuestoDetalleForm<TData>({
 
   const [state, formAction, isPending] = useActionState(
     createPresupuestoDetalle,
-    {
-      success: false,
-      message: '',
-    }
+    stateDefault
   );
 
   function onSubmit(values: z.infer<typeof detallePresupuestoSchema>) {
     startTransition(() => {
-      formAction({ values });
+      formAction({ values, id_presupuesto: id_presupuesto });
     });
   }
 
-  useEffect(() => {
-    if (state.success) {
-      form.reset();
-      toast(state.message);
-      router.refresh();
-    }
-  }, [state, form]);
+  useServerActionFeedback(state, { refresh: true });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
