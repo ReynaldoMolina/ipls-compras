@@ -136,8 +136,7 @@ export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
 
 export interface Solicitud {
   id?: number;
-  fecha: string;
-  fecha_a_utilizar: string | null;
+  fecha_a_utilizar: string;
 }
 
 export interface SolicitudTable extends Solicitud {
@@ -147,10 +146,12 @@ export interface SolicitudTable extends Solicitud {
 }
 
 export interface SolicitudFormType extends Solicitud {
+  fecha: string;
   id_entidad_academica: number;
   entidad_academica?: string | null;
   id_usuario: string;
   usuario?: string | null;
+  id_presupuesto: number | null;
 }
 
 // *******************************************************
@@ -168,6 +169,14 @@ export interface SolicitudDetalleTable extends SolicitudDetalle {
 
 export interface SolicitudDetalleFormType extends SolicitudDetalle {
   id_unidad_medida: number;
+  id_presupuesto_detalle?: number | null;
+}
+
+export interface SolicitudesTableModal {
+  id: number;
+  entidad_academica: string | null;
+  fecha_a_utilizar: string | null;
+  estado: string | null;
 }
 
 // *****************************************************

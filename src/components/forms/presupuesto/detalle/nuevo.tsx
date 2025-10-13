@@ -3,7 +3,12 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import React, { startTransition, useActionState, useState } from 'react';
+import React, {
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from 'react';
 import { DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
 import { Table } from '@tanstack/react-table';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
@@ -30,17 +35,17 @@ export function NuevoPresupuestoDetalleForm<TData>({
   table,
 }: NuevoPresupuestoDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
-  const id_presupuesto = table.options.meta?.id_presupuesto;
+  const presupuesto = table.options.meta?.presupuesto;
   const selectOptions = table.options.meta?.selectOptions;
 
   const form = useForm<z.infer<typeof detallePresupuestoSchema>>({
     resolver: zodResolver(detallePresupuestoSchema),
     defaultValues: {
-      id_presupuesto: id_presupuesto ?? undefined,
+      id_presupuesto: presupuesto.id ?? undefined,
       producto_servicio: '',
       cantidad: undefined,
-      id_unidad_medida: 0,
       precio_sugerido: undefined,
+      id_unidad_medida: 0,
       id_categoria: 0,
       prioridad: '',
       observacion: '',
@@ -54,11 +59,18 @@ export function NuevoPresupuestoDetalleForm<TData>({
 
   function onSubmit(values: z.infer<typeof detallePresupuestoSchema>) {
     startTransition(() => {
-      formAction({ values, id_presupuesto: id_presupuesto });
+      formAction({ values, id_presupuesto: presupuesto.id });
     });
   }
 
   useServerActionFeedback(state, { refresh: true });
+
+  useEffect(() => {
+    if (state.success) {
+      form.reset();
+      // do other stuff here
+    }
+  }, [state.success]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

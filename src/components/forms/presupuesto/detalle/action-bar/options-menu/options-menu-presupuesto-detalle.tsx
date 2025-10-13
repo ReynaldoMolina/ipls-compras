@@ -23,7 +23,7 @@ interface OptionsMenuPresupuestoDetalleProps<
 export function OptionsMenuPresupuestoDetalle<
   TData extends PresupuestoDetalleTable,
 >({ table, setOpen }: OptionsMenuPresupuestoDetalleProps<TData>) {
-  const { id_solicitud, grouped, setGrouped } = table.options.meta ?? {};
+  const { grouped, setGrouped } = table.options.meta ?? {};
   const router = useRouter();
 
   const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);

@@ -29,7 +29,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <>
-      <Header title={`Solicitud ${id} / ${solicitud.entidad_academica}`} />
+      <Header title={`Solicitud ${id} / ${solicitud?.entidad_academica}`} />
       <EditarSolicitudForm
         solicitud={solicitud}
         solicitud_detalle={solicitud_detalle}

@@ -98,12 +98,42 @@ export async function createSolicitudDetalleBySelectedRows(
       cantidad: row.cantidad,
       id_unidad_medida: row.id_unidad_medida,
       observacion: row.observacion,
-      id_presupuesto_detalle: row.id,
+      id_presupuesto_detalle: row.id_presupuesto_detalle,
     }));
 
     await db.insert(solicitud_detalle).values(data);
   } catch (error) {
     console.error(error);
     throw new Error('Error creando el detalle de la solicitud');
+  }
+}
+
+interface AddToExistingSolicitudDetalleBySelectedRows {
+  selectedRows: SolicitudDetalleFormType[];
+  id_solicitud: number;
+}
+
+export async function addToExistingSolicitudDetalleBySelectedRows(
+  prevState: unknown,
+  data: AddToExistingSolicitudDetalleBySelectedRows
+) {
+  if (!data.id_solicitud) return stateUpdateError;
+
+  try {
+    const processedData = data.selectedRows.map((row) => ({
+      id_solicitud: data.id_solicitud,
+      producto_servicio: row.producto_servicio,
+      cantidad: row.cantidad,
+      id_unidad_medida: row.id_unidad_medida,
+      observacion: row.observacion,
+      id_presupuesto_detalle: row.id,
+    }));
+
+    await db.insert(solicitud_detalle).values(processedData);
+
+    return stateUpdateSuccess;
+  } catch (error) {
+    console.error(error);
+    return stateUpdateError;
   }
 }

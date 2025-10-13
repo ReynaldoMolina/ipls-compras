@@ -1,4 +1,3 @@
-import { OrdenExistingFormModal } from '@/components/forms/ordenes-add-to-existing';
 import {
   DropdownMenuCheckboxItem,
   DropdownMenuPortal,
@@ -10,6 +9,7 @@ import { Table } from '@tanstack/react-table';
 import { Dispatch, SetStateAction } from 'react';
 import { AddToNewSolicitudModal } from '../../add-to-new-solicitud';
 import { PresupuestoDetalleTable } from '@/types/types';
+import { AddToExistingSolicitudModal } from '../../add-to-existing-solicitud';
 
 interface GroupBySubMenuProps {
   grouped: boolean;
@@ -54,7 +54,7 @@ export function AddToSolicitudSubMenu<TData extends PresupuestoDetalleTable>({
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           <AddToNewSolicitudModal table={table} />
-          {/* <OrdenExistingFormModal table={table} /> */}
+          <AddToExistingSolicitudModal table={table} />
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
     </DropdownMenuSub>

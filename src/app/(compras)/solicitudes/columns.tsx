@@ -7,6 +7,7 @@ import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 import { DateCell, DateStatusCell } from '@/components/tables/date-cell';
+import { SemestreCell } from '@/components/tables/semestre-cell';
 
 export const columns: ColumnDef<SolicitudTable>[] = [
   {
@@ -37,9 +38,10 @@ export const columns: ColumnDef<SolicitudTable>[] = [
     size: 80,
   },
   {
-    accessorKey: 'fecha',
-    header: ({ column }) => <SortButton column={column} label="Elaborada el" />,
-    cell: DateCell,
+    id: 'semestre',
+    accessorKey: 'fecha_a_utilizar',
+    header: ({ column }) => <SortButton column={column} label="Semestre" />,
+    cell: SemestreCell,
     size: 80,
   },
   {

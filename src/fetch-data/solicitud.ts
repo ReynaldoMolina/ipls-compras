@@ -1,6 +1,6 @@
 import { db } from '@/database/db';
 import { SearchParamsProps, SolicitudFormType } from '@/types/types';
-import { eq, and, desc, sql } from 'drizzle-orm';
+import { eq, and, desc, sql, ne, isNotNull } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterSolicitudesByYear } from './build-filter';
@@ -12,7 +12,6 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
   const selectFields = {
     id: solicitud.id,
     entidad_academica: entidad_academica.nombre,
-    fecha: solicitud.fecha,
     fecha_a_utilizar: solicitud.fecha_a_utilizar,
     tipo: entidad_academica.tipo,
     usuario: users.name,
@@ -64,6 +63,7 @@ export async function getSolicitudById(
         entidad_academica: entidad_academica.nombre,
         id_usuario: solicitud.id_usuario,
         usuario: users.name,
+        id_presupuesto: solicitud.id_presupuesto,
       })
       .from(solicitud)
       .leftJoin(users, eq(solicitud.id_usuario, users.id))
@@ -138,6 +138,45 @@ export async function getEntidadAcademicaBySolicitudId(
     console.error(error);
     throw new Error(
       'No se pudo obtener la entidad academica del solicitud, por favor intenta de nuevo'
+    );
+  }
+}
+
+export async function getSolicitudesAddToExistingModal(
+  id_entidad_academica: number | undefined
+) {
+  const selectFields = {
+    id: solicitud.id,
+    entidad_academica: entidad_academica.nombre,
+    fecha_a_utilizar: solicitud.fecha_a_utilizar,
+    estado: entidad_academica.abreviacion,
+  };
+
+  try {
+    const data = await db
+      .select(selectFields)
+      .from(solicitud)
+      .leftJoin(
+        entidad_academica,
+        eq(solicitud.id_entidad_academica, entidad_academica.id)
+      )
+      .where(
+        and(
+          isNotNull(solicitud.id_presupuesto),
+          eq(solicitud.id_entidad_academica, Number(id_entidad_academica))
+        )
+      )
+      .groupBy(
+        solicitud.id,
+        entidad_academica.nombre,
+        entidad_academica.abreviacion
+      )
+      .orderBy(solicitud.id);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener las solicitudes, por favor intenta de nuevo.'
     );
   }
 }

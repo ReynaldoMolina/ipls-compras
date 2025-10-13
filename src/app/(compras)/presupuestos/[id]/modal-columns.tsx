@@ -1,12 +1,13 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { OrdenModal } from '@/types/types';
+import { SolicitudesTableModal } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
+import { DateStatusCell } from '@/components/tables/date-cell';
 
-export const columns: ColumnDef<OrdenModal>[] = [
+export const columns: ColumnDef<SolicitudesTableModal>[] = [
   {
     id: 'select',
     header: '',
@@ -25,14 +26,9 @@ export const columns: ColumnDef<OrdenModal>[] = [
     cell: DefaultCell,
   },
   {
-    accessorKey: 'id_solicitud',
-    header: 'Solicitud',
-    cell: IdCell,
-  },
-  {
-    accessorKey: 'year',
-    header: 'Año',
-    cell: DefaultCell,
+    accessorKey: 'fecha_a_utilizar',
+    header: 'Fecha a utilizar',
+    cell: DateStatusCell,
   },
   {
     accessorKey: 'estado',

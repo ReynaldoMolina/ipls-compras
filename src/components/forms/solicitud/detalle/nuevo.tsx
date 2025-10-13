@@ -21,6 +21,18 @@ import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBac
 import { stateDefault } from '@/server-actions/statusMessages';
 import { createSolicitudDetalle } from '@/server-actions/solicitud-detalle';
 import { SolicitudDetalleForm } from './form';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import Link from 'next/link';
 
 interface NuevoSolicitudDetalleForm<TData> {
   table: Table<TData>;
@@ -90,5 +102,40 @@ export function NuevoSolicitudDetalleForm<TData>({
         </Form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function AddProductDisabledModal({
+  id_presupuesto,
+}: {
+  id_presupuesto: number;
+}) {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button type="button">
+          <Plus />
+          <span className="hidden sm:block">Agregar producto</span>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Aviso</AlertDialogTitle>
+          <AlertDialogDescription>
+            Esta solicitud se creó a partir de un presupuesto. Para agregar
+            productos, selecciona los que deseas en la lista del presupuesto y
+            añádelos a esta solicitud.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Link href={`/presupuestos/${id_presupuesto}`}>
+              Ir al presupuesto
+            </Link>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

@@ -31,6 +31,7 @@ interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
   tableDataModal?: TModal[];
   selectOptions?: FormSelectOptions;
   id_solicitud: number;
+  id_presupuesto: number | null;
 }
 
 export function DataTableSolicitud<
@@ -43,6 +44,7 @@ export function DataTableSolicitud<
   tableDataModal,
   selectOptions,
   id_solicitud,
+  id_presupuesto,
 }: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -76,7 +78,7 @@ export function DataTableSolicitud<
 
   return (
     <>
-      <ActionsBarDetalle table={table} />
+      <ActionsBarDetalle table={table} id_presupuesto={id_presupuesto} />
 
       <Table>
         <TableHeader>

@@ -6,7 +6,7 @@ import { presupuesto } from './presupuesto';
 export const solicitud = pgTable('solicitud', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   fecha: date().notNull(),
-  fecha_a_utilizar: date(),
+  fecha_a_utilizar: date().notNull(),
   id_entidad_academica: integer()
     .notNull()
     .references(() => entidad_academica.id),

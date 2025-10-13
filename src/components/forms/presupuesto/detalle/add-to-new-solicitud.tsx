@@ -95,8 +95,6 @@ export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
   );
 
   function onSubmit(values: z.infer<typeof solicitudSchema>) {
-    return console.log(selectedRows);
-
     startTransition(() => {
       formAction({
         values,
@@ -184,7 +182,7 @@ export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
                   name="id_presupuesto"
                   label="Id presupuesto"
                   disabled
-                  // hidden
+                  hidden
                 />
                 <FormTextReadOnly value={user.name} label="Solicitado por" />
               </FieldSet>

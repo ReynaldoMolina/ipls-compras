@@ -20,6 +20,7 @@ import { DatePicker } from '@/components/date-picker';
 import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormTextReadOnly } from '@/components/form-elements/form-text-readonly';
 import { useUser } from '@/hooks/use-user';
+import { FormTextField } from '@/components/form-elements/form-text-field';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -91,6 +92,13 @@ export function SolicitudForm({
               {action === 'create' && (
                 <FormTextReadOnly value={user.name} label="Solicitado por" />
               )}
+              <FormTextField
+                control={form.control}
+                name="id_presupuesto"
+                label="Id presupuesto"
+                disabled
+                hidden={form.getValues('id_presupuesto') === null}
+              />
             </FieldSet>
           </CardContent>
           <FormFooter action={action} isPending={isPending} label={label} />

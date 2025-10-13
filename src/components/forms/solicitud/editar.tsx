@@ -36,6 +36,7 @@ export function EditarSolicitudForm({
       fecha_a_utilizar: solicitud.fecha_a_utilizar,
       id_entidad_academica: solicitud.id_entidad_academica,
       id_usuario: solicitud.id_usuario,
+      id_presupuesto: solicitud.id_presupuesto ?? null,
     },
   });
 
@@ -78,6 +79,7 @@ export function EditarSolicitudForm({
           columns={columns}
           tableData={solicitud_detalle}
           id_solicitud={solicitud.id ?? 0}
+          id_presupuesto={solicitud.id_presupuesto}
           selectOptions={selectOptions}
         />
       </TabsContent>

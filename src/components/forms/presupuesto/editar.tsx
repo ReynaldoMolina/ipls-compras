@@ -7,6 +7,7 @@ import {
   FormSelectOptions,
   PresupuestoDetalleTable,
   PresupuestoFormType,
+  SolicitudesTableModal,
 } from '@/types/types';
 import { presupuestoSchema } from '../validation/validation-schemas';
 import { startTransition, useActionState } from 'react';
@@ -21,12 +22,14 @@ import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBac
 interface EditarPresupuestoFormProps {
   presupuesto: PresupuestoFormType;
   presupuesto_detalle: PresupuestoDetalleTable[];
+  solicitud_modal: SolicitudesTableModal[];
   selectOptions: FormSelectOptions;
 }
 
 export function EditarPresupuestoForm({
   presupuesto,
   presupuesto_detalle,
+  solicitud_modal,
   selectOptions,
 }: EditarPresupuestoFormProps) {
   const form = useForm<z.infer<typeof presupuestoSchema>>({
@@ -75,6 +78,7 @@ export function EditarPresupuestoForm({
         <DataTablePresupuesto
           columns={columns}
           tableData={presupuesto_detalle}
+          tableDataModal={solicitud_modal}
           presupuesto={presupuesto}
           selectOptions={selectOptions}
         />
