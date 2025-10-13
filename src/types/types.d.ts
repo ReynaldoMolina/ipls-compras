@@ -124,6 +124,7 @@ export interface PresupuestoDetalle {
 }
 
 export interface PresupuestoDetalleTable extends PresupuestoDetalle {
+  id_unidad_medida: number;
   unidad_medida: string | null;
   categoria?: string | null;
 }

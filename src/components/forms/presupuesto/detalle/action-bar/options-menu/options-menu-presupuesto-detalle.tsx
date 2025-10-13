@@ -54,11 +54,7 @@ export function OptionsMenuPresupuestoDetalle<
   return (
     <>
       <DropdownMenuGroup>
-        <AddToSolicitudSubMenu
-          id_solicitud={id_solicitud ?? 0}
-          table={table}
-          disabled={rowsEmpty}
-        />
+        <AddToSolicitudSubMenu table={table} disabled={rowsEmpty} />
         <GroupBySubMenu grouped={grouped ?? true} setGrouped={setGrouped!} />
 
         <DropdownMenuSeparator />

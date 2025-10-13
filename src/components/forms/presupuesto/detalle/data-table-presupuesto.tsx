@@ -166,7 +166,7 @@ export function DataTablePresupuesto<
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      className={colorMap[String(row.original.id_estado)]}
+                      // className={colorMap[String(row.original.id_estado)]}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
@@ -189,7 +189,7 @@ export function DataTablePresupuesto<
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className={colorMap[String(row.original.id_estado)]}
+                // className={colorMap[String(row.original.id_estado)]}
               >
                 {row.getVisibleCells().map((cell) => {
                   const size = cell.column.getSize();

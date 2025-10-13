@@ -39,15 +39,18 @@ import { FormTextField } from '@/components/form-elements/form-text-field';
 import { createSolicitudFromSelectedRows } from '@/server-actions/solicitud';
 import { stateDefault } from '@/server-actions/statusMessages';
 import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
-import { SolicitudDetalleFormType } from '@/types/types';
+import {
+  PresupuestoDetalleTable,
+  SolicitudDetalleFormType,
+} from '@/types/types';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
-interface AddToNewSolicitudProps<TData extends SolicitudDetalleFormType> {
+interface AddToNewSolicitudProps<TData extends PresupuestoDetalleTable> {
   table: Table<TData>;
 }
 
-export function AddToNewSolicitudModal<TData extends SolicitudDetalleFormType>({
+export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
   table,
 }: AddToNewSolicitudProps<TData>) {
   const [open, setOpen] = useState(false);
@@ -69,7 +72,20 @@ export function AddToNewSolicitudModal<TData extends SolicitudDetalleFormType>({
   const entidadesAcademicas =
     table.options.meta?.selectOptions?.entidadesAcademicas ?? [];
 
-  const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);
+  const selectedRows: SolicitudDetalleFormType[] = table
+    .getSelectedRowModel()
+    .rows.map((row) => {
+      const r = row.original;
+
+      return {
+        id_solicitud: 0,
+        producto_servicio: r.producto_servicio,
+        cantidad: r.cantidad,
+        id_unidad_medida: r.id_unidad_medida,
+        observacion: r.observacion,
+        id_presupuesto_detalle: r.id,
+      };
+    });
 
   const isPlural = selectedRows.length > 1;
 
@@ -79,6 +95,8 @@ export function AddToNewSolicitudModal<TData extends SolicitudDetalleFormType>({
   );
 
   function onSubmit(values: z.infer<typeof solicitudSchema>) {
+    return console.log(selectedRows);
+
     startTransition(() => {
       formAction({
         values,

@@ -9,6 +9,7 @@ import {
 import { Table } from '@tanstack/react-table';
 import { Dispatch, SetStateAction } from 'react';
 import { AddToNewSolicitudModal } from '../../add-to-new-solicitud';
+import { PresupuestoDetalleTable } from '@/types/types';
 
 interface GroupBySubMenuProps {
   grouped: boolean;
@@ -33,14 +34,12 @@ export function GroupBySubMenu({ grouped, setGrouped }: GroupBySubMenuProps) {
   );
 }
 
-interface AddToSolicitudSubMenuProps<TData extends { id: number }> {
-  id_presupuesto: number;
+interface AddToSolicitudSubMenuProps<TData extends PresupuestoDetalleTable> {
   table: Table<TData>;
   disabled?: boolean;
 }
 
-export function AddToSolicitudSubMenu<TData extends { id: number }>({
-  id_presupuesto,
+export function AddToSolicitudSubMenu<TData extends PresupuestoDetalleTable>({
   table,
   disabled,
 }: AddToSolicitudSubMenuProps<TData>) {
@@ -55,7 +54,7 @@ export function AddToSolicitudSubMenu<TData extends { id: number }>({
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           <AddToNewSolicitudModal table={table} />
-          <OrdenExistingFormModal table={table} />
+          {/* <OrdenExistingFormModal table={table} /> */}
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
     </DropdownMenuSub>

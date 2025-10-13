@@ -2,12 +2,13 @@ import { OptionsMenu } from './options-menu/options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
 import { NuevoPresupuestoDetalleForm } from '../nuevo';
+import { PresupuestoDetalleTable } from '@/types/types';
 
-interface ActionsBarDetalleProps<TData> {
+interface ActionsBarDetalleProps<TData extends PresupuestoDetalleTable> {
   table: Table<TData>;
 }
 
-export function ActionsBarDetalle<TData>({
+export function ActionsBarDetalle<TData extends PresupuestoDetalleTable>({
   table,
 }: ActionsBarDetalleProps<TData>) {
   return (
