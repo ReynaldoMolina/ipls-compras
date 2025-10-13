@@ -13,6 +13,7 @@ import {
   PresupuestosFilters,
   ProvidersFilters,
   ResumenFilters,
+  SolicitudesFilters,
   SolvenciasFilters,
   UsuariosFilters,
 } from './filter/filter-menu';
@@ -66,6 +67,10 @@ function getFilterMenuByPath(pathname: string, filterOptions: FilterOptions) {
 
   if (pathname === '/presupuestos') {
     return <PresupuestosFilters {...filterOptions} />;
+  }
+
+  if (pathname === '/solicitudes') {
+    return <SolicitudesFilters {...filterOptions} />;
   }
 
   if (

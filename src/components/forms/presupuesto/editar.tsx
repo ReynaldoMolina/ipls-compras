@@ -75,7 +75,7 @@ export function EditarPresupuestoForm({
         <DataTablePresupuesto
           columns={columns}
           tableData={presupuesto_detalle}
-          id_presupuesto={presupuesto.id ?? 0}
+          presupuesto={presupuesto}
           selectOptions={selectOptions}
         />
       </TabsContent>

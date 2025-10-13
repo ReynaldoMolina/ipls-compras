@@ -1,78 +1,109 @@
 'use server';
 
 import { db } from '@/database/db';
-import { goBackTo } from './go-back-to-list';
 import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
 import { eq, inArray } from 'drizzle-orm';
 import { SolicitudDetalleFormType } from '@/types/types';
 import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateDefault,
+  stateDeleteError,
+  stateDeleteSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
+import { title } from 'process';
+
+interface CreateSolicitudDetalle {
+  values: SolicitudDetalleFormType;
+  id_solicitud: number | string | undefined;
+}
 
 export async function createSolicitudDetalle(
-  data: SolicitudDetalleFormType,
-  idSolicitud: number
+  prevState: unknown,
+  data: CreateSolicitudDetalle
 ) {
+  if (!data.values) {
+    return {
+      success: false,
+      title: 'Error',
+      message: 'Faltan datos por ingresar.',
+    };
+  }
+
   try {
-    await db.insert(solicitud_detalle).values(data);
+    await db.insert(solicitud_detalle).values(data.values);
+
+    revalidatePath(`/solicitudes/${data.id_solicitud}`);
+    return stateCreateSuccess;
   } catch (error) {
     console.error(error);
-    return { message: 'Error creating solicitud detalle' };
+    return stateCreateError;
   }
-  await goBackTo(`/solicitudes/${idSolicitud}/detalle`);
+}
+
+interface UpdateSolicitudDetalle {
+  id: number | string | undefined;
+  values: SolicitudDetalleFormType;
+  id_solicitud: number | string | undefined;
 }
 
 export async function updateSolicitudDetalle(
-  id: number | undefined,
-  data: SolicitudDetalleFormType,
-  id_solicitud: number
+  prevState: unknown,
+  data: UpdateSolicitudDetalle
 ) {
-  if (!id) return;
+  if (!data.id) return;
 
   try {
     await db
       .update(solicitud_detalle)
-      .set(data)
-      .where(eq(solicitud_detalle.id, id));
+      .set(data.values)
+      .where(eq(solicitud_detalle.id, Number(data.id)));
+
+    revalidatePath(`/solicitudes/${data.id_solicitud}`);
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
-  }
-  await goBackTo(`/solicitudes/${id_solicitud}/detalle`);
-}
-
-export type SolicitudDetalleColumn =
-  keyof typeof solicitud_detalle.$inferInsert;
-
-export async function updateSolicitudDetalleColumnByIds(
-  ids: number[],
-  column: SolicitudDetalleColumn,
-  value: number | string
-) {
-  if (ids?.length === 0) return;
-
-  try {
-    await db
-      .update(solicitud_detalle)
-      .set({ [column]: value })
-      .where(inArray(solicitud_detalle.id, ids));
-  } catch (error) {
-    console.error(error);
-    return error;
+    return stateUpdateError;
   }
 }
 
-export async function deleteSolicitudDetalleByIds(
-  ids: number[],
-  id_solicitud?: number
-) {
-  if (ids?.length === 0 || !id_solicitud) return;
+export async function deleteSolicitudDetalleByIds(ids: number[]) {
+  if (ids?.length === 0) stateDeleteError;
 
   try {
     await db
       .delete(solicitud_detalle)
       .where(inArray(solicitud_detalle.id, ids));
+
+    return stateDeleteSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateDeleteError;
   }
-  revalidatePath(`/solicitudes/${id_solicitud}/detalle`);
+}
+
+export async function createSolicitudDetalleBySelectedRows(
+  selectedRows: SolicitudDetalleFormType[],
+  id_solicitud: number
+) {
+  if (!selectedRows) return stateCreateError;
+
+  try {
+    const data = selectedRows.map((row) => ({
+      id_solicitud,
+      producto_servicio: row.producto_servicio,
+      cantidad: row.cantidad,
+      id_unidad_medida: row.id_unidad_medida,
+      observacion: row.observacion,
+      id_presupuesto_detalle: row.id,
+    }));
+
+    await db.insert(solicitud_detalle).values(data);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creando el detalle de la solicitud');
+  }
 }

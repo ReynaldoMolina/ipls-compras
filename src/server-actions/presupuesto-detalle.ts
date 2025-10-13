@@ -8,6 +8,8 @@ import { PresupuestoDetalleFormType } from '@/types/types';
 import {
   stateCreateError,
   stateCreateSuccess,
+  stateDeleteError,
+  stateDeleteSuccess,
   stateUpdateError,
   stateUpdateSuccess,
 } from './statusMessages';
@@ -62,40 +64,17 @@ export async function updatePresupuestoDetalle(
   }
 }
 
-export type SolicitudDetalleColumn =
-  keyof typeof presupuesto_detalle.$inferInsert;
-
-export async function updatePresupuestoDetalleColumnByIds(
-  ids: number[],
-  column: SolicitudDetalleColumn,
-  value: number | string
-) {
-  if (ids?.length === 0) return;
-
-  try {
-    await db
-      .update(presupuesto_detalle)
-      .set({ [column]: value })
-      .where(inArray(presupuesto_detalle.id, ids));
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-}
-
-export async function deletePresupuestoDetalleByIds(
-  ids: number[],
-  id_solicitud?: number
-) {
-  if (ids?.length === 0 || !id_solicitud) return;
+export async function deletePresupuestoDetalleByIds(ids: number[]) {
+  if (ids?.length === 0) stateDeleteError;
 
   try {
     await db
       .delete(presupuesto_detalle)
       .where(inArray(presupuesto_detalle.id, ids));
+
+    return stateDeleteSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateDeleteError;
   }
-  revalidatePath(`/solicitudes/${id_solicitud}/detalle`);
 }

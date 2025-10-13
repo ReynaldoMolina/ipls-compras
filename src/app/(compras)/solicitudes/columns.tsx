@@ -2,29 +2,18 @@
 
 import { SortButton } from '@/components/tables/sort-button';
 import { ColumnDef } from '@tanstack/react-table';
-import {
-  NumberCellWithValue,
-  NumberFloatCell,
-} from '@/components/tables/number-cell';
-import { SolicitudesTable } from '@/types/types';
+import { SolicitudTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
-import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
-import { sumColumn } from '@/lib/sum-column';
+import { EditCell } from '@/components/tables/edit-cell';
+import { DateCell, DateStatusCell } from '@/components/tables/date-cell';
 
-export const columns: ColumnDef<SolicitudesTable>[] = [
+export const columns: ColumnDef<SolicitudTable>[] = [
   {
-    id: 'actions',
-    header: 'Acciones',
-    cell: ({ row }) => {
-      return (
-        <div className="inline-flex gap-1">
-          <EditCell href={`/solicitudes/${row.original.id}`} />
-          <GoToListCell href={`/solicitudes/${row.original.id}/detalle`} />
-        </div>
-      );
-    },
-    size: 70,
+    id: 'edit',
+    header: 'Edit',
+    cell: ({ row }) => <EditCell href={`/solicitudes/${row.original.id}`} />,
+    size: 40,
   },
   {
     accessorKey: 'id',
@@ -38,49 +27,32 @@ export const columns: ColumnDef<SolicitudesTable>[] = [
       <SortButton column={column} label="Carrera / curso / área" />
     ),
     cell: DefaultCell,
-    footer: 'Totales',
   },
   {
-    accessorKey: 'abreviacion',
-    header: ({ column }) => <SortButton column={column} label="Abreviación" />,
-    cell: DefaultCell,
-  },
-  {
-    accessorKey: 'year',
-    header: ({ column }) => <SortButton column={column} label="Año" />,
-    cell: DefaultCell,
+    accessorKey: 'fecha_a_utilizar',
+    header: ({ column }) => (
+      <SortButton column={column} label="Fecha a utilizar" />
+    ),
+    cell: DateStatusCell,
     size: 80,
   },
   {
-    accessorKey: 'presupuestado',
+    accessorKey: 'fecha',
+    header: ({ column }) => <SortButton column={column} label="Elaborada el" />,
+    cell: DateCell,
+    size: 80,
+  },
+  {
+    id: 'Estado',
+    header: ({ column }) => <SortButton column={column} label="Estado" />,
+    cell: DefaultCell,
+  },
+  {
+    accessorKey: 'usuario',
     header: ({ column }) => (
-      <SortButton column={column} label="Presupuestado" />
+      <SortButton column={column} label="Solicitado por" />
     ),
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'presupuestado');
-      return <NumberCellWithValue value={total} />;
-    },
-    size: 140,
-  },
-  {
-    accessorKey: 'asignado',
-    header: ({ column }) => <SortButton column={column} label="Asignado" />,
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'asignado');
-      return <NumberCellWithValue value={total} />;
-    },
-    size: 140,
-  },
-  {
-    accessorKey: 'restante',
-    header: ({ column }) => <SortButton column={column} label="Restante" />,
-    cell: NumberFloatCell,
-    footer: ({ table }) => {
-      const total = sumColumn(table, 'restante');
-      return <NumberCellWithValue value={total} />;
-    },
-    size: 140,
+    cell: DefaultCell,
+    size: 200,
   },
 ];

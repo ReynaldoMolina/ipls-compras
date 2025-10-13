@@ -8,6 +8,7 @@ import { ServerActionState } from '@/types/types';
 interface FeedbackOptions {
   back?: boolean;
   redirectTo?: string;
+  redirectToId?: string;
   refresh?: boolean;
 }
 
@@ -27,12 +28,14 @@ export function useServerActionFeedback(
 
       if (options.redirectTo) {
         router.push(options.redirectTo);
-      }
-      if (options.back) {
+      } else if (options.back) {
         router.back();
-      }
-      if (options.refresh) {
+      } else if (options.refresh) {
         router.refresh();
+      }
+
+      if (options.redirectToId) {
+        router.push(`${options.redirectToId}/${state.returningId}`);
       }
     } else {
       toast.error(state?.title ?? 'Error', {

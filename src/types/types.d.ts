@@ -133,8 +133,46 @@ export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
   id_categoria?: number | null;
 }
 
+export interface Solicitud {
+  id?: number;
+  fecha: string;
+  fecha_a_utilizar: string | null;
+}
+
+export interface SolicitudTable extends Solicitud {
+  entidad_academica: string | null;
+  tipo: string | null;
+  usuario: string | null;
+}
+
+export interface SolicitudFormType extends Solicitud {
+  id_entidad_academica: number;
+  entidad_academica?: string | null;
+  id_usuario: string;
+  usuario?: string | null;
+}
+
+// *******************************************************
+export interface SolicitudDetalle {
+  id?: number;
+  id_solicitud: number;
+  producto_servicio: string;
+  cantidad: number;
+  observacion: string | null;
+}
+
+export interface SolicitudDetalleTable extends SolicitudDetalle {
+  unidad_medida: string | null;
+}
+
+export interface SolicitudDetalleFormType extends SolicitudDetalle {
+  id_unidad_medida: number;
+}
+
+// *****************************************************
+
 export type SelectOptions = {
-  value: string;
+  value: string | null;
   label: string;
 };
 
@@ -248,4 +286,5 @@ export interface ServerActionState {
   success?: boolean;
   title?: string;
   description?: string;
+  returningId?: number;
 }

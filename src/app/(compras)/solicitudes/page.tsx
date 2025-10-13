@@ -4,11 +4,11 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { columns } from './columns';
 import { DataTable } from '../../../components/tables/data-table';
 import { PageProps } from '@/types/types';
+import { FilterButton } from '@/components/actionbar/filter-button';
 import {
   getSolicitudesTableData,
   getUniqueYearsFromSolicitudes,
-} from '@/fetch-data/presupuesto';
-import { FilterButton } from '@/components/actionbar/filter-button';
+} from '@/fetch-data/solicitud';
 
 const title = 'Solicitudes de compra';
 

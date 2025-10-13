@@ -57,26 +57,28 @@ export function ProveedorForm({
           <FormHeader action={action} name="proveedor" noun="m" />
           <CardContent>
             <FieldGroup>
-              <FieldSet>
-                <Item variant="outline">
-                  <ItemMedia variant="icon">
-                    <CalendarDays />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemTitle>Solvencias</ItemTitle>
-                    <ItemDescription>
-                      Revisa y actualiza las solvencias.
-                    </ItemDescription>
-                  </ItemContent>
-                  <ItemActions>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={`/proveedores/${id_proveedor}/solvencias`}>
-                        Abrir
-                      </Link>
-                    </Button>
-                  </ItemActions>
-                </Item>
-              </FieldSet>
+              {action === 'edit' && (
+                <FieldSet>
+                  <Item variant="outline">
+                    <ItemMedia variant="icon">
+                      <CalendarDays />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>Solvencias</ItemTitle>
+                      <ItemDescription>
+                        Revisa y actualiza las solvencias.
+                      </ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <Button variant="outline" size="sm" asChild>
+                        <Link href={`/proveedores/${id_proveedor}/solvencias`}>
+                          Abrir
+                        </Link>
+                      </Button>
+                    </ItemActions>
+                  </Item>
+                </FieldSet>
+              )}
               <FieldSet>
                 <FieldLegend>Información</FieldLegend>
                 <FieldDescription>

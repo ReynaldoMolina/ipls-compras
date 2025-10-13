@@ -1,31 +1,101 @@
 'use server';
 
 import { db } from '@/database/db';
-import { SolicitudFormType } from '@/types/types';
-import { goBackTo } from './go-back-to-list';
+import { SolicitudDetalleFormType, SolicitudFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
-import { solicitudes } from '@/database/schema/presupuesto';
+import { solicitud } from '@/database/schema/solicitud';
+import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
+import { createSolicitudDetalleBySelectedRows } from './solicitud-detalle';
 
-export async function createSolicitud(data: SolicitudFormType) {
+interface CreateSolicitud {
+  values: SolicitudFormType;
+}
+
+export async function createSolicitud(
+  prevState: unknown,
+  data: CreateSolicitud
+) {
+  let returningId: { id: number };
+
   try {
-    await db.insert(solicitudes).values(data);
+    [returningId] = await db
+      .insert(solicitud)
+      .values(data.values)
+      .returning({ id: solicitud.id });
+
+    return {
+      ...stateCreateSuccess,
+      returningId: returningId.id,
+    };
   } catch (error) {
     console.error(error);
-    return { message: 'Error creating solicitud' };
+    return stateCreateError;
   }
-  await goBackTo('/solicitudes');
+}
+
+interface UpdateSolicitud {
+  id: number | string | undefined;
+  values: SolicitudFormType;
 }
 
 export async function updateSolicitud(
-  id: number | undefined,
-  data: SolicitudFormType
+  prevState: unknown,
+  data: UpdateSolicitud
 ) {
-  if (!id) return;
+  if (!data.id) return;
+
   try {
-    await db.update(solicitudes).set(data).where(eq(solicitudes.id, id));
+    await db
+      .update(solicitud)
+      .set(data.values)
+      .where(eq(solicitud.id, Number(data.id)));
+
+    revalidatePath('/solicitudes');
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateUpdateError;
   }
-  await goBackTo('/solicitudes');
+}
+
+export interface SolicitudReturning {
+  id: number;
+}
+
+interface CreateSolicitudFromSelectedRows {
+  values: SolicitudFormType;
+  selectedRows: SolicitudDetalleFormType[];
+}
+
+export async function createSolicitudFromSelectedRows(
+  prevState: unknown,
+  data: CreateSolicitudFromSelectedRows
+) {
+  let returningSolicitud: SolicitudReturning;
+  try {
+    [returningSolicitud] = await db
+      .insert(solicitud)
+      .values(data.values)
+      .returning({
+        id: solicitud.id,
+        id_presupuesto: solicitud.id_presupuesto,
+      });
+
+    await createSolicitudDetalleBySelectedRows(
+      data.selectedRows,
+      returningSolicitud.id
+    );
+
+    revalidatePath('/solicitudes');
+    return { ...stateUpdateSuccess, returningId: returningSolicitud.id };
+  } catch (error) {
+    console.error(error);
+    return stateUpdateError;
+  }
 }

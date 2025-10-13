@@ -1,6 +1,7 @@
 import { date, integer, pgTable, text } from 'drizzle-orm/pg-core';
 import { entidad_academica } from './entidad-academica';
 import { users } from './user';
+import { presupuesto } from './presupuesto';
 
 export const solicitud = pgTable('solicitud', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -12,4 +13,7 @@ export const solicitud = pgTable('solicitud', {
   id_usuario: text()
     .notNull()
     .references(() => users.id),
+  id_presupuesto: integer().references(() => presupuesto.id, {
+    onDelete: 'set null',
+  }),
 });

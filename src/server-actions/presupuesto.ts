@@ -28,8 +28,10 @@ export async function createPresupuesto(
       .values(data.values)
       .returning({ id: presupuesto.id });
 
-    revalidatePath(`/presupuestos/${returningId.id}/editar`);
-    return stateCreateSuccess;
+    return {
+      ...stateCreateSuccess,
+      returningId: returningId.id,
+    };
   } catch (error) {
     console.error(error);
     return stateCreateError;

@@ -40,7 +40,7 @@ export function NuevoPresupuestoForm({
     });
   }
 
-  useServerActionFeedback(state, { back: true });
+  useServerActionFeedback(state, { redirectToId: '/presupuestos' });
 
   return (
     <PresupuestoForm

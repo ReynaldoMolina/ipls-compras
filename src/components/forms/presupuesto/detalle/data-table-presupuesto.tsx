@@ -22,7 +22,11 @@ import {
 } from '@/components/ui/table';
 
 import { useEffect, useState } from 'react';
-import { FormSelectOptions, PresupuestoDetalleTable } from '@/types/types';
+import {
+  FormSelectOptions,
+  PresupuestoDetalleTable,
+  PresupuestoFormType,
+} from '@/types/types';
 import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
 
 interface DataTableProps<
@@ -33,8 +37,8 @@ interface DataTableProps<
   columns: ColumnDef<TData, TValue>[];
   tableData?: TData[];
   tableDataModal?: TModal[];
-  selectOptions?: FormSelectOptions;
-  id_presupuesto: number;
+  presupuesto: PresupuestoFormType;
+  selectOptions: FormSelectOptions;
 }
 
 export function DataTablePresupuesto<
@@ -45,8 +49,8 @@ export function DataTablePresupuesto<
   columns,
   tableData,
   tableDataModal,
+  presupuesto,
   selectOptions,
-  id_presupuesto,
 }: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -73,11 +77,11 @@ export function DataTablePresupuesto<
       rowSelection,
     },
     meta: {
-      selectOptions,
-      id_presupuesto,
+      presupuesto,
       setGrouped,
       grouped,
       tableDataModal,
+      selectOptions,
     },
   });
 

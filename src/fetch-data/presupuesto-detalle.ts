@@ -16,6 +16,7 @@ export async function getPresupuestoDetalleByPresupuestoId(
     id_presupuesto: presupuesto_detalle.id_presupuesto,
     producto_servicio: presupuesto_detalle.producto_servicio,
     cantidad: presupuesto_detalle.cantidad,
+    id_unidad_medida: presupuesto_detalle.id_unidad_medida,
     unidad_medida: unidad_medida.nombre,
     precio_sugerido: presupuesto_detalle.precio_sugerido,
     categoria: categoria_producto.nombre,

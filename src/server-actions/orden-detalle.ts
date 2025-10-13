@@ -2,7 +2,7 @@
 
 import { db } from '@/database/db';
 import { orden_detalle } from '@/database/schema/orden-detalle';
-import { OrdenDetalleType, OrdenesModal } from '@/types/types';
+import { OrdenDetalleType } from '@/types/types';
 import { eq, inArray } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { goBackTo } from './go-back-to-list';

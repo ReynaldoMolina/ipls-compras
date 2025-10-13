@@ -9,7 +9,7 @@ import {
 import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
-import { OptionsMenuSolicitudDetalle } from './options-menu/options-menu-solicitud-detalle';
+import { OptionsMenuSolicitudDetalle } from './options-menu-solicitud-detalle';
 
 interface OptionsMenuProps<TData> {
   table: Table<TData>;

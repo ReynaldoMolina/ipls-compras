@@ -1,4 +1,4 @@
-import { OptionsMenu } from './options-menu';
+import { OptionsMenu } from './options-menu/options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
 import { NuevoPresupuestoDetalleForm } from '../nuevo';

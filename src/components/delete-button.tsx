@@ -36,7 +36,6 @@ export function DeleteButton({
           className="w-full justify-start text-destructive hover:text-destructive"
           disabled={disabled}
         >
-          <Trash />
           Eliminar
         </Button>
       </AlertDialogTrigger>
@@ -57,6 +56,7 @@ export function DeleteButton({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction
+            className="bg-destructive hover:bg-destructive/90"
             onClick={() => {
               setOpen(false);
               handleDelete();

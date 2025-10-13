@@ -69,6 +69,23 @@ export function PresupuestosFilters(filterOptions: FilterOptions) {
   );
 }
 
+export function SolicitudesFilters(filterOptions: FilterOptions) {
+  return (
+    <>
+      <FilterCheckBox
+        label="Año"
+        options={filterOptions.years}
+        paramKey="year"
+      />
+      <FilterCheckBox
+        label="Estado"
+        options={filterOptions.ordenState}
+        paramKey="orden_estado"
+      />
+    </>
+  );
+}
+
 export function OrdenesFilters(filterOptions: FilterOptions) {
   return (
     <>

@@ -37,6 +37,10 @@ export const prioridad = [
     value: 'II semestre',
     label: 'II semestre',
   },
+  {
+    value: null,
+    label: '(Vacío)',
+  },
 ];
 
 export const currentYear = new Date().getFullYear();

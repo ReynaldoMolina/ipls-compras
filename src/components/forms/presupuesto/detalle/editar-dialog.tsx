@@ -21,6 +21,7 @@ import {
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { stateDefault } from '@/server-actions/statusMessages';
 import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
+import { Separator } from '@/components/ui/separator';
 
 interface EditarPresupuestoDetalleForm {
   detalle: PresupuestoDetalleFormType;
@@ -77,7 +78,7 @@ export function EditarPresupuestoDetalleFormDialog({
           }}
         >
           <DialogContent className="w-full max-w-2xl max-h-[95%] overflow-y-auto">
-            <DialogHeader>
+            <DialogHeader className="border-b pb-6">
               <DialogTitle>Editar detalle</DialogTitle>
               <DialogDescription>
                 Edita la información del detalle, haz click en guardar cuando

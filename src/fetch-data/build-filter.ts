@@ -5,6 +5,7 @@ import { proveedor_solvencia } from '@/database/schema/proveedor-solvencia';
 import { users } from '@/database/schema/user';
 import { SearchParamsProps } from '@/types/types';
 import { gt, max, sql, lt, eq, isNull, inArray, or, SQL } from 'drizzle-orm';
+import { solicitud } from '@/database/schema/solicitud';
 
 export function buildFilterProveedoresByDepartamento(
   searchParams: SearchParamsProps
@@ -63,6 +64,13 @@ export function buildFilterPresupuestosByYear(searchParams: SearchParamsProps) {
   const years = searchParams.year?.split(',').filter(Boolean) ?? [];
   const mappedYears = years.map((year) => Number(year));
   return years.length > 0 ? inArray(presupuesto.year, mappedYears) : undefined;
+}
+
+export function buildFilterSolicitudesByYear(searchParams: SearchParamsProps) {
+  const years = searchParams.year?.split(',').filter(Boolean) ?? [];
+  const mappedYears = years.map((year) => Number(year));
+  const extractedYears = sql`EXTRACT(YEAR FROM ${solicitud.fecha})`;
+  return years.length > 0 ? inArray(extractedYears, mappedYears) : undefined;
 }
 
 export function buildOrdenesByIdSolicitud(
