@@ -19,18 +19,24 @@ export const columns: ColumnDef<SolicitudDetalleTable>[] = [
   {
     id: 'select',
     header: CheckBoxCellHeader,
-    cell: CheckBoxCell,
+    cell: (ctx) => (
+      <CheckBoxCell {...ctx} disabled={ctx.row.original.restante < 1} />
+    ),
     enableSorting: false,
     size: 30,
   },
   {
     id: 'edit',
     header: 'Edit',
-    cell: ({ row }) => (
-      <EditCell
-        href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}`}
-      />
-    ),
+    cell: ({ row }) => {
+      const disabled = row.original.restante < 1;
+      return (
+        <EditCell
+          href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}`}
+          disabled={disabled}
+        />
+      );
+    },
     size: 40,
   },
   {
@@ -58,6 +64,26 @@ export const columns: ColumnDef<SolicitudDetalleTable>[] = [
       return <NumberCellWithValue value={total} type="integer" />;
     },
     size: 50,
+  },
+  {
+    accessorKey: 'en_orden',
+    header: 'En orden',
+    cell: NumberIntegerCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'en_orden');
+      return <NumberCellWithValue value={total} type="integer" />;
+    },
+    size: 80,
+  },
+  {
+    accessorKey: 'restante',
+    header: 'Restante',
+    cell: NumberIntegerCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'restante');
+      return <NumberCellWithValue value={total} type="integer" />;
+    },
+    size: 80,
   },
   {
     accessorKey: 'unidad_medida',

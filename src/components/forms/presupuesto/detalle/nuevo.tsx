@@ -67,7 +67,6 @@ export function NuevoPresupuestoDetalleForm<TData>({
   useEffect(() => {
     if (state.success) {
       form.reset();
-      // do other stuff here
     }
   }, [state.success, form]);
 

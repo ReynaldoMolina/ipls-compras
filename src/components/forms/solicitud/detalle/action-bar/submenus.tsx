@@ -10,13 +10,11 @@ import { AddToNewOrdenModal } from '../add-to-new-orden';
 import { SolicitudDetalleTable } from '@/types/types';
 
 interface AddToOrdenSubMenuProps<TData extends SolicitudDetalleTable> {
-  id_solicitud: number;
   table: Table<TData>;
   disabled?: boolean;
 }
 
 export function AddToOrdenSubMenu<TData extends SolicitudDetalleTable>({
-  id_solicitud,
   table,
   disabled,
 }: AddToOrdenSubMenuProps<TData>) {
@@ -30,7 +28,7 @@ export function AddToOrdenSubMenu<TData extends SolicitudDetalleTable>({
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
-          <AddToNewOrdenModal id_solicitud={id_solicitud} table={table} />
+          <AddToNewOrdenModal table={table} />
           <OrdenExistingFormModal table={table} />
         </DropdownMenuSubContent>
       </DropdownMenuPortal>

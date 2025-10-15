@@ -24,9 +24,11 @@ export function CheckBoxCellHeader<TData, TValue>({
   );
 }
 
-export function CheckBoxCell<TData, TValue>({
-  row,
-}: CellContext<TData, TValue>) {
+export function CheckBoxCell<TData, TValue>(
+  props: CellContext<TData, TValue> & { disabled?: boolean }
+) {
+  const { row, disabled = false } = props;
+
   return (
     <Checkbox
       checked={row.getIsSelected()}
@@ -34,6 +36,7 @@ export function CheckBoxCell<TData, TValue>({
       aria-label="Select row"
       className="rounded"
       title="Seleccionar"
+      disabled={disabled}
     />
   );
 }

@@ -47,16 +47,15 @@ import { FormSwitch } from '@/components/form-elements/form-switch';
 type OrdenFormValues = z.infer<typeof ordenesSchema>;
 
 interface OrdenFormProps<TData extends SolicitudDetalleTable> {
-  id_solicitud: number;
   table: Table<TData>;
 }
 
 export function AddToNewOrdenModal<TData extends SolicitudDetalleTable>({
-  id_solicitud,
   table,
 }: OrdenFormProps<TData>) {
   const [open, setOpen] = useState(false);
   const { currentDate } = getCurrentDate();
+  const id_solicitud = table.options.meta.solicitud.id;
 
   const form = useForm<z.infer<typeof ordenesSchema>>({
     resolver: zodResolver(ordenesSchema),
@@ -148,7 +147,7 @@ export function AddToNewOrdenModal<TData extends SolicitudDetalleTable>({
                     name="id_solicitud"
                     label="Solicitud Nº"
                     disabled
-                    hidden
+                    // hidden
                   />
                   <FormField
                     control={form.control}

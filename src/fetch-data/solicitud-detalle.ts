@@ -1,7 +1,9 @@
 import { db } from '@/database/db';
+import { orden_detalle } from '@/database/schema/orden-detalle';
+import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
 import { SolicitudDetalleFormType, SolicitudDetalleTable } from '@/types/types';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 
 export async function getSolicitudDetalleBySolicitudId(
   id_solicitud: number | string
@@ -9,8 +11,16 @@ export async function getSolicitudDetalleBySolicitudId(
   const selectFields = {
     id: solicitud_detalle.id,
     id_solicitud: solicitud_detalle.id_solicitud,
-    producto_servicio: solicitud_detalle.producto_servicio,
+    producto_servicio: sql<string>`
+      COALESCE(${presupuesto_detalle.producto_servicio}, ${solicitud_detalle.producto_servicio})
+    `,
     cantidad: solicitud_detalle.cantidad,
+    en_orden: sql<number>`
+      COALESCE(SUM(${orden_detalle.cantidad}), 0)
+    `,
+    restante: sql<number>`
+      ${solicitud_detalle.cantidad} - COALESCE(SUM(${orden_detalle.cantidad}), 0)
+    `,
     unidad_medida: solicitud_detalle.unidad_medida,
     observacion: solicitud_detalle.observacion,
   };
@@ -18,7 +28,16 @@ export async function getSolicitudDetalleBySolicitudId(
     const data = await db
       .select(selectFields)
       .from(solicitud_detalle)
+      .leftJoin(
+        presupuesto_detalle,
+        eq(solicitud_detalle.id_presupuesto_detalle, presupuesto_detalle.id)
+      )
+      .leftJoin(
+        orden_detalle,
+        eq(solicitud_detalle.id, orden_detalle.id_solicitud_detalle)
+      )
       .where(eq(solicitud_detalle.id_solicitud, Number(id_solicitud)))
+      .groupBy(solicitud_detalle.id, presupuesto_detalle.producto_servicio)
       .orderBy(solicitud_detalle.id);
     return data;
   } catch (error) {

@@ -23,7 +23,6 @@ interface OptionsMenuSolicitudDetalleProps<
 export function OptionsMenuSolicitudDetalle<
   TData extends SolicitudDetalleTable,
 >({ table, setOpen }: OptionsMenuSolicitudDetalleProps<TData>) {
-  const { id_solicitud } = table.options.meta ?? {};
   const router = useRouter();
 
   const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);
@@ -54,11 +53,7 @@ export function OptionsMenuSolicitudDetalle<
   return (
     <>
       <DropdownMenuGroup>
-        <AddToOrdenSubMenu
-          id_solicitud={id_solicitud ?? 0}
-          table={table}
-          disabled={rowsEmpty}
-        />
+        <AddToOrdenSubMenu table={table} disabled={rowsEmpty} />
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled={rowsEmpty} onClick={handleDelete} asChild>
           <DeleteButton

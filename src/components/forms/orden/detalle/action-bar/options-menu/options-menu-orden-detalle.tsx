@@ -1,7 +1,6 @@
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Table } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
@@ -10,7 +9,7 @@ import { DeleteButton } from '@/components/delete-button';
 import { toast } from 'sonner';
 import { OrdenDetalleTable, ServerActionState } from '@/types/types';
 import { stateDefault } from '@/server-actions/statusMessages';
-import { deleteSolicitudDetalleByIds } from '@/server-actions/solicitud-detalle';
+import { deleteOrdenDetalleByIds } from '@/server-actions/orden-detalle';
 
 interface OptionsMenuOrdenDetalleProps<TData extends OrdenDetalleTable> {
   table: Table<TData>;
@@ -33,7 +32,7 @@ export function OptionsMenuOrdenDetalle<TData extends OrdenDetalleTable>({
     let state: ServerActionState = stateDefault;
 
     try {
-      state = await deleteSolicitudDetalleByIds(selectedRowsIds);
+      state = await deleteOrdenDetalleByIds(selectedRowsIds);
 
       table.toggleAllPageRowsSelected(false);
       router.refresh();

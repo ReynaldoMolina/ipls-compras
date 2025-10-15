@@ -124,7 +124,7 @@ export async function addToExistingSolicitudDetalleBySelectedRows(
       cantidad: row.cantidad,
       unidad_medida: row.unidad_medida,
       observacion: row.observacion,
-      id_presupuesto_detalle: row.id,
+      id_presupuesto_detalle: row.id_presupuesto_detalle,
     }));
 
     await db.insert(solicitud_detalle).values(processedData);

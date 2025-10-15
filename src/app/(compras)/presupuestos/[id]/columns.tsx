@@ -22,7 +22,9 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
   {
     id: 'select',
     header: CheckBoxCellHeader,
-    cell: CheckBoxCell,
+    cell: (ctx) => (
+      <CheckBoxCell {...ctx} disabled={ctx.row.original.restante < 1} />
+    ),
     enableSorting: false,
     size: 30,
   },
@@ -32,6 +34,7 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     cell: ({ row }) => (
       <EditCell
         href={`/presupuestos/${row.original.id_presupuesto}/detalle/${row.original.id}`}
+        disabled={row.original.restante < 1}
       />
     ),
     size: 40,
@@ -58,6 +61,26 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     cell: NumberIntegerCell,
     footer: ({ table }) => {
       const total = sumColumn(table, 'cantidad');
+      return <NumberCellWithValue value={total} type="integer" />;
+    },
+    size: 50,
+  },
+  {
+    accessorKey: 'en_solicitud',
+    header: 'En solicitud',
+    cell: NumberIntegerCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'en_solicitud');
+      return <NumberCellWithValue value={total} type="integer" />;
+    },
+    size: 50,
+  },
+  {
+    accessorKey: 'restante',
+    header: 'Restante',
+    cell: NumberIntegerCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'restante');
       return <NumberCellWithValue value={total} type="integer" />;
     },
     size: 50,

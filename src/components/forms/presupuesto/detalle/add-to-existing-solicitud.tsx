@@ -35,8 +35,8 @@ export function AddToExistingSolicitudModal<
 
       return {
         id_solicitud: 0,
-        producto_servicio: r.producto_servicio,
-        cantidad: r.cantidad,
+        producto_servicio: '',
+        cantidad: r.restante,
         unidad_medida: r.unidad_medida,
         observacion: r.observacion,
         id_presupuesto_detalle: r.id,

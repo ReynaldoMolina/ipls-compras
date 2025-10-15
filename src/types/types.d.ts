@@ -125,6 +125,8 @@ export interface PresupuestoDetalle {
 }
 
 export interface PresupuestoDetalleTable extends PresupuestoDetalle {
+  en_solicitud: number;
+  restante: number;
   categoria?: string | null;
 }
 
@@ -164,6 +166,8 @@ export interface SolicitudDetalle {
 }
 
 export interface SolicitudDetalleTable extends SolicitudDetalle {
+  en_orden: number;
+  restante: number;
   unidad_medida: string | null;
 }
 

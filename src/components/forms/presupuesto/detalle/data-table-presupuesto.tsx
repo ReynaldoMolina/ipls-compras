@@ -28,6 +28,7 @@ import {
   PresupuestoFormType,
 } from '@/types/types';
 import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
+import { colorMap } from '@/lib/table-rows-bg';
 
 interface DataTableProps<
   TData extends PresupuestoDetalleTable,
@@ -71,6 +72,9 @@ export function DataTablePresupuesto<
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
+    enableRowSelection: (row) => {
+      return row.original.restante > 0;
+    },
     state: {
       sorting,
       columnFilters,
@@ -84,12 +88,6 @@ export function DataTablePresupuesto<
       selectOptions,
     },
   });
-
-  // const colorMap: Record<string, string> = {
-  //   1: 'bg-date-due hover:bg-date-due-hover/80 data-[state=selected]:bg-date-due-hover',
-  //   2: 'bg-date-warning hover:bg-date-warning-hover/80 data-[state=selected]:bg-date-warning-hover',
-  //   3: 'bg-date-active hover:bg-date-active-hover/80 data-[state=selected]:bg-date-active-hover',
-  // };
 
   return (
     <>
@@ -166,7 +164,7 @@ export function DataTablePresupuesto<
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      // className={colorMap[String(row.original.id_estado)]}
+                      className={colorMap[String(row.original.restante)]}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
@@ -189,7 +187,7 @@ export function DataTablePresupuesto<
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                // className={colorMap[String(row.original.id_estado)]}
+                className={colorMap[String(row.original.restante)]}
               >
                 {row.getVisibleCells().map((cell) => {
                   const size = cell.column.getSize();
