@@ -12,14 +12,15 @@ export async function getSolicitudDetalleBySolicitudId(
     id: solicitud_detalle.id,
     id_solicitud: solicitud_detalle.id_solicitud,
     producto_servicio: sql<string>`
-      COALESCE(${presupuesto_detalle.producto_servicio}, ${solicitud_detalle.producto_servicio})
+      COALESCE(${solicitud_detalle.producto_servicio}, ${presupuesto_detalle.producto_servicio})
     `,
     cantidad: solicitud_detalle.cantidad,
+    cantidad_bodega: solicitud_detalle.cantidad_bodega,
     en_orden: sql<number>`
       COALESCE(SUM(${orden_detalle.cantidad}), 0)
     `,
     restante: sql<number>`
-      ${solicitud_detalle.cantidad} - COALESCE(SUM(${orden_detalle.cantidad}), 0)
+      ${solicitud_detalle.cantidad} - COALESCE(${solicitud_detalle.cantidad_bodega}, 0) - COALESCE(SUM(${orden_detalle.cantidad}), 0)
     `,
     unidad_medida: solicitud_detalle.unidad_medida,
     observacion: solicitud_detalle.observacion,

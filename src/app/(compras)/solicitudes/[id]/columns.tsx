@@ -76,6 +76,16 @@ export const columns: ColumnDef<SolicitudDetalleTable>[] = [
     size: 80,
   },
   {
+    accessorKey: 'cantidad_bodega',
+    header: 'Bodega',
+    cell: NumberIntegerCell,
+    footer: ({ table }) => {
+      const total = sumColumn(table, 'cantidad_bodega');
+      return <NumberCellWithValue value={total} type="integer" />;
+    },
+    size: 80,
+  },
+  {
     accessorKey: 'restante',
     header: 'Restante',
     cell: NumberIntegerCell,

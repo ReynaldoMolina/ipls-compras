@@ -36,6 +36,7 @@ export function EditarSolicitudDetalleFormDialog({
       id_solicitud: detalle.id_solicitud ?? 0,
       producto_servicio: detalle.producto_servicio ?? '',
       cantidad: detalle.cantidad ?? undefined,
+      cantidad_bodega: detalle.cantidad_bodega ?? undefined,
       unidad_medida: detalle.unidad_medida ?? '',
       observacion: detalle.observacion ?? '',
     },

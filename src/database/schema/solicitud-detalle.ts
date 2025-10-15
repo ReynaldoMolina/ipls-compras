@@ -7,8 +7,9 @@ export const solicitud_detalle = pgTable('solicitud_detalle', {
   id_solicitud: integer()
     .notNull()
     .references(() => solicitud.id),
-  producto_servicio: text().notNull(),
+  producto_servicio: text(),
   cantidad: real().notNull(),
+  cantidad_bodega: real(),
   unidad_medida: text().notNull(),
   observacion: text(),
   id_presupuesto_detalle: integer().references(() => presupuesto_detalle.id),

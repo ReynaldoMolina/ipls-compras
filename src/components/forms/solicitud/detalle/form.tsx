@@ -39,6 +39,11 @@ export function SolicitudDetalleForm({ form }: SolicitudDetalleFormProps) {
             name="cantidad"
             label="Cantidad"
           />
+          <FormTextField
+            control={form.control}
+            name="cantidad_bodega"
+            label="En bodega"
+          />
           <FormCombobox
             control={form.control}
             name="unidad_medida"

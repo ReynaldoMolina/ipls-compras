@@ -37,6 +37,7 @@ export function AddToExistingSolicitudModal<
         id_solicitud: 0,
         producto_servicio: '',
         cantidad: r.restante,
+        cantidad_bodega: null,
         unidad_medida: r.unidad_medida,
         observacion: r.observacion,
         id_presupuesto_detalle: r.id,

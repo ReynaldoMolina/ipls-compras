@@ -17,7 +17,10 @@ import {
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { stateDefault } from '@/server-actions/statusMessages';
 import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
-import { detalleOrdenSchema } from '../../validation/validation-schemas';
+import {
+  detalleOrdenSchema,
+  detalleOrdenSchemaBase,
+} from '../../validation/validation-schemas';
 import { updateOrdenDetalle } from '@/server-actions/orden-detalle';
 import { OrdenDetalleForm } from './form';
 
@@ -30,13 +33,13 @@ export function EditarOrdenDetalleFormDialog({
 }: EditarOrdenDetalleForm) {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof detalleOrdenSchema>>({
-    resolver: zodResolver(detalleOrdenSchema),
+  const form = useForm<z.infer<typeof detalleOrdenSchemaBase>>({
+    resolver: zodResolver(detalleOrdenSchema(detalle.cantidad_solicitud ?? 0)),
     defaultValues: {
       id_orden: detalle.id_orden ?? 0,
       id_solicitud_detalle: detalle.id_solicitud_detalle ?? 0,
       cantidad: detalle.cantidad ?? undefined,
-      precio: detalle.precio ?? 0,
+      precio: detalle.precio ?? undefined,
       observacion: detalle.observacion ?? '',
     },
   });
@@ -46,7 +49,7 @@ export function EditarOrdenDetalleFormDialog({
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof detalleOrdenSchema>) {
+  function onSubmit(values: z.infer<typeof detalleOrdenSchemaBase>) {
     startTransition(() => {
       formAction({
         id: detalle.id,
@@ -78,7 +81,7 @@ export function EditarOrdenDetalleFormDialog({
                 estés listo.
               </DialogDescription>
             </DialogHeader>
-            <OrdenDetalleForm form={form} />
+            <OrdenDetalleForm form={form} detalle={detalle} />
             <FormFooterDialog
               form={form}
               action="edit"

@@ -3,7 +3,12 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import React, { startTransition, useActionState, useState } from 'react';
+import React, {
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from 'react';
 import { DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
 import { Table } from '@tanstack/react-table';
 import { detalleSolicitudSchema } from '../../validation/validation-schemas';
@@ -42,7 +47,7 @@ export function NuevoSolicitudDetalleForm<TData>({
   table,
 }: NuevoSolicitudDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
-  const id_solicitud = table.options.meta?.id_solicitud;
+  const id_solicitud = table.options.meta?.solicitud.id;
 
   const form = useForm<z.infer<typeof detalleSolicitudSchema>>({
     resolver: zodResolver(detalleSolicitudSchema),
@@ -67,6 +72,13 @@ export function NuevoSolicitudDetalleForm<TData>({
   }
 
   useServerActionFeedback(state, { refresh: true });
+
+  useEffect(() => {
+    if (state.success) {
+      setOpen(false);
+      form.reset();
+    }
+  }, [state?.success]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

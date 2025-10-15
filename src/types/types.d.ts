@@ -162,6 +162,7 @@ export interface SolicitudDetalle {
   id_solicitud: number;
   producto_servicio: string;
   cantidad: number;
+  cantidad_bodega: number | null;
   observacion: string | null;
 }
 

@@ -1,8 +1,9 @@
 import { db } from '@/database/db';
 import { orden_detalle } from '@/database/schema/orden-detalle';
+import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
 import { OrdenDetalleFormType, OrdenDetalleTable } from '@/types/types';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 
 export async function getOrdenDetalleByOrdenId(
   id_orden: number | string | undefined
@@ -11,7 +12,9 @@ export async function getOrdenDetalleByOrdenId(
     id: orden_detalle.id,
     id_orden: orden_detalle.id_orden,
     cantidad: orden_detalle.cantidad,
-    producto_servicio: solicitud_detalle.producto_servicio,
+    producto_servicio: sql<string>`
+      COALESCE(${solicitud_detalle.producto_servicio}, ${presupuesto_detalle.producto_servicio})
+    `,
     precio: orden_detalle.precio,
     unidad_medida: solicitud_detalle.unidad_medida,
     observacion: orden_detalle.observacion,
@@ -25,6 +28,10 @@ export async function getOrdenDetalleByOrdenId(
       .leftJoin(
         solicitud_detalle,
         eq(orden_detalle.id_solicitud_detalle, solicitud_detalle.id)
+      )
+      .leftJoin(
+        presupuesto_detalle,
+        eq(solicitud_detalle.id_presupuesto_detalle, presupuesto_detalle.id)
       )
       .where(eq(orden_detalle.id_orden, Number(id_orden)))
       .orderBy(orden_detalle.id);
@@ -44,7 +51,9 @@ export async function getOrdenDetalleById(
     id: orden_detalle.id,
     id_orden: orden_detalle.id_orden,
     id_solicitud_detalle: orden_detalle.id_solicitud_detalle,
-    producto_servicio: solicitud_detalle.producto_servicio,
+    producto_servicio: sql<string>`
+      COALESCE(${solicitud_detalle.producto_servicio}, ${presupuesto_detalle.producto_servicio})
+    `,
     cantidad_solicitud: solicitud_detalle.cantidad,
     cantidad: orden_detalle.cantidad,
     precio: orden_detalle.precio,
@@ -58,6 +67,10 @@ export async function getOrdenDetalleById(
       .leftJoin(
         solicitud_detalle,
         eq(orden_detalle.id_solicitud_detalle, solicitud_detalle.id)
+      )
+      .leftJoin(
+        presupuesto_detalle,
+        eq(solicitud_detalle.id_presupuesto_detalle, presupuesto_detalle.id)
       )
       .where(eq(orden_detalle.id, Number(id)))
       .orderBy(orden_detalle.id);

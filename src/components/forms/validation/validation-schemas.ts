@@ -68,6 +68,7 @@ export const detalleSolicitudSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
   producto_servicio: z.string().trim().min(1, 'Requerido'),
   cantidad: zNumberMin(),
+  cantidad_bodega: zNumberNullable(),
   unidad_medida: z.string().min(1, 'Requerido'),
   observacion: z.string().trim().nullable(),
 });
@@ -85,15 +86,20 @@ export const ordenesSchema = z.object({
   calcular_iva: z.boolean(),
 });
 
-export const detalleOrdenSchema = z.object({
+export const detalleOrdenSchemaBase = z.object({
   id_orden: z.number().min(1, 'Requerido'),
   id_solicitud_detalle: z.number().min(1, 'Requerido'),
   cantidad: zNumberMin(),
-  precio: zNumberMin(),
+  precio: zNumberNullable(),
   observacion: z.string().trim().nullable(),
 });
 
-export const productoSchema = z.object({
-  nombre_producto: z.string().trim().min(1, 'Requerido'),
-  id_unidad_medida: z.number().min(1, 'Requerido'),
-});
+export function detalleOrdenSchema(cantidad_solicitud: number) {
+  return detalleOrdenSchemaBase.refine(
+    (data) => data.cantidad <= cantidad_solicitud,
+    {
+      path: ['cantidad'],
+      message: `La cantidad no puede ser mayor que ${cantidad_solicitud}`,
+    }
+  );
+}
