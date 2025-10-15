@@ -7,7 +7,7 @@ import React, { startTransition, useActionState } from 'react';
 import { detalleSolicitudSchema } from '../../validation/validation-schemas';
 import { Form } from '@/components/ui/form';
 import { FormFooter } from '@/components/form-elements/form-footer';
-import { FormSelectOptions, SolicitudDetalleFormType } from '@/types/types';
+import { SolicitudDetalleFormType } from '@/types/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { FormHeader } from '@/components/form-elements/form-header';
 import { stateDefault } from '@/server-actions/statusMessages';
@@ -17,12 +17,10 @@ import { SolicitudDetalleForm } from './form';
 
 interface EditarSolicitudDetalleForm {
   detalle: SolicitudDetalleFormType;
-  selectOptions: FormSelectOptions;
 }
 
 export function EditarSolicitudDetalleForm({
   detalle,
-  selectOptions,
 }: EditarSolicitudDetalleForm) {
   const form = useForm<z.infer<typeof detalleSolicitudSchema>>({
     resolver: zodResolver(detalleSolicitudSchema),
@@ -30,7 +28,7 @@ export function EditarSolicitudDetalleForm({
       id_solicitud: detalle.id_solicitud ?? 0,
       producto_servicio: detalle.producto_servicio ?? '',
       cantidad: detalle.cantidad ?? undefined,
-      id_unidad_medida: detalle.id_unidad_medida ?? 0,
+      unidad_medida: detalle.unidad_medida ?? '',
       observacion: detalle.observacion ?? '',
     },
   });
@@ -61,7 +59,7 @@ export function EditarSolicitudDetalleForm({
         <Card className="mx-auto w-full max-w-3xl">
           <FormHeader action="edit" name="detalle" noun="m" />
           <CardContent>
-            <SolicitudDetalleForm form={form} selectOptions={selectOptions} />
+            <SolicitudDetalleForm form={form} />
           </CardContent>
           <FormFooter action="edit" isPending={isPending} />
         </Card>

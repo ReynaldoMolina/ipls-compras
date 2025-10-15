@@ -5,7 +5,6 @@ import { SolicitudDetalleTable } from '@/types/types';
 import { SortButtonClient } from '@/components/tables/sort-button';
 import {
   NumberIntegerCell,
-  NumberFloatCell,
   NumberCellWithValue,
 } from '@/components/tables/number-cell';
 import {

@@ -25,7 +25,7 @@ export function NuevoProveedorForm({ selectOptions }: NuevoProveedorFormProps) {
       contacto_principal: '',
       telefono: '',
       correo: '',
-      id_departamento: 0,
+      departamento: '',
       direccion: '',
       id_sector: 0,
       id_subsector: 0,

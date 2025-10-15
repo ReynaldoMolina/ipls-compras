@@ -7,17 +7,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { ComboBox } from '@/components/combo-box';
-import { ComboBoxData } from '@/types/types';
 import { useUpdateUrlParams } from './update-params';
+import { SelectOptions } from '@/types/types';
 
 type FormComboboxProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label: string;
   disabled?: boolean;
-  options: ComboBoxData;
+  options: SelectOptions[];
   updateParam?: string;
   resetField?: () => void;
+  outPutType?: 'number' | 'string';
 };
 
 export function FormCombobox<T extends FieldValues>({
@@ -28,6 +29,7 @@ export function FormCombobox<T extends FieldValues>({
   options,
   updateParam,
   resetField,
+  outPutType = 'string',
 }: FormComboboxProps<T>) {
   const setUrlParam = useUpdateUrlParams();
 
@@ -44,7 +46,8 @@ export function FormCombobox<T extends FieldValues>({
               value={field.value}
               onChange={field.onChange}
               disabled={disabled}
-              onParamUpdate={(value) => {
+              outPutType={outPutType}
+              onParamUpdate={(value: string) => {
                 if (updateParam && resetField) {
                   setUrlParam(updateParam, value);
                   resetField();

@@ -29,7 +29,7 @@ export function EditarProveedorForm({
       contacto_principal: proveedor.contacto_principal ?? '',
       telefono: proveedor.telefono ?? '',
       correo: proveedor.correo ?? '',
-      id_departamento: proveedor.id_departamento ?? 0,
+      departamento: proveedor.departamento ?? '',
       direccion: proveedor.direccion ?? '',
       id_sector: proveedor.id_sector ?? 0,
       id_subsector: proveedor.id_subsector ?? 0,

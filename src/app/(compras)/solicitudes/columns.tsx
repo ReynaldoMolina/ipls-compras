@@ -6,7 +6,7 @@ import { SolicitudTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
-import { DateCell, DateStatusCell } from '@/components/tables/date-cell';
+import { DateStatusCell } from '@/components/tables/date-cell';
 import { SemestreCell } from '@/components/tables/semestre-cell';
 
 export const columns: ColumnDef<SolicitudTable>[] = [
@@ -45,7 +45,7 @@ export const columns: ColumnDef<SolicitudTable>[] = [
     size: 80,
   },
   {
-    id: 'Estado',
+    accessorKey: 'estado',
     header: ({ column }) => <SortButton column={column} label="Estado" />,
     cell: DefaultCell,
   },

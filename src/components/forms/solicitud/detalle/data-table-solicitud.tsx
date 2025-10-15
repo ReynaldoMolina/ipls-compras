@@ -22,7 +22,11 @@ import {
 } from '@/components/ui/table';
 
 import { useEffect, useState } from 'react';
-import { FormSelectOptions, SolicitudDetalleTable } from '@/types/types';
+import {
+  FormSelectOptions,
+  SolicitudDetalleTable,
+  SolicitudFormType,
+} from '@/types/types';
 import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
 
 interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
@@ -30,8 +34,7 @@ interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
   tableData?: TData[];
   tableDataModal?: TModal[];
   selectOptions?: FormSelectOptions;
-  id_solicitud: number;
-  id_presupuesto: number | null;
+  solicitud: SolicitudFormType;
 }
 
 export function DataTableSolicitud<
@@ -43,8 +46,7 @@ export function DataTableSolicitud<
   tableData,
   tableDataModal,
   selectOptions,
-  id_solicitud,
-  id_presupuesto,
+  solicitud,
 }: DataTableProps<TData, TValue, TModal>) {
   const [data, setData] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -71,14 +73,14 @@ export function DataTableSolicitud<
     },
     meta: {
       selectOptions,
-      id_solicitud,
+      solicitud,
       tableDataModal,
     },
   });
 
   return (
     <>
-      <ActionsBarDetalle table={table} id_presupuesto={id_presupuesto} />
+      <ActionsBarDetalle table={table} />
 
       <Table>
         <TableHeader>

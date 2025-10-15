@@ -11,10 +11,10 @@ export function buildFilterProveedoresByDepartamento(
   searchParams: SearchParamsProps
 ) {
   const departamentos =
-    searchParams.departamento?.split(',').filter(Boolean).map(Number) ?? [];
+    searchParams.departamento?.split(',').filter(Boolean) ?? [];
 
   return departamentos.length > 0
-    ? inArray(proveedor.id_departamento, departamentos)
+    ? inArray(proveedor.departamento, departamentos)
     : undefined;
 }
 

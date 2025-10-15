@@ -1,28 +1,9 @@
 import { db } from '@/database/db';
-import { departamento } from '@/database/schema/departamento';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { proveedor } from '@/database/schema/proveedor';
 import { proveedor_sector } from '@/database/schema/proveedor-sector';
 import { proveedor_subsector } from '@/database/schema/proveedor-subsector';
 import { asc, eq, sql } from 'drizzle-orm';
-
-export async function getDepartamentos() {
-  try {
-    const data = await db
-      .select({
-        value: sql<string>`CAST(${departamento.id} AS TEXT)`,
-        label: departamento.nombre,
-      })
-      .from(departamento)
-      .orderBy(asc(departamento.nombre));
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      'No se pudieron obtener los departamento, por favor intenta de nuevo'
-    );
-  }
-}
 
 export async function getSectores() {
   try {

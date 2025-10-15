@@ -16,13 +16,16 @@ export const orden = pgTable('orden', {
     .notNull()
     .references(() => solicitud.id),
   fecha_creacion: date().notNull(),
-  fecha_a_utilizar: date(),
-  id_proveedor: integer().references(() => proveedor.id),
-  id_estado: integer().references(() => orden_estado.id),
+  id_proveedor: integer()
+    .notNull()
+    .references(() => proveedor.id),
+  id_estado: integer()
+    .notNull()
+    .references(() => orden_estado.id),
   numero_cotizacion: text(),
   termino_de_pago: text(),
   moneda: text(),
   descuento: real(),
-  observaciones: text(),
-  calcular_iva: boolean().default(false),
+  observacion: text(),
+  calcular_iva: boolean().notNull().default(false),
 });

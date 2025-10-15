@@ -43,7 +43,6 @@ export function NuevoSolicitudDetalleForm<TData>({
 }: NuevoSolicitudDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
   const id_solicitud = table.options.meta?.id_solicitud;
-  const selectOptions = table.options.meta?.selectOptions;
 
   const form = useForm<z.infer<typeof detalleSolicitudSchema>>({
     resolver: zodResolver(detalleSolicitudSchema),
@@ -51,7 +50,7 @@ export function NuevoSolicitudDetalleForm<TData>({
       id_solicitud: id_solicitud ?? undefined,
       producto_servicio: '',
       cantidad: undefined,
-      id_unidad_medida: 0,
+      unidad_medida: '',
       observacion: '',
     },
   });
@@ -90,7 +89,7 @@ export function NuevoSolicitudDetalleForm<TData>({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-5"
           >
-            <SolicitudDetalleForm form={form} selectOptions={selectOptions} />
+            <SolicitudDetalleForm form={form} />
             <FormFooterDialog
               form={form}
               setOpen={setOpen}

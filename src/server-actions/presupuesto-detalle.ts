@@ -65,7 +65,7 @@ export async function updatePresupuestoDetalle(
 }
 
 export async function deletePresupuestoDetalleByIds(ids: number[]) {
-  if (ids?.length === 0) stateDeleteError;
+  if (ids?.length === 0) return stateDeleteError;
 
   try {
     await db

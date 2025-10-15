@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
   FormSelectOptions,
+  OrdenModal,
   SolicitudDetalleTable,
   SolicitudFormType,
 } from '@/types/types';
@@ -21,12 +22,14 @@ import { columns } from '@/app/(compras)/solicitudes/[id]/columns';
 interface EditarSolicitudFormProps {
   solicitud: SolicitudFormType;
   solicitud_detalle: SolicitudDetalleTable[];
+  orden_modal: OrdenModal[];
   selectOptions: FormSelectOptions;
 }
 
 export function EditarSolicitudForm({
   solicitud,
   solicitud_detalle,
+  orden_modal,
   selectOptions,
 }: EditarSolicitudFormProps) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
@@ -37,6 +40,7 @@ export function EditarSolicitudForm({
       id_entidad_academica: solicitud.id_entidad_academica,
       id_usuario: solicitud.id_usuario,
       id_presupuesto: solicitud.id_presupuesto ?? null,
+      id_estado: solicitud.id_estado,
     },
   });
 
@@ -78,8 +82,8 @@ export function EditarSolicitudForm({
         <DataTableSolicitud
           columns={columns}
           tableData={solicitud_detalle}
-          id_solicitud={solicitud.id ?? 0}
-          id_presupuesto={solicitud.id_presupuesto}
+          tableDataModal={orden_modal}
+          solicitud={solicitud}
           selectOptions={selectOptions}
         />
       </TabsContent>

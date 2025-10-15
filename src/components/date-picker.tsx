@@ -12,8 +12,9 @@ import { FormControl } from './ui/form';
 import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { format, parse } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { es } from 'react-day-picker/locale';
 import { useState } from 'react';
+import { getCurrentDate } from '@/lib/get-current-date';
 
 interface DatePickerProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
@@ -34,6 +35,8 @@ export function DatePicker<T extends FieldValues>({
   function handleSelect(date: Date | undefined) {
     field.onChange(date ? format(date, 'yyyy-MM-dd') : null);
   }
+
+  const { currentYear } = getCurrentDate();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -67,6 +70,8 @@ export function DatePicker<T extends FieldValues>({
           }}
           captionLayout="dropdown"
           locale={es}
+          startMonth={new Date(2025, 0)}
+          endMonth={new Date(currentYear + 1, 11)}
         />
       </PopoverContent>
     </Popover>

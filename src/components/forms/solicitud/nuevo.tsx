@@ -29,6 +29,7 @@ export function NuevaSolicitudForm({ selectOptions }: NuevaSolicitudFormProps) {
       id_entidad_academica: 0,
       id_usuario: user.id,
       id_presupuesto: null,
+      id_estado: 1,
     },
   });
 

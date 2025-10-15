@@ -30,11 +30,6 @@ export const columns: ColumnDef<OrdenModal>[] = [
     cell: IdCell,
   },
   {
-    accessorKey: 'year',
-    header: 'Año',
-    cell: DefaultCell,
-  },
-  {
     accessorKey: 'estado',
     header: 'Estado',
     cell: DefaultCell,

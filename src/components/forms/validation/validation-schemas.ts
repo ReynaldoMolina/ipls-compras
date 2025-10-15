@@ -8,7 +8,7 @@ export const providerSchema = z.object({
   contacto_principal: z.string().trim().nullable(),
   telefono: z.string().trim().nullable(),
   correo: z.string().trim().nullable(),
-  id_departamento: z.number().min(1, 'Requerido'),
+  departamento: z.string().min(1, 'Requerido'),
   direccion: z.string().trim().nullable(),
   id_sector: z.number().min(1, 'Requerido').nullable(),
   id_subsector: z.number().min(1, 'Requerido').nullable(),
@@ -48,16 +48,17 @@ export const detallePresupuestoSchema = z.object({
   id_presupuesto: z.number().min(1, 'Requerido'),
   producto_servicio: z.string().trim().min(1, 'Requerido'),
   cantidad: zNumberMin(),
-  id_unidad_medida: z.number().min(1, 'Requerido'),
+  unidad_medida: z.string().min(1, 'Requerido'),
   precio_sugerido: zNumberMin(),
-  id_categoria: z.number().min(1, 'Requerido'),
-  prioridad: z.string().nullable(),
+  categoria: z.string(),
+  prioridad: z.string().min(1, 'Requerido'),
   observacion: z.string().nullable(),
 });
 
 export const solicitudSchema = z.object({
   fecha: z.string('Requerido'),
   fecha_a_utilizar: z.string('Requerido'),
+  id_estado: z.number().min(1, 'Requerido'),
   id_entidad_academica: z.number().min(1, 'Requerido'),
   id_usuario: z.string().min(1, 'Requerido'),
   id_presupuesto: z.number().nullable(),
@@ -67,28 +68,29 @@ export const detalleSolicitudSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
   producto_servicio: z.string().trim().min(1, 'Requerido'),
   cantidad: zNumberMin(),
-  id_unidad_medida: z.number().min(1, 'Requerido'),
+  unidad_medida: z.string().min(1, 'Requerido'),
   observacion: z.string().trim().nullable(),
 });
 
 export const ordenesSchema = z.object({
+  id_estado: z.number().min(1, 'Requerido'),
   id_solicitud: z.number().min(1, 'Requerido'),
   fecha_creacion: z.string('Requerido'),
-  fecha_a_utilizar: z.string().nullable(),
   id_proveedor: z.number().min(1, 'Requerido'),
-  id_estado: z.number().min(1, 'Requerido'),
   numero_cotizacion: z.string().trim().nullable(),
   termino_de_pago: z.string().nullable(),
   moneda: z.string().nullable(),
-  observaciones: z.string().trim().nullable(),
+  descuento: zNumberNullable(),
+  observacion: z.string().trim().nullable(),
+  calcular_iva: z.boolean(),
 });
 
 export const detalleOrdenSchema = z.object({
   id_orden: z.number().min(1, 'Requerido'),
   id_solicitud_detalle: z.number().min(1, 'Requerido'),
   cantidad: zNumberMin(),
-  precio_real: zNumberMin(),
-  observaciones: z.string().trim().nullable(),
+  precio: zNumberMin(),
+  observacion: z.string().trim().nullable(),
 });
 
 export const productoSchema = z.object({

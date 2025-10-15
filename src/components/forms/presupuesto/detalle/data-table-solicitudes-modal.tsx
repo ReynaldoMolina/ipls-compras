@@ -155,7 +155,7 @@ export function DataTableSolicitudesModal<
               Procesando
             </>
           ) : (
-            'Guardar'
+            'Agregar'
           )}
         </Button>
       </DialogFooter>

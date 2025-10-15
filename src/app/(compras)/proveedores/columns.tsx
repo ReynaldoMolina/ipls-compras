@@ -32,6 +32,7 @@ export const columns: ColumnDef<ProveedorTable>[] = [
         id_proveedor={row.original.id}
       />
     ),
+    size: 110,
   },
   {
     accessorKey: 'ruc',
@@ -47,5 +48,6 @@ export const columns: ColumnDef<ProveedorTable>[] = [
     accessorKey: 'departamento',
     header: ({ column }) => <SortButton column={column} label="Departamento" />,
     cell: DefaultCell,
+    size: 149,
   },
 ];

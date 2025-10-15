@@ -8,7 +8,7 @@ import { detalleSolicitudSchema } from '../../validation/validation-schemas';
 import { Form } from '@/components/ui/form';
 import { FormFooterDialog } from '@/components/form-elements/form-footer';
 import { useRouter } from 'next/navigation';
-import { FormSelectOptions, SolicitudDetalleFormType } from '@/types/types';
+import { SolicitudDetalleFormType } from '@/types/types';
 import {
   Dialog,
   DialogContent,
@@ -23,12 +23,10 @@ import { SolicitudDetalleForm } from './form';
 
 interface EditarSolicitudDetalleForm {
   detalle: SolicitudDetalleFormType;
-  selectOptions: FormSelectOptions;
 }
 
 export function EditarSolicitudDetalleFormDialog({
   detalle,
-  selectOptions,
 }: EditarSolicitudDetalleForm) {
   const router = useRouter();
 
@@ -38,7 +36,7 @@ export function EditarSolicitudDetalleFormDialog({
       id_solicitud: detalle.id_solicitud ?? 0,
       producto_servicio: detalle.producto_servicio ?? '',
       cantidad: detalle.cantidad ?? undefined,
-      id_unidad_medida: detalle.id_unidad_medida ?? 0,
+      unidad_medida: detalle.unidad_medida ?? '',
       observacion: detalle.observacion ?? '',
     },
   });
@@ -80,7 +78,7 @@ export function EditarSolicitudDetalleFormDialog({
                 estés listo.
               </DialogDescription>
             </DialogHeader>
-            <SolicitudDetalleForm form={form} selectOptions={selectOptions} />
+            <SolicitudDetalleForm form={form} />
             <FormFooterDialog
               form={form}
               action="edit"

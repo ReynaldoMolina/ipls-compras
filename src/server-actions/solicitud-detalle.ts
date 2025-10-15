@@ -8,13 +8,11 @@ import { revalidatePath } from 'next/cache';
 import {
   stateCreateError,
   stateCreateSuccess,
-  stateDefault,
   stateDeleteError,
   stateDeleteSuccess,
   stateUpdateError,
   stateUpdateSuccess,
 } from './statusMessages';
-import { title } from 'process';
 
 interface CreateSolicitudDetalle {
   values: SolicitudDetalleFormType;
@@ -71,7 +69,7 @@ export async function updateSolicitudDetalle(
 }
 
 export async function deleteSolicitudDetalleByIds(ids: number[]) {
-  if (ids?.length === 0) stateDeleteError;
+  if (ids?.length === 0) return stateDeleteError;
 
   try {
     await db
@@ -96,7 +94,7 @@ export async function createSolicitudDetalleBySelectedRows(
       id_solicitud,
       producto_servicio: row.producto_servicio,
       cantidad: row.cantidad,
-      id_unidad_medida: row.id_unidad_medida,
+      unidad_medida: row.unidad_medida,
       observacion: row.observacion,
       id_presupuesto_detalle: row.id_presupuesto_detalle,
     }));
@@ -124,7 +122,7 @@ export async function addToExistingSolicitudDetalleBySelectedRows(
       id_solicitud: data.id_solicitud,
       producto_servicio: row.producto_servicio,
       cantidad: row.cantidad,
-      id_unidad_medida: row.id_unidad_medida,
+      unidad_medida: row.unidad_medida,
       observacion: row.observacion,
       id_presupuesto_detalle: row.id,
     }));

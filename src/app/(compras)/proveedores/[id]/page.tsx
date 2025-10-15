@@ -2,7 +2,6 @@ import { EditarProveedorForm } from '@/components/forms/proveedor/editar';
 import { Header } from '@/components/header/header';
 import { PageWrapper } from '@/components/page-wrapper';
 import {
-  getDepartamentos,
   getSectores,
   getSubsectoresBySector,
 } from '@/fetch-data/form-select-options';
@@ -23,7 +22,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   const { id } = await params;
 
   const provider = await getProveedorById(id);
-  const departamentos = await getDepartamentos();
   const sectores = await getSectores();
   const subsectores = await getSubsectoresBySector(
     sector || (provider.id_sector ?? 0)
@@ -35,7 +33,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       <PageWrapper>
         <EditarProveedorForm
           proveedor={provider}
-          selectOptions={{ departamentos, sectores, subsectores }}
+          selectOptions={{ sectores, subsectores }}
         />
       </PageWrapper>
     </>

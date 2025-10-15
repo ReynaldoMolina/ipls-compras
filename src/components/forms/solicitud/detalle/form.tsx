@@ -1,6 +1,5 @@
 'use client';
 
-import { FormSelectOptions } from '@/types/types';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { FormTextField } from '@/components/form-elements/form-text-field';
@@ -8,19 +7,16 @@ import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormCombobox } from '@/components/form-elements/form-combobox';
 import { detalleSolicitudSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
-import { FieldGroup, FieldSeparator, FieldSet } from '@/components/ui/field';
+import { FieldGroup, FieldSet } from '@/components/ui/field';
+import { unidadesMedida } from '@/lib/select-options-data';
 
 type SolicitudDetalleFormValue = z.infer<typeof detalleSolicitudSchema>;
 
-interface PresupuestoDetalleFormProps {
+interface SolicitudDetalleFormProps {
   form: UseFormReturn<SolicitudDetalleFormValue>;
-  selectOptions: FormSelectOptions;
 }
 
-export function SolicitudDetalleForm({
-  form,
-  selectOptions,
-}: PresupuestoDetalleFormProps) {
+export function SolicitudDetalleForm({ form }: SolicitudDetalleFormProps) {
   return (
     <FieldGroup>
       <FieldSet>
@@ -45,9 +41,9 @@ export function SolicitudDetalleForm({
           />
           <FormCombobox
             control={form.control}
-            name="id_unidad_medida"
+            name="unidad_medida"
             label="Unidad de medida"
-            options={selectOptions.unidadesMedida ?? []}
+            options={unidadesMedida ?? []}
           />
         </FormInputGroup>
       </FieldSet>

@@ -1,12 +1,19 @@
 export const dynamic = 'force-dynamic'; // to allow data refresh without full reload
 
-import { getEntidadesAcademicas } from '@/fetch-data/form-select-options';
+import {
+  getEntidadesAcademicas,
+  getProveedores,
+} from '@/fetch-data/form-select-options';
 import { PageProps } from '@/types/types';
 import { Header } from '@/components/header/header';
-import { getUnidadesMedida } from '@/fetch-data/solicitud-detalle';
-import { getSolicitudById, getSolicitudInfoById } from '@/fetch-data/solicitud';
+import {
+  getSolicitudById,
+  getSolicitudEstados,
+  getSolicitudInfoById,
+} from '@/fetch-data/solicitud';
 import { EditarSolicitudForm } from '@/components/forms/solicitud/editar';
 import { getSolicitudDetalleBySolicitudId } from '@/fetch-data/solicitud-detalle';
+import { getOrdenesAddToExistingModal } from '@/fetch-data/orden';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
@@ -22,10 +29,13 @@ export default async function Page({ params }: PageProps) {
   const solicitud = await getSolicitudById(id);
   const solicitud_detalle = await getSolicitudDetalleBySolicitudId(id);
 
+  const orden_modal = await getOrdenesAddToExistingModal(18);
+
   const entidadesAcademicas = await getEntidadesAcademicas({
     tipo: 'especialidad',
   });
-  const unidadesMedida = await getUnidadesMedida();
+  const proveedores = await getProveedores();
+  const estadosSolicitud = await getSolicitudEstados();
 
   return (
     <>
@@ -33,7 +43,8 @@ export default async function Page({ params }: PageProps) {
       <EditarSolicitudForm
         solicitud={solicitud}
         solicitud_detalle={solicitud_detalle}
-        selectOptions={{ entidadesAcademicas, unidadesMedida }}
+        orden_modal={orden_modal}
+        selectOptions={{ entidadesAcademicas, proveedores, estadosSolicitud }}
       />
     </>
   );

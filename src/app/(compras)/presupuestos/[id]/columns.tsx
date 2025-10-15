@@ -15,6 +15,8 @@ import {
 import { sumColumn } from '@/lib/sum-column';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
+import { DateStatusCell } from '@/components/tables/date-cell';
+import { SemestreCell } from '@/components/tables/semestre-cell';
 
 export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
   {
@@ -89,12 +91,20 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
 
       return <NumberCellWithValue value={total} />;
     },
-    size: 130,
+    size: 70,
   },
   {
     accessorKey: 'prioridad',
     header: 'Prioridad',
-    cell: DefaultCell,
+    cell: DateStatusCell,
+    size: 120,
+  },
+  {
+    id: 'semestre',
+    accessorKey: 'prioridad',
+    header: 'Semestre',
+    cell: SemestreCell,
+    size: 120,
   },
   {
     accessorKey: 'observacion',

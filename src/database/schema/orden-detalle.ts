@@ -12,5 +12,5 @@ export const orden_detalle = pgTable('orden_detalle', {
     .references(() => solicitud_detalle.id),
   cantidad: real().notNull(),
   precio: real(),
-  observaciones: text(),
+  observacion: text(),
 });

@@ -37,7 +37,7 @@ export function AddToExistingSolicitudModal<
         id_solicitud: 0,
         producto_servicio: r.producto_servicio,
         cantidad: r.cantidad,
-        id_unidad_medida: r.id_unidad_medida,
+        unidad_medida: r.unidad_medida,
         observacion: r.observacion,
         id_presupuesto_detalle: r.id,
       };
@@ -57,7 +57,7 @@ export function AddToExistingSolicitudModal<
           Existente
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[95%] overflow-y-auto max-w-2xl">
+      <DialogContent className="max-h-[95%] overflow-y-auto max-w-4xl">
         <DialogHeader>
           <DialogTitle>Agregar a solicitud de compra</DialogTitle>
           <DialogDescription className="inline-flex flex-col text-balance md:text-wrap gap-3">

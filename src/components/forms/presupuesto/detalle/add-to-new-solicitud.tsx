@@ -66,6 +66,7 @@ export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
       id_entidad_academica: presupuesto.id_entidad_academica,
       id_usuario: user.id,
       id_presupuesto: presupuesto.id,
+      id_estado: 1,
     },
   });
 
@@ -81,7 +82,7 @@ export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
         id_solicitud: 0,
         producto_servicio: r.producto_servicio,
         cantidad: r.cantidad,
-        id_unidad_medida: r.id_unidad_medida,
+        unidad_medida: r.unidad_medida,
         observacion: r.observacion,
         id_presupuesto_detalle: r.id,
       };

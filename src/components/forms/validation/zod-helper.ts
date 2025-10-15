@@ -8,6 +8,6 @@ export const zNumberMin = () =>
 
 export const zNumberNullable = () =>
   z.preprocess(
-    (value) => (value === '' ? null : Number(value)),
+    (value) => (value === '' || value === undefined ? null : Number(value)),
     z.number('Debe ser un número').nullable()
   ) as unknown as z.ZodNumber;

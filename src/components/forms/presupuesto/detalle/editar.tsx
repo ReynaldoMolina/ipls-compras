@@ -10,7 +10,7 @@ import { PresupuestoDetalleForm } from './form';
 import { updatePresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooter } from '@/components/form-elements/form-footer';
-import { FormSelectOptions, PresupuestoDetalleFormType } from '@/types/types';
+import { PresupuestoDetalleFormType } from '@/types/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { FormHeader } from '@/components/form-elements/form-header';
 import { stateDefault } from '@/server-actions/statusMessages';
@@ -18,12 +18,10 @@ import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBac
 
 interface EditarPresupuestoDetalleForm {
   detalle: PresupuestoDetalleFormType;
-  selectOptions: FormSelectOptions;
 }
 
 export function EditarPresupuestoDetalleForm({
   detalle,
-  selectOptions,
 }: EditarPresupuestoDetalleForm) {
   const form = useForm<z.infer<typeof detallePresupuestoSchema>>({
     resolver: zodResolver(detallePresupuestoSchema),
@@ -31,9 +29,9 @@ export function EditarPresupuestoDetalleForm({
       id_presupuesto: detalle.id_presupuesto ?? 0,
       producto_servicio: detalle.producto_servicio ?? '',
       cantidad: detalle.cantidad ?? undefined,
-      id_unidad_medida: detalle.id_unidad_medida ?? 0,
+      unidad_medida: detalle.unidad_medida ?? '',
       precio_sugerido: detalle.precio_sugerido ?? undefined,
-      id_categoria: detalle.id_categoria ?? 0,
+      categoria: detalle.categoria ?? '',
       prioridad: detalle.prioridad ?? '',
       observacion: detalle.observacion ?? '',
     },
@@ -65,7 +63,7 @@ export function EditarPresupuestoDetalleForm({
         <Card className="mx-auto w-full max-w-3xl">
           <FormHeader action="edit" name="detalle" noun="m" />
           <CardContent>
-            <PresupuestoDetalleForm form={form} selectOptions={selectOptions} />
+            <PresupuestoDetalleForm form={form} />
           </CardContent>
           <FormFooter action="edit" isPending={isPending} />
         </Card>

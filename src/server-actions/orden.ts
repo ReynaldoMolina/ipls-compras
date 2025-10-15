@@ -1,52 +1,88 @@
 'use server';
 
 import { db } from '@/database/db';
-import { OrdenFormType } from '@/types/types';
-import { goBackTo } from './go-back-to-list';
+import { OrdenDetalleFormType, OrdenFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import { orden } from '@/database/schema/orden';
-import { createOrdenDetalleBySelectedIds } from './orden-detalle';
-import { redirect } from 'next/navigation';
+import { createOrdenDetalleBySelectedRows } from './orden-detalle';
+import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateCreateSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
 
-export async function createOrden(data: OrdenFormType) {
-  try {
-    await db.insert(orden).values(data);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creando la orden');
-  }
-  await goBackTo('/orden');
+interface CreateOrden {
+  values: OrdenFormType;
 }
 
-export async function updateOrden(id: number | undefined, data: OrdenFormType) {
-  if (!id) return;
+export async function createOrden(prevState: unknown, data: CreateOrden) {
+  let returningId: { id: number };
+
   try {
-    await db.update(orden).set(data).where(eq(orden.id, id));
+    [returningId] = await db
+      .insert(orden)
+      .values(data.values)
+      .returning({ id: orden.id });
+    return {
+      ...stateCreateSuccess,
+      returningId: returningId.id,
+    };
   } catch (error) {
     console.error(error);
-    return error;
+    return stateCreateError;
   }
-  await goBackTo('/orden');
 }
 
-type OrdenReturning = { id: number; id_solicitud: number };
+interface UpdateOrden {
+  id: number | string | undefined;
+  values: OrdenFormType;
+}
 
-export async function createOrdenFromSelectedIds(
-  data: OrdenFormType,
-  selectedRowsIds: number[]
+export async function updateOrden(prevState: unknown, data: UpdateOrden) {
+  if (!data.id) return stateUpdateError;
+
+  try {
+    await db
+      .update(orden)
+      .set(data.values)
+      .where(eq(orden.id, Number(data.id)));
+
+    revalidatePath('/ordenes');
+    return stateUpdateSuccess;
+  } catch (error) {
+    console.error(error);
+    return stateUpdateError;
+  }
+}
+
+type OrdenReturning = { id: number };
+
+interface CreateOrdenFromSelectedRows {
+  values: OrdenFormType;
+  selectedRows: OrdenDetalleFormType[];
+}
+
+export async function createOrdenFromSelectedRows(
+  prevState: unknown,
+  data: CreateOrdenFromSelectedRows
 ) {
   let returningOrden: OrdenReturning;
   try {
-    [returningOrden] = await db
-      .insert(orden)
-      .values(data)
-      .returning({ id: orden.id, id_solicitud: orden.id_solicitud });
-    await createOrdenDetalleBySelectedIds(selectedRowsIds, returningOrden);
+    [returningOrden] = await db.insert(orden).values(data.values).returning({
+      id: orden.id,
+    });
+
+    await createOrdenDetalleBySelectedRows(
+      data.selectedRows,
+      returningOrden.id
+    );
+
+    revalidatePath('/ordenes');
+    return { ...stateUpdateSuccess, returningId: returningOrden.id };
   } catch (error) {
     console.error(error);
-    throw new Error('Error creando la orden');
+    return stateUpdateError;
   }
-  redirect(
-    `/solicitudes/${returningOrden.id_solicitud}/ordenes/${returningOrden.id}/detalle`
-  );
 }

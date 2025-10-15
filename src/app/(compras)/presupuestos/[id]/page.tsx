@@ -5,11 +5,7 @@ import { PageProps } from '@/types/types';
 import { Header } from '@/components/header/header';
 import { EditarPresupuestoForm } from '@/components/forms/presupuesto/editar';
 import { getPresupuestoById } from '@/fetch-data/presupuesto';
-import {
-  getDetalleCategorias,
-  getPresupuestoDetalleByPresupuestoId,
-  getUnidadesMedida,
-} from '@/fetch-data/presupuesto-detalle';
+import { getPresupuestoDetalleByPresupuestoId } from '@/fetch-data/presupuesto-detalle';
 import { getSolicitudesAddToExistingModal } from '@/fetch-data/solicitud';
 
 export async function generateMetadata({ params }: PageProps) {
@@ -31,8 +27,6 @@ export default async function Page({ params }: PageProps) {
   const entidadesAcademicas = await getEntidadesAcademicas({
     tipo: 'especialidad',
   });
-  const categorias = await getDetalleCategorias();
-  const unidadesMedida = await getUnidadesMedida();
 
   return (
     <>
@@ -43,7 +37,7 @@ export default async function Page({ params }: PageProps) {
         presupuesto={presupuesto}
         presupuesto_detalle={presupuesto_detalle}
         solicitud_modal={solicitud_modal}
-        selectOptions={{ entidadesAcademicas, categorias, unidadesMedida }}
+        selectOptions={{ entidadesAcademicas }}
       />
     </>
   );

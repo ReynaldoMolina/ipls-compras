@@ -47,6 +47,7 @@ export function OrdenPdf({ register }: { register: OrdenPdfProps }) {
         <Header />
         <Title register={register} />
         <Table register={register} />
+        <Footer />
       </Page>
     </Document>
   );

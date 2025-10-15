@@ -53,7 +53,7 @@ export interface ProveedorTable extends Proveedor {
 
 export interface ProveedorFormType extends Proveedor {
   contacto_principal?: string | null;
-  id_departamento: number;
+  departamento: string;
   direccion?: string | null;
   id_sector?: number | null;
   id_subsector?: number | null;
@@ -121,17 +121,15 @@ export interface PresupuestoDetalle {
   precio_sugerido: number;
   prioridad: string | null;
   observacion: string | null;
+  unidad_medida: string;
 }
 
 export interface PresupuestoDetalleTable extends PresupuestoDetalle {
-  id_unidad_medida: number;
-  unidad_medida: string | null;
   categoria?: string | null;
 }
 
 export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
-  id_unidad_medida: number;
-  id_categoria?: number | null;
+  categoria?: string | null;
 }
 
 export interface Solicitud {
@@ -143,6 +141,7 @@ export interface SolicitudTable extends Solicitud {
   entidad_academica: string | null;
   tipo: string | null;
   usuario: string | null;
+  estado: string | null;
 }
 
 export interface SolicitudFormType extends Solicitud {
@@ -152,11 +151,12 @@ export interface SolicitudFormType extends Solicitud {
   id_usuario: string;
   usuario?: string | null;
   id_presupuesto: number | null;
+  id_estado: number;
 }
 
 // *******************************************************
 export interface SolicitudDetalle {
-  id?: number;
+  id: number;
   id_solicitud: number;
   producto_servicio: string;
   cantidad: number;
@@ -168,7 +168,8 @@ export interface SolicitudDetalleTable extends SolicitudDetalle {
 }
 
 export interface SolicitudDetalleFormType extends SolicitudDetalle {
-  id_unidad_medida: number;
+  id?: number;
+  unidad_medida: string;
   id_presupuesto_detalle?: number | null;
 }
 
@@ -182,7 +183,7 @@ export interface SolicitudesTableModal {
 // *****************************************************
 
 export type SelectOptions = {
-  value: string | null;
+  value: string;
   label: string;
 };
 
@@ -204,7 +205,8 @@ export interface ChartData {
 
 export interface FormSelectOptions {
   unidadesMedida?: SelectOptions[];
-  estados?: SelectOptions[];
+  estadosSolicitud?: SelectOptions[];
+  estadosOrden?: SelectOptions[];
   ubicaciones?: SelectOptions[];
   categorias?: SelectOptions[];
   proveedores?: SelectOptions[];
@@ -219,59 +221,55 @@ export interface Orden {
   id?: number;
   id_solicitud: number;
   fecha_creacion: string;
-  fecha_a_utilizar?: string | null;
 }
 
 export interface OrdenTable extends Orden {
   entidad_academica: string | null;
-  year: number | null;
   estado: string | null;
   tipo: string | null;
-  presupuestado: number;
-  asignado: number;
-  restante: number;
+  subtotal: number;
 }
 
 export interface OrdenModal extends Orden {
   id: number;
   entidad_academica: string | null;
-  year: number | null;
   estado: string | null;
 }
 
 export interface OrdenFormType extends Orden {
-  id_estado: number | null;
-  id_proveedor: number | null;
+  id_proveedor: number;
+  id_estado: number;
   numero_cotizacion: string | null;
   termino_de_pago: string | null;
   moneda: string | null;
-  observaciones: string | null;
-}
-
-export interface OrdenDetalleTable {
-  id: number;
-  id_solicitud: number | null;
-  id_orden: number | null;
-  producto_servicio: string | null;
-  cantidad: number;
-  unidad_medida: string | null;
-  precio_real: number | null;
-  categoria: string | null;
-  observaciones: string | null;
+  descuento: number | null;
+  observacion: string | null;
+  calcular_iva: boolean;
+  entidad_academica?: string | null;
 }
 
 export interface OrdenDetalleType {
   id?: number;
   id_orden: number;
-  id_solicitud_detalle: number;
   cantidad: number;
-  precio_real: number | null;
-  observaciones: string | null;
+  precio: number | null;
+  observacion: string | null;
+  id_solicitud_detalle: number;
+}
+
+export interface OrdenDetalleTable extends OrdenDetalleType {
+  id: number;
+  id_orden: number;
+  cantidad: number;
+  precio: number | null;
+  observacion: string | null;
+  id_solicitud_detalle: number;
 }
 
 export interface OrdenDetalleFormType extends OrdenDetalleType {
-  producto_servicio: string | null;
-  cantidad_solicitud: number | null;
+  unidad_medida?: number;
+  producto_servicio?: string | null;
+  cantidad_solicitud?: number | null;
 }
 
 export interface OrdenPdfProps {
@@ -281,6 +279,8 @@ export interface OrdenPdfProps {
   termino_de_pago: string | null;
   moneda: string | null;
   fecha_creacion: string;
+  calcular_iva: boolean;
+  descuento: number | null;
   detalle: OrdePdfDetalleProps[];
 }
 
@@ -289,7 +289,7 @@ export interface OrdenPdfDetalleProps {
   cantidad: number;
   unidad_medida: string | null;
   producto_servicio: string | null;
-  precio_real: number;
+  precio: number;
 }
 
 export interface ServerActionState {

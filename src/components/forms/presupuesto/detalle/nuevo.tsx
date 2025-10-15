@@ -36,7 +36,6 @@ export function NuevoPresupuestoDetalleForm<TData>({
 }: NuevoPresupuestoDetalleForm<TData>) {
   const [open, setOpen] = useState(false);
   const presupuesto = table.options.meta?.presupuesto;
-  const selectOptions = table.options.meta?.selectOptions;
 
   const form = useForm<z.infer<typeof detallePresupuestoSchema>>({
     resolver: zodResolver(detallePresupuestoSchema),
@@ -45,8 +44,8 @@ export function NuevoPresupuestoDetalleForm<TData>({
       producto_servicio: '',
       cantidad: undefined,
       precio_sugerido: undefined,
-      id_unidad_medida: 0,
-      id_categoria: 0,
+      unidad_medida: '',
+      categoria: '',
       prioridad: '',
       observacion: '',
     },
@@ -70,7 +69,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
       form.reset();
       // do other stuff here
     }
-  }, [state.success]);
+  }, [state.success, form]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -93,7 +92,7 @@ export function NuevoPresupuestoDetalleForm<TData>({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-5"
           >
-            <PresupuestoDetalleForm form={form} selectOptions={selectOptions} />
+            <PresupuestoDetalleForm form={form} />
             <FormFooterDialog
               form={form}
               setOpen={setOpen}

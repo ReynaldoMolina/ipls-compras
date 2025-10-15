@@ -10,12 +10,15 @@ import { Table } from '@tanstack/react-table';
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
 import { OptionsMenuSolicitudDetalle } from './options-menu-solicitud-detalle';
+import { SolicitudDetalleTable } from '@/types/types';
 
-interface OptionsMenuProps<TData> {
+interface OptionsMenuProps<TData extends SolicitudDetalleTable> {
   table: Table<TData>;
 }
 
-export function OptionsMenu<TData>({ table }: OptionsMenuProps<TData>) {
+export function OptionsMenu<TData extends SolicitudDetalleTable>({
+  table,
+}: OptionsMenuProps<TData>) {
   const [open, setOpen] = useState(false);
 
   return (

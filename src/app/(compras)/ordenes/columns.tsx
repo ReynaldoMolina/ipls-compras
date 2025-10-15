@@ -10,33 +10,23 @@ import {
 import { OrdenTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
-import { EditCell, GoToListCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
-import { DateStatusCell } from '@/components/tables/date-solvencia-cell';
+import { EditCell } from '@/components/tables/edit-cell';
 
 export const columns: ColumnDef<OrdenTable>[] = [
   {
-    id: 'actions',
-    header: 'Acciones',
+    id: 'edit',
+    header: 'Edit',
     cell: ({ row }) => {
-      return (
-        <div className="inline-flex gap-1">
-          <EditCell
-            href={`/solicitudes/${row.original.id_solicitud}/ordenes/${row.original.id}`}
-          />
-          <GoToListCell
-            href={`/solicitudes/${row.original.id_solicitud}/ordenes/${row.original.id}/detalle`}
-          />
-        </div>
-      );
+      return <EditCell href={`/ordenes/${row.original.id}`} />;
     },
-    size: 70,
+    size: 50,
   },
   {
     accessorKey: 'id',
     header: ({ column }) => <SortButton column={column} label="Id" />,
     cell: IdCell,
-    size: 50,
+    size: 40,
   },
 
   {
@@ -48,18 +38,6 @@ export const columns: ColumnDef<OrdenTable>[] = [
     footer: 'Totales',
   },
   {
-    accessorKey: 'id_solicitud',
-    header: ({ column }) => <SortButton column={column} label="Solicitud" />,
-    cell: IdCell,
-    size: 100,
-  },
-  {
-    accessorKey: 'year',
-    header: ({ column }) => <SortButton column={column} label="Año" />,
-    cell: DefaultCell,
-    size: 80,
-  },
-  {
     accessorKey: 'fecha_creacion',
     header: ({ column }) => (
       <SortButton column={column} label="Fecha creación" />
@@ -68,24 +46,16 @@ export const columns: ColumnDef<OrdenTable>[] = [
     size: 120,
   },
   {
-    accessorKey: 'fecha_a_utilizar',
-    header: ({ column }) => (
-      <SortButton column={column} label="Fecha a utilizar" />
-    ),
-    cell: ({ row }) => <DateStatusCell date={row.original.fecha_a_utilizar} />,
-    size: 120,
-  },
-  {
     accessorKey: 'estado',
     header: ({ column }) => <SortButton column={column} label="Estado" />,
     cell: DefaultCell,
   },
   {
-    accessorKey: 'asignado',
-    header: ({ column }) => <SortButton column={column} label="Total" />,
+    accessorKey: 'subtotal',
+    header: ({ column }) => <SortButton column={column} label="Subtotal" />,
     cell: NumberFloatCell,
     footer: ({ table }) => {
-      const total = sumColumn(table, 'asignado');
+      const total = sumColumn(table, 'subtotal');
       return <NumberCellWithValue value={total} />;
     },
     size: 140,

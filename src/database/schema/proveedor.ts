@@ -1,5 +1,4 @@
 import { integer, pgTable, text } from 'drizzle-orm/pg-core';
-import { departamento } from './departamento';
 import { proveedor_sector } from './proveedor-sector';
 import { proveedor_subsector } from './proveedor-subsector';
 
@@ -11,9 +10,7 @@ export const proveedor = pgTable('proveedor', {
   contacto_principal: text(),
   telefono: text(),
   correo: text(),
-  id_departamento: integer()
-    .notNull()
-    .references(() => departamento.id),
+  departamento: text().notNull(),
   direccion: text(),
   id_sector: integer().references(() => proveedor_sector.id),
   id_subsector: integer().references(() => proveedor_subsector.id),

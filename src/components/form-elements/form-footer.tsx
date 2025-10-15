@@ -3,10 +3,10 @@ import { CardFooter } from '@/components/ui/card';
 import { DialogFooter } from '@/components/ui/dialog';
 import { FormAction } from '@/types/types';
 import { useRouter } from 'next/navigation';
-import { Dispatch } from 'react';
 import { Spinner } from '../ui/spinner';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
 import { DialogClose } from '@radix-ui/react-dialog';
+import { Dispatch } from 'react';
 
 interface FormFooterProps {
   action: FormAction;

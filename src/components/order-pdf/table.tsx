@@ -17,7 +17,7 @@ export function Table({ register }: { register: OrdenPdfProps }) {
           />
         ))}
       </TableBody>
-      <TableFooter detalle={register.detalle} />
+      <TableFooter register={register} />
     </View>
   );
 }
@@ -219,23 +219,23 @@ export function TableRow({
         {element.producto_servicio}
       </Text>
       <Text break style={[styles.tableTd, styles.tdPrecioUnitario]}>
-        {formatNumber(element.precio_real)}
+        {formatNumber(element.precio)}
       </Text>
       <Text break style={[styles.tableTd, styles.tdPrecioTotal]}>
-        {formatNumber(element.cantidad * element.precio_real)}
+        {formatNumber(element.cantidad * element.precio)}
       </Text>
     </View>
   );
 }
 
-export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
-  const subtotal = detalle.reduce(
-    (acc, item) => acc + item.cantidad * item.precio_real,
+export function TableFooter({ register }: { register: OrdenPdfProps }) {
+  const subtotal = register.detalle.reduce(
+    (acc, item) => acc + item.cantidad * item.precio,
     0
   );
-  const descuento = 0;
+  const descuento = register.descuento ?? 0;
   const base = subtotal - descuento;
-  const iva = base * 0.15;
+  const iva = register.calcular_iva ? base * 0.15 : 0;
   const totalNeto = base + iva;
 
   return (
@@ -288,7 +288,7 @@ export function TableFooter({ detalle }: { detalle: OrdenPdfDetalleProps[] }) {
               { textAlign: 'center', fontWeight: 'bold' },
             ]}
           >
-            I.V.A.
+            I.V.A. (15%)
           </Text>
           <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
             {formatNumber(iva)}

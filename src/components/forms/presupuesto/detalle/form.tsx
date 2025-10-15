@@ -1,6 +1,5 @@
 'use client';
 
-import { FormSelectOptions } from '@/types/types';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { FormTextField } from '@/components/form-elements/form-text-field';
@@ -9,20 +8,22 @@ import { FormCombobox } from '@/components/form-elements/form-combobox';
 import { detallePresupuestoSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FieldGroup, FieldSeparator, FieldSet } from '@/components/ui/field';
-import { FormSelect } from '@/components/form-elements/form-select';
-import { prioridad } from '@/lib/select-options-data';
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { DatePicker } from '@/components/date-picker';
+import { unidadesMedida } from '@/lib/select-options-data';
 
 type PresupuestoDetalleFormValue = z.infer<typeof detallePresupuestoSchema>;
 
 interface PresupuestoDetalleFormProps {
   form: UseFormReturn<PresupuestoDetalleFormValue>;
-  selectOptions: FormSelectOptions;
 }
 
-export function PresupuestoDetalleForm({
-  form,
-  selectOptions,
-}: PresupuestoDetalleFormProps) {
+export function PresupuestoDetalleForm({ form }: PresupuestoDetalleFormProps) {
   return (
     <FieldGroup>
       <FieldSet>
@@ -54,25 +55,29 @@ export function PresupuestoDetalleForm({
         <FormInputGroup>
           <FormCombobox
             control={form.control}
-            name="id_unidad_medida"
+            name="unidad_medida"
             label="Unidad de medida"
-            options={selectOptions.unidadesMedida ?? []}
+            options={unidadesMedida ?? []}
           />
-          <FormCombobox
+          <FormTextField
             control={form.control}
-            name="id_categoria"
+            name="categoria"
             label="Categoría"
-            options={selectOptions.categorias ?? []}
           />
         </FormInputGroup>
       </FieldSet>
       <FieldSeparator />
       <FieldSet>
-        <FormSelect
+        <FormField
           control={form.control}
           name="prioridad"
-          label="Prioridad"
-          options={prioridad}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Fecha aprox. a utilizar</FormLabel>
+              <DatePicker field={field} />
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <FormTextArea
           control={form.control}

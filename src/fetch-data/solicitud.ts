@@ -1,18 +1,20 @@
 import { db } from '@/database/db';
 import { SearchParamsProps, SolicitudFormType } from '@/types/types';
-import { eq, and, desc, sql, ne, isNotNull } from 'drizzle-orm';
+import { eq, and, desc, sql, isNotNull } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterSolicitudesByYear } from './build-filter';
 import { solicitud } from '@/database/schema/solicitud';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { users } from '@/database/schema/user';
+import { solicitud_estado } from '@/database/schema/solicitud-estado';
 
 export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
   const selectFields = {
     id: solicitud.id,
     entidad_academica: entidad_academica.nombre,
     fecha_a_utilizar: solicitud.fecha_a_utilizar,
+    estado: solicitud_estado.nombre,
     tipo: entidad_academica.tipo,
     usuario: users.name,
   };
@@ -32,12 +34,14 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
         entidad_academica,
         eq(solicitud.id_entidad_academica, entidad_academica.id)
       )
+      .leftJoin(solicitud_estado, eq(solicitud.id_estado, solicitud_estado.id))
       .leftJoin(users, eq(solicitud.id_usuario, users.id))
       .where(and(filterBySearch, filterByYear))
       .groupBy(
         solicitud.id,
         entidad_academica.tipo,
         entidad_academica.nombre,
+        solicitud_estado.nombre,
         users.name
       )
       .orderBy(orderBy);
@@ -59,6 +63,7 @@ export async function getSolicitudById(
         id: solicitud.id,
         fecha: solicitud.fecha,
         fecha_a_utilizar: solicitud.fecha_a_utilizar,
+        id_estado: solicitud.id_estado,
         id_entidad_academica: solicitud.id_entidad_academica,
         entidad_academica: entidad_academica.nombre,
         id_usuario: solicitud.id_usuario,
@@ -97,7 +102,7 @@ export async function getSolicitudInfoById(id: number | string) {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudo obtener el solicitud, por favor intenta de nuevo'
+      'No se pudo obtener la información de la solicitud, por favor intenta de nuevo'
     );
   }
 }
@@ -149,7 +154,7 @@ export async function getSolicitudesAddToExistingModal(
     id: solicitud.id,
     entidad_academica: entidad_academica.nombre,
     fecha_a_utilizar: solicitud.fecha_a_utilizar,
-    estado: entidad_academica.abreviacion,
+    estado: solicitud_estado.nombre,
   };
 
   try {
@@ -160,23 +165,38 @@ export async function getSolicitudesAddToExistingModal(
         entidad_academica,
         eq(solicitud.id_entidad_academica, entidad_academica.id)
       )
+      .leftJoin(solicitud_estado, eq(solicitud.id_estado, solicitud_estado.id))
       .where(
         and(
           isNotNull(solicitud.id_presupuesto),
           eq(solicitud.id_entidad_academica, Number(id_entidad_academica))
         )
       )
-      .groupBy(
-        solicitud.id,
-        entidad_academica.nombre,
-        entidad_academica.abreviacion
-      )
+      .groupBy(solicitud.id, entidad_academica.nombre, solicitud_estado.nombre)
       .orderBy(solicitud.id);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
       'No se pudieron obtener las solicitudes, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getSolicitudEstados() {
+  try {
+    const data = await db
+      .select({
+        value: sql<string>`CAST(${solicitud_estado.id} AS TEXT)`,
+        label: solicitud_estado.nombre,
+      })
+      .from(solicitud_estado)
+      .orderBy(solicitud_estado.id);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los estados de las solicitudes, por favor intenta de nuevo.'
     );
   }
 }

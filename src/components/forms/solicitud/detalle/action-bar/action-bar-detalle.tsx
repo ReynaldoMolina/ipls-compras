@@ -2,16 +2,17 @@ import { OptionsMenu } from './options-menu/options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
 import { AddProductDisabledModal, NuevoSolicitudDetalleForm } from '../nuevo';
+import { SolicitudDetalleTable } from '@/types/types';
 
-interface ActionsBarDetalleProps<TData> {
+interface ActionsBarDetalleProps<TData extends SolicitudDetalleTable> {
   table: Table<TData>;
-  id_presupuesto: number | null;
 }
 
-export function ActionsBarDetalle<TData>({
+export function ActionsBarDetalle<TData extends SolicitudDetalleTable>({
   table,
-  id_presupuesto,
 }: ActionsBarDetalleProps<TData>) {
+  const id_presupuesto = table.options.meta.solicitud.id_presupuesto;
+
   return (
     <div className="inline-flex gap-2 w-full">
       <SearchInput table={table} />

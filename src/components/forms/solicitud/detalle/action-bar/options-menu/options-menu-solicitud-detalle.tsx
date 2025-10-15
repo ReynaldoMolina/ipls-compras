@@ -23,7 +23,7 @@ interface OptionsMenuSolicitudDetalleProps<
 export function OptionsMenuSolicitudDetalle<
   TData extends SolicitudDetalleTable,
 >({ table, setOpen }: OptionsMenuSolicitudDetalleProps<TData>) {
-  const { selectOptions, id_solicitud } = table.options.meta ?? {};
+  const { id_solicitud } = table.options.meta ?? {};
   const router = useRouter();
 
   const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);

@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { CalendarDays } from 'lucide-react';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
+import { departamentos } from '@/lib/select-options-data';
 
 type ProveedorFormValues = z.infer<typeof providerSchema>;
 
@@ -129,9 +130,9 @@ export function ProveedorForm({
                   />
                   <FormCombobox
                     control={form.control}
-                    name="id_departamento"
+                    name="departamento"
                     label="Departamento"
-                    options={selectOptions.departamentos ?? []}
+                    options={departamentos ?? []}
                   />
                 </FormInputGroup>
                 <FormTextArea
@@ -152,12 +153,14 @@ export function ProveedorForm({
                   label="Sector"
                   options={selectOptions.sectores ?? []}
                   updateParam="sector"
+                  outPutType="number"
                   resetField={() => form.setValue('id_subsector', 0)}
                 />
                 <FormCombobox
                   control={form.control}
                   name="id_subsector"
                   label="Subsector"
+                  outPutType="number"
                   options={selectOptions.subsectores ?? []}
                 />
               </FieldSet>

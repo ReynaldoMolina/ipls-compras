@@ -2,87 +2,103 @@
 
 import { db } from '@/database/db';
 import { orden_detalle } from '@/database/schema/orden-detalle';
-import { OrdenDetalleType } from '@/types/types';
+import { OrdenDetalleFormType } from '@/types/types';
 import { eq, inArray } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
-import { goBackTo } from './go-back-to-list';
 import { revalidatePath } from 'next/cache';
+import {
+  stateCreateError,
+  stateDeleteError,
+  stateDeleteSuccess,
+  stateUpdateError,
+  stateUpdateSuccess,
+} from './statusMessages';
 
-export async function createOrdenDetalleBySelectedIds(
-  selectedRowsIds: number[],
-  orden: {
-    id: number;
-    id_solicitud: number;
-  }
+interface UpdateOrdenDetalle {
+  id: number | string | undefined;
+  values: OrdenDetalleFormType;
+  id_orden: number | string | undefined;
+}
+
+export async function updateOrdenDetalle(
+  prevState: unknown,
+  data: UpdateOrdenDetalle
 ) {
-  if (!orden) return;
+  if (!data.id) return;
 
   try {
-    const data = selectedRowsIds.map((id_solicitud_detalle) => ({
-      id_orden: orden.id,
-      id_solicitud_detalle,
-      cantidad: 0,
-      precio_real: 0,
-      observaciones: '',
-    }));
+    await db
+      .update(orden_detalle)
+      .set(data.values)
+      .where(eq(orden_detalle.id, Number(data.id)));
 
-    await db.insert(orden_detalle).values(data);
+    revalidatePath(`/ordenes/${data.id_orden}`);
+    return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
-    throw new Error('Error creando el detalle de la orden');
+    return stateUpdateError;
   }
 }
 
-export async function addToExistingOrdenDetalleBySelectedIds(
-  selectedRowsIds: number[],
-  orden: OrdenesModal
-) {
-  if (!orden) return;
-
-  try {
-    const data = selectedRowsIds.map((id_solicitud_detalle) => ({
-      id_orden: orden.id,
-      id_solicitud_detalle,
-      cantidad: 0,
-      precio_real: 0,
-      observaciones: '',
-    }));
-
-    await db.insert(orden_detalle).values(data);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creando el detalle de la orden');
-  }
-
-  redirect(`/solicitudes/${orden.id_solicitud}/ordenes/${orden.id}/detalle`);
-}
-
-export async function updateOrdenDetalleById(
-  id: number | undefined,
-  data: OrdenDetalleType
-) {
-  if (!id) return;
-  try {
-    await db.update(orden_detalle).set(data).where(eq(orden_detalle.id, id));
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-  await goBackTo(`/solicitudes/${1}/ordenes/${data.id_orden}/detalle`);
-}
-
-export async function deleteOrdenDetalleByIds(
-  ids: number[],
-  id_orden?: number,
-  id_solicitud?: number
-) {
-  if (ids?.length === 0 || !id_orden) return;
+export async function deleteOrdenDetalleByIds(ids: number[]) {
+  if (ids?.length === 0) return stateDeleteError;
 
   try {
     await db.delete(orden_detalle).where(inArray(orden_detalle.id, ids));
+
+    return stateDeleteSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateDeleteError;
   }
-  revalidatePath(`/solicitudes/${id_solicitud}/ordenes/${id_orden}/detalle`);
+}
+
+export async function createOrdenDetalleBySelectedRows(
+  selectedRows: OrdenDetalleFormType[],
+  id_orden: number
+) {
+  if (!selectedRows) return stateCreateError;
+
+  try {
+    const data = selectedRows.map((row) => ({
+      id_orden,
+      id_solicitud_detalle: row.id_solicitud_detalle,
+      cantidad: row.cantidad,
+      precio: row.precio,
+      observacion: row.observacion,
+    }));
+
+    await db.insert(orden_detalle).values(data);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creando el detalle de la solicitud');
+  }
+}
+
+interface AddToExistingOrdenDetalleBySelectedRows {
+  selectedRows: OrdenDetalleFormType[];
+  id_orden: number;
+}
+
+export async function addToExistingOrdenDetalleBySelectedRows(
+  prevState: unknown,
+  data: AddToExistingOrdenDetalleBySelectedRows
+) {
+  if (!data.id_orden) return stateUpdateError;
+
+  try {
+    const processedData = data.selectedRows.map((row) => ({
+      id_orden: data.id_orden,
+      id_solicitud_detalle: row.id_solicitud_detalle,
+      cantidad: row.cantidad,
+      precio: row.precio,
+      observacion: row.observacion,
+    }));
+
+    await db.insert(orden_detalle).values(processedData);
+
+    return stateUpdateSuccess;
+  } catch (error) {
+    console.error(error);
+    return stateUpdateError;
+  }
 }

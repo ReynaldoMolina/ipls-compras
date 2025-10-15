@@ -11,7 +11,7 @@ import { updatePresupuestoDetalle } from '@/server-actions/presupuesto-detalle';
 import { Form } from '@/components/ui/form';
 import { FormFooterDialog } from '@/components/form-elements/form-footer';
 import { useRouter } from 'next/navigation';
-import { FormSelectOptions, PresupuestoDetalleFormType } from '@/types/types';
+import { PresupuestoDetalleFormType } from '@/types/types';
 import {
   Dialog,
   DialogContent,
@@ -21,16 +21,13 @@ import {
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { stateDefault } from '@/server-actions/statusMessages';
 import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
-import { Separator } from '@/components/ui/separator';
 
 interface EditarPresupuestoDetalleForm {
   detalle: PresupuestoDetalleFormType;
-  selectOptions: FormSelectOptions;
 }
 
 export function EditarPresupuestoDetalleFormDialog({
   detalle,
-  selectOptions,
 }: EditarPresupuestoDetalleForm) {
   const router = useRouter();
 
@@ -40,9 +37,9 @@ export function EditarPresupuestoDetalleFormDialog({
       id_presupuesto: detalle.id_presupuesto ?? 0,
       producto_servicio: detalle.producto_servicio ?? '',
       cantidad: detalle.cantidad ?? undefined,
-      id_unidad_medida: detalle.id_unidad_medida ?? 0,
+      unidad_medida: detalle.unidad_medida ?? '',
       precio_sugerido: detalle.precio_sugerido ?? undefined,
-      id_categoria: detalle.id_categoria ?? 0,
+      categoria: detalle.categoria ?? '',
       prioridad: detalle.prioridad ?? '',
       observacion: detalle.observacion ?? '',
     },
@@ -85,7 +82,7 @@ export function EditarPresupuestoDetalleFormDialog({
                 estés listo.
               </DialogDescription>
             </DialogHeader>
-            <PresupuestoDetalleForm form={form} selectOptions={selectOptions} />
+            <PresupuestoDetalleForm form={form} />
             <FormFooterDialog
               form={form}
               action="edit"

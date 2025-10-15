@@ -48,7 +48,7 @@ export async function updateSolicitud(
   prevState: unknown,
   data: UpdateSolicitud
 ) {
-  if (!data.id) return;
+  if (!data.id) return stateUpdateError;
 
   try {
     await db

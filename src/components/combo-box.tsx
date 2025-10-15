@@ -19,14 +19,15 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { FormControl } from './ui/form';
-import { ComboBoxData } from '@/types/types';
+import { SelectOptions } from '@/types/types';
 
 interface ComboBoxProps {
-  options: ComboBoxData;
+  options: SelectOptions[];
   value: string;
   disabled?: boolean;
-  onChange: (value: number) => void;
+  onChange: (value: number | string) => void;
   onParamUpdate?: (value: string) => void;
+  outPutType: 'number' | 'string';
 }
 
 export function ComboBox({
@@ -35,6 +36,7 @@ export function ComboBox({
   disabled = false,
   onChange,
   onParamUpdate,
+  outPutType,
 }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -71,7 +73,11 @@ export function ComboBox({
                   value={option.label}
                   key={option.value}
                   onSelect={() => {
-                    onChange(Number(option.value));
+                    onChange(
+                      outPutType === 'number'
+                        ? Number(option.value)
+                        : option.value
+                    );
                     if (onParamUpdate) onParamUpdate(option.value);
                     setOpen(false);
                   }}

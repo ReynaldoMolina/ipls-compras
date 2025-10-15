@@ -1,9 +1,8 @@
 import { db } from '@/database/db';
 import { proveedor } from '@/database/schema/proveedor';
 import { proveedor_solvencia } from '@/database/schema/proveedor-solvencia';
-import { departamento } from '@/database/schema/departamento';
 import { ProveedorFormType, SearchParamsProps } from '@/types/types';
-import { eq, max, and, asc, sql } from 'drizzle-orm';
+import { eq, max, and, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
@@ -18,7 +17,7 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
     nombre_comercial: proveedor.nombre_comercial,
     ruc: proveedor.ruc,
     telefono: proveedor.telefono,
-    departamento: departamento.nombre,
+    departamento: proveedor.departamento,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [
@@ -41,9 +40,8 @@ export async function getProveedoresTableData(searchParams: SearchParamsProps) {
         proveedor_solvencia,
         eq(proveedor.id, proveedor_solvencia.id_proveedor)
       )
-      .leftJoin(departamento, eq(proveedor.id_departamento, departamento.id))
       .where(and(filterBySearch, filterByDepartamento))
-      .groupBy(proveedor.id, departamento.nombre)
+      .groupBy(proveedor.id)
       .having(filterBySolvencia)
       .orderBy(orderBy);
     return data;
@@ -67,7 +65,7 @@ export async function getProveedorById(
     contacto_principal: proveedor.contacto_principal,
     telefono: proveedor.telefono,
     correo: proveedor.correo,
-    id_departamento: proveedor.id_departamento,
+    departamento: proveedor.departamento,
     direccion: proveedor.direccion,
     id_sector: proveedor.id_sector,
     id_subsector: proveedor.id_subsector,
@@ -96,17 +94,16 @@ export async function getUniqueDepartamentosFromProveedores() {
   try {
     const data = await db
       .selectDistinct({
-        value: sql<string>`CAST(${departamento.id} AS TEXT)`,
-        label: departamento.nombre,
+        value: proveedor.departamento,
+        label: proveedor.departamento,
       })
       .from(proveedor)
-      .innerJoin(departamento, eq(proveedor.id_departamento, departamento.id))
-      .orderBy(asc(departamento.nombre));
+      .orderBy(asc(proveedor.departamento));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los departamento únicos desde los proveedor, por favor intenta de nuevo'
+      'No se pudieron obtener los departamento únicos desde los proveedores, por favor intenta de nuevo'
     );
   }
 }

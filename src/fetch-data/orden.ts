@@ -1,50 +1,36 @@
 import { db } from '@/database/db';
 import { OrdenFormType, SearchParamsProps } from '@/types/types';
-import { eq, and, sql, asc } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
   buildFilterByOrderState,
   buildFilterSolicitudesByYear,
-  buildOrdenesByIdSolicitud,
 } from './build-filter';
-import { solicitudes } from '@/database/schema/presupuesto';
-import { entidades_academicas } from '@/database/schema/entidad-academica';
-import { solicitudes_detalle } from '@/database/schema/presupuesto-detalle';
-import { ordenes } from '@/database/schema/orden';
-import { ordenes_detalle } from '@/database/schema/orden-detalle';
-import { ordenes_estados } from '@/database/schema/orden-estado';
+import { solicitud } from '@/database/schema/solicitud';
+import { entidad_academica } from '@/database/schema/entidad-academica';
+import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
+import { orden } from '@/database/schema/orden';
+import { orden_detalle } from '@/database/schema/orden-detalle';
+import { orden_estado } from '@/database/schema/orden-estado';
 
-export async function getOrdenesTableData(
-  searchParams: SearchParamsProps,
-  id_solicitud?: number | string | undefined
-) {
+export async function getOrdenesTableData(searchParams: SearchParamsProps) {
   const selectFields = {
-    id: ordenes.id,
-    entidad_academica: entidades_academicas.nombre,
-    id_solicitud: ordenes.id_solicitud,
-    fecha_creacion: ordenes.fecha_creacion,
-    fecha_a_utilizar: ordenes.fecha_a_utilizar,
-    estado: ordenes_estados.estado,
-    year: solicitudes.year,
-    tipo: entidades_academicas.tipo,
-    presupuestado: sql<number>`
-      COALESCE(SUM(${ordenes_detalle.cantidad} * ${solicitudes_detalle.precio}), 0)
-    `,
-    asignado: sql<number>`
-      COALESCE(SUM(${ordenes_detalle.cantidad} * ${ordenes_detalle.precio_real}), 0)
-    `,
-    restante: sql<number>`
-      COALESCE(SUM(${ordenes_detalle.cantidad} * ${solicitudes_detalle.precio}), 0)
-      - COALESCE(SUM(${ordenes_detalle.cantidad} * ${ordenes_detalle.precio_real}), 0)
+    id: orden.id,
+    entidad_academica: entidad_academica.nombre,
+    id_solicitud: orden.id_solicitud,
+    fecha_creacion: orden.fecha_creacion,
+    estado: orden_estado.nombre,
+    tipo: entidad_academica.tipo,
+    subtotal: sql<number>`
+      COALESCE(SUM(${orden_detalle.cantidad} * ${orden_detalle.precio}), 0)
     `,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [
-    entidades_academicas.nombre,
+    entidad_academica.nombre,
   ]);
 
-  const filterByIdSolicitud = buildOrdenesByIdSolicitud(id_solicitud);
   const filterByYear = buildFilterSolicitudesByYear(searchParams);
   const filterByOrderState = buildFilterByOrderState(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
@@ -52,39 +38,27 @@ export async function getOrdenesTableData(
   try {
     const data = await db
       .select(selectFields)
-      .from(ordenes)
-      .leftJoin(solicitudes, eq(ordenes.id_solicitud, solicitudes.id))
+      .from(orden)
+      .leftJoin(solicitud, eq(orden.id_solicitud, solicitud.id))
       .leftJoin(
-        entidades_academicas,
-        eq(solicitudes.id_entidad_academica, entidades_academicas.id)
+        entidad_academica,
+        eq(solicitud.id_entidad_academica, entidad_academica.id)
       )
-      .leftJoin(ordenes_detalle, eq(ordenes.id, ordenes_detalle.id_orden))
-      .leftJoin(
-        solicitudes_detalle,
-        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
-      )
-      .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
-      .where(
-        and(
-          filterBySearch,
-          filterByYear,
-          filterByIdSolicitud,
-          filterByOrderState
-        )
-      )
+      .leftJoin(orden_detalle, eq(orden.id, orden_detalle.id_orden))
+      .leftJoin(orden_estado, eq(orden.id_estado, orden_estado.id))
+      .where(and(filterBySearch, filterByYear, filterByOrderState))
       .groupBy(
-        ordenes.id,
-        solicitudes.year,
-        entidades_academicas.nombre,
-        entidades_academicas.tipo,
-        ordenes_estados.estado
+        orden.id,
+        entidad_academica.nombre,
+        entidad_academica.tipo,
+        orden_estado.id
       )
       .orderBy(orderBy);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener las ordenes, por favor intenta de nuevo.'
+      'No se pudieron obtener las orden, por favor intenta de nuevo.'
     );
   }
 }
@@ -93,31 +67,53 @@ export async function getOrdenById(
   id: number | string | undefined
 ): Promise<OrdenFormType> {
   try {
-    const data = await db
-      .select()
-      .from(ordenes)
-      .where(eq(ordenes.id, Number(id)));
-    return data[0];
+    const [data] = await db
+      .select({
+        id: orden.id,
+        id_solicitud: orden.id_solicitud,
+        fecha_creacion: orden.fecha_creacion,
+        id_proveedor: orden.id_proveedor,
+        id_estado: orden.id_estado,
+        numero_cotizacion: orden.numero_cotizacion,
+        termino_de_pago: orden.termino_de_pago,
+        moneda: orden.moneda,
+        descuento: orden.descuento,
+        observacion: orden.observacion,
+        calcular_iva: orden.calcular_iva,
+        entidad_academica: entidad_academica.nombre,
+      })
+      .from(orden)
+      .leftJoin(solicitud, eq(orden.id_solicitud, solicitud.id))
+      .leftJoin(
+        entidad_academica,
+        eq(solicitud.id_entidad_academica, entidad_academica.id)
+      )
+      .where(eq(orden.id, Number(id)));
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener la orden, por favor intenta de nuevo');
   }
 }
 
-export async function getOrdenesEstados() {
+export async function getOrdenInfoById(id: number | string) {
   try {
-    const data = await db
+    const [data] = await db
       .select({
-        value: sql<string>`CAST(${ordenes_estados.id} AS TEXT)`,
-        label: ordenes_estados.estado,
+        entidad_academica: entidad_academica.nombre,
       })
-      .from(ordenes_estados)
-      .orderBy(asc(ordenes_estados.estado));
+      .from(orden)
+      .leftJoin(solicitud, eq(orden.id_solicitud, solicitud.id))
+      .leftJoin(
+        entidad_academica,
+        eq(solicitud.id_entidad_academica, entidad_academica.id)
+      )
+      .where(eq(orden.id, Number(id)));
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los estados, por favor intenta de nuevo'
+      'No se pudo obtener la información de la orden, por favor intenta de nuevo'
     );
   }
 }
@@ -126,42 +122,54 @@ export async function getOrdenesAddToExistingModal(
   id_entidad_academica: number | undefined
 ) {
   const selectFields = {
-    id: ordenes.id,
-    entidad_academica: entidades_academicas.nombre,
-    id_solicitud: ordenes.id_solicitud,
-    year: solicitudes.year,
-    estado: ordenes_estados.estado,
+    id: orden.id,
+    entidad_academica: entidad_academica.nombre,
+    id_solicitud: orden.id_solicitud,
+    estado: orden_estado.nombre,
+    fecha_creacion: orden.fecha_creacion,
   };
 
   try {
     const data = await db
       .select(selectFields)
-      .from(ordenes)
-      .leftJoin(solicitudes, eq(ordenes.id_solicitud, solicitudes.id))
+      .from(orden)
+      .leftJoin(solicitud, eq(orden.id_solicitud, solicitud.id))
       .leftJoin(
-        entidades_academicas,
-        eq(solicitudes.id_entidad_academica, entidades_academicas.id)
+        entidad_academica,
+        eq(solicitud.id_entidad_academica, entidad_academica.id)
       )
-      .leftJoin(ordenes_detalle, eq(ordenes.id, ordenes_detalle.id_orden))
+      .leftJoin(orden_detalle, eq(orden.id, orden_detalle.id_orden))
       .leftJoin(
-        solicitudes_detalle,
-        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
+        solicitud_detalle,
+        eq(orden_detalle.id_solicitud_detalle, solicitud_detalle.id)
       )
-      .leftJoin(ordenes_estados, eq(ordenes.id_estado, ordenes_estados.id))
-      .where(eq(solicitudes.id_entidad_academica, Number(id_entidad_academica)))
-      .groupBy(
-        ordenes.id,
-        solicitudes.year,
-        entidades_academicas.nombre,
-        entidades_academicas.tipo,
-        ordenes_estados.estado
-      )
-      .orderBy(ordenes.id);
+      .leftJoin(orden_estado, eq(orden.id_estado, orden_estado.id))
+      .where(eq(solicitud.id_entidad_academica, Number(id_entidad_academica)))
+      .groupBy(orden.id, entidad_academica.nombre, orden_estado.nombre)
+      .orderBy(orden.id);
     return data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener las ordenes, por favor intenta de nuevo.'
+      'No se pudieron obtener las orden, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getOrdenEstados() {
+  try {
+    const data = await db
+      .select({
+        value: sql<string>`CAST(${orden_estado.id} AS TEXT)`,
+        label: orden_estado.nombre,
+      })
+      .from(orden_estado)
+      .orderBy(orden_estado.id);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los estados de las ordenes, por favor intenta de nuevo.'
     );
   }
 }

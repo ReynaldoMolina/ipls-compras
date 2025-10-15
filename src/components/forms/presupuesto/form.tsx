@@ -51,7 +51,8 @@ export function PresupuestoForm({
                 control={form.control}
                 name="id_entidad_academica"
                 label="Carrera / curso"
-                options={selectOptions.entidadesAcademicas}
+                outPutType="number"
+                options={selectOptions.entidadesAcademicas ?? []}
               />
               <FormCombobox
                 control={form.control}

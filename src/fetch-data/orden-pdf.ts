@@ -1,55 +1,52 @@
 import { db } from '@/database/db';
 import { eq } from 'drizzle-orm';
-import { ordenes } from '@/database/schema/orden';
-import { proveedores } from '@/database/schema/proveedor';
-import { ordenes_detalle } from '@/database/schema/orden-detalle';
-import { solicitudes_detalle } from '@/database/schema/presupuesto-detalle';
-import { unidades_medida } from '@/database/schema/unidad-medida';
+import { orden } from '@/database/schema/orden';
+import { proveedor } from '@/database/schema/proveedor';
+import { orden_detalle } from '@/database/schema/orden-detalle';
+import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
 
 export async function getOrdenPdfById(id_orden: number | string | undefined) {
   if (!id_orden) return null;
 
   try {
     // Get orden header (one row)
-    const [orden] = await db
+    const [ordenInfo] = await db
       .select({
-        id_orden: ordenes.id,
-        proveedor: proveedores.nombre_comercial,
-        termino_de_pago: ordenes.termino_de_pago,
-        numero_cotizacion: ordenes.numero_cotizacion,
-        moneda: ordenes.moneda,
-        fecha_creacion: ordenes.fecha_creacion,
+        id_orden: orden.id,
+        proveedor: proveedor.nombre_comercial,
+        termino_de_pago: orden.termino_de_pago,
+        numero_cotizacion: orden.numero_cotizacion,
+        moneda: orden.moneda,
+        fecha_creacion: orden.fecha_creacion,
+        descuento: orden.descuento,
+        calcular_iva: orden.calcular_iva,
       })
-      .from(ordenes)
-      .leftJoin(proveedores, eq(ordenes.id_proveedor, proveedores.id))
-      .where(eq(ordenes.id, Number(id_orden)));
+      .from(orden)
+      .leftJoin(proveedor, eq(orden.id_proveedor, proveedor.id))
+      .where(eq(orden.id, Number(id_orden)));
 
-    if (!orden) return null;
+    if (!ordenInfo) return null;
 
     // Get detalle rows
     const detalle = await db
       .select({
-        id_solicitud_detalle: ordenes_detalle.id_solicitud_detalle,
-        cantidad: ordenes_detalle.cantidad,
-        unidad_medida: unidades_medida.unidad_medida,
-        producto_servicio: solicitudes_detalle.producto_servicio,
-        precio_real: ordenes_detalle.precio_real,
+        id_solicitud_detalle: orden_detalle.id_solicitud_detalle,
+        cantidad: orden_detalle.cantidad,
+        unidad_medida: solicitud_detalle.unidad_medida,
+        producto_servicio: solicitud_detalle.producto_servicio,
+        precio: orden_detalle.precio,
       })
-      .from(ordenes_detalle)
+      .from(orden_detalle)
       .leftJoin(
-        solicitudes_detalle,
-        eq(ordenes_detalle.id_solicitud_detalle, solicitudes_detalle.id)
+        solicitud_detalle,
+        eq(orden_detalle.id_solicitud_detalle, solicitud_detalle.id)
       )
-      .leftJoin(
-        unidades_medida,
-        eq(solicitudes_detalle.id_unidad_medida, unidades_medida.id)
-      )
-      .where(eq(ordenes_detalle.id_orden, Number(id_orden)))
-      .orderBy(ordenes_detalle.id);
+      .where(eq(orden_detalle.id_orden, Number(id_orden)))
+      .orderBy(orden_detalle.id);
 
     // Combine into single object
     return {
-      ...orden,
+      ...ordenInfo,
       detalle,
     };
   } catch (error) {
