@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  subtitle: { textAlign: 'center' },
+  subtitle: { textAlign: 'center', fontSize: 9 },
 });
 
 export function Header() {
@@ -30,9 +30,12 @@ export function Header() {
 
       {/* header title */}
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>ASOCIACIÓN EDUCATIVA LASALLISTA</Text>
-        <Text style={styles.subtitle}>Instituto Politécnico La Salle</Text>
-        <Text style={styles.subtitle}>Km 4 carretera Poneloya - 2311-2584</Text>
+        <Text style={styles.title}>Asociación Educativa Lasallista</Text>
+        <Text style={styles.subtitle}>INSTITUTO POLITÉCNICO LA SALLE</Text>
+        <Text style={styles.subtitle}>
+          Dirección: Km. 4 carretera a Poneloya - Tel.: 2311-2584 - Fax:
+          2312-5672
+        </Text>
       </View>
       {/* Empty slot */}
       <View style={{ width: '50%' }}></View>

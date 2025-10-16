@@ -27,6 +27,17 @@ import { FormInputGroup } from '@/components/form-elements/form-input-group';
 import { FormTextReadOnly } from '@/components/form-elements/form-text-readonly';
 import { useUser } from '@/hooks/use-user';
 import { FormTextField } from '@/components/form-elements/form-text-field';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
+import { Printer } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -36,6 +47,7 @@ interface SolicitudFormProps {
   onSubmit: (values: SolicitudFormValues) => void;
   selectOptions: FormSelectOptions;
   isPending: boolean;
+  id_solicitud: number;
   label?: string;
 }
 
@@ -45,6 +57,7 @@ export function SolicitudForm({
   onSubmit,
   selectOptions,
   isPending,
+  id_solicitud,
   label,
 }: SolicitudFormProps) {
   const { user } = useUser();
@@ -61,6 +74,29 @@ export function SolicitudForm({
           />
           <CardContent>
             <FieldGroup>
+              {action === 'edit' && (
+                <FieldSet>
+                  <Item variant="outline">
+                    <ItemMedia variant="icon">
+                      <Printer />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>Imprimir solicitud</ItemTitle>
+                      <ItemDescription>
+                        Visualiza o descarga el documento en formato PDF para
+                        revisión o impresión.
+                      </ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <Button variant="outline" size="sm" asChild>
+                        <Link href={`/solicitudes/${id_solicitud}/print`}>
+                          Abrir
+                        </Link>
+                      </Button>
+                    </ItemActions>
+                  </Item>
+                </FieldSet>
+              )}
               <FieldSet hidden={action === 'create'}>
                 <FieldLegend>Seguimiento</FieldLegend>
                 <FieldDescription>

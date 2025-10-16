@@ -72,6 +72,7 @@ export function EditarSolicitudForm({
           form={form}
           onSubmit={onSubmit}
           selectOptions={selectOptions}
+          id_solicitud={solicitud.id ?? 0}
           isPending={isPending}
         />
       </TabsContent>

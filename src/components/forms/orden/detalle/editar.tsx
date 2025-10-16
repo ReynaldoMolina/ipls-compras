@@ -4,7 +4,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import React, { startTransition, useActionState } from 'react';
-import { detalleOrdenSchema } from '../../validation/validation-schemas';
+import {
+  detalleOrdenSchema,
+  detalleOrdenSchemaBase,
+} from '../../validation/validation-schemas';
 import { Form } from '@/components/ui/form';
 import { FormFooter } from '@/components/form-elements/form-footer';
 import { OrdenDetalleFormType } from '@/types/types';
@@ -20,8 +23,8 @@ interface EditarOrdenDetalleForm {
 }
 
 export function EditarOrdenDetalleForm({ detalle }: EditarOrdenDetalleForm) {
-  const form = useForm<z.infer<typeof detalleOrdenSchema>>({
-    resolver: zodResolver(detalleOrdenSchema),
+  const form = useForm<z.infer<typeof detalleOrdenSchemaBase>>({
+    resolver: zodResolver(detalleOrdenSchema(detalle.cantidad_solicitud ?? 0)),
     defaultValues: {
       id_orden: detalle.id_orden ?? 0,
       id_solicitud_detalle: detalle.id_solicitud_detalle ?? '',
@@ -36,7 +39,7 @@ export function EditarOrdenDetalleForm({ detalle }: EditarOrdenDetalleForm) {
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof detalleOrdenSchema>) {
+  function onSubmit(values: z.infer<typeof detalleOrdenSchemaBase>) {
     startTransition(() => {
       formAction({
         id: detalle.id,
@@ -57,7 +60,7 @@ export function EditarOrdenDetalleForm({ detalle }: EditarOrdenDetalleForm) {
         <Card className="mx-auto w-full max-w-3xl">
           <FormHeader action="edit" name="detalle" noun="m" />
           <CardContent>
-            <OrdenDetalleForm form={form} />
+            <OrdenDetalleForm form={form} detalle={detalle} />
           </CardContent>
           <FormFooter action="edit" isPending={isPending} />
         </Card>

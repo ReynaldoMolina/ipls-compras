@@ -160,7 +160,7 @@ export interface SolicitudFormType extends Solicitud {
 export interface SolicitudDetalle {
   id: number;
   id_solicitud: number;
-  producto_servicio: string;
+  producto_servicio: string | null;
   cantidad: number;
   cantidad_bodega: number | null;
   observacion: string | null;
@@ -183,6 +183,19 @@ export interface SolicitudesTableModal {
   entidad_academica: string | null;
   fecha_a_utilizar: string | null;
   estado: string | null;
+}
+
+export interface SolicitudPdfProps {
+  id_solicitud: number;
+  fecha: string;
+  detalle: SolicitudPdfDetalleProps[];
+}
+
+export interface SolicitudPdfDetalleProps {
+  id: number;
+  producto_servicio: string | null;
+  unidad_medida: string | null;
+  cantidad: number;
 }
 
 // *****************************************************
