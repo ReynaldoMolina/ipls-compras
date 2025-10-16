@@ -6,6 +6,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { EditCell } from '@/components/tables/edit-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { ProveedorTable } from '@/types/types';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<ProveedorTable>[] = [
   {
@@ -21,7 +22,7 @@ export const columns: ColumnDef<ProveedorTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Nombre comercial" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'solvencia',

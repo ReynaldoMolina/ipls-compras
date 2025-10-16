@@ -135,6 +135,14 @@ export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
   categoria?: string | null;
 }
 
+export interface PresupuestoDetalleModal {
+  id: number;
+  producto_servicio: string;
+  restante: number;
+  prioridad: string | null;
+  unidad_medida: string;
+}
+
 export interface PresupuestoModal extends Presupuesto {
   entidad_academica: string | null;
 }

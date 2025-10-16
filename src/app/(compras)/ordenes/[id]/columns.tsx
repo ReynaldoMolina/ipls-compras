@@ -15,6 +15,7 @@ import {
 import { sumColumn } from '@/lib/sum-column';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<OrdenDetalleTable>[] = [
   {
@@ -47,7 +48,7 @@ export const columns: ColumnDef<OrdenDetalleTable>[] = [
     header: ({ column }) => (
       <SortButtonClient column={column} label="Producto / servicio" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
     footer: 'Totales',
   },
   {

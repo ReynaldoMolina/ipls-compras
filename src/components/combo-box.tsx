@@ -50,7 +50,7 @@ export function ComboBox({
             role="combobox"
             disabled={disabled}
             className={cn(
-              'w-full justify-between text-sm font-normal',
+              'w-full justify-between text-sm font-normal truncate overflow-ellipsis',
               !value && 'text-muted-foreground'
             )}
           >

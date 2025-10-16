@@ -50,7 +50,7 @@ interface SolicitudFormProps {
   isPending: boolean;
   id_solicitud?: number;
   label?: string;
-  presupuestosModal: PresupuestoModal[];
+  presupuestosModal?: PresupuestoModal[];
 }
 
 export function SolicitudForm({
@@ -158,29 +158,34 @@ export function SolicitudForm({
                   <FormTextReadOnly value={user.name} label="Solicitado por" />
                 )}
               </FieldSet>
-              <FieldSeparator />
-              <FieldSet>
-                <FieldLegend>Presupuesto</FieldLegend>
-                <FieldDescription>
-                  {action === 'edit'
-                    ? 'Esta solicitud fue generada a partir de un presupuesto.'
-                    : '¿Quieres crear la solicitud a partir de un presupuesto?'}
-                </FieldDescription>
-                <div className="inline-flex w-full gap-2 items-end">
-                  <FormTextField
-                    control={form.control}
-                    name="id_presupuesto"
-                    label="Id presupuesto"
-                    disabled
-                  />
-                  {action === 'create' && (
-                    <SelectPresupuesto
-                      tableData={presupuestosModal}
-                      form={form}
-                    />
-                  )}
-                </div>
-              </FieldSet>
+              {(action === 'create' ||
+                (action === 'edit' && form.watch('id_presupuesto'))) && (
+                <>
+                  <FieldSeparator />
+                  <FieldSet>
+                    <FieldLegend>Presupuesto</FieldLegend>
+                    <FieldDescription>
+                      {action === 'edit'
+                        ? 'Esta solicitud fue generada a partir de un presupuesto.'
+                        : '¿Quieres crear la solicitud a partir de un presupuesto?'}
+                    </FieldDescription>
+                    <div className="inline-flex w-full gap-2 items-end">
+                      <FormTextField
+                        control={form.control}
+                        name="id_presupuesto"
+                        label="Id presupuesto"
+                        disabled
+                      />
+                      {action === 'create' && (
+                        <SelectPresupuesto
+                          tableData={presupuestosModal}
+                          form={form}
+                        />
+                      )}
+                    </div>
+                  </FieldSet>
+                </>
+              )}
             </FieldGroup>
           </CardContent>
           <FormFooter action={action} isPending={isPending} label={label} />

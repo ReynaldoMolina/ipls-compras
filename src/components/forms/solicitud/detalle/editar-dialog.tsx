@@ -34,7 +34,7 @@ export function EditarSolicitudDetalleFormDialog({
     resolver: zodResolver(detalleSolicitudSchema),
     defaultValues: {
       id_solicitud: detalle.id_solicitud ?? 0,
-      producto_servicio: detalle.producto_servicio ?? '',
+      producto_servicio: detalle.producto_servicio ?? null,
       cantidad: detalle.cantidad ?? undefined,
       cantidad_bodega: detalle.cantidad_bodega ?? undefined,
       unidad_medida: detalle.unidad_medida ?? '',
@@ -79,7 +79,7 @@ export function EditarSolicitudDetalleFormDialog({
                 estés listo.
               </DialogDescription>
             </DialogHeader>
-            <SolicitudDetalleForm form={form} />
+            <SolicitudDetalleForm action="edit" form={form} />
             <FormFooterDialog
               form={form}
               action="edit"

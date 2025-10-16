@@ -9,14 +9,19 @@ import { detalleSolicitudSchema } from '../../validation/validation-schemas';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { unidadesMedida } from '@/lib/select-options-data';
+import { FormAction } from '@/types/types';
 
 type SolicitudDetalleFormValue = z.infer<typeof detalleSolicitudSchema>;
 
 interface SolicitudDetalleFormProps {
+  action: FormAction;
   form: UseFormReturn<SolicitudDetalleFormValue>;
 }
 
-export function SolicitudDetalleForm({ form }: SolicitudDetalleFormProps) {
+export function SolicitudDetalleForm({
+  action,
+  form,
+}: SolicitudDetalleFormProps) {
   return (
     <FieldGroup>
       <FieldSet>
@@ -39,11 +44,13 @@ export function SolicitudDetalleForm({ form }: SolicitudDetalleFormProps) {
             name="cantidad"
             label="Cantidad"
           />
-          <FormTextField
-            control={form.control}
-            name="cantidad_bodega"
-            label="En bodega"
-          />
+          {action === 'edit' && (
+            <FormTextField
+              control={form.control}
+              name="cantidad_bodega"
+              label="En bodega"
+            />
+          )}
           <FormCombobox
             control={form.control}
             name="unidad_medida"

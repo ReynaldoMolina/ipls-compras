@@ -5,6 +5,7 @@ import { OrdenModal } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<OrdenModal>[] = [
   {
@@ -22,7 +23,7 @@ export const columns: ColumnDef<OrdenModal>[] = [
   {
     accessorKey: 'entidad_academica',
     header: 'Carrera / curso / área',
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'id_solicitud',

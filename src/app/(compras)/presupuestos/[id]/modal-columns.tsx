@@ -6,6 +6,7 @@ import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { CheckBoxCell } from '@/components/tables/checkbox-cell';
 import { DateStatusCell } from '@/components/tables/date-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<SolicitudesTableModal>[] = [
   {
@@ -23,12 +24,13 @@ export const columns: ColumnDef<SolicitudesTableModal>[] = [
   {
     accessorKey: 'entidad_academica',
     header: 'Carrera / curso / área',
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'fecha_a_utilizar',
     header: 'Fecha a utilizar',
     cell: DateStatusCell,
+    size: 50,
   },
   {
     accessorKey: 'estado',

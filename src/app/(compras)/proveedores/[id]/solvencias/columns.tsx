@@ -7,6 +7,7 @@ import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { DateCell, DateStatusCell } from '@/components/tables/date-cell';
 import { EditCell } from '@/components/tables/edit-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<SolvenciaTable>[] = [
   {
@@ -30,7 +31,7 @@ export const columns: ColumnDef<SolvenciaTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Nombre comercial" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'verificado',

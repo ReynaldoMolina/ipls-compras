@@ -8,6 +8,7 @@ import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 import { DateStatusCell } from '@/components/tables/date-cell';
 import { SemestreCell } from '@/components/tables/semestre-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<SolicitudTable>[] = [
   {
@@ -27,7 +28,7 @@ export const columns: ColumnDef<SolicitudTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Carrera / curso / área" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'fecha_a_utilizar',

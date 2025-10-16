@@ -1,5 +1,9 @@
 import { db } from '@/database/db';
-import { PresupuestoFormType, SearchParamsProps } from '@/types/types';
+import {
+  PresupuestoDetalleModal,
+  PresupuestoFormType,
+  SearchParamsProps,
+} from '@/types/types';
 import { eq, and, sql, desc, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
@@ -7,6 +11,8 @@ import { buildFilterPresupuestosByYear } from './build-filter';
 import { presupuesto } from '@/database/schema/presupuesto';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
+import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
+import { orden_detalle } from '@/database/schema/orden-detalle';
 
 export async function getPresupuestosTableData(
   searchParams: SearchParamsProps
@@ -74,6 +80,41 @@ export async function getPresupuestosModal(
       )
       .groupBy(presupuesto.id, entidad_academica.tipo, entidad_academica.nombre)
       .orderBy(asc(presupuesto.id));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los presupuestos, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getPresupuestoDetalleModal(): Promise<
+  PresupuestoDetalleModal[]
+> {
+  try {
+    const data = await db
+      .select({
+        id: presupuesto_detalle.id,
+        producto_servicio: presupuesto_detalle.producto_servicio,
+        prioridad: presupuesto_detalle.prioridad,
+        restante: sql<number>`
+          ${presupuesto_detalle.cantidad} - COALESCE(SUM(${solicitud_detalle.cantidad}), 0)
+        `,
+        unidad_medida: presupuesto_detalle.unidad_medida,
+      })
+      .from(presupuesto_detalle)
+      .leftJoin(
+        solicitud_detalle,
+        eq(presupuesto_detalle.id, solicitud_detalle.id_presupuesto_detalle)
+      )
+      .leftJoin(
+        orden_detalle,
+        eq(solicitud_detalle.id, orden_detalle.id_solicitud_detalle)
+      )
+      .groupBy(presupuesto_detalle.id)
+      .orderBy(asc(presupuesto_detalle.id));
+
     return data;
   } catch (error) {
     console.error(error);

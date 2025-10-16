@@ -66,7 +66,7 @@ export const solicitudSchema = z.object({
 
 export const detalleSolicitudSchema = z.object({
   id_solicitud: z.number().min(1, 'Requerido'),
-  producto_servicio: z.string().trim().min(1, 'Requerido'),
+  producto_servicio: z.string().trim().nullable(),
   cantidad: zNumberMin(),
   cantidad_bodega: zNumberNullable(),
   unidad_medida: z.string().min(1, 'Requerido'),

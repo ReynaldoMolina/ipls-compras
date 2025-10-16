@@ -1,7 +1,10 @@
 import { OptionsMenu } from './options-menu/options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
-import { AddProductDisabledModal, NuevoSolicitudDetalleForm } from '../nuevo';
+import {
+  AddProductFromPresupuestoModal,
+  NuevoSolicitudDetalleForm,
+} from '../nuevo';
 import { SolicitudDetalleTable } from '@/types/types';
 
 interface ActionsBarDetalleProps<TData extends SolicitudDetalleTable> {
@@ -21,7 +24,7 @@ export function ActionsBarDetalle<TData extends SolicitudDetalleTable>({
         {!id_presupuesto ? (
           <NuevoSolicitudDetalleForm table={table} />
         ) : (
-          <AddProductDisabledModal id_presupuesto={id_presupuesto} />
+          <AddProductFromPresupuestoModal table={table} />
         )}
       </div>
     </div>

@@ -26,7 +26,7 @@ export function EditarSolicitudDetalleForm({
     resolver: zodResolver(detalleSolicitudSchema),
     defaultValues: {
       id_solicitud: detalle.id_solicitud ?? 0,
-      producto_servicio: detalle.producto_servicio ?? '',
+      producto_servicio: detalle.producto_servicio ?? null,
       cantidad: detalle.cantidad ?? undefined,
       unidad_medida: detalle.unidad_medida ?? '',
       observacion: detalle.observacion ?? '',
@@ -59,7 +59,7 @@ export function EditarSolicitudDetalleForm({
         <Card className="mx-auto w-full max-w-3xl">
           <FormHeader action="edit" name="detalle" noun="m" />
           <CardContent>
-            <SolicitudDetalleForm form={form} />
+            <SolicitudDetalleForm action="edit" form={form} />
           </CardContent>
           <FormFooter action="edit" isPending={isPending} />
         </Card>

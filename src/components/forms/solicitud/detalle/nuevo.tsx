@@ -14,8 +14,10 @@ import { Table } from '@tanstack/react-table';
 import { detalleSolicitudSchema } from '../../validation/validation-schemas';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -26,18 +28,9 @@ import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBac
 import { stateDefault } from '@/server-actions/statusMessages';
 import { createSolicitudDetalle } from '@/server-actions/solicitud-detalle';
 import { SolicitudDetalleForm } from './form';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import Link from 'next/link';
+import { DataTablePresupuestoDetalleModal } from './data-table-presupuesto-detalle-modal';
+import { columns } from '@/app/(compras)/solicitudes/[id]/presupuesto-modal-columns';
+import { SolicitudDetalleTable } from '@/types/types';
 
 interface NuevoSolicitudDetalleForm<TData> {
   table: Table<TData>;
@@ -101,7 +94,7 @@ export function NuevoSolicitudDetalleForm<TData>({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-5"
           >
-            <SolicitudDetalleForm form={form} />
+            <SolicitudDetalleForm action="create" form={form} />
             <FormFooterDialog
               form={form}
               setOpen={setOpen}
@@ -116,37 +109,40 @@ export function NuevoSolicitudDetalleForm<TData>({
   );
 }
 
-export function AddProductDisabledModal({
-  id_presupuesto,
-}: {
-  id_presupuesto: number;
-}) {
+interface AddProductFromPresupuestoModal<TData extends SolicitudDetalleTable> {
+  table: Table<TData>;
+}
+
+export function AddProductFromPresupuestoModal<
+  TData extends SolicitudDetalleTable,
+>({ table }: AddProductFromPresupuestoModal<TData>) {
+  const [open, setOpen] = useState(false);
+  const presupuestoDetalle = table.options.meta.presupuestoDetalle;
+  const id_solicitud = table.options.meta.solicitud.id;
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <Button type="button">
           <Plus />
           <span className="hidden sm:block">Agregar producto</span>
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Aviso</AlertDialogTitle>
-          <AlertDialogDescription>
-            Esta solicitud se creó a partir de un presupuesto. Para agregar
-            productos, selecciona los que deseas en la lista del presupuesto y
-            añádelos a esta solicitud.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Link href={`/presupuestos/${id_presupuesto}`}>
-              Ir al presupuesto
-            </Link>
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogTrigger>
+      <DialogContent className="w-full max-w-4xl max-h-[95%] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Agregar productos</DialogTitle>
+          <DialogDescription>
+            Esta solicitud se creó a partir de un presupuesto, selecciona los
+            productos que deseas agregar.
+          </DialogDescription>
+        </DialogHeader>
+        <DataTablePresupuestoDetalleModal
+          columns={columns}
+          tableData={presupuestoDetalle}
+          setOpen={setOpen}
+          id_solicitud={id_solicitud}
+        />
+      </DialogContent>
+    </Dialog>
   );
 }

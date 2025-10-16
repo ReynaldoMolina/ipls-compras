@@ -14,6 +14,10 @@ import {
 import { EditarSolicitudForm } from '@/components/forms/solicitud/editar';
 import { getSolicitudDetalleBySolicitudId } from '@/fetch-data/solicitud-detalle';
 import { getOrdenesAddToExistingModal } from '@/fetch-data/orden';
+import {
+  getPresupuestoDetalleModal,
+  getPresupuestosModal,
+} from '@/fetch-data/presupuesto';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
@@ -36,6 +40,7 @@ export default async function Page({ params }: PageProps) {
   });
   const proveedores = await getProveedores();
   const estadosSolicitud = await getSolicitudEstados();
+  const presupuestoDetalle = await getPresupuestoDetalleModal();
 
   return (
     <>
@@ -45,6 +50,7 @@ export default async function Page({ params }: PageProps) {
         solicitud_detalle={solicitud_detalle}
         orden_modal={orden_modal}
         selectOptions={{ entidadesAcademicas, proveedores, estadosSolicitud }}
+        presupuestoDetalle={presupuestoDetalle}
       />
     </>
   );

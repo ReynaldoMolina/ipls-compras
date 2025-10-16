@@ -6,6 +6,7 @@ import { BoolCell } from '@/components/tables/bool-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { UsuarioTable } from '@/types/types';
 import { EditCell } from '@/components/tables/edit-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<UsuarioTable>[] = [
   {
@@ -17,7 +18,7 @@ export const columns: ColumnDef<UsuarioTable>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => <SortButton column={column} label="Nombre" />,
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'email',

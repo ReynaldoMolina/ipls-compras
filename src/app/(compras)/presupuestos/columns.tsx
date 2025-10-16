@@ -11,6 +11,7 @@ import { IdCell } from '@/components/tables/id-cell';
 import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 import { sumColumn } from '@/lib/sum-column';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<PresupuestoTable>[] = [
   {
@@ -32,7 +33,7 @@ export const columns: ColumnDef<PresupuestoTable>[] = [
     header: ({ column }) => (
       <SortButton column={column} label="Carrera / Curso" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
     footer: 'Totales',
   },
   {

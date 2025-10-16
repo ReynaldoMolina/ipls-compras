@@ -15,51 +15,43 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
 
-import { useEffect, useState } from 'react';
+import { Dispatch, startTransition, useActionState, useState } from 'react';
+import { DialogClose, DialogFooter } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import {
-  FormSelectOptions,
   PresupuestoDetalleModal,
-  SolicitudDetalleTable,
-  SolicitudFormType,
+  SolicitudDetalleFormType,
 } from '@/types/types';
-import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
-import { colorMap } from '@/lib/table-rows-bg';
+import { stateDefault } from '@/server-actions/statusMessages';
+import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
+import { Spinner } from '@/components/ui/spinner';
+import { addToExistingSolicitudDetalleBySelectedRows } from '@/server-actions/solicitud-detalle';
 
-interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
+interface DataTableProps<TData extends PresupuestoDetalleModal, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  tableData?: TData[];
-  tableDataModal?: TModal[];
-  selectOptions?: FormSelectOptions;
-  solicitud: SolicitudFormType;
-  presupuestoDetalle: PresupuestoDetalleModal[];
+  tableData: TData[];
+  setOpen: Dispatch<React.SetStateAction<boolean>>;
+  id_solicitud: number;
 }
 
-export function DataTableSolicitud<
-  TData extends SolicitudDetalleTable,
+export function DataTablePresupuestoDetalleModal<
+  TData extends PresupuestoDetalleModal,
   TValue,
-  TModal,
 >({
   columns,
   tableData,
-  tableDataModal,
-  selectOptions,
-  solicitud,
-  presupuestoDetalle,
-}: DataTableProps<TData, TValue, TModal>) {
-  const [data, setData] = useState(tableData || []);
+  setOpen,
+  id_solicitud,
+}: DataTableProps<TData, TValue>) {
+  const [data] = useState(tableData || []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
-
-  useEffect(() => {
-    setData(tableData || []);
-  }, [tableData]);
 
   const table = useReactTable({
     data,
@@ -78,18 +70,44 @@ export function DataTableSolicitud<
       columnFilters,
       rowSelection,
     },
-    meta: {
-      selectOptions,
-      solicitud,
-      tableDataModal,
-      presupuestoDetalle,
-    },
+  });
+
+  const selectedRows: SolicitudDetalleFormType[] = table
+    .getSelectedRowModel()
+    .rows.map((row) => {
+      const r = row.original;
+
+      return {
+        id_solicitud: id_solicitud,
+        producto_servicio: null,
+        cantidad: r.restante,
+        cantidad_bodega: null,
+        observacion: null,
+        unidad_medida: r.unidad_medida,
+        id_presupuesto_detalle: r.id,
+      };
+    });
+
+  const [state, formAction, isPending] = useActionState(
+    addToExistingSolicitudDetalleBySelectedRows,
+    stateDefault
+  );
+
+  function onSubmit() {
+    startTransition(() => {
+      formAction({
+        selectedRows,
+        id_solicitud: id_solicitud,
+      });
+    });
+  }
+
+  useServerActionFeedback(state, {
+    refresh: true,
   });
 
   return (
     <>
-      <ActionsBarDetalle table={table} />
-
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -119,21 +137,12 @@ export function DataTableSolicitud<
           ))}
         </TableHeader>
 
-        {table.getRowModel().rows.length === 0 ? (
-          <TableBody>
-            <TableRow className="hover:bg-transparent">
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No hay resultados.
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        ) : (
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className={colorMap[String(row.original.restante)]}
               >
                 {row.getVisibleCells().map((cell) => {
                   const size = cell.column.getSize();
@@ -155,32 +164,42 @@ export function DataTableSolicitud<
                   );
                 })}
               </TableRow>
-            ))}
-          </TableBody>
-        )}
-
-        {table.getRowModel().rows.length > 0 && (
-          <TableFooter>
-            {table.getFooterGroups().map((footerGroup) => (
-              <TableRow
-                key={footerGroup.id}
-                className="border-double border-t-3"
-              >
-                {footerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="p-1">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.footer,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableFooter>
-        )}
+            ))
+          ) : (
+            <TableRow className="hover:bg-transparent">
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No hay resultados.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
       </Table>
+
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setOpen(false)}
+          >
+            Cancelar
+          </Button>
+        </DialogClose>
+        <Button
+          type="button"
+          onClick={() => onSubmit()}
+          disabled={selectedRows === undefined || isPending}
+        >
+          {isPending ? (
+            <>
+              <Spinner />
+              Procesando
+            </>
+          ) : (
+            'Agregar'
+          )}
+        </Button>
+      </DialogFooter>
     </>
   );
 }

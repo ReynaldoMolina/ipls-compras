@@ -17,6 +17,7 @@ import { DefaultCell } from '@/components/tables/default-cell';
 import { EditCell } from '@/components/tables/edit-cell';
 import { DateStatusCell } from '@/components/tables/date-cell';
 import { SemestreCell } from '@/components/tables/semestre-cell';
+import { DefaultCellWrap } from '@/components/tables/default-cell-wrap';
 
 export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
   {
@@ -34,7 +35,6 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     cell: ({ row }) => (
       <EditCell
         href={`/presupuestos/${row.original.id_presupuesto}/detalle/${row.original.id}`}
-        disabled={row.original.restante < 1}
       />
     ),
     size: 40,
@@ -52,7 +52,7 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     header: ({ column }) => (
       <SortButtonClient column={column} label="Producto / servicio" />
     ),
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
     footer: 'Totales',
   },
   {

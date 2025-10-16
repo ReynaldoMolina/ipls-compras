@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import {
   FormSelectOptions,
   OrdenModal,
+  PresupuestoDetalleModal,
   SolicitudDetalleTable,
   SolicitudFormType,
 } from '@/types/types';
@@ -24,6 +25,7 @@ interface EditarSolicitudFormProps {
   solicitud_detalle: SolicitudDetalleTable[];
   orden_modal: OrdenModal[];
   selectOptions: FormSelectOptions;
+  presupuestoDetalle: PresupuestoDetalleModal[];
 }
 
 export function EditarSolicitudForm({
@@ -31,6 +33,7 @@ export function EditarSolicitudForm({
   solicitud_detalle,
   orden_modal,
   selectOptions,
+  presupuestoDetalle,
 }: EditarSolicitudFormProps) {
   const form = useForm<z.infer<typeof solicitudSchema>>({
     resolver: zodResolver(solicitudSchema),
@@ -86,6 +89,7 @@ export function EditarSolicitudForm({
           tableDataModal={orden_modal}
           solicitud={solicitud}
           selectOptions={selectOptions}
+          presupuestoDetalle={presupuestoDetalle}
         />
       </TabsContent>
     </Tabs>
