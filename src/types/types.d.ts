@@ -21,6 +21,7 @@ export interface SearchParamsProps {
   year?: string;
   orden_estado?: string;
   solicitud_estado?: string;
+  id_entidad?: string;
 }
 
 export interface PageProps {
@@ -132,6 +133,10 @@ export interface PresupuestoDetalleTable extends PresupuestoDetalle {
 
 export interface PresupuestoDetalleFormType extends PresupuestoDetalle {
   categoria?: string | null;
+}
+
+export interface PresupuestoModal extends Presupuesto {
+  entidad_academica: string | null;
 }
 
 export interface Solicitud {

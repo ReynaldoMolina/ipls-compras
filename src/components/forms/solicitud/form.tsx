@@ -1,6 +1,6 @@
 'use client';
 
-import { FormAction, FormSelectOptions } from '@/types/types';
+import { FormAction, FormSelectOptions, PresupuestoModal } from '@/types/types';
 import {
   Form,
   FormField,
@@ -38,6 +38,7 @@ import {
 import { Printer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { SelectPresupuesto } from './select-presupuesto';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -47,8 +48,9 @@ interface SolicitudFormProps {
   onSubmit: (values: SolicitudFormValues) => void;
   selectOptions: FormSelectOptions;
   isPending: boolean;
-  id_solicitud: number;
+  id_solicitud?: number;
   label?: string;
+  presupuestosModal: PresupuestoModal[];
 }
 
 export function SolicitudForm({
@@ -59,6 +61,7 @@ export function SolicitudForm({
   isPending,
   id_solicitud,
   label,
+  presupuestosModal,
 }: SolicitudFormProps) {
   const { user } = useUser();
 
@@ -83,14 +86,13 @@ export function SolicitudForm({
                     <ItemContent>
                       <ItemTitle>Imprimir solicitud</ItemTitle>
                       <ItemDescription>
-                        Visualiza o descarga el documento en formato PDF para
-                        revisión o impresión.
+                        Visualiza el documento para revisión o impresión.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
                       <Button variant="outline" size="sm" asChild>
-                        <Link href={`/solicitudes/${id_solicitud}/print`}>
-                          Abrir
+                        <Link href={`/solicitudes/${id_solicitud ?? 0}/print`}>
+                          Ver
                         </Link>
                       </Button>
                     </ItemActions>
@@ -100,7 +102,7 @@ export function SolicitudForm({
               <FieldSet hidden={action === 'create'}>
                 <FieldLegend>Seguimiento</FieldLegend>
                 <FieldDescription>
-                  Visiualiza el estado de la solicitud.
+                  Visualiza el estado de la solicitud.
                 </FieldDescription>
                 <FormCombobox
                   control={form.control}
@@ -122,8 +124,11 @@ export function SolicitudForm({
                     name="fecha"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Elaborado el</FormLabel>
-                        <DatePicker<SolicitudFormValues> field={field} />
+                        <FormLabel>Elaborada el</FormLabel>
+                        <DatePicker<SolicitudFormValues>
+                          field={field}
+                          disabled
+                        />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -146,17 +151,35 @@ export function SolicitudForm({
                   label="Carrera / curso / área"
                   outPutType="number"
                   options={selectOptions.entidadesAcademicas ?? []}
+                  disabled={action === 'edit'}
+                  updateParam="id_entidad"
                 />
                 {action === 'create' && (
                   <FormTextReadOnly value={user.name} label="Solicitado por" />
                 )}
-                <FormTextField
-                  control={form.control}
-                  name="id_presupuesto"
-                  label="Id presupuesto"
-                  disabled
-                  hidden={form.getValues('id_presupuesto') === null}
-                />
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Presupuesto</FieldLegend>
+                <FieldDescription>
+                  {action === 'edit'
+                    ? 'Esta solicitud fue generada a partir de un presupuesto.'
+                    : '¿Quieres crear la solicitud a partir de un presupuesto?'}
+                </FieldDescription>
+                <div className="inline-flex w-full gap-2 items-end">
+                  <FormTextField
+                    control={form.control}
+                    name="id_presupuesto"
+                    label="Id presupuesto"
+                    disabled
+                  />
+                  {action === 'create' && (
+                    <SelectPresupuesto
+                      tableData={presupuestosModal}
+                      form={form}
+                    />
+                  )}
+                </div>
               </FieldSet>
             </FieldGroup>
           </CardContent>

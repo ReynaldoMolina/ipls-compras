@@ -48,8 +48,10 @@ export function FormCombobox<T extends FieldValues>({
               disabled={disabled}
               outPutType={outPutType}
               onParamUpdate={(value: string) => {
-                if (updateParam && resetField) {
+                if (updateParam) {
                   setUrlParam(updateParam, value);
+                }
+                if (resetField) {
                   resetField();
                 }
               }}

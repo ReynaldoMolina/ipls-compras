@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { getCurrentDate } from '@/lib/get-current-date';
-import { FormSelectOptions } from '@/types/types';
+import { FormSelectOptions, PresupuestoModal } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { SolicitudForm } from './form';
 import { stateDefault } from '@/server-actions/statusMessages';
@@ -15,9 +15,13 @@ import { useUser } from '@/hooks/use-user';
 
 interface NuevaSolicitudFormProps {
   selectOptions: FormSelectOptions;
+  presupuestosModal: PresupuestoModal[];
 }
 
-export function NuevaSolicitudForm({ selectOptions }: NuevaSolicitudFormProps) {
+export function NuevaSolicitudForm({
+  selectOptions,
+  presupuestosModal,
+}: NuevaSolicitudFormProps) {
   const { currentDate } = getCurrentDate();
   const { user } = useUser();
 
@@ -54,6 +58,7 @@ export function NuevaSolicitudForm({ selectOptions }: NuevaSolicitudFormProps) {
       selectOptions={selectOptions}
       isPending={isPending}
       label="Siguiente"
+      presupuestosModal={presupuestosModal}
     />
   );
 }

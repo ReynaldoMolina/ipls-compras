@@ -78,13 +78,12 @@ export function OrdenForm({
                     <ItemContent>
                       <ItemTitle>Imprimir orden</ItemTitle>
                       <ItemDescription>
-                        Visualiza o descarga el documento en formato PDF para
-                        revisión o impresión.
+                        Visualiza el documento para revisión o impresión.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
                       <Button variant="outline" size="sm" asChild>
-                        <Link href={`/ordenes/${id_orden}/print`}>Abrir</Link>
+                        <Link href={`/ordenes/${id_orden}/print`}>Ver</Link>
                       </Button>
                     </ItemActions>
                   </Item>

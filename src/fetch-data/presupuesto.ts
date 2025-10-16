@@ -1,6 +1,6 @@
 import { db } from '@/database/db';
 import { PresupuestoFormType, SearchParamsProps } from '@/types/types';
-import { eq, and, sql, desc } from 'drizzle-orm';
+import { eq, and, sql, desc, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import { buildFilterPresupuestosByYear } from './build-filter';
@@ -17,13 +17,6 @@ export async function getPresupuestosTableData(
     year: presupuesto.year,
     tipo: entidad_academica.tipo,
     presupuestado: sql<number>`SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio_sugerido})`,
-    // restante: sql<number>`
-    //   SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio})
-    //   - (
-    //     COALESCE(SUM(${presupuesto_detalle.precio_compra}), 0)
-    //     + COALESCE(SUM(${presupuesto_detalle.precio_bodega}), 0)
-    //   )
-    // `,
   };
 
   const filterBySearch = buildSearchFilter(searchParams, [
@@ -51,7 +44,41 @@ export async function getPresupuestosTableData(
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener las presupuesto, por favor intenta de nuevo.'
+      'No se pudieron obtener los presupuestos, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getPresupuestosModal(
+  id_entidad: number | string | undefined
+) {
+  const selectFields = {
+    id: presupuesto.id,
+    entidad_academica: entidad_academica.nombre,
+    year: presupuesto.year,
+    tipo: entidad_academica.tipo,
+  };
+
+  try {
+    const data = await db
+      .select(selectFields)
+      .from(presupuesto)
+      .leftJoin(
+        entidad_academica,
+        eq(presupuesto.id_entidad_academica, entidad_academica.id)
+      )
+      .where(
+        id_entidad
+          ? eq(presupuesto.id_entidad_academica, Number(id_entidad))
+          : undefined
+      )
+      .groupBy(presupuesto.id, entidad_academica.tipo, entidad_academica.nombre)
+      .orderBy(asc(presupuesto.id));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudieron obtener los presupuestos, por favor intenta de nuevo.'
     );
   }
 }
