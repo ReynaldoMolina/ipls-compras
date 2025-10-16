@@ -108,7 +108,13 @@ export function TableInfo({ register }: { register: OrdenPdfProps }) {
       <View style={styles.infoContainer}>
         <View style={styles.info}>
           <Text style={{ fontWeight: 'bold' }}>Proveedor:</Text>
-          <Text>{register.proveedor}</Text>
+          <Text
+            style={{
+              maxWidth: 370,
+            }}
+          >
+            {register.proveedor}
+          </Text>
         </View>
         <View style={styles.info}>
           <Text style={{ fontWeight: 'bold' }}>Términos de pago:</Text>
@@ -180,9 +186,7 @@ export function TableBody({ children }: { children: React.ReactNode }) {
     <View
       wrap
       style={{
-        // borderTop: 1,
         borderRight: 1,
-        // borderLeft: 1,
       }}
     >
       {children}
