@@ -38,7 +38,7 @@ export function FilterButton({ filterOptions }: FilterButtonProps) {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="flex flex-col gap-3 min-w-50">
+      <DropdownMenuContent className="flex flex-col gap-3 min-w-50 max-h-70">
         {filterMenu}
       </DropdownMenuContent>
     </DropdownMenu>

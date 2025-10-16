@@ -1,9 +1,16 @@
 import { db } from '@/database/db';
-import { SearchParamsProps, SolicitudFormType } from '@/types/types';
-import { eq, and, desc, sql, isNotNull } from 'drizzle-orm';
+import {
+  SearchParamsProps,
+  SelectOptions,
+  SolicitudFormType,
+} from '@/types/types';
+import { eq, and, desc, sql, isNotNull, asc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
-import { buildFilterSolicitudesByYear } from './build-filter';
+import {
+  buildFilterSolicitudByState,
+  buildFilterSolicitudesByYear,
+} from './build-filter';
 import { solicitud } from '@/database/schema/solicitud';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { users } from '@/database/schema/user';
@@ -24,6 +31,7 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
     users.name,
   ]);
   const filterByYear = buildFilterSolicitudesByYear(searchParams);
+  const filterBySolicitudState = buildFilterSolicitudByState(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {
@@ -36,7 +44,7 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
       )
       .leftJoin(solicitud_estado, eq(solicitud.id_estado, solicitud_estado.id))
       .leftJoin(users, eq(solicitud.id_usuario, users.id))
-      .where(and(filterBySearch, filterByYear))
+      .where(and(filterBySearch, filterByYear, filterBySolicitudState))
       .groupBy(
         solicitud.id,
         entidad_academica.tipo,

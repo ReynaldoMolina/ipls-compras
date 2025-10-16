@@ -79,8 +79,8 @@ export function SolicitudesFilters(filterOptions: FilterOptions) {
       />
       <FilterCheckBox
         label="Estado"
-        options={filterOptions.ordenState}
-        paramKey="orden_estado"
+        options={filterOptions.solicitudEstados}
+        paramKey="solicitud_estado"
       />
     </>
   );
@@ -96,7 +96,7 @@ export function OrdenesFilters(filterOptions: FilterOptions) {
       />
       <FilterCheckBox
         label="Estado"
-        options={filterOptions.ordenState}
+        options={filterOptions.ordenEstados}
         paramKey="orden_estado"
       />
     </>

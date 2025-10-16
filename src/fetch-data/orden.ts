@@ -4,7 +4,7 @@ import { eq, and, sql } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {
-  buildFilterByOrderState,
+  buildFilterOrdenByState,
   buildFilterSolicitudesByYear,
 } from './build-filter';
 import { solicitud } from '@/database/schema/solicitud';
@@ -32,7 +32,7 @@ export async function getOrdenesTableData(searchParams: SearchParamsProps) {
   ]);
 
   const filterByYear = buildFilterSolicitudesByYear(searchParams);
-  const filterByOrderState = buildFilterByOrderState(searchParams);
+  const filterByOrderState = buildFilterOrdenByState(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
 
   try {

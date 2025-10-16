@@ -73,14 +73,16 @@ export function buildFilterSolicitudesByYear(searchParams: SearchParamsProps) {
   return years.length > 0 ? inArray(extractedYears, mappedYears) : undefined;
 }
 
-export function buildOrdenesByIdSolicitud(
-  id_solicitud: number | string | undefined
-) {
-  if (!id_solicitud || id_solicitud === null) return undefined;
-  return eq(orden.id_solicitud, Number(id_solicitud));
+export function buildFilterSolicitudByState(searchParams: SearchParamsProps) {
+  const estados =
+    searchParams.solicitud_estado?.split(',').filter(Boolean) ?? [];
+  const mappedEstados = estados.map((estado) => Number(estado));
+  return estados.length > 0
+    ? inArray(solicitud.id_estado, mappedEstados)
+    : undefined;
 }
 
-export function buildFilterByOrderState(searchParams: SearchParamsProps) {
+export function buildFilterOrdenByState(searchParams: SearchParamsProps) {
   const estados = searchParams.orden_estado?.split(',').filter(Boolean) ?? [];
   const mappedEstados = estados.map((estado) => Number(estado));
   return estados.length > 0

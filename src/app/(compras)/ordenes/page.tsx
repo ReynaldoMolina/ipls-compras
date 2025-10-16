@@ -4,11 +4,11 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { DataTable } from '@/components/tables/data-table';
 import { PageProps } from '@/types/types';
 import { columns } from './columns';
-import { getOrdenesTableData } from '@/fetch-data/orden';
+import { getOrdenesTableData, getOrdenEstados } from '@/fetch-data/orden';
 import { FilterButton } from '@/components/actionbar/filter-button';
-import { getUniqueYearsFromPresupuestos } from '@/fetch-data/presupuesto';
 import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
 import { notFound } from 'next/navigation';
+import { getUniqueYearsFromSolicitudes } from '@/fetch-data/solicitud';
 
 const title = 'Órdenes de compra';
 
@@ -22,14 +22,15 @@ export default async function Page({ searchParams }: PageProps) {
   if (ability.cannot('read', 'Orden')) notFound();
 
   const tableData = await getOrdenesTableData(await searchParams);
-  const years = await getUniqueYearsFromPresupuestos();
+  const years = await getUniqueYearsFromSolicitudes();
+  const ordenEstados = await getOrdenEstados();
 
   return (
     <>
       <Header title="Órdenes de compra" />
       <PageWrapper>
         <ActionBar allowNew={false}>
-          <FilterButton filterOptions={{ years }} />
+          <FilterButton filterOptions={{ years, ordenEstados }} />
         </ActionBar>
         <DataTable columns={columns} data={tableData} />
       </PageWrapper>

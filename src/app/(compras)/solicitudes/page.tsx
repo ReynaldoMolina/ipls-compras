@@ -7,6 +7,7 @@ import { PageProps } from '@/types/types';
 import { FilterButton } from '@/components/actionbar/filter-button';
 import {
   getSolicitudesTableData,
+  getSolicitudEstados,
   getUniqueYearsFromSolicitudes,
 } from '@/fetch-data/solicitud';
 
@@ -19,13 +20,14 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   const tableData = await getSolicitudesTableData(await searchParams);
   const years = await getUniqueYearsFromSolicitudes();
+  const solicitudEstados = await getSolicitudEstados();
 
   return (
     <>
       <Header title={title} showBackIcon={false} />
       <PageWrapper>
         <ActionBar>
-          <FilterButton filterOptions={{ years }} />
+          <FilterButton filterOptions={{ years, solicitudEstados }} />
         </ActionBar>
         <DataTable columns={columns} data={tableData} />
       </PageWrapper>

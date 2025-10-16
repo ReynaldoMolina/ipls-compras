@@ -19,8 +19,8 @@ export interface SearchParamsProps {
   rol?: string;
   activo?: 'active' | 'inactive';
   year?: string;
-  selected?: string;
   orden_estado?: string;
+  solicitud_estado?: string;
 }
 
 export interface PageProps {
@@ -210,7 +210,8 @@ export type FilterOptions = {
   years?: SelectOptions[];
   userStates?: SelectOptions[];
   userRoles?: SelectOptions[];
-  ordenState?: SelectOptions[];
+  ordenEstados?: SelectOptions[];
+  solicitudEstados?: SelectOptions[];
 };
 
 export type EditedRows = Record<string, boolean>;

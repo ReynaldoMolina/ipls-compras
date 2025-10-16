@@ -95,7 +95,7 @@ export async function getUniqueYearsFromPresupuestos() {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener los años únicos desde las presupuesto, por favor intenta de nuevo'
+      'No se pudieron obtener los años únicos desde los presupuestos, por favor intenta de nuevo'
     );
   }
 }
