@@ -72,7 +72,7 @@ export function SignOut() {
             size="sm"
             className="w-full justify-start focus-visible:ring-0 gap-0 font-normal"
           >
-            <LogOut className="mr-2" />
+            <LogOut className="mr-2 text-muted-foreground" />
             Cerrar sesión
           </Button>
         </AlertDialogTrigger>
