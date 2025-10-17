@@ -30,11 +30,10 @@ export const columns: ColumnDef<SolicitudDetalleTable>[] = [
     id: 'edit',
     header: 'Edit',
     cell: ({ row }) => {
-      const disabled = row.original.restante < 1;
       return (
         <EditCell
           href={`/solicitudes/${row.original.id_solicitud}/detalle/${row.original.id}`}
-          disabled={disabled}
+          disabled={row.original.restante < 1}
         />
       );
     },
