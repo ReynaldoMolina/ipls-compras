@@ -243,7 +243,14 @@ export function TableFooter({ register }: { register: OrdenPdfProps }) {
   const totalNeto = base + iva;
 
   return (
-    <View style={{ flexDirection: 'row', height: 65, borderRight: 1 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        height: 65,
+        borderRight: 1,
+        marginTop: 10,
+      }}
+    >
       {/* firmas */}
       <View style={{ flexDirection: 'row', width: '75%' }}>
         <TableFooterFirma upperLabel="AREA" lowerLabel="SOLICITANTE" />
@@ -292,7 +299,7 @@ export function TableFooter({ register }: { register: OrdenPdfProps }) {
               { textAlign: 'center', fontWeight: 'bold' },
             ]}
           >
-            I.V.A. (15%)
+            I.V.A.
           </Text>
           <Text style={[styles.tdPrecioTotal, { fontWeight: 'bold' }]}>
             {formatNumber(iva)}

@@ -35,7 +35,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { Printer } from 'lucide-react';
+import { ChevronRight, Printer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { SelectPresupuesto } from './select-presupuesto';
@@ -79,23 +79,21 @@ export function SolicitudForm({
             <FieldGroup>
               {action === 'edit' && (
                 <FieldSet>
-                  <Item variant="outline">
-                    <ItemMedia variant="icon">
-                      <Printer />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>Imprimir solicitud</ItemTitle>
-                      <ItemDescription>
-                        Visualiza el documento para revisión o impresión.
-                      </ItemDescription>
-                    </ItemContent>
-                    <ItemActions>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={`/solicitudes/${id_solicitud ?? 0}/print`}>
-                          Ver
-                        </Link>
-                      </Button>
-                    </ItemActions>
+                  <Item variant="outline" asChild>
+                    <Link href={`/solicitudes/${id_solicitud ?? 0}/print`}>
+                      <ItemMedia variant="icon">
+                        <Printer />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>Imprimir solicitud</ItemTitle>
+                        <ItemDescription>
+                          Visualiza el documento para revisión o impresión.
+                        </ItemDescription>
+                      </ItemContent>
+                      <ItemActions>
+                        <ChevronRight className="size-5" />
+                      </ItemActions>
+                    </Link>
                   </Item>
                 </FieldSet>
               )}

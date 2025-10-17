@@ -51,7 +51,7 @@ export function EditarPresupuestoForm({
     });
   }
 
-  useServerActionFeedback(state, { back: true });
+  useServerActionFeedback(state);
 
   return (
     <Tabs

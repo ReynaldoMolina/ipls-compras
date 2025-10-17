@@ -58,7 +58,7 @@ export function EditarSolicitudForm({
     });
   }
 
-  useServerActionFeedback(state, { back: true });
+  useServerActionFeedback(state);
 
   return (
     <Tabs

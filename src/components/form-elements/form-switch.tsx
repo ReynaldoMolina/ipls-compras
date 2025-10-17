@@ -28,7 +28,7 @@ export function FormSwitch<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <span className="text-sm font-medium">{label}</span>
-          <div className="flex flex-row items-center justify-between rounded-md border px-3 py-2 shadow-xs max-h-9">
+          <div className="flex flex-row items-center justify-between rounded-md border px-3 py-2 shadow-xs max-h-9 bg-transparent dark:bg-input/30">
             <FormLabel>{description}</FormLabel>
             <FormControl>
               <Switch checked={field.value} onCheckedChange={field.onChange} />

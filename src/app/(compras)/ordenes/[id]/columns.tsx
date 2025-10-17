@@ -95,7 +95,7 @@ export const columns: ColumnDef<OrdenDetalleTable>[] = [
   {
     accessorKey: 'observacion',
     header: 'Observación',
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
     size: 200,
   },
 ];

@@ -27,18 +27,8 @@ export function FormFooter({
         Cancelar
       </Button>
       <Button type="submit" disabled={isPending}>
-        {isPending ? (
-          <>
-            <Spinner />
-            Procesando
-          </>
-        ) : label ? (
-          label
-        ) : action === 'create' ? (
-          'Crear'
-        ) : (
-          'Guardar'
-        )}
+        {label ? label : action === 'create' ? 'Crear' : 'Guardar'}
+        {isPending && <Spinner />}
       </Button>
     </CardFooter>
   );
@@ -69,18 +59,8 @@ export function FormFooterDialog<TData extends FieldValues>({
         </Button>
       </DialogClose>
       <Button type="button" onClick={onSubmit} disabled={isPending}>
-        {isPending ? (
-          <>
-            <Spinner />
-            Procesando
-          </>
-        ) : label ? (
-          label
-        ) : action === 'create' ? (
-          'Crear'
-        ) : (
-          'Guardar'
-        )}
+        {label ? label : action === 'create' ? 'Crear' : 'Guardar'}
+        {isPending && <Spinner />}
       </Button>
     </DialogFooter>
   );

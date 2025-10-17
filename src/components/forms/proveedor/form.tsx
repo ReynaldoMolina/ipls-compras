@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/item';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { CalendarDays } from 'lucide-react';
+import { CalendarDays, ChevronRight, CircleChevronRight } from 'lucide-react';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { departamentos } from '@/lib/select-options-data';
 
@@ -60,23 +60,21 @@ export function ProveedorForm({
             <FieldGroup>
               {action === 'edit' && (
                 <FieldSet>
-                  <Item variant="outline">
-                    <ItemMedia variant="icon">
-                      <CalendarDays />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>Solvencias</ItemTitle>
-                      <ItemDescription>
-                        Revisa y actualiza las solvencias.
-                      </ItemDescription>
-                    </ItemContent>
-                    <ItemActions>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={`/proveedores/${id_proveedor}/solvencias`}>
-                          Abrir
-                        </Link>
-                      </Button>
-                    </ItemActions>
+                  <Item variant="outline" asChild>
+                    <Link href={`/proveedores/${id_proveedor}/solvencias`}>
+                      <ItemMedia variant="icon">
+                        <CalendarDays />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>Solvencias</ItemTitle>
+                        <ItemDescription>
+                          Revisa y actualiza las solvencias.
+                        </ItemDescription>
+                      </ItemContent>
+                      <ItemActions>
+                        <ChevronRight className="size-5" />
+                      </ItemActions>
+                    </Link>
                   </Item>
                 </FieldSet>
               )}

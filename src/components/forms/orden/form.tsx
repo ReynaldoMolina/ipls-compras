@@ -37,7 +37,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { Printer } from 'lucide-react';
+import { ChevronRight, Printer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -71,21 +71,22 @@ export function OrdenForm({
             <FieldGroup>
               {action === 'edit' && (
                 <FieldSet>
-                  <Item variant="outline">
-                    <ItemMedia variant="icon">
-                      <Printer />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>Imprimir orden</ItemTitle>
-                      <ItemDescription>
-                        Visualiza el documento para revisión o impresión.
-                      </ItemDescription>
-                    </ItemContent>
-                    <ItemActions>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={`/ordenes/${id_orden}/print`}>Ver</Link>
-                      </Button>
-                    </ItemActions>
+                  <Item variant="outline" asChild>
+                    <Link href={`/ordenes/${id_orden}/print`}>
+                      <ItemMedia variant="icon">
+                        <Printer />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>Imprimir orden</ItemTitle>
+                        <ItemDescription>
+                          Visualiza el documento para revisión o impresión. (Si
+                          hay cambios, guárdalos.)
+                        </ItemDescription>
+                      </ItemContent>
+                      <ItemActions>
+                        <ChevronRight className="size-5" />
+                      </ItemActions>
+                    </Link>
                   </Item>
                 </FieldSet>
               )}
