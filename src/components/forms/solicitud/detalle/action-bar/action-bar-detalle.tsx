@@ -1,11 +1,9 @@
 import { OptionsMenu } from './options-menu/options-menu';
 import { SearchInput } from '@/components/tables/action-bar-detalle/search-input';
 import { Table } from '@tanstack/react-table';
-import {
-  AddProductFromPresupuestoModal,
-  NuevoSolicitudDetalleForm,
-} from '../nuevo';
+import { NuevoSolicitudDetalleForm } from '../nuevo';
 import { SolicitudDetalleTable } from '@/types/types';
+import { AddProductFromPresupuestoModal } from '../nuevo/nuevo-add-from-presupuesto';
 
 interface ActionsBarDetalleProps<TData extends SolicitudDetalleTable> {
   table: Table<TData>;

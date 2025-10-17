@@ -13,6 +13,7 @@ export const columns: ColumnDef<OrdenModal>[] = [
     header: '',
     cell: CheckBoxCell,
     enableSorting: false,
+    size: 40,
   },
   {
     accessorKey: 'id',

@@ -14,10 +14,7 @@ import {
 import { EditarSolicitudForm } from '@/components/forms/solicitud/editar';
 import { getSolicitudDetalleBySolicitudId } from '@/fetch-data/solicitud-detalle';
 import { getOrdenesAddToExistingModal } from '@/fetch-data/orden';
-import {
-  getPresupuestoDetalleModal,
-  getPresupuestosModal,
-} from '@/fetch-data/presupuesto';
+import { getPresupuestoDetalleModal } from '@/fetch-data/presupuesto';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;

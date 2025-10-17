@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/dialog';
 import { DataTablePresupuestosModal } from './data-table-presupuesto-modal';
 import { columns } from '@/app/(compras)/solicitudes/nuevo/presupuesto-modal-columns';
-import { SolicitudFormType } from '@/types/types';
+import { PresupuestoModal, SolicitudFormType } from '@/types/types';
 import { UseFormReturn } from 'react-hook-form';
 import { useState } from 'react';
 
 interface SelectPresupuesto {
-  tableData: any;
+  tableData: PresupuestoModal[];
   form: UseFormReturn<SolicitudFormType>;
 }
 

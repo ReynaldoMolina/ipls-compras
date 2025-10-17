@@ -31,6 +31,7 @@ import { stateDefault } from '@/server-actions/statusMessages';
 import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBack';
 import { Spinner } from '@/components/ui/spinner';
 import { addToExistingSolicitudDetalleBySelectedRows } from '@/server-actions/solicitud-detalle';
+import { ActionsBarDetalle } from './nuevo/action-bar-detalle';
 
 interface DataTableProps<TData extends PresupuestoDetalleModal, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -108,74 +109,88 @@ export function DataTablePresupuestoDetalleModal<
 
   return (
     <>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                const size = header.getSize();
-                const maxSize = header.column.columnDef.maxSize;
+      <div className="flex flex-col gap-3 overflow-y-auto max-h-[70vh]">
+        <ActionsBarDetalle table={table} />
 
-                return (
-                  <TableHead
-                    key={header.id}
-                    style={{
-                      width: size !== 150 ? header.getSize() : undefined,
-                      maxWidth: maxSize ? maxSize : undefined,
-                    }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const size = cell.column.getSize();
-                  const maxSize = cell.column.columnDef.maxSize;
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  const size = header.getSize();
+                  const maxSize = header.column.columnDef.maxSize;
 
                   return (
-                    <TableCell
-                      key={cell.id}
+                    <TableHead
+                      key={header.id}
                       style={{
-                        width: size !== 150 ? cell.column.getSize() : undefined,
+                        width: size !== 150 ? header.getSize() : undefined,
                         maxWidth: maxSize ? maxSize : undefined,
                       }}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
                   );
                 })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow className="hover:bg-transparent">
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No hay resultados.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
 
-      <DialogFooter>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={
+                    row.original.restante < 1 ? 'text-muted-foreground' : ''
+                  }
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    const size = cell.column.getSize();
+                    const maxSize = cell.column.columnDef.maxSize;
+
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        style={{
+                          width:
+                            size !== 150 ? cell.column.getSize() : undefined,
+                          maxWidth: maxSize ? maxSize : undefined,
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow className="hover:bg-transparent">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No hay resultados.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <span className="text-muted-foreground text-xs">
+          {`${selectedRows.length} seleccionado${selectedRows.length === 1 ? '.' : 's.'}`}
+        </span>
+      </div>
+
+      <DialogFooter className="space-x-2">
         <DialogClose asChild>
           <Button
             type="button"

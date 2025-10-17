@@ -1,10 +1,6 @@
 import { db } from '@/database/db';
-import {
-  SearchParamsProps,
-  SelectOptions,
-  SolicitudFormType,
-} from '@/types/types';
-import { eq, and, desc, sql, isNotNull, asc } from 'drizzle-orm';
+import { SearchParamsProps, SolicitudFormType } from '@/types/types';
+import { eq, and, desc, sql, isNotNull } from 'drizzle-orm';
 import { buildSearchFilter } from './build-search-filter';
 import { buildOrderByFragment } from './build-orderby';
 import {

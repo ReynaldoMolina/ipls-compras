@@ -7,8 +7,8 @@ export function Table({ register }: { register: SolicitudPdfProps }) {
     <View>
       <TableHeader />
       <TableBody>
-        {register.detalle.map((element, index) => (
-          <TableRow key={element.id} element={element} index={index} />
+        {register.detalle.map((element) => (
+          <TableRow key={element.id} element={element} />
         ))}
       </TableBody>
     </View>
@@ -83,13 +83,7 @@ export function TableBody({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function TableRow({
-  element,
-  index,
-}: {
-  element: SolicitudPdfDetalleProps;
-  index: number;
-}) {
+export function TableRow({ element }: { element: SolicitudPdfDetalleProps }) {
   return (
     <View
       style={{

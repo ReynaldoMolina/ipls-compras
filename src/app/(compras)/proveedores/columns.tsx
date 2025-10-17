@@ -43,7 +43,7 @@ export const columns: ColumnDef<ProveedorTable>[] = [
   {
     accessorKey: 'telefono',
     header: ({ column }) => <SortButton column={column} label="Teléfono" />,
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
   {
     accessorKey: 'departamento',

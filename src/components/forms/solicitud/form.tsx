@@ -178,7 +178,7 @@ export function SolicitudForm({
                       />
                       {action === 'create' && (
                         <SelectPresupuesto
-                          tableData={presupuestosModal}
+                          tableData={presupuestosModal ?? []}
                           form={form}
                         />
                       )}

@@ -105,7 +105,7 @@ export const columns: ColumnDef<SolicitudDetalleTable>[] = [
   {
     accessorKey: 'observacion',
     header: 'Observación',
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
     size: 200,
   },
 ];

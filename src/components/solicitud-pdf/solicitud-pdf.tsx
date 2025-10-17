@@ -3,7 +3,7 @@
 import React from 'react';
 import { Document, Page, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 import { Header } from './header';
-import { OrdenPdfProps, SolicitudPdfProps } from '@/types/types';
+import { SolicitudPdfProps } from '@/types/types';
 import { Title } from './title';
 import { Table } from './table';
 import { Footer } from './footer';

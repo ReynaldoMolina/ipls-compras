@@ -29,7 +29,6 @@ import {
   SolicitudFormType,
 } from '@/types/types';
 import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
-import { colorMap } from '@/lib/table-rows-bg';
 
 interface DataTableProps<TData extends SolicitudDetalleTable, TValue, TModal> {
   columns: ColumnDef<TData, TValue>[];
@@ -133,7 +132,9 @@ export function DataTableSolicitud<
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className={colorMap[String(row.original.restante)]}
+                className={
+                  row.original.restante < 1 ? 'text-muted-foreground' : ''
+                }
               >
                 {row.getVisibleCells().map((cell) => {
                   const size = cell.column.getSize();

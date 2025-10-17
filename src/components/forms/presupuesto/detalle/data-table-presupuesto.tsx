@@ -28,7 +28,6 @@ import {
   PresupuestoFormType,
 } from '@/types/types';
 import { ActionsBarDetalle } from './action-bar/action-bar-detalle';
-import { colorMap } from '@/lib/table-rows-bg';
 
 interface DataTableProps<
   TData extends PresupuestoDetalleTable,
@@ -164,7 +163,9 @@ export function DataTablePresupuesto<
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      className={colorMap[String(row.original.restante)]}
+                      className={
+                        row.original.restante < 1 ? 'text-muted-foreground' : ''
+                      }
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
@@ -187,7 +188,9 @@ export function DataTablePresupuesto<
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className={colorMap[String(row.original.restante)]}
+                className={
+                  row.original.restante < 1 ? 'text-muted-foreground' : ''
+                }
               >
                 {row.getVisibleCells().map((cell) => {
                   const size = cell.column.getSize();

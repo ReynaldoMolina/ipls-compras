@@ -35,6 +35,7 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
     cell: ({ row }) => (
       <EditCell
         href={`/presupuestos/${row.original.id_presupuesto}/detalle/${row.original.id}`}
+        disabled={row.original.restante < 1}
       />
     ),
     size: 40,
@@ -132,6 +133,6 @@ export const columns: ColumnDef<PresupuestoDetalleTable>[] = [
   {
     accessorKey: 'observacion',
     header: 'Observación',
-    cell: DefaultCell,
+    cell: DefaultCellWrap,
   },
 ];
