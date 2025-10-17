@@ -26,9 +26,6 @@ import { useServerActionFeedback } from '@/server-actions/useServerActionFeedBac
 import { stateDefault } from '@/server-actions/statusMessages';
 import { createSolicitudDetalle } from '@/server-actions/solicitud-detalle';
 import { SolicitudDetalleForm } from './form';
-import { DataTablePresupuestoDetalleModal } from './data-table-presupuesto-detalle-modal';
-import { columns } from '@/app/(compras)/solicitudes/[id]/presupuesto-modal-columns';
-import { SolicitudDetalleTable } from '@/types/types';
 
 interface NuevoSolicitudDetalleForm<TData> {
   table: Table<TData>;
