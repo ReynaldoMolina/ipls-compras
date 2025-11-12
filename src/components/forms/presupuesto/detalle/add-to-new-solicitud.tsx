@@ -80,7 +80,7 @@ export function AddToNewSolicitudModal<TData extends PresupuestoDetalleTable>({
 
       return {
         id_solicitud: 0,
-        producto_servicio: '',
+        producto_servicio: null,
         cantidad: r.restante,
         cantidad_bodega: null,
         unidad_medida: r.unidad_medida,

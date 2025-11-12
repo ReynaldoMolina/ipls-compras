@@ -1,5 +1,5 @@
 import { logOut } from '@/server-actions/auth';
-import { Contrast, LogOut } from 'lucide-react';
+import { Contrast, LogOut, UserCircle } from 'lucide-react';
 import { ChangeTheme } from '../change-theme';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
@@ -24,6 +24,14 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog';
 import { Spinner } from '../ui/spinner';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
+import { defaultUser } from '@/permissions/default-user';
 
 export function UserInfo({ user }: { user: User }) {
   return (
@@ -101,5 +109,41 @@ export function SignOut() {
         </AlertDialogContent>
       </AlertDialog>
     </DropdownMenuItem>
+  );
+}
+
+export function UserProfile({ user }: { user: User }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start focus-visible:ring-0 gap-0 font-normal mb-1 pl-0"
+        >
+          <UserCircle className="mr-2 text-muted-foreground" />
+          Mi perfil
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-sm">
+        <DialogHeader className="border-b pb-6">
+          <DialogTitle>Mi perfil</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-col gap-3 w-full items-center">
+          <Avatar className="size-20">
+            <AvatarImage src={user?.image ?? ''} alt="Imagen de perfil" />
+            <AvatarFallback>LS</AvatarFallback>
+          </Avatar>
+          <span className="text-sm text-center">{user.name}</span>
+          <span className="text-muted-foreground text-xs text-center">
+            {user.email}
+          </span>
+          <span className="text-muted-foreground text-xs text-center">
+            {user.role?.toUpperCase()}
+          </span>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

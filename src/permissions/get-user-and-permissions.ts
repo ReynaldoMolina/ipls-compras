@@ -1,10 +1,10 @@
 import { auth } from '@/auth';
 import { defaultUser } from './default-user';
-import { defineAbilitiesFor } from './abilities';
+import { defineAbilitiesFor } from './define-abilities-for';
 
 export async function getUserAndPermissions() {
   const session = await auth();
   const user = session?.user ?? defaultUser;
-  const ability = defineAbilitiesFor(user.role);
-  return { user, ability };
+  const userPermissions = defineAbilitiesFor(user);
+  return { user, userPermissions };
 }

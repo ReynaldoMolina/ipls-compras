@@ -3,6 +3,7 @@ import { entidad_academica } from '@/database/schema/entidad-academica';
 import { proveedor } from '@/database/schema/proveedor';
 import { proveedor_sector } from '@/database/schema/proveedor-sector';
 import { proveedor_subsector } from '@/database/schema/proveedor-subsector';
+import { Areas } from '@/types/types';
 import { asc, eq, sql } from 'drizzle-orm';
 
 export async function getSectores() {
@@ -39,11 +40,11 @@ export async function getSubsectoresBySector(
 }
 
 interface EntidadesAcademicas {
-  tipo?: 'especialidad' | 'curso' | 'area';
+  area?: Areas;
 }
 
-export async function getEntidadesAcademicas({ tipo }: EntidadesAcademicas) {
-  const filterByTipo = tipo ? eq(entidad_academica.tipo, tipo) : undefined;
+export async function getEntidadesAcademicas({ area }: EntidadesAcademicas) {
+  const filterByArea = area ? eq(entidad_academica.area, area) : undefined;
 
   try {
     const data = await db
@@ -52,7 +53,7 @@ export async function getEntidadesAcademicas({ tipo }: EntidadesAcademicas) {
         label: entidad_academica.nombre,
       })
       .from(entidad_academica)
-      .where(filterByTipo)
+      .where(filterByArea)
       .orderBy(asc(entidad_academica.nombre));
     return data;
   } catch (error) {

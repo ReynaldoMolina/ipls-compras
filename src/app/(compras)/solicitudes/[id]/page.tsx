@@ -28,12 +28,13 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function Page({ params }: PageProps) {
   const { id } = await params;
   const solicitud = await getSolicitudById(id);
+
   const solicitud_detalle = await getSolicitudDetalleBySolicitudId(id);
 
   const orden_modal = await getOrdenesAddToExistingModal(18);
 
   const entidadesAcademicas = await getEntidadesAcademicas({
-    tipo: 'especialidad',
+    area: 'especialidad',
   });
   const proveedores = await getProveedores();
   const estadosSolicitud = await getSolicitudEstados();

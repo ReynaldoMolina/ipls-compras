@@ -1,13 +1,26 @@
 export type PageId =
-  | 'Resumen'
+  | 'Inicio'
   | 'Solicitud'
   | 'Orden'
+  | 'Presupuesto'
   | 'Proveedor'
+  | 'Resumen'
   | 'Usuario'
-  | 'Presupuestos'
   | 'empty';
 
 export type SortOrder = 'asc' | 'desc';
+
+export type Areas =
+  | 'administracion'
+  | 'capacitaciones'
+  | 'direccion'
+  | 'pastoral'
+  | 'subdireccion'
+  | 'mantenimiento'
+  | 'bodega'
+  | 'curso'
+  | 'especialidad'
+  | undefined;
 
 export interface SearchParamsProps {
   search?: string;
@@ -104,7 +117,7 @@ export interface Presupuesto {
 }
 
 export interface PresupuestoTable extends Presupuesto {
-  tipo: string | null;
+  area: string | null;
   entidad_academica: string | null;
   presupuestado: number | null;
 }
@@ -154,9 +167,12 @@ export interface Solicitud {
 
 export interface SolicitudTable extends Solicitud {
   entidad_academica: string | null;
-  tipo: string | null;
+  area: string | null;
+  id_usuario?: string | null;
   usuario: string | null;
   estado: string | null;
+  id_presupuesto?: number | null;
+  presupuestoArea?: string | null;
 }
 
 export interface SolicitudFormType extends Solicitud {
@@ -167,6 +183,7 @@ export interface SolicitudFormType extends Solicitud {
   usuario?: string | null;
   id_presupuesto: number | null;
   id_estado: number;
+  presupuestoArea?: string | null;
 }
 
 // *******************************************************
@@ -258,7 +275,7 @@ export interface Orden {
 export interface OrdenTable extends Orden {
   entidad_academica: string | null;
   estado: string | null;
-  tipo: string | null;
+  area: string | null;
   subtotal: number;
 }
 

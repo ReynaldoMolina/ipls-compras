@@ -2,6 +2,7 @@ import { PageId } from '@/types/types';
 import {
   ChartColumn,
   ChartPie,
+  Home,
   ListCheck,
   ShoppingCart,
   Truck,
@@ -17,6 +18,12 @@ export interface SidebarItem {
 
 export const sidebarItems: SidebarItem[] = [
   {
+    id: 'Inicio',
+    title: 'Inicio',
+    url: '/',
+    icon: Home,
+  },
+  {
     id: 'Solicitud',
     title: 'Solicitudes de compra',
     url: '/solicitudes',
@@ -29,7 +36,7 @@ export const sidebarItems: SidebarItem[] = [
     icon: ShoppingCart,
   },
   {
-    id: 'Presupuestos',
+    id: 'Presupuesto',
     title: 'Presupuestos',
     url: '/presupuestos',
     icon: ChartPie,

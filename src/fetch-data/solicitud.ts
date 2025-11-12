@@ -11,6 +11,7 @@ import { solicitud } from '@/database/schema/solicitud';
 import { entidad_academica } from '@/database/schema/entidad-academica';
 import { users } from '@/database/schema/user';
 import { solicitud_estado } from '@/database/schema/solicitud-estado';
+import { presupuesto } from '@/database/schema/presupuesto';
 
 export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
   const selectFields = {
@@ -18,7 +19,7 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
     entidad_academica: entidad_academica.nombre,
     fecha_a_utilizar: solicitud.fecha_a_utilizar,
     estado: solicitud_estado.nombre,
-    tipo: entidad_academica.tipo,
+    area: entidad_academica.area,
     usuario: users.name,
   };
 
@@ -43,7 +44,7 @@ export async function getSolicitudesTableData(searchParams: SearchParamsProps) {
       .where(and(filterBySearch, filterByYear, filterBySolicitudState))
       .groupBy(
         solicitud.id,
-        entidad_academica.tipo,
+        entidad_academica.area,
         entidad_academica.nombre,
         solicitud_estado.nombre,
         users.name
@@ -81,6 +82,7 @@ export async function getSolicitudById(
         eq(solicitud.id_entidad_academica, entidad_academica.id)
       )
       .where(eq(solicitud.id, Number(id)));
+
     return data;
   } catch (error) {
     console.error(error);

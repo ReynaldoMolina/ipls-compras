@@ -12,6 +12,8 @@ import { DeleteButton } from '@/components/delete-button';
 import { toast } from 'sonner';
 import { PresupuestoDetalleTable, ServerActionState } from '@/types/types';
 import { stateDefault } from '@/server-actions/statusMessages';
+import { useUser } from '@/hooks/use-user';
+import { Can } from '@casl/react';
 
 interface OptionsMenuPresupuestoDetalleProps<
   TData extends PresupuestoDetalleTable,
@@ -51,10 +53,15 @@ export function OptionsMenuPresupuestoDetalle<
     }
   }
 
+  const { userPermissions } = useUser();
+
   return (
     <>
       <DropdownMenuGroup>
-        <AddToSolicitudSubMenu table={table} disabled={rowsEmpty} />
+        <Can I="create" a="SolicitudDesdePresupuesto" ability={userPermissions}>
+          <AddToSolicitudSubMenu table={table} disabled={rowsEmpty} />
+        </Can>
+
         <GroupBySubMenu grouped={grouped ?? true} setGrouped={setGrouped!} />
 
         <DropdownMenuSeparator />

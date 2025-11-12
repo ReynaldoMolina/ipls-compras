@@ -26,7 +26,7 @@ export async function getResumenComparisonChartByEntidad(year: number) {
       .where(eq(presupuesto.year, year))
       .groupBy(
         presupuesto.id,
-        entidad_academica.tipo,
+        entidad_academica.area,
         entidad_academica.abreviacion
       );
     // .orderBy(orderBy);

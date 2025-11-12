@@ -2,11 +2,14 @@
 
 import { createContext, useContext } from 'react';
 import { User } from 'next-auth';
-import { AppAbility, defineAbilitiesFor } from '@/permissions/abilities';
+import {
+  AppAbility,
+  defineAbilitiesFor,
+} from '@/permissions/define-abilities-for';
 
 type UserContextType = {
-  ability: AppAbility;
   user: User;
+  userPermissions: AppAbility;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -18,10 +21,11 @@ export function UserProvider({
   user: User;
   children: React.ReactNode;
 }) {
-  const ability = defineAbilitiesFor(user.role ?? 'sinverificar');
+  const userPermissions = defineAbilitiesFor(user);
+  console.log(userPermissions);
 
   return (
-    <UserContext.Provider value={{ ability, user }}>
+    <UserContext.Provider value={{ user, userPermissions }}>
       {children}
     </UserContext.Provider>
   );

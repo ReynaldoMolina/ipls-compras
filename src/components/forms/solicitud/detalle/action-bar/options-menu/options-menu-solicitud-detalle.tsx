@@ -12,6 +12,8 @@ import { SolicitudDetalleTable, ServerActionState } from '@/types/types';
 import { stateDefault } from '@/server-actions/statusMessages';
 import { AddToOrdenSubMenu } from '../submenus';
 import { deleteSolicitudDetalleByIds } from '@/server-actions/solicitud-detalle';
+import { Can } from '@casl/react';
+import { useUser } from '@/hooks/use-user';
 
 interface OptionsMenuSolicitudDetalleProps<
   TData extends SolicitudDetalleTable,
@@ -50,11 +52,15 @@ export function OptionsMenuSolicitudDetalle<
     }
   }
 
+  const { userPermissions } = useUser();
+
   return (
     <>
       <DropdownMenuGroup>
-        <AddToOrdenSubMenu table={table} disabled={rowsEmpty} />
-        <DropdownMenuSeparator />
+        <Can I="create" a="Orden" ability={userPermissions}>
+          <AddToOrdenSubMenu table={table} disabled={rowsEmpty} />
+          <DropdownMenuSeparator />
+        </Can>
         <DropdownMenuItem disabled={rowsEmpty} onClick={handleDelete} asChild>
           <DeleteButton
             setOpen={setOpen}

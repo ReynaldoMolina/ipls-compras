@@ -12,9 +12,7 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   const { id_entidad } = await searchParams;
-  const entidadesAcademicas = await getEntidadesAcademicas({
-    tipo: 'especialidad',
-  });
+  const entidadesAcademicas = await getEntidadesAcademicas({ area: undefined });
 
   const estadosSolicitud = await getSolicitudEstados();
   const presupuestosModal = await getPresupuestosModal(id_entidad);

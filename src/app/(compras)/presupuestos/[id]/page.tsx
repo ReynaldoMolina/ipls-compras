@@ -25,7 +25,7 @@ export default async function Page({ params }: PageProps) {
     presupuesto.id_entidad_academica
   );
   const entidadesAcademicas = await getEntidadesAcademicas({
-    tipo: 'especialidad',
+    area: undefined,
   });
 
   return (

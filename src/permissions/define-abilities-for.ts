@@ -3,25 +3,31 @@ import {
   createMongoAbility,
   MongoAbility,
 } from '@casl/ability';
-import { Roles } from './roles';
+import { User } from 'next-auth';
 
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete';
+
 export type Subjects =
-  | 'Orden'
-  | 'OrdenDetalle'
-  | 'Proveedor'
-  | 'Resumen'
-  | 'Solvencia'
+  | 'all'
+  | 'Inicio'
+  | 'Presupuesto'
   | 'Solicitud'
   | 'SolicitudDetalle'
   | 'SolicitudBodega'
-  | 'Usuario'
-  | 'Producto'
-  | 'all';
+  | 'SolicitudImprimir'
+  | 'SolicitudEstado'
+  | 'SolicitudDesdePresupuesto'
+  | 'Orden'
+  | 'OrdenDetalle'
+  | 'Proveedor'
+  | 'Solvencia'
+  | 'Resumen'
+  | 'Usuario';
 
 export type AppAbility = MongoAbility<[Actions, Subjects]>;
 
-export function defineAbilitiesFor(role: Roles | undefined) {
+export function defineAbilitiesFor(user: User) {
+  const { role } = user;
   const { can, cannot, build } = new AbilityBuilder<AppAbility>(
     createMongoAbility
   );
@@ -34,17 +40,30 @@ export function defineAbilitiesFor(role: Roles | undefined) {
     can('manage', 'all');
   }
 
-  if (role === 'bodega') {
-    can('manage', 'Producto');
+  if (role === 'subdireccion') {
+    can('read', 'Inicio');
+    can('manage', 'Presupuesto');
+    can('manage', 'Solicitud');
+    cannot('read', 'SolicitudImprimir');
+    can('create', 'SolicitudDesdePresupuesto');
+  }
+
+  if (role === 'capacitaciones') {
+    can('read', 'Inicio');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
-    can('manage', 'SolicitudBodega');
     can('read', 'Orden');
     can('read', 'OrdenDetalle');
   }
 
+  if (role === 'bodega') {
+    can('read', 'Inicio');
+    can('manage', 'Solicitud');
+    can('manage', 'SolicitudDetalle');
+  }
+
   if (role === 'compras') {
-    can('manage', 'Producto');
+    can('read', 'Inicio');
     can('read', 'Solicitud');
     can('read', 'SolicitudDetalle');
     can('manage', 'Orden');
@@ -53,24 +72,8 @@ export function defineAbilitiesFor(role: Roles | undefined) {
     can('manage', 'Solvencia');
   }
 
-  if (role === 'capacitaciones') {
-    can('manage', 'Producto');
-    can('manage', 'Solicitud');
-    can('manage', 'SolicitudDetalle');
-    can('read', 'Orden');
-    can('read', 'OrdenDetalle');
-  }
-
-  if (role === 'subdireccion') {
-    can('manage', 'Producto');
-    can('manage', 'Solicitud');
-    can('manage', 'SolicitudDetalle');
-    can('read', 'Orden');
-    can('read', 'OrdenDetalle');
-  }
-
   if (role === 'personal') {
-    can('manage', 'Producto');
+    can('read', 'Inicio');
     can('manage', 'Solicitud');
     can('manage', 'SolicitudDetalle');
     can('read', 'Orden');

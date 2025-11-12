@@ -17,9 +17,9 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { ability } = await getUserAndPermissions();
+  const { userPermissions } = await getUserAndPermissions();
 
-  if (ability.cannot('read', 'Orden')) notFound();
+  if (userPermissions.cannot('read', 'Orden')) notFound();
 
   const tableData = await getOrdenesTableData(await searchParams);
   const years = await getUniqueYearsFromSolicitudes();

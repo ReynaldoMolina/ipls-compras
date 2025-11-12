@@ -21,7 +21,7 @@ export async function getOrdenesTableData(searchParams: SearchParamsProps) {
     id_solicitud: orden.id_solicitud,
     fecha_creacion: orden.fecha_creacion,
     estado: orden_estado.nombre,
-    tipo: entidad_academica.tipo,
+    area: entidad_academica.area,
     subtotal: sql<number>`
       COALESCE(SUM(${orden_detalle.cantidad} * ${orden_detalle.precio}), 0)
     `,
@@ -50,7 +50,7 @@ export async function getOrdenesTableData(searchParams: SearchParamsProps) {
       .groupBy(
         orden.id,
         entidad_academica.nombre,
-        entidad_academica.tipo,
+        entidad_academica.area,
         orden_estado.id
       )
       .orderBy(orderBy);

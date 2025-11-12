@@ -6,6 +6,7 @@ import { DateCell } from '@/components/tables/date-cell';
 import {
   NumberCellWithValue,
   NumberFloatCell,
+  NumberFloatCellOrdenWithWarning,
 } from '@/components/tables/number-cell';
 import { OrdenTable } from '@/types/types';
 import { IdCell } from '@/components/tables/id-cell';
@@ -54,7 +55,7 @@ export const columns: ColumnDef<OrdenTable>[] = [
   {
     accessorKey: 'subtotal',
     header: ({ column }) => <SortButton column={column} label="Subtotal" />,
-    cell: NumberFloatCell,
+    cell: NumberFloatCellOrdenWithWarning,
     footer: ({ table }) => {
       const total = sumColumn(table, 'subtotal');
       return <NumberCellWithValue value={total} />;

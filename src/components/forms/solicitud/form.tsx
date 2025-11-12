@@ -36,9 +36,9 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { ChevronRight, Printer } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { SelectPresupuesto } from './select-presupuesto';
+import { Can } from '@casl/react';
 
 type SolicitudFormValues = z.infer<typeof solicitudSchema>;
 
@@ -63,7 +63,11 @@ export function SolicitudForm({
   label,
   presupuestosModal,
 }: SolicitudFormProps) {
-  const { user } = useUser();
+  const { userPermissions, user } = useUser();
+  const cannotUpdateSolicitudEstado = userPermissions.cannot(
+    'update',
+    'SolicitudEstado'
+  );
 
   return (
     <Form {...form}>
@@ -78,24 +82,26 @@ export function SolicitudForm({
           <CardContent>
             <FieldGroup>
               {action === 'edit' && (
-                <FieldSet>
-                  <Item variant="outline" asChild>
-                    <Link href={`/solicitudes/${id_solicitud ?? 0}/print`}>
-                      <ItemMedia variant="icon">
-                        <Printer />
-                      </ItemMedia>
-                      <ItemContent>
-                        <ItemTitle>Imprimir solicitud</ItemTitle>
-                        <ItemDescription>
-                          Visualiza el documento para revisión o impresión.
-                        </ItemDescription>
-                      </ItemContent>
-                      <ItemActions>
-                        <ChevronRight className="size-5" />
-                      </ItemActions>
-                    </Link>
-                  </Item>
-                </FieldSet>
+                <Can I="read" a="SolicitudImprimir" ability={userPermissions}>
+                  <FieldSet>
+                    <Item variant="outline" asChild>
+                      <Link href={`/solicitudes/${id_solicitud ?? 0}/print`}>
+                        <ItemMedia variant="icon">
+                          <Printer />
+                        </ItemMedia>
+                        <ItemContent>
+                          <ItemTitle>Imprimir solicitud</ItemTitle>
+                          <ItemDescription>
+                            Visualiza el documento para revisión o impresión.
+                          </ItemDescription>
+                        </ItemContent>
+                        <ItemActions>
+                          <ChevronRight className="size-5" />
+                        </ItemActions>
+                      </Link>
+                    </Item>
+                  </FieldSet>
+                </Can>
               )}
               <FieldSet hidden={action === 'create'}>
                 <FieldLegend>Seguimiento</FieldLegend>
@@ -108,6 +114,7 @@ export function SolicitudForm({
                   label="Estado"
                   outPutType="number"
                   options={selectOptions.estadosSolicitud ?? []}
+                  disabled={cannotUpdateSolicitudEstado}
                 />
               </FieldSet>
               <FieldSeparator hidden={action === 'create'} />

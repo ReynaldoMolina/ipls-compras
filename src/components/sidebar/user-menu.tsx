@@ -1,16 +1,22 @@
 'use client';
 
-import { ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown, UserCircle } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { SidebarMenuButton } from '../ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { ChangeThemeSubMenu, SignOut, UserInfo } from './user-info';
+import {
+  ChangeThemeSubMenu,
+  SignOut,
+  UserInfo,
+  UserProfile,
+} from './user-info';
 import { useUser } from '@/hooks/use-user';
 
 interface UserMenuProps {
@@ -54,10 +60,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          {/* <DropdownMenuItem>
-            <Settings />
-            Ajustes
-          </DropdownMenuItem> */}
+          <UserProfile user={user} />
           <ChangeThemeSubMenu />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

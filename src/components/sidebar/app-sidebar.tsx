@@ -26,7 +26,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { setOpenMobile, isMobile } = useSidebar();
   const activeUrl = getActiveSidebarOption(pathname, sidebarItems);
-  const { ability } = useUser();
+  const { userPermissions } = useUser();
 
   return (
     <Sidebar>
@@ -51,7 +51,12 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {sidebarItems.map((item) => (
-                <Can key={item.id} I="read" a={item.id} ability={ability}>
+                <Can
+                  key={item.id}
+                  I="read"
+                  a={item.id}
+                  ability={userPermissions}
+                >
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       asChild

@@ -13,15 +13,17 @@ import { entidad_academica } from '@/database/schema/entidad-academica';
 import { presupuesto_detalle } from '@/database/schema/presupuesto-detalle';
 import { solicitud_detalle } from '@/database/schema/solicitud-detalle';
 import { orden_detalle } from '@/database/schema/orden-detalle';
+import { Roles } from '@/permissions/roles';
 
 export async function getPresupuestosTableData(
-  searchParams: SearchParamsProps
+  searchParams: SearchParamsProps,
+  role: Roles
 ) {
   const selectFields = {
     id: presupuesto.id,
     entidad_academica: entidad_academica.nombre,
     year: presupuesto.year,
-    tipo: entidad_academica.tipo,
+    area: entidad_academica.area,
     presupuestado: sql<number>`SUM(${presupuesto_detalle.cantidad} * ${presupuesto_detalle.precio_sugerido})`,
   };
 
@@ -30,6 +32,10 @@ export async function getPresupuestosTableData(
   ]);
   const filterByYear = buildFilterPresupuestosByYear(searchParams);
   const orderBy = buildOrderByFragment(searchParams, selectFields);
+  const filterByRole =
+    role === 'subdireccion'
+      ? eq(entidad_academica.area, 'especialidad')
+      : undefined;
 
   try {
     const data = await db
@@ -43,8 +49,8 @@ export async function getPresupuestosTableData(
         presupuesto_detalle,
         eq(presupuesto.id, presupuesto_detalle.id_presupuesto)
       )
-      .where(and(filterBySearch, filterByYear))
-      .groupBy(presupuesto.id, entidad_academica.tipo, entidad_academica.nombre)
+      .where(and(filterBySearch, filterByYear, filterByRole))
+      .groupBy(presupuesto.id, entidad_academica.area, entidad_academica.nombre)
       .orderBy(orderBy);
     return data;
   } catch (error) {
@@ -62,7 +68,7 @@ export async function getPresupuestosModal(
     id: presupuesto.id,
     entidad_academica: entidad_academica.nombre,
     year: presupuesto.year,
-    tipo: entidad_academica.tipo,
+    area: entidad_academica.area,
   };
 
   try {
@@ -78,7 +84,7 @@ export async function getPresupuestosModal(
           ? eq(presupuesto.id_entidad_academica, Number(id_entidad))
           : undefined
       )
-      .groupBy(presupuesto.id, entidad_academica.tipo, entidad_academica.nombre)
+      .groupBy(presupuesto.id, entidad_academica.area, entidad_academica.nombre)
       .orderBy(asc(presupuesto.id));
     return data;
   } catch (error) {

@@ -54,8 +54,23 @@ export async function getSolicitudDetalleById(
 ): Promise<SolicitudDetalleFormType> {
   try {
     const [data] = await db
-      .select()
+      .select({
+        id: solicitud_detalle.id,
+        id_solicitud: solicitud_detalle.id_solicitud,
+        producto_servicio: sql<string>`
+          COALESCE(${solicitud_detalle.producto_servicio}, ${presupuesto_detalle.producto_servicio})
+        `,
+        cantidad: solicitud_detalle.cantidad,
+        cantidad_bodega: solicitud_detalle.cantidad_bodega,
+        unidad_medida: solicitud_detalle.unidad_medida,
+        observacion: solicitud_detalle.observacion,
+        id_presupuesto_detalle: solicitud_detalle.id_presupuesto_detalle,
+      })
       .from(solicitud_detalle)
+      .leftJoin(
+        presupuesto_detalle,
+        eq(solicitud_detalle.id_presupuesto_detalle, presupuesto_detalle.id)
+      )
       .where(eq(solicitud_detalle.id, Number(id)))
       .orderBy(solicitud_detalle.id);
     return data;

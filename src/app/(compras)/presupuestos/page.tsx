@@ -9,6 +9,8 @@ import {
   getUniqueYearsFromPresupuestos,
 } from '@/fetch-data/presupuesto';
 import { FilterButton } from '@/components/actionbar/filter-button';
+import { getUserAndPermissions } from '@/permissions/get-user-and-permissions';
+import { notFound } from 'next/navigation';
 
 const title = 'Presupuestos';
 
@@ -17,7 +19,15 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const tableData = await getPresupuestosTableData(await searchParams);
+  const { user, userPermissions } = await getUserAndPermissions();
+  const cannotReadPresupuesto = userPermissions.cannot('read', 'Presupuesto');
+
+  if (cannotReadPresupuesto) return notFound();
+
+  const tableData = await getPresupuestosTableData(
+    await searchParams,
+    user?.role || 'sinverificar'
+  );
   const years = await getUniqueYearsFromPresupuestos();
 
   return (
